@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SodosiAndroid">
         <activity
-            android:name="com.github.sookhee.sodosi.MainActivity"
+            android:name="com.github.sookhee.sodosi.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">소도시</string>
+
+    // Bottom Tabbar
+    <string name="home">홈</string>
+    <string name="community">커뮤니티</string>
+    <string name="mypage">마이페이지</string>
 </resources>
