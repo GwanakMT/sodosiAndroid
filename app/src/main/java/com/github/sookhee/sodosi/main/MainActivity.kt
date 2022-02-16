@@ -8,6 +8,7 @@ import com.github.sookhee.sodosi.common.base.BaseActivity
 import com.github.sookhee.sodosi.community.CommunityFragment
 import com.github.sookhee.sodosi.databinding.ActivityMainBinding
 import com.github.sookhee.sodosi.home.HomeFragment
+import com.github.sookhee.sodosi.map.MapFragment
 import com.github.sookhee.sodosi.mypage.MypageFragment
 
 /**
@@ -43,7 +44,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     }
 
-    private fun changeFragment(currentFragment: Fragment) {
+    override fun onBackPressed() {
+        if (activeFragment is MapFragment) {
+            changeFragment(homeFragment)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    fun changeFragment(currentFragment: Fragment) {
         val fm = supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).hide(activeFragment)
 
