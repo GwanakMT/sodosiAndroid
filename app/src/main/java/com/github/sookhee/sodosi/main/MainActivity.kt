@@ -1,5 +1,6 @@
 package com.github.sookhee.sodosi.main
 
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -24,6 +25,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private val mypageFragment by lazy { MypageFragment() }
     private var activeFragment: Fragment = homeFragment
 
+    private var backPressWaitTime = 0L
+
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
     override val viewModel: MainViewModel by viewModels()
@@ -45,10 +48,17 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun onBackPressed() {
-        if (activeFragment is MapFragment) {
-            changeFragment(homeFragment)
-        } else {
-            super.onBackPressed()
+        when {
+            activeFragment is MapFragment -> {
+                changeFragment(homeFragment)
+            }
+            System.currentTimeMillis() - backPressWaitTime >= 1500 -> {
+                backPressWaitTime = System.currentTimeMillis()
+                Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                super.onBackPressed()
+            }
         }
     }
 
@@ -57,7 +67,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).hide(activeFragment)
 
         if (!currentFragment.isAdded) {
-            fm.add(R.id.mainFragmentContainer, currentFragment, currentFragment.javaClass.simpleName)
+            fm.add(
+                R.id.mainFragmentContainer,
+                currentFragment,
+                currentFragment.javaClass.simpleName
+            )
                 .show(currentFragment).commit()
         } else if (activeFragment != currentFragment) {
             fm.show(currentFragment).commit()
