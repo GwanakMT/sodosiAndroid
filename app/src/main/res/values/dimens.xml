@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="topbar_height">60dp</dimen>
+    <dimen name="bottom_tabbar_height">60dp</dimen>
     <dimen name="main_viewpager_offset">4dp</dimen>
     <dimen name="main_viewpager_margin">8dp</dimen>
 </resources>

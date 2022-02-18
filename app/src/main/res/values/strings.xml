@@ -5,4 +5,23 @@
     <string name="home">홈</string>
     <string name="community">커뮤니티</string>
     <string name="mypage">마이페이지</string>
+
+    // Onboarding
+    <string name="onboarding_start">장소 등록하고 시작하기</string>
+    <string name="onboarding_next">다음</string>
+    <string name="onboarding_finish">완료</string>
+
+    <string name="onboarding_find_location">현재 위치로 찾기</string>
+
+    <string name="onboarding_input_phone_number">휴대폰 번호를 입력해주세요</string>
+    <string name="onboarding_phone_number_hine">01012345678</string>
+    <string name="onboarding_phone_number_guide">소도시는 정확한 우리 동네 지도를 위해 휴대폰 번호로 가입합니다.\n번호는 어디에도 공개되지 않습니다.</string>
+
+    <string name="onboarding_input_cert_code">인증번호를 입려해주세요</string>
+    <string name="onboarding_cert_code_hine">인증번호 6글자</string>
+
+    <string name="onboarding_input_password">비밀번호를 입력해주세요</string>
+
+    <string name="onboarding_input_nickname">시민님의 닉네임을 알려주세요!</string>
+
 </resources>

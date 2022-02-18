@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragment_step1">
+    <fragment
+        android:id="@+id/fragment_step1"
+        android:name="com.github.sookhee.sodosi.onboarding.Step1Fragment"
+        tools:layout="@layout/fragment_step1">
+        <action
+            android:id="@+id/action_fragment_step1_to_fragment_step2"
+            app:destination="@id/fragment_step2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_step2"
+        android:name="com.github.sookhee.sodosi.onboarding.Step2Fragment"
+        tools:layout="@layout/fragment_step2">
+        <action
+            android:id="@+id/action_fragment_step2_to_fragment_step3"
+            app:destination="@id/fragment_step3"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_step3"
+        android:name="com.github.sookhee.sodosi.onboarding.Step3Fragment"
+        tools:layout="@layout/fragment_step3">
+        <action
+            android:id="@+id/action_fragment_step3_to_fragment_step4"
+            app:destination="@id/fragment_step4"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_step4"
+        android:name="com.github.sookhee.sodosi.onboarding.Step4Fragment"
+        tools:layout="@layout/fragment_step4">
+        <action
+            android:id="@+id/action_fragment_step4_to_fragment_step5"
+            app:destination="@id/fragment_step5"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_step5"
+        android:name="com.github.sookhee.sodosi.onboarding.Step5Fragment"
+        tools:layout="@layout/fragment_step5">
+        <action
+            android:id="@+id/action_fragment_step5_to_fragment_step6"
+            app:destination="@id/fragment_step6"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_step6"
+        android:name="com.github.sookhee.sodosi.onboarding.Step6Fragment"
+        tools:layout="@layout/fragment_step6" />
+
+</navigation>
