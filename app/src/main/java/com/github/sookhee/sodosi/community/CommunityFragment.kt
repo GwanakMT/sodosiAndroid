@@ -1,8 +1,12 @@
 package com.github.sookhee.sodosi.community
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
+import com.github.sookhee.sodosi.R
 import com.github.sookhee.sodosi.common.base.BaseFragment
 import com.github.sookhee.sodosi.databinding.FragmentCommunityBinding
+import com.google.android.material.tabs.TabLayout
 
 /**
  *  CommunityFragment.kt
@@ -12,15 +16,62 @@ import com.github.sookhee.sodosi.databinding.FragmentCommunityBinding
  */
 
 class CommunityFragment : BaseFragment<CommunityViewModel, FragmentCommunityBinding>() {
+    private val nowFragment by lazy { CommunityNowFragment() }
+    private val hotFragment by lazy { CommunityHotFragment() }
+    private var activeFragment: Fragment = nowFragment
+
     override fun getViewBinding() = FragmentCommunityBinding.inflate(layoutInflater)
 
     override val viewModel: CommunityViewModel by viewModels()
 
-    override fun initViews() = with(binding) {
+    override fun initViews(): Unit = with(binding) {
+        binding.communityTabLayout.apply {
+            addTab(binding.communityTabLayout.newTab().apply {
+                setText(R.string.community_title_now)
+            })
 
+            addTab(binding.communityTabLayout.newTab().apply {
+                setText(R.string.community_title_hot)
+            })
+
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    when (tab.position) {
+                        0 -> changeFragment(nowFragment)
+                        else -> changeFragment(hotFragment)
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
+            })
+        }
+
+        changeFragment(activeFragment)
     }
 
     override fun observeData() {
 
+    }
+
+    private fun changeFragment(currentFragment: Fragment) {
+        val fm = childFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).hide(activeFragment)
+
+        if (!currentFragment.isAdded) {
+            fm.add(
+                R.id.communityFragmentContainer,
+                currentFragment,
+                currentFragment.javaClass.simpleName
+            )
+                .show(currentFragment).commit()
+        } else if (activeFragment != currentFragment) {
+            fm.show(currentFragment).commit()
+        }
+
+        activeFragment = currentFragment
     }
 }

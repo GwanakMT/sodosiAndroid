@@ -1,0 +1,26 @@
+package com.github.sookhee.sodosi.community
+
+import androidx.fragment.app.viewModels
+import com.github.sookhee.sodosi.common.base.BaseFragment
+import com.github.sookhee.sodosi.databinding.FragmentCommunityHotBinding
+
+/**
+ *  CommunityHotFragment.kt
+ *
+ *  Created by Minji Jeong on 2022/02/18
+ *  Copyright © 2022 DonorPets2.0. All rights reserved.
+ */
+
+class CommunityHotFragment : BaseFragment<CommunityViewModel, FragmentCommunityHotBinding>() {
+    override fun getViewBinding() = FragmentCommunityHotBinding.inflate(layoutInflater)
+
+    override val viewModel: CommunityViewModel by viewModels()
+
+    override fun initViews(): Unit = with(binding) {
+
+    }
+
+    override fun observeData() {
+
+    }
+}

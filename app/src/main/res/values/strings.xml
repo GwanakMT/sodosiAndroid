@@ -24,4 +24,11 @@
 
     <string name="onboarding_input_nickname">시민님의 닉네임을 알려주세요!</string>
 
+    // Community
+    <string name="community_title_now">Now</string>
+    <string name="community_now_hook">지금 %s에는\n무슨 일이 있을까요?</string>
+
+    <string name="community_title_hot">Hot</string>
+    <string name="community_hot_hook">뜨겁다 못해 핫한\n%s의 이야기들</string>
+
 </resources>

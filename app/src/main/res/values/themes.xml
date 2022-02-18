@@ -13,4 +13,22 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CommunityTabTextAppearance">
+
+    </style>
+
+    <style name="CommunityTabStyle">
+<!--        <item name="tabTextAppearance">@style/CommunityTabTextAppearance</item>-->
+        <item name="tabGravity">center</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabRippleColor">@null</item>
+        <item name="tabPaddingBottom">0dp</item>
+        <item name="tabPaddingStart">16dp</item>
+        <item name="tabPaddingEnd">4dp</item>
+        <item name="tabPaddingTop">0dp</item>
+        <item name="tabSelectedTextColor">#000000</item>
+        <item name="tabTextColor">#AAAAAA</item>
+    </style>
 </resources>
