@@ -1,5 +1,6 @@
 package com.github.sookhee.sodosi.home
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Handler
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.github.sookhee.sodosi.R
 import com.github.sookhee.sodosi.common.base.BaseFragment
 import com.github.sookhee.sodosi.databinding.FragmentHomeBinding
+import com.github.sookhee.sodosi.location.LocationActivity
 import com.github.sookhee.sodosi.main.MainActivity
 import com.github.sookhee.sodosi.map.MapFragment
 
@@ -39,6 +41,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     override fun initViews() = with(binding) {
+        setOnClickListener()
         initViewPager()
 
         viewModel.getMapPreviewList()
@@ -119,6 +122,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     }
                 }
             })
+        }
+    }
+
+    private fun setOnClickListener() {
+        binding.tvLocation.setOnClickListener {
+            val intent = Intent(context, LocationActivity::class.java)
+            startActivity(intent)
         }
     }
 

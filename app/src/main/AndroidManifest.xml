@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SodosiAndroid">
         <activity
+            android:name="com.github.sookhee.sodosi.location.LocationActivity"
+            android:exported="true" />
+        <activity
             android:name=".onboarding.OnboardingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".main.MainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
