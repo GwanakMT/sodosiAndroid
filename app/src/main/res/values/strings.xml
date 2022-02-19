@@ -31,6 +31,9 @@
     <string name="community_title_hot">Hot</string>
     <string name="community_hot_hook">뜨겁다 못해 핫한\n%s의 이야기들</string>
 
+    // Thread
+    <string name="thread_title">스레드</string>
+
     // Location
     <string name="location_title">우리 동네 설정</string>
     <string name="location_search_hint">동명을 검색해 보세요</string>

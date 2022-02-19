@@ -1,10 +1,11 @@
 package com.github.sookhee.sodosi.community
 
-import android.widget.Toast
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import com.github.sookhee.sodosi.common.base.BaseFragment
 import com.github.sookhee.sodosi.databinding.FragmentCommunityNowBinding
+import com.github.sookhee.sodosi.thread.ThreadActivity
 
 /**
  *  CommunityNowFragment.kt
@@ -34,7 +35,8 @@ class CommunityNowFragment : BaseFragment<CommunityViewModel, FragmentCommunityN
         binding.nowRecyclerView.apply {
             adapter = CommunityCommentAdapter().apply {
                 onItemClick = {
-
+                    val intent = Intent(context, ThreadActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
