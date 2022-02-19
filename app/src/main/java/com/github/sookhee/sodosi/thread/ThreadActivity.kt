@@ -43,7 +43,10 @@ class ThreadActivity : BaseActivity<ThreadViewModel, ActivityThreadBinding>() {
             }
 
             findViewById<TextView>(R.id.tvCommentReport).setOnClickListener {
-                Toast.makeText(this@ThreadActivity, "신고", Toast.LENGTH_SHORT).show()
+                menuDialog.dismiss()
+
+                val reportDialog = ReportBottomSheetDialogFragment()
+                reportDialog.show(supportFragmentManager, reportDialog.tag)
             }
 
             findViewById<TextView>(R.id.tvDismiss).setOnClickListener {
