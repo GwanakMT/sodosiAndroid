@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="kotlin.jvm.functions.Function1" />
+
+        <import type="kotlin.Unit" />
+
+        <import type="com.sodosi.domain.entity.Comment" />
+
+        <variable
+            name="comment"
+            type="Comment" />
+
+        <variable
+            name="onItemClick"
+            type="Function1&lt;Comment, Unit>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:onClick="@{()->onItemClick.invoke(comment)}">
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#CCCCCC"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@{comment.nickname}"
+            app:layout_constraintStart_toEndOf="@id/ivProfile"
+            app:layout_constraintTop_toTopOf="@id/ivProfile"
+            tools:text="중구도서관" />
+
+        <TextView
+            android:id="@+id/tvUpdateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{comment.updateTime}"
+            app:layout_constraintStart_toEndOf="@id/tvNickname"
+            app:layout_constraintTop_toTopOf="@id/tvNickname"
+            tools:text="14 min" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="#EEEEEE"
+            android:padding="8dp"
+            android:text="@{comment.comment}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivProfile"
+            app:layout_constraintTop_toBottomOf="@id/ivProfile"
+            tools:text="여기 맘스터치 허물고 공사중이네요.\n뭐가 들어올까요?" />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#EEEEEE"
+            android:padding="8dp"
+            android:text="@{comment.location}"
+            app:layout_constraintEnd_toEndOf="@id/tvComment"
+            app:layout_constraintStart_toStartOf="@id/tvComment"
+            app:layout_constraintTop_toBottomOf="@id/tvComment"
+            tools:text="남산타운 37동" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

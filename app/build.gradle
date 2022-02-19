@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation project(':domain')
 
     // navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
