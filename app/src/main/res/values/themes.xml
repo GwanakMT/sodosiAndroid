@@ -31,4 +31,9 @@
         <item name="tabSelectedTextColor">#000000</item>
         <item name="tabTextColor">#AAAAAA</item>
     </style>
+    
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
 </resources>
