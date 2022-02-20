@@ -3,7 +3,9 @@ package com.github.sookhee.sodosi.thread
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -31,6 +33,16 @@ class ThreadActivity : BaseActivity<ThreadViewModel, ActivityThreadBinding>() {
         binding.btnBack.setOnClickListener { onBackPressed() }
         binding.btnMenu.setOnClickListener { menuDialog.show() }
         binding.btnShare.setOnClickListener { }
+        binding.layoutComment.btnSend.setOnClickListener {
+            binding.layoutComment.etComment.apply {
+                Log.v("${ThreadActivity::class.simpleName}", "$text")
+
+                text = null
+
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(windowToken, 0)
+            }
+        }
     }
 
     private fun initDialog() {

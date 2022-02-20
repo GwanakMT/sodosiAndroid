@@ -33,6 +33,7 @@
 
     // Thread
     <string name="thread_title">스레드</string>
+    <string name="thread_comment_hint">코멘트를 남겨보세요.</string>
 
     // Thread - 신고
     <string name="report_title">신고하려는 이유를 선택해주세요</string>
