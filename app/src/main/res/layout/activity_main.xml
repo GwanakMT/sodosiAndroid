@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.github.sookhee.sodosi.common.customview.BottomTabView
+        <com.sodosi.common.customview.BottomTabView
             android:id="@+id/bottomTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

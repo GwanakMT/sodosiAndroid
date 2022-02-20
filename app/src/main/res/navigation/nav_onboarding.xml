@@ -5,7 +5,7 @@
     app:startDestination="@id/fragment_step1">
     <fragment
         android:id="@+id/fragment_step1"
-        android:name="com.github.sookhee.sodosi.onboarding.Step1Fragment"
+        android:name="com.sodosi.onboarding.Step1Fragment"
         tools:layout="@layout/fragment_step1">
         <action
             android:id="@+id/action_fragment_step1_to_fragment_step2"
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/fragment_step2"
-        android:name="com.github.sookhee.sodosi.onboarding.Step2Fragment"
+        android:name="com.sodosi.onboarding.Step2Fragment"
         tools:layout="@layout/fragment_step2">
         <action
             android:id="@+id/action_fragment_step2_to_fragment_step3"
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/fragment_step3"
-        android:name="com.github.sookhee.sodosi.onboarding.Step3Fragment"
+        android:name="com.sodosi.onboarding.Step3Fragment"
         tools:layout="@layout/fragment_step3">
         <action
             android:id="@+id/action_fragment_step3_to_fragment_step4"
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/fragment_step4"
-        android:name="com.github.sookhee.sodosi.onboarding.Step4Fragment"
+        android:name="com.sodosi.onboarding.Step4Fragment"
         tools:layout="@layout/fragment_step4">
         <action
             android:id="@+id/action_fragment_step4_to_fragment_step5"
@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/fragment_step5"
-        android:name="com.github.sookhee.sodosi.onboarding.Step5Fragment"
+        android:name="com.sodosi.onboarding.Step5Fragment"
         tools:layout="@layout/fragment_step5">
         <action
             android:id="@+id/action_fragment_step5_to_fragment_step6"
@@ -70,7 +70,7 @@
 
     <fragment
         android:id="@+id/fragment_step6"
-        android:name="com.github.sookhee.sodosi.onboarding.Step6Fragment"
+        android:name="com.sodosi.onboarding.Step6Fragment"
         tools:layout="@layout/fragment_step6" />
 
 </navigation>
