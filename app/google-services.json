@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "348284006760",
+    "project_id": "sodosi-2127c",
+    "storage_bucket": "sodosi-2127c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348284006760:android:3cacdca5e1e713488b66dd",
+        "android_client_info": {
+          "package_name": "com.sodosi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348284006760-hg373dm602cg4jspkl4baenpeovvdh7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnecHAoq0TEK5nx99VMq-V2mkvqZCm61w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348284006760-hg373dm602cg4jspkl4baenpeovvdh7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
