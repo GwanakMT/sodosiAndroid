@@ -25,13 +25,53 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvCertCode"
+        android:id="@+id/tvSmsCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/onboarding_input_cert_code"
+        android:text="@string/onboarding_input_sms_code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topbar" />
+
+    <View
+        android:id="@+id/smsCodeBackground"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="#EEEEEE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSmsCode" />
+
+    <EditText
+        android:id="@+id/etSmsCode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="8dp"
+        android:hint="@string/onboarding_sms_code_hint"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@id/smsCodeBackground"
+        app:layout_constraintEnd_toEndOf="@id/smsCodeBackground"
+        app:layout_constraintStart_toStartOf="@id/smsCodeBackground"
+        app:layout_constraintTop_toTopOf="@id/smsCodeBackground" />
+
+    <TextView
+        android:id="@+id/tvSmsCodeLost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/onboarding_sms_code_lost"
+        app:layout_constraintStart_toStartOf="@id/smsCodeBackground"
+        app:layout_constraintTop_toBottomOf="@id/smsCodeBackground" />
+
+    <TextView
+        android:id="@+id/tvSmsCodeResend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/onboarding_sms_code_resend"
+        app:layout_constraintStart_toEndOf="@id/tvSmsCodeLost"
+        app:layout_constraintTop_toTopOf="@id/tvSmsCodeLost" />
 
     <Button
         android:id="@+id/btnNext"

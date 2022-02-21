@@ -1,5 +1,6 @@
 package com.sodosi.onboarding
 
+import android.app.Activity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sodosi.common.base.BaseFragment
@@ -13,21 +14,27 @@ import com.sodosi.databinding.FragmentStep3Binding
  */
 
 class Step3Fragment : BaseFragment<OnboardingViewModel, FragmentStep3Binding>() {
+    private lateinit var authManager: FirebaseAuthManager
+
     override fun getViewBinding() = FragmentStep3Binding.inflate(layoutInflater)
 
     override val viewModel: OnboardingViewModel by viewModels()
 
+    override fun observeData() {
+
+    }
+
     override fun initViews() = with(binding) {
+        authManager = FirebaseAuthManager(activity as Activity)
+
         binding.btnBack.setOnClickListener {
             activity?.onBackPressed()
         }
 
         binding.btnNext.setOnClickListener {
+            val phoneNumber = "+82${binding.etPhoneNumber.text.toString().toInt()}"
+            authManager.verifyPhoneNumber(phoneNumber)
             findNavController().navigate(Step3FragmentDirections.actionFragmentStep3ToFragmentStep4())
         }
-    }
-
-    override fun observeData() {
-
     }
 }
