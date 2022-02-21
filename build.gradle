@@ -1,15 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext {
+        firebase_version = "29.1.0"
+        hilt_version = "2.38.1"
+        lifecycle_ktx_version = "2.4.1"
+        navigation_version = "2.3.5"
+        kotlin_version = "1.4.21"
+    }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.2"
+        classpath "com.android.tools.build:gradle:7.0.4"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
 
         classpath 'com.google.gms:google-services:4.3.10'
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
+
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
