@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_my_location"
-        android:name="com.sodosi.location.MyLocationFragment"
+        android:name="com.sodosi.ui.location.MyLocationFragment"
         tools:layout="@layout/fragment_my_location">
 
         <action
@@ -21,6 +21,6 @@
 
     <fragment
         android:id="@+id/fragment_search_loacation"
-        android:name="com.sodosi.location.SearchLocationFragment"
+        android:name="com.sodosi.ui.location.SearchLocationFragment"
         tools:layout="fragment_my_location" />
 </navigation>

@@ -8,7 +8,7 @@
 
         <import type="kotlin.Unit" />
 
-        <import type="com.sodosi.home.MapPreview" />
+        <import type="com.sodosi.ui.home.MapPreview" />
 
         <variable
             name="item"
