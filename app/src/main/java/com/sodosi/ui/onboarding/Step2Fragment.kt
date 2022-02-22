@@ -1,7 +1,9 @@
 package com.sodosi.ui.onboarding
 
+import android.app.Activity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.sodosi.util.PermissionManager
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentStep2Binding
 
@@ -18,6 +20,8 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
+        PermissionManager.getPermission(activity as Activity, PermissionManager.ACCESS_FINE_LOCATION)
+
         binding.btnBack.setOnClickListener {
             activity?.onBackPressed()
         }
