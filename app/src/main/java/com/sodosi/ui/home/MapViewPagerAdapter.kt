@@ -2,18 +2,19 @@ package com.sodosi.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.databinding.ItemMapBinding
 
 /**
- *  HomeFragment.kt
+ *  MapViewPagerAdapter.kt
  *
  *  Created by Minji Jeong on 2022/02/14
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class MapViewPagerAdapter : RecyclerView.Adapter<MapViewPagerAdapter.ViewHolder>() {
-    private var items: List<MapPreview> = emptyList()
+class MapViewPagerAdapter : ListAdapter<MapPreview, MapViewPagerAdapter.ViewHolder>(DiffCallback()) {
     var onItemClick: ((selectedItem: MapPreview) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,19 +24,14 @@ class MapViewPagerAdapter : RecyclerView.Adapter<MapViewPagerAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position % items.size])
+        holder.bind(currentList[position % currentList.size])
     }
 
     override fun getItemCount(): Int {
-        return if (items.size < 2) items.size else Integer.MAX_VALUE
+        return if (currentList.size < 2) currentList.size else Integer.MAX_VALUE
     }
 
-    fun setItem(item: List<MapPreview>) {
-        items = item
-        notifyDataSetChanged()
-    }
-
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: ItemMapBinding,
         onItemClick: ((selectedItem: MapPreview) -> Unit)?
     ) :
@@ -45,10 +41,19 @@ class MapViewPagerAdapter : RecyclerView.Adapter<MapViewPagerAdapter.ViewHolder>
             binding.onItemClick = onItemClick
         }
 
-        fun bind(
-            item: MapPreview,
-        ) {
+        fun bind(item: MapPreview, ) {
             binding.item = item
+        }
+    }
+
+    private class DiffCallback: DiffUtil.ItemCallback<MapPreview>() {
+        override fun areItemsTheSame(oldItem: MapPreview, newItem: MapPreview): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: MapPreview, newItem: MapPreview): Boolean {
+            // TODO : 추후 엔티티에 고유 id값 추가해서 id로 비교하기
+            return oldItem.title == newItem.title
         }
     }
 }

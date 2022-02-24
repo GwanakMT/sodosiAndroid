@@ -1,8 +1,9 @@
 package com.sodosi.ui.community
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.databinding.ItemCommunityCommentBinding
 import com.sodosi.domain.entity.Comment
@@ -15,16 +16,9 @@ import com.sodosi.domain.entity.Comment
  */
 
 class CommunityCommentAdapter :
-    RecyclerView.Adapter<CommunityCommentAdapter.ViewHolder>() {
+    ListAdapter<Comment, CommunityCommentAdapter.ViewHolder>(DiffCallback()) {
 
-    private var items: List<Comment> = emptyList()
     var onItemClick: ((selectedItem: Comment) -> Unit)? = null
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setItems(list: List<Comment>) {
-        items = list
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,14 +26,14 @@ class CommunityCommentAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(currentList[position])
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return currentList.size
     }
 
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: ItemCommunityCommentBinding,
         onItemClick: ((selectedItem: Comment) -> Unit)?,
     ) :
@@ -49,10 +43,18 @@ class CommunityCommentAdapter :
             binding.onItemClick = onItemClick
         }
 
-        fun bind(
-            item: Comment,
-        ) {
+        fun bind(item: Comment) {
             binding.comment = item
+        }
+    }
+
+    private class DiffCallback : DiffUtil.ItemCallback<Comment>() {
+        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
+            return oldItem.id == newItem.id
         }
     }
 }

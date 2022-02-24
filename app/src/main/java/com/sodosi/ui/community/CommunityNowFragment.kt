@@ -27,7 +27,7 @@ class CommunityNowFragment : BaseFragment<CommunityViewModel, FragmentCommunityN
 
     override fun observeData() {
         viewModel.nowComment.asLiveData().observe(viewLifecycleOwner) {
-            (binding.nowRecyclerView.adapter as CommunityCommentAdapter).setItems(it)
+            (binding.nowRecyclerView.adapter as CommunityCommentAdapter).submitList(it)
         }
     }
 

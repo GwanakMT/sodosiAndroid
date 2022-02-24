@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun observeData() {
         viewModel.mapPreviewList.asLiveData().observe(viewLifecycleOwner) {
-            (binding.mapViewPager.adapter as MapViewPagerAdapter).setItem(it)
+            (binding.mapViewPager.adapter as MapViewPagerAdapter).submitList(it)
         }
     }
 
