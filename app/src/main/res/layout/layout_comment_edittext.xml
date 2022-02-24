@@ -35,7 +35,7 @@
         android:layout_width="@dimen/icon_width"
         android:layout_height="@dimen/icon_height"
         android:layout_marginEnd="8dp"
-        android:background="#CCCCCC"
+        android:src="@drawable/ic_arrow_up"
         app:layout_constraintBottom_toBottomOf="@id/commentBackground"
         app:layout_constraintEnd_toEndOf="@id/commentBackground"
         app:layout_constraintTop_toTopOf="@id/commentBackground" />
