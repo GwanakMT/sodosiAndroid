@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/btnBack"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
         android:layout_marginStart="16dp"
         android:background="#EEEEEE"
         app:layout_constraintBottom_toTopOf="@id/topbar"
