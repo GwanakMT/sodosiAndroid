@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  *  ReportBottomSheetDialogFragment.kt
  *
  *  Created by Minji Jeong on 2022/02/20
- *  Copyright © 2022 DonorPets2.0. All rights reserved.
+ *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
 class ReportBottomSheetDialogFragment() : BottomSheetDialogFragment() {

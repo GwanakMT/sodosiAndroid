@@ -12,7 +12,7 @@ import com.sodosi.domain.entity.Comment
  *  CommunityCommentAdapter.kt
  *
  *  Created by Minji Jeong on 2022/02/19
- *  Copyright © 2022 DonorPets2.0. All rights reserved.
+ *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
 class CommunityCommentAdapter :
