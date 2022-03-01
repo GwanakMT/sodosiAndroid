@@ -1,8 +1,7 @@
 package com.sodosi.receiver
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
+import android.content.*
+import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.telephony.SmsMessage
 
@@ -22,9 +21,11 @@ class SMSReceiver : BroadcastReceiver() {
 
                 if (messages.isNotEmpty()) {
                     val content = messages[0]?.messageBody.toString()
-                    val certNumber = content.replace("[^0-9]".toRegex(), "")
+                    val smsCode = content.replace("[^0-9]".toRegex(), "")
 
-                    // TODO: 인증번호(certNumber) 전역에 저장 or 클립보드에 복사
+                    val clipboard = context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData = ClipData.newPlainText("smsCode", smsCode)
+                    clipboard.setPrimaryClip(clipData)
                 }
             }
         }
