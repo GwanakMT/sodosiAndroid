@@ -1,9 +1,10 @@
 package com.sodosi.ui.onboarding
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentStep5Binding
+import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.main.MainActivity
 
 /**
  *  Step5Fragment.kt
@@ -22,8 +23,11 @@ class Step5Fragment : BaseFragment<OnboardingViewModel, FragmentStep5Binding>() 
             activity?.onBackPressed()
         }
 
-        binding.btnNext.setOnClickListener {
-            findNavController().navigate(Step5FragmentDirections.actionFragmentStep5ToFragmentStep6())
+        binding.btnFinish.setOnClickListener {
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+
+            activity?.finish()
         }
     }
 

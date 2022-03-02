@@ -1,7 +1,9 @@
 package com.sodosi.ui.onboarding
 
+import android.app.Activity
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import com.sodosi.util.PermissionManager
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentStep6Binding
 import com.sodosi.ui.main.MainActivity
@@ -19,11 +21,13 @@ class Step6Fragment : BaseFragment<OnboardingViewModel, FragmentStep6Binding>() 
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
+        PermissionManager.getPermission(activity as Activity, PermissionManager.ACCESS_FINE_LOCATION)
+
         binding.btnBack.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        binding.btnFinish.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
 

@@ -11,8 +11,6 @@
     <string name="onboarding_next">다음</string>
     <string name="onboarding_finish">완료</string>
 
-    <string name="onboarding_find_location">현재 위치로 찾기</string>
-
     <string name="onboarding_input_phone_number">휴대폰 번호를 입력해주세요</string>
     <string name="onboarding_phone_number_kr_code">+82</string>
     <string name="onboarding_phone_number_hint">01012345678</string>
