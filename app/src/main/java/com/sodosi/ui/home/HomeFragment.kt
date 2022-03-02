@@ -1,6 +1,5 @@
 package com.sodosi.ui.home
 
-import android.content.Intent
 import android.graphics.Rect
 import android.os.Handler
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentHomeBinding
-import com.sodosi.ui.location.LocationActivity
 import com.sodosi.ui.main.MainActivity
 import com.sodosi.ui.map.MapFragment
 
@@ -126,10 +124,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun setOnClickListener() {
-        binding.tvLocation.setOnClickListener {
-            val intent = Intent(context, LocationActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 
     companion object {
