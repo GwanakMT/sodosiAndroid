@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="gray1">#8E8E93</color>
+    <color name="gray2">#AEAEB2</color>
+    <color name="gray3">#C7C7CC</color>
+    <color name="gray4">#D1D1D6</color>
+    <color name="gray5">#E5E5EA</color>
+    <color name="gray6">#F2F2F7</color>
+
+    <color name="blue">#007AFF</color>
+    <color name="green">#34C759</color>
+    <color name="indigo">#5856D6</color>
+    <color name="orange">#FF9500</color>
+    <color name="pink">#FF2D55</color>
+    <color name="purple">#AF52DE</color>
+    <color name="red">#FF3B30</color>
+    <color name="teal">#5AC8FA</color>
+    <color name="yellow">#FFCC00</color>
+
+    <color name="primary_green">#01E100</color>
+    <color name="secondary_green">#EDFBDD</color>
+
+    <color name="green1000">#007B00</color>
+    <color name="green900">#019400</color>
+    <color name="green800">#01AD00</color>
+    <color name="green700">#01C600</color>
+    <color name="green600">#01DE00</color>
+    <color name="green500">#01F700</color>
+    <color name="green400">#1AF819</color>
+    <color name="green300">#34F933</color>
+    <color name="green200">#4DF94C</color>
+    <color name="green100">#67FA66</color>
+    <color name="green50">#80FB80</color>
 </resources>
