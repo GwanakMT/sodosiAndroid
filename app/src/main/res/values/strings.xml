@@ -3,7 +3,6 @@
 
     // Bottom Tabbar
     <string name="home">홈</string>
-    <string name="community">커뮤니티</string>
     <string name="mypage">마이페이지</string>
 
     // Onboarding
@@ -24,13 +23,6 @@
     <string name="onboarding_input_password">비밀번호를 입력해주세요</string>
 
     <string name="onboarding_input_nickname">시민님의 닉네임을 알려주세요!</string>
-
-    // Community
-    <string name="community_title_now">Now</string>
-    <string name="community_now_hook">지금 %s에는\n무슨 일이 있을까요?</string>
-
-    <string name="community_title_hot">Hot</string>
-    <string name="community_hot_hook">뜨겁다 못해 핫한\n%s의 이야기들</string>
 
     // Thread
     <string name="thread_title">스레드</string>

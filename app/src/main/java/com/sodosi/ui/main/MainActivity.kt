@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
-import com.sodosi.ui.community.CommunityFragment
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.ui.home.HomeFragment
 import com.sodosi.ui.map.MapFragment
@@ -21,7 +20,6 @@ import com.sodosi.ui.mypage.MypageFragment
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private val homeFragment by lazy { HomeFragment() }
-    private val communityFragment by lazy { CommunityFragment() }
     private val mypageFragment by lazy { MypageFragment() }
     private var activeFragment: Fragment = homeFragment
 
@@ -37,7 +35,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.bottomTab.setOnItemClickListener {
             when (it.id) {
                 R.id.tabHome -> changeFragment(homeFragment)
-                R.id.tabCommunity -> changeFragment(communityFragment)
+                R.id.tabCreateMap -> Toast.makeText(this@MainActivity, "CREATE MAP", Toast.LENGTH_SHORT).show()
                 R.id.tabMypage -> changeFragment(mypageFragment)
             }
         }

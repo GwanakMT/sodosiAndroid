@@ -28,7 +28,7 @@ class BottomTabView @JvmOverloads constructor(
 
     init {
         binding.tabHome.setOnClickListener(this)
-        binding.tabCommunity.setOnClickListener(this)
+        binding.tabCreateMap.setOnClickListener(this)
         binding.tabMypage.setOnClickListener(this)
     }
 
