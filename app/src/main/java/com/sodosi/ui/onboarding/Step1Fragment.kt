@@ -2,6 +2,8 @@ package com.sodosi.ui.onboarding
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.sodosi.R
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentStep1Binding
 
@@ -21,9 +23,17 @@ class Step1Fragment : BaseFragment<OnboardingViewModel, FragmentStep1Binding>() 
         binding.btnOnBoardingStart.setOnClickListener {
             findNavController().navigate(Step1FragmentDirections.actionFragmentStep1ToFragmentStep2())
         }
+
+        initOnboardingGif()
     }
 
     override fun observeData() {
 
+    }
+
+    private fun initOnboardingGif() {
+        Glide.with(this)
+            .load(R.raw.onboarding)
+            .into(binding.ivOnboarding)
     }
 }
