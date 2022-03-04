@@ -48,6 +48,11 @@ android {
 
 dependencies {
     implementation project(':domain')
+    implementation project(':data')
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
 
     // firebase
     implementation platform("com.google.firebase:firebase-bom:$firebase_version")

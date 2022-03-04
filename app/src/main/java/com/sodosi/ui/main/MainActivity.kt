@@ -56,7 +56,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    fun changeFragment(currentFragment: Fragment) {
+    private fun changeFragment(currentFragment: Fragment) {
         val fm = supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).hide(activeFragment)
 
