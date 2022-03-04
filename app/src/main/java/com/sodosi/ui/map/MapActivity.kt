@@ -7,12 +7,15 @@ import com.sodosi.databinding.ActivityMapBinding
 import com.sodosi.ui.common.base.BaseActivity
 
 class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
+    private val momentBottomSheet by lazy { MomentBottomSheetFragment() }
+
     override fun getViewBinding() = ActivityMapBinding.inflate(layoutInflater)
 
     override val viewModel: MapViewModel by viewModels()
 
     override fun initViews() = with(binding) {
         initMapView()
+        initMomentBottomSheet()
         setOnClickListener()
     }
 
@@ -25,6 +28,10 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
         mapView.setSKTMapApiKey(MAP_API_KEY)
 
         binding.mapContainer.addView(mapView)
+    }
+
+    private fun initMomentBottomSheet() {
+        momentBottomSheet.show(supportFragmentManager, momentBottomSheet.tag)
     }
 
     private fun setOnClickListener() {

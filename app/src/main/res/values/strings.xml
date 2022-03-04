@@ -45,4 +45,8 @@
     <string name="location_search_hint">동명을 검색해 보세요</string>
     <string name="location_search_with_gps">현재 위치로 찾기</string>
 
+    // Map
+    <string name="map_moment_title">%s님의 순간을 나눠주세요.</string>
+    <string name="map_input_hint">어쩌고 저쩌고</string>
+    <string name="map_moment_sub_title">소도시 속 순간들</string>
 </resources>
