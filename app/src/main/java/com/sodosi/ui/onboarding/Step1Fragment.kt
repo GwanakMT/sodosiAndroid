@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentStep1Binding
+import com.sodosi.ui.common.base.BaseActivity
 
 /**
  *  Step1Fragment.kt
@@ -20,8 +21,14 @@ class Step1Fragment : BaseFragment<OnboardingViewModel, FragmentStep1Binding>() 
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
+        (activity as BaseActivity<*, *>).changeStatusBarColorBlack()
+
         binding.btnOnBoardingStart.setOnClickListener {
             findNavController().navigate(Step1FragmentDirections.actionFragmentStep1ToFragmentStep2())
+        }
+
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(Step1FragmentDirections.actionFragmentStep1ToFragment6())
         }
 
         initOnboardingGif()

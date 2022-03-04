@@ -2,7 +2,9 @@ package com.sodosi.ui.common.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
+import com.sodosi.R
 
 /**
  *  BaseActivity.kt
@@ -34,4 +36,12 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
     open fun initViews() = Unit
 
     abstract fun observeData()
+
+    fun changeStatusBarColorBlack() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+    }
+
+    fun changeStatusBarColorWhite() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+    }
 }

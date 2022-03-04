@@ -6,9 +6,13 @@
     <string name="mypage">마이페이지</string>
 
     // Onboarding
-    <string name="onboarding_start">장소 등록하고 시작하기</string>
+    <string name="onboarding_start">시작하기</string>
+    <string name="onboarding_login">이미 소도시 회원이에요!</string>
     <string name="onboarding_next">다음</string>
     <string name="onboarding_finish">완료</string>
+
+    <string name="onboarding_first_title">공부하기 좋은 카페 어디지?</string>
+    <string name="onboarding_first_message">어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구\n어쩌구 저쩌구 어쩌구 저쩌구 어쩌구</string>
 
     <string name="onboarding_input_phone_number">휴대폰 번호를 입력해주세요</string>
     <string name="onboarding_phone_number_kr_code">+82</string>

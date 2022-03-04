@@ -3,8 +3,11 @@ package com.sodosi.ui.onboarding
 import android.app.Activity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.sodosi.databinding.ActivityOnboardingBinding
 import com.sodosi.databinding.FragmentStep2Binding
+import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.base.BaseViewModel
 
 /**
  *  Step2Fragment.kt
@@ -25,6 +28,8 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
     }
 
     override fun initViews() = with(binding) {
+        (activity as BaseActivity<*, *>).changeStatusBarColorWhite()
+
         authManager = FirebaseAuthManager(activity as Activity)
 
         binding.btnBack.setOnClickListener {
@@ -33,7 +38,7 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
 
         binding.btnNext.setOnClickListener {
             if (true) { // 이미 가입된 번호라면
-                findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep6())
+                findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep3())
             } else {
                 val phoneNumber = "+82${binding.etPhoneNumber.text.toString().toInt()}"
                 authManager.verifyPhoneNumber(phoneNumber)
