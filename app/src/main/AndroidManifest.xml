@@ -24,14 +24,7 @@
         </receiver>
 
         <activity
-            android:name="com.sodosi.ui.thread.ThreadActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.sodosi.ui.location.LocationActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.sodosi.ui.onboarding.OnboardingActivity"
+            android:name=".ui.onboarding.OnboardingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,10 +33,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.sodosi.ui.main.MainActivity"
-            android:exported="true">
+            android:name=".ui.main.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.map.MapActivity"
+            android:exported="true" />
 
-        </activity>
+        <activity
+            android:name=".ui.thread.ThreadActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

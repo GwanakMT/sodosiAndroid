@@ -8,11 +8,10 @@ import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.ui.home.HomeFragment
-import com.sodosi.ui.map.MapFragment
 import com.sodosi.ui.mypage.MypageFragment
 
 /**
- *  HomeFragment.kt
+ *  MainActivity.kt
  *
  *  Created by Minji Jeong on 2022/02/14
  *  Copyright © 2022 GwanakMT All rights reserved.
@@ -47,9 +46,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun onBackPressed() {
         when {
-            activeFragment is MapFragment -> {
-                changeFragment(homeFragment)
-            }
             System.currentTimeMillis() - backPressWaitTime >= 1500 -> {
                 backPressWaitTime = System.currentTimeMillis()
                 Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()

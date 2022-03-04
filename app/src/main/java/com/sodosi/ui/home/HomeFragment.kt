@@ -1,5 +1,6 @@
 package com.sodosi.ui.home
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Handler
 import android.view.View
@@ -10,8 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentHomeBinding
-import com.sodosi.ui.main.MainActivity
-import com.sodosi.ui.map.MapFragment
+import com.sodosi.ui.map.MapActivity
 
 /**
  *  HomeFragment.kt
@@ -56,7 +56,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             adapter = MapViewPagerAdapter()
                 .apply {
                     onItemClick = {
-                        (activity as MainActivity).changeFragment(MapFragment())
+                        val intent = Intent(context, MapActivity::class.java)
+                        startActivity(intent)
                     }
                 }
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
