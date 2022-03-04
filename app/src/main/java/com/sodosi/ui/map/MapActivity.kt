@@ -13,6 +13,7 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
 
     override fun initViews() = with(binding) {
         initMapView()
+        setOnClickListener()
     }
 
     override fun observeData() {
@@ -24,6 +25,13 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
         mapView.setSKTMapApiKey(MAP_API_KEY)
 
         binding.mapContainer.addView(mapView)
+    }
+
+    private fun setOnClickListener() {
+        binding.btnBack.setOnClickListener { onBackPressed() }
+        binding.btnBookmark.setOnClickListener {
+
+        }
     }
 
     companion object {

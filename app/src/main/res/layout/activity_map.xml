@@ -7,4 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".ui.map.MapActivity">
 
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_arrow_left"
+        android:translationZ="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnBookmark"
+        android:layout_width="@dimen/icon_width"
+        android:layout_height="@dimen/icon_height"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_interface_bookmark"
+        android:translationZ="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMapTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:translationZ="16dp"
+        app:layout_constraintEnd_toStartOf="@id/btnBookmark"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
