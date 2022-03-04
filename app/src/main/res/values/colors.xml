@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#000000</color>
+    <color name="sub_black">#1C1C1E</color>
     <color name="white">#FFFFFF</color>
 
     <color name="gray1">#8E8E93</color>
@@ -27,7 +28,7 @@
     <color name="green900">#019400</color>
     <color name="green800">#01AD00</color>
     <color name="green700">#01C600</color>
-    <color name="green600">#01DE00</color>
+    <color name="green600">#01D700</color>
     <color name="green500">#01F700</color>
     <color name="green400">#1AF819</color>
     <color name="green300">#34F933</color>

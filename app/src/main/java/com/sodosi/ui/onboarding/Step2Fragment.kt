@@ -1,13 +1,14 @@
 package com.sodosi.ui.onboarding
 
 import android.app.Activity
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.sodosi.databinding.ActivityOnboardingBinding
 import com.sodosi.databinding.FragmentStep2Binding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.BaseFragment
-import com.sodosi.ui.common.base.BaseViewModel
 
 /**
  *  Step2Fragment.kt
@@ -32,6 +33,12 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
 
         authManager = FirebaseAuthManager(activity as Activity)
 
+        initButton()
+        initKeyboard()
+        setOnClickListener()
+    }
+
+    private fun setOnClickListener() {
         binding.btnBack.setOnClickListener {
             activity?.onBackPressed()
         }
@@ -45,5 +52,22 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
                 findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep3())
             }
         }
+    }
+
+    private fun initButton() {
+        binding.btnNext.setStateDisable()
+        binding.etPhoneNumber.addTextChangedListener {
+            if ("$it".length == 11) {
+                binding.btnNext.setStateNormal()
+            } else {
+                binding.btnNext.setStateDisable()
+            }
+        }
+    }
+
+    private fun initKeyboard() {
+        val inputMethodManager: InputMethodManager =
+            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.etPhoneNumber, 0)
     }
 }

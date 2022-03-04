@@ -10,18 +10,18 @@
         <action
             android:id="@+id/action_fragment_step1_to_fragment_step2"
             app:destination="@id/fragment_step2"
-            app:enterAnim="@anim/splash_enter"
-            app:exitAnim="@anim/splash_exit"
-            app:popEnterAnim="@anim/splash_enter"
-            app:popExitAnim="@anim/splash_exit" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_fragment_step1_to_fragment6"
             app:destination="@id/fragment_step6"
-            app:enterAnim="@anim/splash_enter"
-            app:exitAnim="@anim/splash_exit"
-            app:popEnterAnim="@anim/splash_enter"
-            app:popExitAnim="@anim/splash_exit" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

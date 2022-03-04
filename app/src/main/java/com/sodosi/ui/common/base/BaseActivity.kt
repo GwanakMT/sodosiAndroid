@@ -38,7 +38,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
     abstract fun observeData()
 
     fun changeStatusBarColorBlack() {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.sub_black)
     }
 
     fun changeStatusBarColorWhite() {

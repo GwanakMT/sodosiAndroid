@@ -60,10 +60,14 @@
         android:layout_marginHorizontal="8dp"
         android:hint="@string/onboarding_phone_number_hint"
         android:inputType="number"
+        android:maxLength="11"
         app:layout_constraintBottom_toBottomOf="@id/phoneNumberBackground"
         app:layout_constraintEnd_toEndOf="@id/phoneNumberBackground"
         app:layout_constraintStart_toEndOf="@id/tvNumberCodeKR"
-        app:layout_constraintTop_toTopOf="@id/phoneNumberBackground" />
+        app:layout_constraintTop_toTopOf="@id/phoneNumberBackground">
+
+        <requestFocus />
+    </EditText>
 
     <TextView
         android:layout_width="match_parent"
@@ -74,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phoneNumberBackground" />
 
-    <Button
+    <com.sodosi.ui.common.customview.SodosiButton
         android:id="@+id/btnNext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
