@@ -24,7 +24,6 @@ class SodosiButton @JvmOverloads constructor(
 ) : androidx.appcompat.widget.AppCompatTextView(context, attrs) {
 
     init {
-        text = "시작하기"
         textSize = 16.toFloat()
         typeface = ResourcesCompat.getFont(context, R.font.pretendard_bold)
         setTextColor(ContextCompat.getColor(context, R.color.white))

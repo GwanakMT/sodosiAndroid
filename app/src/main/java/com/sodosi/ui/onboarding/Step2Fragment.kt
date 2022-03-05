@@ -56,13 +56,9 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
-            if (true) { // 이미 가입된 번호라면
-                findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep3())
-            } else {
-                val phoneNumber = "+82${binding.etPhoneNumber.text.toString().toInt()}"
-                authManager.verifyPhoneNumber(phoneNumber)
-                findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep3())
-            }
+            val phoneNumber = "+82${binding.etPhoneNumber.text.toString().toInt()}"
+            authManager.verifyPhoneNumber(phoneNumber)
+            findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep3())
         }
     }
 

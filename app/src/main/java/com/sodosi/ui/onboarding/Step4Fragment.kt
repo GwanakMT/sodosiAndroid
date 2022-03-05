@@ -2,6 +2,7 @@ package com.sodosi.ui.onboarding
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.sodosi.R
 import com.sodosi.databinding.FragmentStep4Binding
 import com.sodosi.ui.common.base.BaseFragment
 
@@ -18,16 +19,25 @@ class Step4Fragment : BaseFragment<OnboardingViewModel, FragmentStep4Binding>() 
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
-        binding.btnBack.setOnClickListener {
-            activity?.onBackPressed()
-        }
-
-        binding.btnNext.setOnClickListener {
-            findNavController().navigate(Step4FragmentDirections.actionFragmentStep4ToFragmentStep5())
-        }
+        initAppbar()
+        setOnClickListener()
     }
 
     override fun observeData() {
 
+    }
+
+    private fun initAppbar() {
+        binding.appbar.apply {
+            initLeftButton(R.drawable.ic_arrow_left) {
+                activity?.onBackPressed()
+            }
+        }
+    }
+
+    private fun setOnClickListener() {
+        binding.btnNext.setOnClickListener {
+            findNavController().navigate(Step4FragmentDirections.actionFragmentStep4ToFragmentStep5())
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.sodosi.ui.onboarding
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import com.sodosi.R
 import com.sodosi.databinding.FragmentStep5Binding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.main.MainActivity
@@ -19,19 +20,28 @@ class Step5Fragment : BaseFragment<OnboardingViewModel, FragmentStep5Binding>() 
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
-        binding.btnBack.setOnClickListener {
-            activity?.onBackPressed()
-        }
+        initAppbar()
+        setOnClickListener()
+    }
 
+    override fun observeData() {
+
+    }
+
+    private fun initAppbar() {
+        binding.appbar.apply {
+            initLeftButton(R.drawable.ic_arrow_left) {
+                activity?.onBackPressed()
+            }
+        }
+    }
+
+    private fun setOnClickListener() {
         binding.btnFinish.setOnClickListener {
             val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
 
             activity?.finish()
         }
-    }
-
-    override fun observeData() {
-
     }
 }

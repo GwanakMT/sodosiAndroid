@@ -3,6 +3,7 @@ package com.sodosi.ui.onboarding
 import android.app.Activity
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import com.sodosi.R
 import com.sodosi.util.PermissionManager
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentStep6Binding
@@ -21,21 +22,28 @@ class Step6Fragment : BaseFragment<OnboardingViewModel, FragmentStep6Binding>() 
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
-        PermissionManager.getPermission(activity as Activity, PermissionManager.ACCESS_FINE_LOCATION)
+        initAppbar()
+        setOnClickListener()
+    }
 
-        binding.btnBack.setOnClickListener {
-            activity?.onBackPressed()
+    override fun observeData() {
+
+    }
+
+    private fun initAppbar() {
+        binding.appbar.apply {
+            initLeftButton(R.drawable.ic_arrow_left) {
+                activity?.onBackPressed()
+            }
         }
+    }
 
+    private fun setOnClickListener() {
         binding.btnLogin.setOnClickListener {
             val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
 
             activity?.finish()
         }
-    }
-
-    override fun observeData() {
-
     }
 }
