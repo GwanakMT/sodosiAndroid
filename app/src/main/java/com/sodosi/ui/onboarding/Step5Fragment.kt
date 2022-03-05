@@ -1,6 +1,9 @@
 package com.sodosi.ui.onboarding
 
+import android.content.Context
 import android.content.Intent
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.FragmentStep5Binding
@@ -15,12 +18,16 @@ import com.sodosi.ui.main.MainActivity
  */
 
 class Step5Fragment : BaseFragment<OnboardingViewModel, FragmentStep5Binding>() {
+    private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
+
     override fun getViewBinding() = FragmentStep5Binding.inflate(layoutInflater)
 
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
         initAppbar()
+        initView()
+
         setOnClickListener()
     }
 
@@ -32,6 +39,19 @@ class Step5Fragment : BaseFragment<OnboardingViewModel, FragmentStep5Binding>() 
         binding.appbar.apply {
             initLeftButton(R.drawable.ic_arrow_left) {
                 activity?.onBackPressed()
+            }
+        }
+    }
+
+    private fun initView() {
+        inputMethodManager.showSoftInput(binding.etNickname, 0)
+
+        binding.btnFinish.setStateDisable()
+        binding.etNickname.addTextChangedListener {
+            if ("$it".length > 0) {
+                binding.btnFinish.setStateNormal()
+            } else {
+                binding.btnFinish.setStateDisable()
             }
         }
     }
