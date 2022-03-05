@@ -3,6 +3,7 @@ package com.sodosi.ui.common.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.viewbinding.ViewBinding
 import com.sodosi.R
 
@@ -39,9 +40,12 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
 
     fun changeStatusBarColorBlack() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.sub_black)
+        WindowInsetsControllerCompat(window, binding.root).isAppearanceLightStatusBars = false
     }
 
     fun changeStatusBarColorWhite() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        WindowInsetsControllerCompat(window, binding.root).isAppearanceLightStatusBars = true
+
     }
 }
