@@ -1,9 +1,9 @@
 package com.sodosi.ui.onboarding
 
 import androidx.lifecycle.viewModelScope
-import com.sodosi.domain.usecase.GetAlbumUseCase
 import com.sodosi.ui.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,15 +17,16 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor(
-    private val getAlbumUseCase: GetAlbumUseCase
-) : BaseViewModel() {
-    private val _album = MutableStateFlow("")
-    val album: StateFlow<String> = _album
+class OnboardingViewModel @Inject constructor() : BaseViewModel() {
+    private val _timer = MutableStateFlow(180)
+    val timer: StateFlow<Int> = _timer
 
-    fun getAlbum(id: Int) {
+    fun startTimer() {
         viewModelScope.launch {
-            _album.value = getAlbumUseCase(2)
+            while (_timer.value > 0) {
+                delay(1000)
+                _timer.value = _timer.value - 1
+            }
         }
     }
 }

@@ -21,8 +21,8 @@
 
     <string name="onboarding_input_sms_code">인증번호를 입력해주세요</string>
     <string name="onboarding_sms_code_hint">인증번호 6글자</string>
-    <string name="onboarding_sms_code_lost">인증번호를 못 받으셨나요?</string>
-    <string name="onboarding_sms_code_resend"><u>다시 받기</u></string>
+    <string name="onboarding_sms_expiration">전송된 인증번호는 3분 후 만료됩니다.</string>
+    <string name="onboarding_sms_code_resend"><u>재전송</u></string>
 
     <string name="onboarding_input_password">비밀번호를 입력해주세요</string>
 

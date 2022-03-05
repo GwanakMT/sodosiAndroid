@@ -2,8 +2,10 @@ package com.sodosi.ui.onboarding
 
 import android.app.Activity
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentStep3Binding
@@ -28,12 +30,17 @@ class Step3Fragment : BaseFragment<OnboardingViewModel, FragmentStep3Binding>(),
         authManager = FirebaseAuthManager(activity as Activity)
 
         initAppbar()
-        initButton()
+        initView()
+
         setOnClickListener()
+
+        viewModel.startTimer()
     }
 
     override fun observeData() {
-
+        viewModel.timer.asLiveData().observe(viewLifecycleOwner) {
+            binding.tvTimer.text = "0${it / 60}:${if (it % 60 < 10) "0${it % 60}" else "${it % 60}"}"
+        }
     }
 
     override fun onAuthSuccess() {
@@ -51,7 +58,7 @@ class Step3Fragment : BaseFragment<OnboardingViewModel, FragmentStep3Binding>(),
             authManager.signInWithPhoneAuthCredential(smsCode, this@Step3Fragment)
         }
 
-        binding.tvSmsCodeResend.setOnClickListener {
+        binding.tvResend.setOnClickListener {
             authManager.verifyPhoneNumber()
         }
     }
@@ -64,9 +71,17 @@ class Step3Fragment : BaseFragment<OnboardingViewModel, FragmentStep3Binding>(),
         }
     }
 
-    private fun initButton() {
+    private fun initView() {
         binding.btnNext.setStateDisable()
         binding.etSmsCode.addTextChangedListener {
+            if ("$it".length == 0) {
+                binding.etSmsCode.typeface =
+                    ResourcesCompat.getFont(context!!, R.font.pretendard_regular)
+            } else {
+                binding.etSmsCode.typeface =
+                    ResourcesCompat.getFont(context!!, R.font.pretendard_semibold)
+            }
+
             if (it.toString().length == 6) {
                 binding.btnNext.setStateNormal()
             } else {

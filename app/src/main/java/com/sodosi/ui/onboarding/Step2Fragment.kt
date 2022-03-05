@@ -2,7 +2,6 @@ package com.sodosi.ui.onboarding
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Typeface
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
@@ -38,13 +37,9 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
         authManager = FirebaseAuthManager(activity as Activity)
 
         initAppbar()
-        initButton()
+        initView()
 
         setOnClickListener()
-
-        inputMethodManager.showSoftInput(binding.etPhoneNumber, 0)
-
-        return@with
     }
 
     private fun initAppbar() {
@@ -64,13 +59,17 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
         }
     }
 
-    private fun initButton() {
+    private fun initView() {
+        inputMethodManager.showSoftInput(binding.etPhoneNumber, 0)
+
         binding.btnNext.setStateDisable()
         binding.etPhoneNumber.addTextChangedListener {
             if ("$it".length == 0) {
-                binding.etPhoneNumber.typeface = ResourcesCompat.getFont(context!!, R.font.pretendard_regular)
+                binding.etPhoneNumber.typeface =
+                    ResourcesCompat.getFont(context!!, R.font.pretendard_regular)
             } else {
-                binding.etPhoneNumber.typeface = ResourcesCompat.getFont(context!!, R.font.pretendard_semibold)
+                binding.etPhoneNumber.typeface =
+                    ResourcesCompat.getFont(context!!, R.font.pretendard_semibold)
             }
 
             if ("$it".length == 11) {
