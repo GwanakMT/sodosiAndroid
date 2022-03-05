@@ -2,7 +2,9 @@ package com.sodosi.ui.onboarding
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Typeface
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -65,6 +67,12 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
     private fun initButton() {
         binding.btnNext.setStateDisable()
         binding.etPhoneNumber.addTextChangedListener {
+            if ("$it".length == 0) {
+                binding.etPhoneNumber.typeface = ResourcesCompat.getFont(context!!, R.font.pretendard_regular)
+            } else {
+                binding.etPhoneNumber.typeface = ResourcesCompat.getFont(context!!, R.font.pretendard_semibold)
+            }
+
             if ("$it".length == 11) {
                 binding.btnNext.setStateNormal()
             } else {
