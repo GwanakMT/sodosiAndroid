@@ -28,7 +28,7 @@ class SodosiButton @JvmOverloads constructor(
         typeface = ResourcesCompat.getFont(context, R.font.pretendard_bold)
         setTextColor(ContextCompat.getColor(context, R.color.white))
         gravity = Gravity.CENTER
-        background = ContextCompat.getDrawable(context, R.drawable.rounded_button_green)
+        background = ContextCompat.getDrawable(context, R.drawable.background_rounded_green)
         setPadding(16.dp)
     }
 
