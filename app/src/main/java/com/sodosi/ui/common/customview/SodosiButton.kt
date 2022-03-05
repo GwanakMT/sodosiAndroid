@@ -36,10 +36,12 @@ class SodosiButton @JvmOverloads constructor(
     fun setStateNormal() {
         alpha = 1.0F
         isClickable = true
+        isEnabled = true
     }
 
     fun setStateDisable() {
         alpha = 0.3F
         isClickable = false
+        isEnabled = false
     }
 }

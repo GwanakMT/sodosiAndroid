@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.sodosi.R
 import com.sodosi.databinding.FragmentStep2Binding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.BaseFragment
@@ -19,6 +20,7 @@ import com.sodosi.ui.common.base.BaseFragment
 
 class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() {
     private lateinit var authManager: FirebaseAuthManager
+    private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun getViewBinding() = FragmentStep2Binding.inflate(layoutInflater)
 
@@ -33,16 +35,26 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
 
         authManager = FirebaseAuthManager(activity as Activity)
 
+        initAppbar()
         initButton()
-        initKeyboard()
+
         setOnClickListener()
+
+        inputMethodManager.showSoftInput(binding.etPhoneNumber, 0)
+
+        return@with
+    }
+
+    private fun initAppbar() {
+        binding.appbar.apply {
+            initLeftButton(R.drawable.ic_arrow_left) {
+                inputMethodManager.hideSoftInputFromWindow(binding.etPhoneNumber.windowToken, 0)
+                activity?.onBackPressed()
+            }
+        }
     }
 
     private fun setOnClickListener() {
-        binding.btnBack.setOnClickListener {
-            activity?.onBackPressed()
-        }
-
         binding.btnNext.setOnClickListener {
             if (true) { // 이미 가입된 번호라면
                 findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep3())
@@ -63,11 +75,5 @@ class Step2Fragment : BaseFragment<OnboardingViewModel, FragmentStep2Binding>() 
                 binding.btnNext.setStateDisable()
             }
         }
-    }
-
-    private fun initKeyboard() {
-        val inputMethodManager: InputMethodManager =
-            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(binding.etPhoneNumber, 0)
     }
 }
