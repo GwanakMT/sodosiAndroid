@@ -37,11 +37,12 @@
 
     <EditText
         android:id="@+id/etNickname"
-        style="@style/Typography.HeadLines.Callout.Bold"
+        style="@style/Typography.HeadLines.Callout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="16dp"
         android:gravity="center"
+        android:hint="@string/onboarding_nickname_hint"
         app:layout_constraintBottom_toBottomOf="@id/inputBackground"
         app:layout_constraintEnd_toEndOf="@id/inputBackground"
         app:layout_constraintStart_toStartOf="@id/inputBackground"

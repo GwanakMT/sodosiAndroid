@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/ivOnboarding"
-            android:layout_width="300dp"
-            android:layout_height="300dp" />
+            android:layout_width="260dp"
+            android:layout_height="260dp" />
 
         <TextView
             android:id="@+id/tvFirstTitle"

@@ -3,6 +3,7 @@ package com.sodosi.ui.onboarding
 import android.content.Context
 import android.content.Intent
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.sodosi.R
@@ -48,10 +49,14 @@ class Step5Fragment : BaseFragment<OnboardingViewModel, FragmentStep5Binding>() 
 
         binding.btnFinish.setStateDisable()
         binding.etNickname.addTextChangedListener {
-            if ("$it".length > 0) {
-                binding.btnFinish.setStateNormal()
-            } else {
+            if ("$it".length == 0) {
                 binding.btnFinish.setStateDisable()
+                binding.etNickname.typeface =
+                    ResourcesCompat.getFont(context!!, R.font.pretendard_regular)
+            } else {
+                binding.btnFinish.setStateNormal()
+                binding.etNickname.typeface =
+                    ResourcesCompat.getFont(context!!, R.font.pretendard_semibold)
             }
         }
     }
