@@ -1,5 +1,6 @@
 package com.sodosi.ui.main
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
+import com.sodosi.ui.create.CreateActivity
 import com.sodosi.ui.home.HomeFragment
 import com.sodosi.ui.mypage.MypageFragment
 
@@ -34,7 +36,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.bottomTab.setOnItemClickListener {
             when (it.id) {
                 R.id.tabHome -> changeFragment(homeFragment)
-                R.id.tabCreateMap -> Toast.makeText(this@MainActivity, "CREATE MAP", Toast.LENGTH_SHORT).show()
+                R.id.tabCreateMap -> {
+                    val intent = Intent(this@MainActivity, CreateActivity::class.java)
+                    startActivity(intent)
+                }
                 R.id.tabMypage -> changeFragment(mypageFragment)
             }
         }
