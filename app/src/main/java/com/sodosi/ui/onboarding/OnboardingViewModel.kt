@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor() : BaseViewModel() {
-    private val _timer = MutableStateFlow(180)
+    private val _timer = MutableStateFlow(MINUTE_3)
     val timer: StateFlow<Int> = _timer
 
     fun startTimer() {
@@ -28,5 +28,14 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
                 _timer.value = _timer.value - 1
             }
         }
+    }
+
+    fun resetTimer() {
+        _timer.value = MINUTE_3
+        startTimer()
+    }
+
+    companion object {
+        private const val MINUTE_3 = 180
     }
 }

@@ -24,31 +24,100 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar" />
 
-    <View
-        android:id="@+id/smsCodeBackground"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="22dp"
+    <EditText
+        android:id="@+id/etCode1"
+        style="@style/Typography.BigTitles.Large"
+        android:layout_width="46dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="22dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/background_rounded_gray"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        app:layout_constraintEnd_toStartOf="@id/etCode2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSmsCode" />
+        app:layout_constraintTop_toBottomOf="@id/tvSmsCode"
+        tools:text="2">
+
+        <requestFocus />
+    </EditText>
 
     <EditText
-        android:id="@+id/etSmsCode"
-        style="@style/Typography.HeadLines.Callout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:hint="@string/onboarding_sms_code_hint"
+        android:id="@+id/etCode2"
+        style="@style/Typography.BigTitles.Large"
+        android:layout_width="46dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_rounded_gray"
+        android:gravity="center"
         android:inputType="number"
-        android:maxLength="6"
-        android:textColorHint="@color/gray3"
-        app:layout_constraintBottom_toBottomOf="@id/smsCodeBackground"
-        app:layout_constraintEnd_toEndOf="@id/smsCodeBackground"
-        app:layout_constraintStart_toStartOf="@id/smsCodeBackground"
-        app:layout_constraintTop_toTopOf="@id/smsCodeBackground" />
+        android:maxLength="1"
+        app:layout_constraintEnd_toStartOf="@id/etCode3"
+        app:layout_constraintStart_toEndOf="@id/etCode1"
+        app:layout_constraintTop_toTopOf="@id/etCode1"
+        tools:text="2" />
+
+    <EditText
+        android:id="@+id/etCode3"
+        style="@style/Typography.BigTitles.Large"
+        android:layout_width="46dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_rounded_gray"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        app:layout_constraintEnd_toStartOf="@id/etCode4"
+        app:layout_constraintStart_toEndOf="@id/etCode2"
+        app:layout_constraintTop_toTopOf="@id/etCode1"
+        tools:text="2" />
+
+    <EditText
+        android:id="@+id/etCode4"
+        style="@style/Typography.BigTitles.Large"
+        android:layout_width="46dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_rounded_gray"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        app:layout_constraintEnd_toStartOf="@id/etCode5"
+        app:layout_constraintStart_toEndOf="@id/etCode3"
+        app:layout_constraintTop_toTopOf="@id/etCode1"
+        tools:text="2" />
+
+    <EditText
+        android:id="@+id/etCode5"
+        style="@style/Typography.BigTitles.Large"
+        android:layout_width="46dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_rounded_gray"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        app:layout_constraintEnd_toStartOf="@id/etCode6"
+        app:layout_constraintStart_toEndOf="@id/etCode4"
+        app:layout_constraintTop_toTopOf="@id/etCode1"
+        tools:text="2" />
+
+    <EditText
+        android:id="@+id/etCode6"
+        style="@style/Typography.BigTitles.Large"
+        android:layout_width="46dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/background_rounded_gray"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/etCode5"
+        app:layout_constraintTop_toTopOf="@id/etCode1"
+        tools:text="2" />
 
     <TextView
         android:id="@+id/tvExpiration"
@@ -58,8 +127,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/onboarding_sms_expiration"
         android:textColor="@color/gray1"
-        app:layout_constraintStart_toStartOf="@id/smsCodeBackground"
-        app:layout_constraintTop_toBottomOf="@id/smsCodeBackground" />
+        app:layout_constraintStart_toStartOf="@id/etCode1"
+        app:layout_constraintTop_toBottomOf="@id/etCode1" />
 
     <TextView
         android:id="@+id/tvTimer"
