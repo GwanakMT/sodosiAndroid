@@ -63,4 +63,9 @@
     <string name="create_sodosi_private">다같이 볼래요!</string>
     <string name="create_sodosi_public">나만 볼래요</string>
     <string name="create_sodosi">도시 만들기</string>
+
+    <string name="create_exit_title">만드실 소도시... 정말 기대하고 있어요!</string>
+    <string name="create_exit_message">중단 시 작성하신 소도시가 저장되지 않아요.\n정말 나가시겠어요?</string>
+    <string name="create_exit_exit">나가기</string>
+    <string name="create_exit_continue">이어하기</string>
 </resources>
