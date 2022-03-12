@@ -14,7 +14,7 @@ import com.sodosi.ui.main.MainActivity
 /**
  *  NicknameFragment.kt
  *
- *  Created by Minji Jeong on 2022/02/18
+ *  Created by Minji Jeong on 2022/03/13
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
