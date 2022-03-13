@@ -1,15 +1,14 @@
 package com.sodosi.ui.onboarding
 
 import android.content.Context
-import android.content.Intent
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentNicknameBinding
 import com.sodosi.ui.common.base.BaseFragment
-import com.sodosi.ui.main.MainActivity
 
 /**
  *  NicknameFragment.kt
@@ -63,10 +62,7 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
 
     private fun setOnClickListener() {
         binding.btnFinish.setOnClickListener {
-            val intent = Intent(context, MainActivity::class.java)
-            startActivity(intent)
-
-            activity?.finish()
+            findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome())
         }
     }
 }

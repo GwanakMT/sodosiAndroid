@@ -1,12 +1,14 @@
 package com.sodosi.ui.onboarding
 
 import android.app.Activity
+import android.widget.Toast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 /**
@@ -31,6 +33,8 @@ class FirebaseAuthManager(private val activity: Activity) {
     }
 
     fun verifyPhoneNumber(phoneNumber: String = Companion.phoneNumber) {
+        if (phoneNumber.isBlank()) Toast.makeText(activity, "phoneNumber is Blank", Toast.LENGTH_SHORT).show()
+
         val optionsCompat = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber) // +8210________
             .setTimeout(60L, TimeUnit.SECONDS)
@@ -40,21 +44,23 @@ class FirebaseAuthManager(private val activity: Activity) {
 
         PhoneAuthProvider.verifyPhoneNumber(optionsCompat)
         auth.setLanguageCode("kr")
-
-        Companion.phoneNumber = phoneNumber
     }
 
     fun signInWithPhoneAuthCredential(smsCode: String, listener: VerificationPhoneListener) {
-        val credential = PhoneAuthProvider.getCredential(verificationId, smsCode)
+        try {
+            val credential = PhoneAuthProvider.getCredential(verificationId, smsCode)
 
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    listener.onAuthSuccess()
-                } else {
-                    listener.onAuthFail()
+            auth.signInWithCredential(credential)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        listener.onAuthSuccess()
+                    } else {
+                        listener.onAuthFail()
+                    }
                 }
-            }
+        } catch (e: Exception) {
+
+        }
     }
 
     interface VerificationPhoneListener {
@@ -63,7 +69,7 @@ class FirebaseAuthManager(private val activity: Activity) {
     }
 
     companion object {
-        private var phoneNumber: String = ""
+        var phoneNumber: String = ""
         private var verificationId: String = ""
     }
 }

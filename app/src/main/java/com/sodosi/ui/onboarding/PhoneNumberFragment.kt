@@ -1,6 +1,5 @@
 package com.sodosi.ui.onboarding
 
-import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
@@ -20,7 +19,6 @@ import com.sodosi.ui.common.base.BaseFragment
  */
 
 class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumberBinding>() {
-    private lateinit var authManager: FirebaseAuthManager
     private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun getViewBinding() = FragmentPhoneNumberBinding.inflate(layoutInflater)
@@ -33,8 +31,6 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
 
     override fun initViews() = with(binding) {
         (activity as BaseActivity<*, *>).changeStatusBarColorWhite()
-
-        authManager = FirebaseAuthManager(activity as Activity)
 
         initAppbar()
         initView()
@@ -54,8 +50,13 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
             val phoneNumber = "+82${binding.etPhoneNumber.text.toString().toInt()}"
-            authManager.verifyPhoneNumber(phoneNumber)
-            findNavController().navigate(Step2FragmentDirections.actionFragmentStep2ToFragmentStep3())
+            FirebaseAuthManager.phoneNumber = phoneNumber
+
+            if (arguments?.get("onboarding_type") == OnboardingType.SIGNUP) {
+                findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(OnboardingType.SIGNUP))
+            } else {
+                findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(OnboardingType.LOGIN))
+            }
         }
     }
 

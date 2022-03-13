@@ -1,10 +1,12 @@
 package com.sodosi.ui.onboarding
 
+import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentLoginPasswordBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.main.MainActivity
 
 /**
  *  SignPasswordFragment.kt
@@ -37,7 +39,14 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(Step4FragmentDirections.actionFragmentStep4ToFragmentStep5())
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+
+            activity?.finish()
+        }
+
+        binding.tvForgotPassword.setOnClickListener {
+            findNavController().navigate(LoginPasswordFragmentDirections.actionFragmentLoginPasswordToFragmentCertificationNumber())
         }
     }
 }

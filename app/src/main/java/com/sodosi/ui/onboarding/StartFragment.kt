@@ -24,11 +24,11 @@ class StartFragment : BaseFragment<OnboardingViewModel, FragmentStartBinding>() 
         (activity as BaseActivity<*, *>).changeStatusBarColorBlack()
 
         binding.btnOnBoardingStart.setOnClickListener {
-            findNavController().navigate(Step1FragmentDirections.actionFragmentStep1ToFragmentStep2())
+            findNavController().navigate(StartFragmentDirections.actionFragmentStartToFragmentPhoneNumber(OnboardingType.SIGNUP))
         }
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(Step1FragmentDirections.actionFragmentStep1ToFragment6())
+            findNavController().navigate(StartFragmentDirections.actionFragmentStartToFragmentPhoneNumber(OnboardingType.LOGIN))
         }
 
         initOnboardingGif()

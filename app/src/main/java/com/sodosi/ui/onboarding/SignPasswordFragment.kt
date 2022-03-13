@@ -37,7 +37,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
-            findNavController().navigate(Step4FragmentDirections.actionFragmentStep4ToFragmentStep5())
+            findNavController().navigate(SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname())
         }
     }
 }

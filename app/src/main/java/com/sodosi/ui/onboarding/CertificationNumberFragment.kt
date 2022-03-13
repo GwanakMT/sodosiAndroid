@@ -2,6 +2,7 @@ package com.sodosi.ui.onboarding
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentCertificationNumberBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.main.MainActivity
 
 /**
  *  CertificationNumberFragment.kt
@@ -34,6 +36,8 @@ class CertificationNumberFragment :
     override fun initViews() = with(binding) {
         authManager = FirebaseAuthManager(activity as Activity)
 
+        authManager.verifyPhoneNumber()
+
         initAppbar()
         initView()
 
@@ -50,12 +54,19 @@ class CertificationNumberFragment :
     }
 
     override fun onAuthSuccess() {
-        Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(Step3FragmentDirections.actionFragmentStep3ToFragmentStep4())
+        val onboardingType = arguments?.get("onboarding_type")
+        if (onboardingType == OnboardingType.SIGNUP) {
+            findNavController().navigate(CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(OnboardingType.SIGNUP))
+        } else {
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
+
+            activity?.finish()
+        }
     }
 
     override fun onAuthFail() {
-        Toast.makeText(context, "실패", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun setOnClickListener() {

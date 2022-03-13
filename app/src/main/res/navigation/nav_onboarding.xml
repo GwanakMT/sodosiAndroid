@@ -2,22 +2,83 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/fragment_step1">
+    app:startDestination="@id/fragment_start">
+
     <fragment
-        android:id="@+id/fragment_step1"
-        android:name="com.sodosi.ui.onboarding.Step1Fragment"
-        tools:layout="@layout/fragment_step1">
+        android:id="@+id/fragment_start"
+        android:name="com.sodosi.ui.onboarding.StartFragment"
+        tools:layout="@layout/fragment_start">
+
         <action
-            android:id="@+id/action_fragment_step1_to_fragment_step2"
-            app:destination="@id/fragment_step2"
+            android:id="@+id/action_fragment_start_to_fragment_phone_number"
+            app:destination="@id/fragment_phone_number"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="onboarding_type"
+                app:argType="com.sodosi.ui.onboarding.OnboardingType" />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_phone_number"
+        android:name="com.sodosi.ui.onboarding.PhoneNumberFragment"
+        tools:layout="@layout/fragment_phone_number">
 
         <action
-            android:id="@+id/action_fragment_step1_to_fragment6"
-            app:destination="@id/fragment_step6"
+            android:id="@+id/action_fragment_phone_number_to_fragment_certification_number"
+            app:destination="@id/fragment_certification_number"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="onboarding_type"
+                app:argType="com.sodosi.ui.onboarding.OnboardingType" />
+        </action>
+
+        <action
+            android:id="@+id/action_fragment_phone_number_to_fragment_login_password"
+            app:destination="@id/fragment_login_password"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="onboarding_type"
+                app:argType="com.sodosi.ui.onboarding.OnboardingType" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_certification_number"
+        android:name="com.sodosi.ui.onboarding.CertificationNumberFragment"
+        tools:layout="@layout/fragment_certification_number">
+
+        <action
+            android:id="@+id/action_fragment_certification_number_to_fragment_sign_password"
+            app:destination="@id/fragment_sign_password"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="onboarding_type"
+                app:argType="com.sodosi.ui.onboarding.OnboardingType" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_sign_password"
+        android:name="com.sodosi.ui.onboarding.SignPasswordFragment"
+        tools:layout="@layout/fragment_sign_password">
+
+        <action
+            android:id="@+id/action_fragment_sign_password_to_fragment_nickname"
+            app:destination="@id/fragment_nickname"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -25,12 +86,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_step2"
-        android:name="com.sodosi.ui.onboarding.Step2Fragment"
-        tools:layout="@layout/fragment_step2">
+        android:id="@+id/fragment_nickname"
+        android:name="com.sodosi.ui.onboarding.NicknameFragment"
+        tools:layout="@layout/fragment_nickname">
+
         <action
-            android:id="@+id/action_fragment_step2_to_fragment_step3"
-            app:destination="@id/fragment_step3"
+            android:id="@+id/action_fragment_nickname_to_fragment_welcome"
+            app:destination="@id/fragment_welcome"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -38,39 +100,24 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_step3"
-        android:name="com.sodosi.ui.onboarding.Step3Fragment"
-        tools:layout="@layout/fragment_step3">
+        android:id="@+id/fragment_welcome"
+        android:name="com.sodosi.ui.onboarding.WelcomeFragment"
+        tools:layout="@layout/fragment_welcome">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_login_password"
+        android:name="com.sodosi.ui.onboarding.LoginPasswordFragment"
+        tools:layout="@layout/fragment_login_password">
+
         <action
-            android:id="@+id/action_fragment_step3_to_fragment_step4"
-            app:destination="@id/fragment_step4"
+            android:id="@+id/action_fragment_login_password_to_fragment_certification_number"
+            app:destination="@id/fragment_certification_number"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragment_step4"
-        android:name="com.sodosi.ui.onboarding.Step4Fragment"
-        tools:layout="@layout/fragment_step4">
-        <action
-            android:id="@+id/action_fragment_step4_to_fragment_step5"
-            app:destination="@id/fragment_step5"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_step5"
-        android:name="com.sodosi.ui.onboarding.Step5Fragment"
-        tools:layout="@layout/fragment_step5" />
-
-    <fragment
-        android:id="@+id/fragment_step6"
-        android:name="com.sodosi.ui.onboarding.Step6Fragment"
-        tools:layout="@layout/fragment_step6" />
 
 </navigation>
