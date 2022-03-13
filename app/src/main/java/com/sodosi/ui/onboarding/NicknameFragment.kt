@@ -1,8 +1,11 @@
 package com.sodosi.ui.onboarding
 
-import android.content.Context
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.View
-import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
@@ -21,7 +24,7 @@ import com.sodosi.ui.common.base.BaseFragment
  */
 
 class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBinding>() {
-    private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
+    private lateinit var termsDialog: Dialog
 
     override fun getViewBinding() = FragmentNicknameBinding.inflate(layoutInflater)
 
@@ -37,9 +40,8 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     override fun observeData() {
         viewModel.isNicknamePossible.asLiveData().observe(viewLifecycleOwner) { isPossible ->
             if (isPossible == true) {
-                val nickname = binding.etNickname.text.toString()
-                findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome(nickname))
-            } else if (isPossible == false){
+                showTermsDialog()
+            } else {
                 binding.tvWarning.visibility = View.VISIBLE
                 binding.inputBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
             }
@@ -55,8 +57,6 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     }
 
     private fun initView() {
-        inputMethodManager.showSoftInput(binding.etNickname, 0)
-
         binding.btnFinish.setStateDisable()
         binding.etNickname.addTextChangedListener {
             if ("$it".length == 0) {
@@ -74,6 +74,28 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     private fun setOnClickListener() {
         binding.btnFinish.setOnClickListener {
             viewModel.checkNickname(binding.etNickname.text.toString())
+        }
+    }
+
+    private fun showTermsDialog() {
+        termsDialog = Dialog(requireContext())
+        termsDialog.apply {
+            setContentView(R.layout.dialog_onboarding_terms)
+
+            findViewById<TextView>(R.id.btnFinish).setOnClickListener {
+                termsDialog.dismiss()
+
+                val nickname = binding.etNickname.text.toString()
+                findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome(nickname))
+            }
+
+            window?.apply {
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setGravity(Gravity.BOTTOM)
+                attributes.windowAnimations = R.style.BottomDialogAnimation
+            }
+
+            show()
         }
     }
 }

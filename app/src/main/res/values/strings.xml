@@ -9,7 +9,7 @@
     <string name="onboarding_start">시작하기</string>
     <string name="onboarding_login">이미 소도시 회원이에요!</string>
     <string name="onboarding_next">다음</string>
-    <string name="onboarding_finish">완료</string>
+    <string name="onboarding_finish">소도시 입주 완료</string>
 
     <string name="onboarding_first_title">공부하기 좋은 카페 어디지?</string>
     <string name="onboarding_first_message">어쩌구 저쩌구 어쩌구 저쩌구 어쩌구 저쩌구\n어쩌구 저쩌구 어쩌구 저쩌구 어쩌구</string>
@@ -35,6 +35,8 @@
     <string name="onboarding_input_nickname">시민님의 닉네임을 알려주세요!</string>
     <string name="onboarding_nickname_hint">시민님의 멋진 이름</string>
     <string name="onboarding_nickname_warning">이미 있는 별명이에요!</string>
+
+    <string name="onboarding_terms_allow_all_terms">약관 모두 동의</string>
 
     <string name="onboarding_welcome">%s님의\n입주를 환영합니다!</string>
 

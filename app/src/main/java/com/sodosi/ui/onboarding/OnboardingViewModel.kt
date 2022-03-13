@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.sodosi.ui.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,8 +23,8 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
     private val _timer = MutableStateFlow(MINUTE_3)
     val timer: StateFlow<Int> = _timer
 
-    private val _isNicknamePossible = MutableStateFlow<Boolean?>(null)
-    val isNicknamePossible: StateFlow<Boolean?> = _isNicknamePossible
+    private val _isNicknamePossible = MutableSharedFlow<Boolean>()
+    val isNicknamePossible: SharedFlow<Boolean> = _isNicknamePossible
 
     private val _isLoginSuccess = MutableStateFlow<Boolean?>(null)
     val isLoginSuccess: StateFlow<Boolean?> = _isLoginSuccess
@@ -42,7 +44,9 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun checkNickname(nickname: String) {
-        _isNicknamePossible.value = true
+        viewModelScope.launch {
+            _isNicknamePossible.emit(true)
+        }
     }
 
     fun login() {
