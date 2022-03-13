@@ -4,9 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -66,7 +67,7 @@ class CertificationNumberFragment :
     }
 
     override fun onAuthFail() {
-
+        setCertificationWarning(resources.getString(R.string.onboarding_sms_code_warning))
     }
 
     private fun setOnClickListener() {
@@ -76,11 +77,7 @@ class CertificationNumberFragment :
                     "${binding.etCode1.text}${binding.etCode2.text}${binding.etCode3.text}${binding.etCode4.text}${binding.etCode5.text}${binding.etCode6.text}"
                 authManager.signInWithPhoneAuthCredential(smsCode, this)
             } else {
-                Toast.makeText(
-                    context,
-                    "인증번호가 발송된지 3분이 지났습니다. 인증번호 재전송 버튼을 눌러주세요",
-                    Toast.LENGTH_SHORT
-                ).show()
+                setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
             }
         }
 
@@ -155,5 +152,18 @@ class CertificationNumberFragment :
                 binding.btnNext.setStateDisable()
             }
         }
+    }
+
+    private fun setCertificationWarning(message: String) {
+        binding.warning.visibility = View.VISIBLE
+        binding.tvExpiration.visibility = View.GONE
+
+        binding.tvWarning.text = message
+        binding.etCode1.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+        binding.etCode2.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+        binding.etCode3.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+        binding.etCode4.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+        binding.etCode5.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+        binding.etCode6.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
     }
 }
