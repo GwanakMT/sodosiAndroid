@@ -57,7 +57,11 @@ class CertificationNumberFragment :
     override fun onAuthSuccess() {
         val onboardingType = arguments?.get("onboarding_type")
         if (onboardingType == OnboardingType.SIGNUP) {
-            findNavController().navigate(CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(OnboardingType.SIGNUP))
+            findNavController().navigate(
+                CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(
+                    OnboardingType.SIGNUP
+                )
+            )
         } else {
             val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)
@@ -155,7 +159,7 @@ class CertificationNumberFragment :
     }
 
     private fun setCertificationWarning(message: String) {
-        binding.warning.visibility = View.VISIBLE
+        binding.tvWarning.visibility = View.VISIBLE
         binding.tvExpiration.visibility = View.GONE
 
         binding.tvWarning.text = message

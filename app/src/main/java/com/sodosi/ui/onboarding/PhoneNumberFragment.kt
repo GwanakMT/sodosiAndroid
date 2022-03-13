@@ -62,7 +62,7 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
                     findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(OnboardingType.LOGIN))
                 }
             } else {
-                binding.warning.visibility = View.VISIBLE
+                binding.tvWarning.visibility = View.VISIBLE
                 binding.tvPhoneNumberGuide.visibility = View.GONE
                 binding.phoneNumberBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
             }

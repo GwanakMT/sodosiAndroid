@@ -1,10 +1,13 @@
 package com.sodosi.ui.onboarding
 
 import android.content.Context
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentNicknameBinding
@@ -32,7 +35,14 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     }
 
     override fun observeData() {
-
+        viewModel.isNicknamePossible.asLiveData().observe(viewLifecycleOwner) { isPossible ->
+            if (isPossible == true) {
+                findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome())
+            } else if (isPossible == false){
+                binding.tvWarning.visibility = View.VISIBLE
+                binding.inputBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+            }
+        }
     }
 
     private fun initAppbar() {
@@ -62,7 +72,7 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
 
     private fun setOnClickListener() {
         binding.btnFinish.setOnClickListener {
-            findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome())
+            viewModel.checkNickname(binding.etNickname.text.toString())
         }
     }
 }
