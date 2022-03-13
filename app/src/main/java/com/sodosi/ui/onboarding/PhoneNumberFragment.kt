@@ -1,7 +1,9 @@
 package com.sodosi.ui.onboarding
 
 import android.content.Context
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -10,6 +12,7 @@ import com.sodosi.R
 import com.sodosi.databinding.FragmentPhoneNumberBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.BaseFragment
+import java.util.regex.Pattern
 
 /**
  *  PhoneNumberFragment.kt
@@ -49,15 +52,25 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
-            val phoneNumber = "+82${binding.etPhoneNumber.text.toString().toInt()}"
-            FirebaseAuthManager.phoneNumber = phoneNumber
+            val phoneNumber = binding.etPhoneNumber.text.toString()
+            if (checkPhoneRegex(phoneNumber)) {
+                FirebaseAuthManager.phoneNumber = "+82${phoneNumber.toInt()}"
 
-            if (arguments?.get("onboarding_type") == OnboardingType.SIGNUP) {
-                findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(OnboardingType.SIGNUP))
+                if (arguments?.get("onboarding_type") == OnboardingType.SIGNUP) {
+                    findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(OnboardingType.SIGNUP))
+                } else {
+                    findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(OnboardingType.LOGIN))
+                }
             } else {
-                findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(OnboardingType.LOGIN))
+                binding.warning.visibility = View.VISIBLE
+                binding.tvPhoneNumberGuide.visibility = View.GONE
+                binding.phoneNumberBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
             }
         }
+    }
+
+    private fun checkPhoneRegex(phoneNumber: String): Boolean {
+        return Pattern.matches("^01(?:0|1|[6-9])[0-9]{8}", phoneNumber)
     }
 
     private fun initView() {
