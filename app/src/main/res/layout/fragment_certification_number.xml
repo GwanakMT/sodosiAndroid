@@ -137,13 +137,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:drawableLeft="@drawable/ic_warning_circle"
         android:drawablePadding="4dp"
         android:gravity="center"
         android:textColor="@color/pink"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/etCode1"
-        app:layout_constraintTop_toBottomOf="@id/etCode1" />
+        app:layout_constraintTop_toBottomOf="@id/etCode1"
+        app:drawableLeftCompat="@drawable/ic_warning_circle" />
 
     <TextView
         android:id="@+id/tvTimer"

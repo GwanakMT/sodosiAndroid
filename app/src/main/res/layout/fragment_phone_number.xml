@@ -83,14 +83,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_warning_circle"
         android:drawablePadding="4dp"
         android:gravity="center"
         android:text="@string/onboarding_phone_warning"
         android:textColor="@color/pink"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/phoneNumberBackground"
-        app:layout_constraintTop_toBottomOf="@id/phoneNumberBackground" />
+        app:layout_constraintTop_toBottomOf="@id/phoneNumberBackground"
+        app:drawableLeftCompat="@drawable/ic_warning_circle" />
 
     <com.sodosi.ui.common.customview.SodosiButton
         android:id="@+id/btnNext"

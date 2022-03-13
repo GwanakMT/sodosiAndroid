@@ -24,6 +24,9 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
     private val _isNicknamePossible = MutableStateFlow<Boolean?>(null)
     val isNicknamePossible: StateFlow<Boolean?> = _isNicknamePossible
 
+    private val _isLoginSuccess = MutableStateFlow<Boolean?>(null)
+    val isLoginSuccess: StateFlow<Boolean?> = _isLoginSuccess
+
     fun startTimer() {
         viewModelScope.launch {
             while (_timer.value > 0) {
@@ -40,6 +43,10 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
 
     fun checkNickname(nickname: String) {
         _isNicknamePossible.value = true
+    }
+
+    fun login() {
+        _isLoginSuccess.value = true
     }
 
     companion object {
