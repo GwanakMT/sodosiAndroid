@@ -8,6 +8,7 @@
         android:id="@+id/ivWelcome"
         android:layout_width="42dp"
         android:layout_height="70dp"
+        android:src="@drawable/onboarding_welcome"
         app:layout_constraintBottom_toTopOf="@id/tvWelcome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

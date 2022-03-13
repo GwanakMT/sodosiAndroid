@@ -1,7 +1,6 @@
 package com.sodosi.ui.onboarding
 
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityOnboardingBinding
@@ -26,5 +25,12 @@ class OnboardingActivity : BaseActivity<OnboardingViewModel, ActivityOnboardingB
 
     override fun observeData() {
 
+    }
+
+    override fun onBackPressed() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host)
+        if(navHostFragment?.childFragmentManager?.fragments?.get(0) !is WelcomeFragment) {
+            super.onBackPressed()
+        }
     }
 }

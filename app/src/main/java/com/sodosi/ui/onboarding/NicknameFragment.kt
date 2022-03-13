@@ -37,7 +37,8 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     override fun observeData() {
         viewModel.isNicknamePossible.asLiveData().observe(viewLifecycleOwner) { isPossible ->
             if (isPossible == true) {
-                findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome())
+                val nickname = binding.etNickname.text.toString()
+                findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome(nickname))
             } else if (isPossible == false){
                 binding.tvWarning.visibility = View.VISIBLE
                 binding.inputBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)

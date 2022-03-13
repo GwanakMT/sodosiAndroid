@@ -2,6 +2,7 @@ package com.sodosi.ui.onboarding
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import com.sodosi.R
 import com.sodosi.databinding.FragmentWelcomeBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.main.MainActivity
@@ -23,6 +24,9 @@ class WelcomeFragment : BaseFragment<OnboardingViewModel, FragmentWelcomeBinding
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews(): Unit = with(binding) {
+        val nickname = arguments?.getString("nickname") ?: return
+        binding.tvWelcome.text = getString(R.string.onboarding_welcome, nickname)
+
         CoroutineScope(Dispatchers.Main).launch {
             delay(WELCOME_SCREEN_DELAY)
 
