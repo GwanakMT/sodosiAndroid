@@ -1,4 +1,4 @@
-package com.sodosi.ui.onboarding
+package com.sodosi.ui.onboarding.nickname
 
 import android.app.Dialog
 import android.graphics.Color
@@ -8,13 +8,17 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.TextViewCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.R
 import com.sodosi.databinding.FragmentNicknameBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.customview.SodosiButton
+import com.sodosi.ui.onboarding.OnboardingViewModel
 
 /**
  *  NicknameFragment.kt
@@ -35,15 +39,23 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
         initView()
 
         setOnClickListener()
+
+        showTermsDialog()
     }
 
     override fun observeData() {
         viewModel.isNicknamePossible.asLiveData().observe(viewLifecycleOwner) { isPossible ->
             if (isPossible == true) {
-                showTermsDialog()
+                val nickname = binding.etNickname.text.toString()
+                findNavController().navigate(
+                    NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome(
+                        nickname
+                    )
+                )
             } else {
                 binding.tvWarning.visibility = View.VISIBLE
-                binding.inputBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+                binding.inputBackground.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
             }
         }
     }
@@ -82,11 +94,29 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
         termsDialog.apply {
             setContentView(R.layout.dialog_onboarding_terms)
 
-            findViewById<TextView>(R.id.btnFinish).setOnClickListener {
-                termsDialog.dismiss()
+            val btnAllow = findViewById<SodosiButton>(R.id.btnAllow)
 
-                val nickname = binding.etNickname.text.toString()
-                findNavController().navigate(NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome(nickname))
+            btnAllow.setStateDisable()
+            btnAllow.setOnClickListener {
+                termsDialog.dismiss()
+            }
+
+            val rvTerms = findViewById<RecyclerView>(R.id.rvTerms)
+            rvTerms.apply {
+                adapter = TermsAdapter().apply {
+                    submitList(viewModel.getTerms())
+                    onItemClick = {
+
+                    }
+                }
+            }
+
+            val tvAllowAllTerms = findViewById<TextView>(R.id.tvAllowAllTerms)
+            tvAllowAllTerms.setOnClickListener {
+                val adapter = rvTerms.adapter as TermsAdapter
+                adapter.submitList(adapter.currentList.map {
+                    it.copy(isAgree = true)
+                })
             }
 
             window?.apply {
@@ -94,6 +124,9 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
                 setGravity(Gravity.BOTTOM)
                 attributes.windowAnimations = R.style.BottomDialogAnimation
             }
+
+            setCancelable(false)
+            setCanceledOnTouchOutside(false)
 
             show()
         }

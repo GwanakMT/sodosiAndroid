@@ -1,4 +1,4 @@
-package com.sodosi.ui.onboarding
+package com.sodosi.ui.onboarding.password
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import com.sodosi.R
 import com.sodosi.databinding.FragmentLoginPasswordBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.main.MainActivity
+import com.sodosi.ui.onboarding.OnboardingViewModel
 
 /**
  *  SignPasswordFragment.kt

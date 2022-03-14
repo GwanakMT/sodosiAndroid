@@ -4,6 +4,7 @@ import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityOnboardingBinding
+import com.sodosi.ui.onboarding.welcome.WelcomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

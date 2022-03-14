@@ -1,4 +1,4 @@
-package com.sodosi.ui.onboarding
+package com.sodosi.ui.onboarding.welcome
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
@@ -6,6 +6,7 @@ import com.sodosi.R
 import com.sodosi.databinding.FragmentWelcomeBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.main.MainActivity
+import com.sodosi.ui.onboarding.OnboardingViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

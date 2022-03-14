@@ -1,10 +1,11 @@
-package com.sodosi.ui.onboarding
+package com.sodosi.ui.onboarding.password
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentSignPasswordBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.onboarding.OnboardingViewModel
 
 /**
  *  SignPasswordFragment.kt

@@ -2,11 +2,9 @@
     android:viewportWidth="29" android:width="28dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <clip-path android:pathData="M0.7695,8C0.7695,3.5817 4.3513,0 8.7695,0H20.7695C25.1878,0 28.7695,3.5817 28.7695,8V20C28.7695,24.4183 25.1878,28 20.7695,28H8.7695C4.3513,28 0.7695,24.4183 0.7695,20V8Z"/>
-        <path android:fillColor="#ffffff"
-            android:pathData="M14.7695,14m-13.4167,0a13.4167,13.4167 0,1 1,26.8334 0a13.4167,13.4167 0,1 1,-26.8334 0"
-            android:strokeColor="#D1D1D6" android:strokeWidth="1.16667"/>
+        <path android:fillColor="#01DE00" android:pathData="M14.7695,14m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0"/>
         <path android:fillColor="#00000000"
             android:pathData="M8.353,14.5833L12.4364,18.6667L21.1864,9.9167"
-            android:strokeColor="#D1D1D6" android:strokeWidth="2.33333"/>
+            android:strokeColor="#ffffff" android:strokeWidth="2.33333"/>
     </group>
 </vector>

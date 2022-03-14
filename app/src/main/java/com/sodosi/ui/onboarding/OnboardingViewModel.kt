@@ -1,6 +1,7 @@
 package com.sodosi.ui.onboarding
 
 import androidx.lifecycle.viewModelScope
+import com.sodosi.domain.entity.Terms
 import com.sodosi.ui.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -41,6 +42,13 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
     fun resetTimer() {
         _timer.value = MINUTE_3
         startTimer()
+    }
+
+    fun getTerms(): List<Terms> {
+        return listOf(
+            Terms(1, "[필수] 서비스 이용약관 동의", "", false),
+            Terms(2, "[필수] 개인정보 처리방침 동의", "", false)
+        )
     }
 
     fun checkNickname(nickname: String) {

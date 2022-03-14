@@ -1,4 +1,4 @@
-package com.sodosi.ui.onboarding
+package com.sodosi.ui.onboarding.certification
 
 import android.app.Activity
 import android.widget.Toast

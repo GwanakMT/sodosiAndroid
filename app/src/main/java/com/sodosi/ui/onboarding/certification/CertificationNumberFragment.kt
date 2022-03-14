@@ -1,4 +1,4 @@
-package com.sodosi.ui.onboarding
+package com.sodosi.ui.onboarding.certification
 
 import android.app.Activity
 import android.content.Context
@@ -16,6 +16,8 @@ import com.sodosi.R
 import com.sodosi.databinding.FragmentCertificationNumberBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.main.MainActivity
+import com.sodosi.ui.onboarding.OnboardingType
+import com.sodosi.ui.onboarding.OnboardingViewModel
 
 /**
  *  CertificationNumberFragment.kt

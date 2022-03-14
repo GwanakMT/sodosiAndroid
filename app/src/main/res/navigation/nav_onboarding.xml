@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment_start"
-        android:name="com.sodosi.ui.onboarding.StartFragment"
+        android:name="com.sodosi.ui.onboarding.start.StartFragment"
         tools:layout="@layout/fragment_start">
 
         <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/fragment_phone_number"
-        android:name="com.sodosi.ui.onboarding.PhoneNumberFragment"
+        android:name="com.sodosi.ui.onboarding.phonenumber.PhoneNumberFragment"
         tools:layout="@layout/fragment_phone_number">
 
         <action
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/fragment_certification_number"
-        android:name="com.sodosi.ui.onboarding.CertificationNumberFragment"
+        android:name="com.sodosi.ui.onboarding.certification.CertificationNumberFragment"
         tools:layout="@layout/fragment_certification_number">
 
         <action
@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/fragment_sign_password"
-        android:name="com.sodosi.ui.onboarding.SignPasswordFragment"
+        android:name="com.sodosi.ui.onboarding.password.SignPasswordFragment"
         tools:layout="@layout/fragment_sign_password">
 
         <action
@@ -87,7 +87,7 @@
 
     <fragment
         android:id="@+id/fragment_nickname"
-        android:name="com.sodosi.ui.onboarding.NicknameFragment"
+        android:name="com.sodosi.ui.onboarding.nickname.NicknameFragment"
         tools:layout="@layout/fragment_nickname">
 
         <action
@@ -105,14 +105,14 @@
 
     <fragment
         android:id="@+id/fragment_welcome"
-        android:name="com.sodosi.ui.onboarding.WelcomeFragment"
+        android:name="com.sodosi.ui.onboarding.welcome.WelcomeFragment"
         tools:layout="@layout/fragment_welcome">
 
     </fragment>
 
     <fragment
         android:id="@+id/fragment_login_password"
-        android:name="com.sodosi.ui.onboarding.LoginPasswordFragment"
+        android:name="com.sodosi.ui.onboarding.password.LoginPasswordFragment"
         tools:layout="@layout/fragment_login_password">
 
         <action
