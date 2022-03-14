@@ -29,13 +29,6 @@ class SodosiPasswordView @JvmOverloads constructor(
 
         binding.etPassword.addTextChangedListener {
             textChangedListener(it)
-            if ("$it".length == 0) {
-                binding.etPassword.typeface =
-                    ResourcesCompat.getFont(context, R.font.pretendard_regular)
-            } else {
-                binding.etPassword.typeface =
-                    ResourcesCompat.getFont(context, R.font.pretendard_semibold)
-            }
         }
     }
 

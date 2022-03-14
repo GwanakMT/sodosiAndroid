@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -72,6 +71,7 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
                 binding.tvWarning.visibility = View.VISIBLE
                 binding.tvPhoneNumberGuide.visibility = View.GONE
                 binding.phoneNumberBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+                binding.phoneNumberGuideBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
             }
         }
     }
@@ -85,14 +85,6 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
 
         binding.btnNext.setStateDisable()
         binding.etPhoneNumber.addTextChangedListener {
-            if ("$it".length == 0) {
-                binding.etPhoneNumber.typeface =
-                    ResourcesCompat.getFont(requireContext(), R.font.pretendard_regular)
-            } else {
-                binding.etPhoneNumber.typeface =
-                    ResourcesCompat.getFont(requireContext(), R.font.pretendard_semibold)
-            }
-
             if ("$it".length == 11) {
                 binding.btnNext.setStateNormal()
             } else {

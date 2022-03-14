@@ -160,4 +160,10 @@
         <item name="drawableLeftCompat">@drawable/ic_warning_circle</item>
         <item name="android:drawablePadding">4dp</item>
     </style>
+
+    <style name="EditText" parent="Typography.HeadLines.Callout.Bold">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColorHint">@color/gray3</item>
+        <item name="android:layout_marginHorizontal" tools:ignore="NewApi">16dp</item>
+    </style>
 </resources>

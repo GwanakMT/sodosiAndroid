@@ -71,12 +71,8 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
         binding.etNickname.addTextChangedListener {
             if ("$it".length == 0) {
                 binding.btnFinish.setStateDisable()
-                binding.etNickname.typeface =
-                    ResourcesCompat.getFont(requireContext(), R.font.pretendard_regular)
             } else {
                 binding.btnFinish.setStateNormal()
-                binding.etNickname.typeface =
-                    ResourcesCompat.getFont(requireContext(), R.font.pretendard_semibold)
             }
         }
     }

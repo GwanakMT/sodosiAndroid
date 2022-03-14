@@ -56,14 +56,12 @@
 
     <EditText
         android:id="@+id/etPhoneNumber"
-        style="@style/Typography.HeadLines.Callout"
+        style="@style/EditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
         android:hint="@string/onboarding_phone_number_hint"
         android:inputType="number"
         android:maxLength="11"
-        android:textColorHint="@color/gray3"
         app:layout_constraintBottom_toBottomOf="@id/phoneNumberBackground"
         app:layout_constraintEnd_toEndOf="@id/phoneNumberBackground"
         app:layout_constraintStart_toStartOf="@id/phoneNumberBackground"
