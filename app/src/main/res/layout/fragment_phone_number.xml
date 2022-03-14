@@ -15,12 +15,10 @@
 
     <TextView
         android:id="@+id/tvPhoneNumber"
+        style="@style/OnboardingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/onboarding_title_start_margin"
-        android:layout_marginTop="@dimen/onboarding_title_top_margin"
         android:text="@string/onboarding_input_phone_number"
-        android:theme="@style/Typography.Titles.Title2.Bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar" />
 

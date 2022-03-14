@@ -147,9 +147,13 @@
     <style name="Typography.Caption.Bold">
         <item name="android:fontFamily">@font/pretendard_semibold</item>
     </style>
-    
-    <style name="WarningText">
-        <item name="android:textAppearance">@style/Typography.Caption</item>
+
+    <style name="OnboardingTitle" parent="Typography.Titles.Title2.Bold">
+        <item name="android:layout_marginStart">@dimen/onboarding_title_start_margin</item>
+        <item name="android:layout_marginTop">@dimen/onboarding_title_top_margin</item>
+    </style>
+
+    <style name="WarningText" parent="Typography.Caption">
         <item name="android:textColor">@color/pink</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginTop">@dimen/onboarding_warning_top_margin</item>
