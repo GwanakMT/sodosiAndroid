@@ -2,11 +2,14 @@ package com.sodosi.ui.onboarding.nickname
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sodosi.R
 import com.sodosi.databinding.ItemOnboardingTermBinding
 import com.sodosi.domain.entity.Terms
+import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  *  TermsAdapter.kt
@@ -16,6 +19,7 @@ import com.sodosi.domain.entity.Terms
  */
 
 class TermsAdapter : ListAdapter<Terms, TermsAdapter.ViewHolder>(DiffCallback()) {
+    var isAllowAll = MutableStateFlow(false)
     var onItemClick: ((selectedItem: Terms) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,11 +48,22 @@ class TermsAdapter : ListAdapter<Terms, TermsAdapter.ViewHolder>(DiffCallback())
 
         fun bind(item: Terms, position: Int) {
             binding.item = item
-
+            binding.tvTerms.switchCheckDrawable(item.isAgree)
             binding.tvTerms.setOnClickListener {
-
+                currentList[position].isAgree = !currentList[position].isAgree
+                binding.tvTerms.switchCheckDrawable(currentList[position].isAgree)
             }
         }
+    }
+
+    private fun TextView.switchCheckDrawable(isAgree: Boolean) {
+        if (isAgree) {
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_selected, 0, 0, 0)
+        } else {
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_unselected, 0, 0, 0)
+        }
+
+        isAllowAll.value = currentList.all{it.isAgree}
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<Terms>() {

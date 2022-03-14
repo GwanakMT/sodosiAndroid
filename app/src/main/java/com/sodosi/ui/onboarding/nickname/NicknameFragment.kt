@@ -1,23 +1,21 @@
 package com.sodosi.ui.onboarding.nickname
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.View
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.TextViewCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.R
+import com.sodosi.databinding.DialogOnboardingTermsBinding
 import com.sodosi.databinding.FragmentNicknameBinding
 import com.sodosi.ui.common.base.BaseFragment
-import com.sodosi.ui.common.customview.SodosiButton
 import com.sodosi.ui.onboarding.OnboardingViewModel
 
 /**
@@ -92,29 +90,36 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     private fun showTermsDialog() {
         termsDialog = Dialog(requireContext())
         termsDialog.apply {
-            setContentView(R.layout.dialog_onboarding_terms)
+            val binding = DialogOnboardingTermsBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-            val btnAllow = findViewById<SodosiButton>(R.id.btnAllow)
-
-            btnAllow.setStateDisable()
-            btnAllow.setOnClickListener {
+            binding.btnAllow.setStateDisable()
+            binding.btnAllow.setOnClickListener {
                 termsDialog.dismiss()
             }
 
-            val rvTerms = findViewById<RecyclerView>(R.id.rvTerms)
-            rvTerms.apply {
+            binding.rvTerms.apply {
                 adapter = TermsAdapter().apply {
                     submitList(viewModel.getTerms())
                     onItemClick = {
+                        val intent = Intent(context, TermsDetailActivity::class.java)
+                        startActivity(intent)
+                    }
 
+                    isAllowAll.asLiveData().observe(viewLifecycleOwner) {
+                        if (it) {
+                            binding.btnAllow.setStateNormal()
+                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checkbox_selected, 0, 0, 0)
+                        } else {
+                            binding.btnAllow.setStateDisable()
+                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checkbox_unselected, 0, 0, 0)
+                        }
                     }
                 }
             }
 
-            val tvAllowAllTerms = findViewById<TextView>(R.id.tvAllowAllTerms)
-            tvAllowAllTerms.setOnClickListener {
-                val adapter = rvTerms.adapter as TermsAdapter
-                adapter.submitList(adapter.currentList.map {
+            binding.tvAllowAllTerms.setOnClickListener {
+                (binding.rvTerms.adapter as TermsAdapter).submitList((binding.rvTerms.adapter as TermsAdapter).currentList.map {
                     it.copy(isAgree = true)
                 })
             }

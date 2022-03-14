@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SodosiAndroid">
         <activity
+            android:name=".ui.onboarding.nickname.TermsDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.create.LoadingActivity"
             android:exported="true" />
         <activity
@@ -46,8 +49,7 @@
         <activity
             android:name=".ui.thread.ThreadActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize" />
-        <!-- receiver -->
+            android:windowSoftInputMode="adjustResize" /> <!-- receiver -->
         <receiver
             android:name=".receiver.SMSReceiver"
             android:enabled="true"

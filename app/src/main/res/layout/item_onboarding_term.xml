@@ -32,12 +32,22 @@
             android:drawablePadding="12dp"
             android:gravity="center_vertical"
             android:text="@{item.title}"
-            app:drawableEndCompat="@drawable/ic_arrow_chevron_right"
             app:drawableStartCompat="@drawable/ic_check_unselected"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="[필수] 서비스 이용약관 동의" />
+
+        <ImageView
+            android:id="@+id/ivTermsDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:onClick="@{()->onItemClick.invoke(item)}"
+            android:paddingHorizontal="12dp"
+            android:src="@drawable/ic_arrow_chevron_right"
+            app:layout_constraintBottom_toBottomOf="@id/tvTerms"
+            app:layout_constraintStart_toEndOf="@id/tvTerms"
+            app:layout_constraintTop_toTopOf="@id/tvTerms" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
