@@ -8,4 +8,18 @@
 
     <dimen name="main_viewpager_offset">4dp</dimen>
     <dimen name="main_viewpager_margin">8dp</dimen>
+
+    // onboarding
+    <dimen name="onboarding_title_top_margin">40dp</dimen>
+    <dimen name="onboarding_title_start_margin">24dp</dimen>
+
+    <dimen name="onboarding_inputbox_top_margin">24dp</dimen>
+    <dimen name="onboarding_inputbox_horizontal_margin">22dp</dimen>
+    <dimen name="onboarding_inputbox_between_margin">8dp</dimen>
+
+    <dimen name="onboarding_button_top_margin">20dp</dimen>
+    <dimen name="onboarding_button_bottom_margin">16dp</dimen>
+    <dimen name="onboarding_button_horizontal_margin">20dp</dimen>
+
+    <dimen name="onboarding_warning_top_margin">16dp</dimen>
 </resources>

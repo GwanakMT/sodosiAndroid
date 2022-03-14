@@ -23,7 +23,6 @@
 
     <string name="onboarding_input_sms_code">인증번호를 입력해주세요</string>
     <string name="onboarding_sms_code_hint">인증번호 6글자</string>
-    <string name="onboarding_sms_expiration">전송된 인증번호는 3분 후 만료됩니다.</string>
     <string name="onboarding_sms_code_resend"><u>재전송</u></string>
     <string name="onboarding_timer_warning">인증번호 입력시간을 초과하였습니다.</string>
     <string name="onboarding_sms_code_warning">인증번호가 일치하지 않습니다.</string>

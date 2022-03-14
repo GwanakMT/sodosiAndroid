@@ -147,4 +147,13 @@
     <style name="Typography.Caption.Bold">
         <item name="android:fontFamily">@font/pretendard_semibold</item>
     </style>
+    
+    <style name="WarningText">
+        <item name="android:textAppearance">@style/Typography.Caption</item>
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/onboarding_warning_top_margin</item>
+        <item name="drawableLeftCompat">@drawable/ic_warning_circle</item>
+        <item name="android:drawablePadding">4dp</item>
+    </style>
 </resources>

@@ -162,7 +162,6 @@ class CertificationNumberFragment :
 
     private fun setCertificationWarning(message: String) {
         binding.tvWarning.visibility = View.VISIBLE
-        binding.tvExpiration.visibility = View.GONE
 
         binding.tvWarning.text = message
         binding.etCode1.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
