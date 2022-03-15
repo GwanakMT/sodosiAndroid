@@ -116,7 +116,7 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
 
             binding.tvAllowAllTerms.setOnClickListener {
                 val isAllowAll = (binding.rvTerms.adapter as TermsAdapter).isAllowAll.value
-                (binding.rvTerms.adapter as TermsAdapter).submitList((binding.rvTerms.adapter as TermsAdapter).currentList.map {
+                (binding.rvTerms.adapter as TermsAdapter).submitList((binding.rvTerms.adapter as TermsAdapter).getItems().map {
                     it.copy(isAgree = !isAllowAll)
                 })
             }
