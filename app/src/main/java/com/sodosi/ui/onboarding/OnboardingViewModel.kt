@@ -30,7 +30,10 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
     private val _isLoginSuccess = MutableStateFlow<Boolean?>(null)
     val isLoginSuccess: StateFlow<Boolean?> = _isLoginSuccess
 
-    fun startTimer() {
+    private val _isSignSuccess = MutableStateFlow<Boolean?>(null)
+    val isSignSuccess: StateFlow<Boolean?> = _isSignSuccess
+
+    private fun startTimer() {
         viewModelScope.launch {
             while (_timer.value > 0) {
                 delay(1000)
@@ -59,6 +62,10 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
 
     fun login() {
         _isLoginSuccess.value = true
+    }
+
+    fun singIn() {
+        _isSignSuccess.value = true
     }
 
     companion object {

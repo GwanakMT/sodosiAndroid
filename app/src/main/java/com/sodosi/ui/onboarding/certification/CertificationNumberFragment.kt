@@ -46,7 +46,7 @@ class CertificationNumberFragment :
 
         setOnClickListener()
 
-        viewModel.startTimer()
+        viewModel.resetTimer()
     }
 
     override fun observeData() {

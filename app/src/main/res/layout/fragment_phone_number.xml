@@ -25,7 +25,7 @@
     <View
         android:id="@+id/phoneNumberGuideBackground"
         android:layout_width="65dp"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_marginStart="@dimen/onboarding_inputbox_horizontal_margin"
         android:layout_marginTop="@dimen/onboarding_inputbox_top_margin"
         android:background="@drawable/background_rounded_gray"
@@ -46,7 +46,7 @@
     <View
         android:id="@+id/phoneNumberBackground"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_marginStart="@dimen/onboarding_inputbox_between_margin"
         android:layout_marginEnd="@dimen/onboarding_inputbox_horizontal_margin"
         android:background="@drawable/background_rounded_gray"
