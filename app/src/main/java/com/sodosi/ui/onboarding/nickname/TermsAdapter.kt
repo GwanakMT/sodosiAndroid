@@ -58,9 +58,9 @@ class TermsAdapter : ListAdapter<Terms, TermsAdapter.ViewHolder>(DiffCallback())
 
     private fun TextView.switchCheckDrawable(isAgree: Boolean) {
         if (isAgree) {
-            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_selected, 0, 0, 0)
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_checked_24, 0, 0, 0)
         } else {
-            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_unselected, 0, 0, 0)
+            setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_unchecked_24, 0, 0, 0)
         }
 
         isAllowAll.value = currentList.all{it.isAgree}

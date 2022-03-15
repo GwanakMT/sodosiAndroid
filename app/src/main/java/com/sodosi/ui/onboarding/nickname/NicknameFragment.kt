@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -95,6 +94,7 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
             }
 
             binding.rvTerms.apply {
+                itemAnimator?.changeDuration = 0
                 adapter = TermsAdapter().apply {
                     submitList(viewModel.getTerms())
                     onItemClick = {
@@ -105,18 +105,19 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
                     isAllowAll.asLiveData().observe(viewLifecycleOwner) {
                         if (it) {
                             binding.btnAllow.setStateNormal()
-                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checkbox_selected, 0, 0, 0)
+                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_checked_28, 0, 0, 0)
                         } else {
                             binding.btnAllow.setStateDisable()
-                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_checkbox_unselected, 0, 0, 0)
+                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_unchecked_28, 0, 0, 0)
                         }
                     }
                 }
             }
 
             binding.tvAllowAllTerms.setOnClickListener {
+                val isAllowAll = (binding.rvTerms.adapter as TermsAdapter).isAllowAll.value
                 (binding.rvTerms.adapter as TermsAdapter).submitList((binding.rvTerms.adapter as TermsAdapter).currentList.map {
-                    it.copy(isAgree = true)
+                    it.copy(isAgree = !isAllowAll)
                 })
             }
 
