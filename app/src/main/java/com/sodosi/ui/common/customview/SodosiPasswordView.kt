@@ -41,6 +41,7 @@ class SodosiPasswordView @JvmOverloads constructor(
             } else {
                 binding.ivPassword.setImageResource(R.drawable.ic_edit_show)
                 binding.etPassword.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.etPassword.typeface = ResourcesCompat.getFont(context, R.font.pretendard_semibold)
             }
             isPasswordShow = !isPasswordShow
             binding.etPassword.setSelection(binding.etPassword.text.toString().length)
