@@ -1,15 +1,23 @@
 package com.sodosi.ui.onboarding.password
 
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
+import com.sodosi.databinding.DialogOnboardingTermsBinding
 import com.sodosi.databinding.FragmentSignPasswordBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.onboarding.OnboardingViewModel
+import com.sodosi.ui.onboarding.nickname.TermsAdapter
+import com.sodosi.ui.onboarding.nickname.TermsDetailActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
@@ -22,6 +30,7 @@ import kotlinx.coroutines.flow.combine
  */
 
 class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPasswordBinding>() {
+    private lateinit var termsDialog: Dialog
     private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     private val passwordChecker = MutableStateFlow(false)
@@ -50,15 +59,6 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
                 }
             }
         }
-
-        viewModel.isSignSuccess.asLiveData().observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess == true) {
-                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
-                findNavController().navigate(SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname())
-            } else if (isSuccess == false) {
-                // 회원가입 실패 시
-            }
-        }
     }
 
     private fun initAppbar() {
@@ -74,7 +74,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             val password = binding.etPassword.getText()
             val rePassword = binding.etRePassword.getText()
             if (password == rePassword) {
-                viewModel.singIn()
+                showTermsDialog()
             } else {
                 binding.etRePassword.setViewWarning()
             }
@@ -96,6 +96,61 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             textChangedListener = {
                 rePasswordChecker.value = "$it".length >= 8
             }
+        }
+    }
+
+    private fun showTermsDialog() {
+        termsDialog = Dialog(requireContext())
+        termsDialog.apply {
+            val binding = DialogOnboardingTermsBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+
+            binding.btnAllow.setStateDisable()
+            binding.btnAllow.setOnClickListener {
+                inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+                termsDialog.dismiss()
+
+                findNavController().navigate(SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname())
+            }
+
+            binding.rvTerms.apply {
+                itemAnimator?.changeDuration = 0
+                adapter = TermsAdapter().apply {
+                    submitList(viewModel.getTerms())
+                    onItemClick = {
+                        val intent = Intent(context, TermsDetailActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    isAllowAll.asLiveData().observe(viewLifecycleOwner) {
+                        if (it) {
+                            binding.btnAllow.setStateNormal()
+                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_checked_28, 0, 0, 0)
+                        } else {
+                            binding.btnAllow.setStateDisable()
+                            binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_unchecked_28, 0, 0, 0)
+                        }
+                    }
+                }
+            }
+
+            binding.tvAllowAllTerms.setOnClickListener {
+                val isAllowAll = (binding.rvTerms.adapter as TermsAdapter).isAllowAll.value
+                (binding.rvTerms.adapter as TermsAdapter).submitList((binding.rvTerms.adapter as TermsAdapter).getItems().map {
+                    it.copy(isAgree = !isAllowAll)
+                })
+            }
+
+            window?.apply {
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setGravity(Gravity.BOTTOM)
+                attributes.windowAnimations = R.style.BottomDialogAnimation
+            }
+
+            setCancelable(false)
+            setCanceledOnTouchOutside(false)
+
+            show()
         }
     }
 }
