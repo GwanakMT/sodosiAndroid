@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentNicknameBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingViewModel
 
 /**
@@ -34,11 +35,13 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
         viewModel.isNicknamePossible.asLiveData().observe(viewLifecycleOwner) { isPossible ->
             if (isPossible == true) {
                 val nickname = binding.etNickname.text.toString()
-                findNavController().navigate(
-                    NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome(
-                        nickname
+                navigate(R.id.fragment_nickname) {
+                    findNavController().navigate(
+                        NicknameFragmentDirections.actionFragmentNicknameToFragmentWelcome(
+                            nickname
+                        )
                     )
-                )
+                }
             } else {
                 binding.tvWarning.visibility = View.VISIBLE
                 binding.inputBackground.background =

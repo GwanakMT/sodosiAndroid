@@ -1,6 +1,8 @@
 package com.sodosi.ui.common.extensions
 
 import android.content.res.Resources
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 /**
  *  ViewExtension.kt
@@ -14,3 +16,9 @@ val Int.dp: Int
 
 val Float.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+
+fun Fragment.navigate(from: Int, navigate: ()->Unit) {
+    if (findNavController().currentDestination?.id == from) {
+        navigate.invoke()
+    }
+}

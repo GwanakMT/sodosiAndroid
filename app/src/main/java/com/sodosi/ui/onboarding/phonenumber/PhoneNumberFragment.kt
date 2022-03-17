@@ -11,6 +11,7 @@ import com.sodosi.R
 import com.sodosi.databinding.FragmentPhoneNumberBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingType
 import com.sodosi.ui.onboarding.OnboardingViewModel
 import com.sodosi.ui.onboarding.certification.FirebaseAuthManager
@@ -59,13 +60,17 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
                 FirebaseAuthManager.phoneNumber = "+82${phoneNumber.toInt()}"
 
                 if (arguments?.get("onboarding_type") == OnboardingType.SIGNUP) {
-                    findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(
-                        OnboardingType.SIGNUP
-                    ))
+                    navigate(R.id.fragment_phone_number) {
+                        findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(
+                            OnboardingType.SIGNUP
+                        ))
+                    }
                 } else {
-                    findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(
-                        OnboardingType.LOGIN
-                    ))
+                    navigate(R.id.fragment_phone_number) {
+                        findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(
+                            OnboardingType.LOGIN
+                        ))
+                    }
                 }
             } else {
                 binding.tvWarning.visibility = View.VISIBLE

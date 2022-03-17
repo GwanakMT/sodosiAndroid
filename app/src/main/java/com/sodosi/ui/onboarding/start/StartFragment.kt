@@ -7,6 +7,7 @@ import com.sodosi.R
 import com.sodosi.databinding.FragmentStartBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingType
 import com.sodosi.ui.onboarding.OnboardingViewModel
 
@@ -26,15 +27,19 @@ class StartFragment : BaseFragment<OnboardingViewModel, FragmentStartBinding>() 
         (activity as BaseActivity<*, *>).changeStatusBarColorBlack()
 
         binding.btnOnBoardingStart.setOnClickListener {
-            findNavController().navigate(StartFragmentDirections.actionFragmentStartToFragmentPhoneNumber(
-                OnboardingType.SIGNUP
-            ))
+            navigate(R.id.fragment_start) {
+                findNavController().navigate(StartFragmentDirections.actionFragmentStartToFragmentPhoneNumber(
+                    OnboardingType.SIGNUP
+                ))
+            }
         }
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(StartFragmentDirections.actionFragmentStartToFragmentPhoneNumber(
-                OnboardingType.LOGIN
-            ))
+            navigate(R.id.fragment_start) {
+                findNavController().navigate(StartFragmentDirections.actionFragmentStartToFragmentPhoneNumber(
+                    OnboardingType.LOGIN
+                ))
+            }
         }
 
         initOnboardingGif()

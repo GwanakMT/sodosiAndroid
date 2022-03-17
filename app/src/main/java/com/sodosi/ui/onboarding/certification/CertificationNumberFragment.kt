@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentCertificationNumberBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.main.MainActivity
 import com.sodosi.ui.onboarding.OnboardingType
 import com.sodosi.ui.onboarding.OnboardingViewModel
@@ -59,11 +60,9 @@ class CertificationNumberFragment :
     override fun onAuthSuccess() {
         val onboardingType = arguments?.get("onboarding_type")
         if (onboardingType == OnboardingType.SIGNUP) {
-            findNavController().navigate(
-                CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(
-                    OnboardingType.SIGNUP
-                )
-            )
+            navigate(R.id.fragment_certification_number) {
+                findNavController().navigate(CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(OnboardingType.SIGNUP))
+            }
         } else {
             val intent = Intent(context, MainActivity::class.java)
             startActivity(intent)

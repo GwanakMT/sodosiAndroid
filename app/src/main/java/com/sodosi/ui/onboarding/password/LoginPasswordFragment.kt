@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentLoginPasswordBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.main.MainActivity
 import com.sodosi.ui.onboarding.OnboardingViewModel
 
@@ -62,7 +63,9 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
         }
 
         binding.tvForgotPassword.setOnClickListener {
-            findNavController().navigate(LoginPasswordFragmentDirections.actionFragmentLoginPasswordToFragmentCertificationNumber())
+            navigate(R.id.fragment_login_password) {
+                findNavController().navigate(LoginPasswordFragmentDirections.actionFragmentLoginPasswordToFragmentCertificationNumber())
+            }
         }
     }
 

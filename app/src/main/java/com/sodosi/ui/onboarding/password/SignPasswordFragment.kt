@@ -15,6 +15,7 @@ import com.sodosi.R
 import com.sodosi.databinding.DialogOnboardingTermsBinding
 import com.sodosi.databinding.FragmentSignPasswordBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingViewModel
 import com.sodosi.ui.onboarding.nickname.TermsAdapter
 import com.sodosi.ui.onboarding.nickname.TermsDetailActivity
@@ -113,7 +114,9 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
                 inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
                 termsDialog.dismiss()
 
-                findNavController().navigate(SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname())
+                navigate(R.id.fragment_sign_password) {
+                    findNavController().navigate(SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname())
+                }
             }
 
             binding.rvTerms.apply {
