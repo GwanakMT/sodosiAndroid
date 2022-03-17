@@ -86,6 +86,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
 
         binding.etPassword.apply {
             setHint(getString(R.string.onboarding_password_hint))
+            setFocus()
             textChangedListener = {
                 passwordChecker.value = "$it".length >= 8
             }
@@ -97,6 +98,8 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
                 rePasswordChecker.value = "$it".length >= 8
             }
         }
+
+        inputMethodManager.showSoftInput(binding.etPassword, 0)
     }
 
     private fun showTermsDialog() {
