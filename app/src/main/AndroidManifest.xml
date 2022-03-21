@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SodosiAndroid">
         <activity
+            android:name=".ui.list.SodosiListActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.onboarding.nickname.TermsDetailActivity"
             android:exported="true" />
         <activity

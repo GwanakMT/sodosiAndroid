@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentHomeBinding
+import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
 
 /**
@@ -125,7 +126,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun setOnClickListener() {
-
+        binding.ivSodosiList.setOnClickListener {
+            val intent = Intent(context, SodosiListActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {
