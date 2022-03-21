@@ -36,7 +36,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.bottomTab.setOnItemClickListener {
             when (it.id) {
                 R.id.tabHome -> changeFragment(homeFragment)
-                R.id.tabCreateMap -> {
+                R.id.tabCreate -> {
                     val intent = Intent(this@MainActivity, CreateActivity::class.java)
                     startActivity(intent)
                 }
