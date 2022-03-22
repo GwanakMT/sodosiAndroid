@@ -1,16 +1,13 @@
 package com.sodosi.ui.home
 
 import android.content.Intent
-import android.graphics.Rect
 import android.os.Handler
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.sodosi.R
-import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.databinding.FragmentHomeBinding
+import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
 
@@ -48,13 +45,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun observeData() {
         viewModel.mapPreviewList.asLiveData().observe(viewLifecycleOwner) {
-            (binding.mapViewPager.adapter as MapViewPagerAdapter).submitList(it)
+            (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(it)
         }
     }
 
     private fun initViewPager() {
-        binding.mapViewPager.apply {
-            adapter = MapViewPagerAdapter()
+        binding.sodosiViewPager.apply {
+            adapter = SodosiViewPagerAdapter()
                 .apply {
                     onItemClick = {
                         val intent = Intent(context, MapActivity::class.java)
@@ -66,33 +63,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             offscreenPageLimit = 1
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
-            val cardOffset = resources.getDimension(R.dimen.main_viewpager_offset)
-            val nextItemVisiblePx = resources.getDimension(R.dimen.main_viewpager_margin)
-            val pageTranslationX = (cardOffset * VIEWPAGER_PRE_VIEW) + nextItemVisiblePx
-
-            addItemDecoration(object : RecyclerView.ItemDecoration() {
-                override fun getItemOffsets(
-                    outRect: Rect,
-                    view: View,
-                    parent: RecyclerView,
-                    state: RecyclerView.State,
-                ) {
-                    outRect.right = cardOffset.toInt() + nextItemVisiblePx.toInt()
-                    outRect.left = cardOffset.toInt() + nextItemVisiblePx.toInt()
-                }
-            })
-
-            setPageTransformer { page, position ->
-                page.translationX = -pageTranslationX * (position)
-            }
-
             runnable = Runnable {
                 currentItem += 1
             }
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position % ((this@apply).adapter as MapViewPagerAdapter).itemCount)
+                    super.onPageSelected(position % ((this@apply).adapter as SodosiViewPagerAdapter).itemCount)
 
                     runnable?.let {
                         bannerHandler.removeCallbacks(it)
