@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.databinding.FragmentHomeBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.extensions.setCurrentItemWithDuration
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
 
@@ -64,7 +65,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
             runnable = Runnable {
-                currentItem += 1
+                setCurrentItemWithDuration(currentItem+1, 500)
             }
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
