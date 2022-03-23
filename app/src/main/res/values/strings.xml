@@ -40,6 +40,11 @@
     <string name="onboarding_terms_allow_all_terms">약관 모두 동의</string>
 
     <string name="onboarding_welcome">%s님의\n입주를 환영합니다!</string>
+    
+    // Home
+    <string name="hot_sodosi_list_title">지금 HOT한 소도시</string>
+    <string name="new_sodosi_list_title">최근 건설된 소도시</string>
+    <string name="more_sodosi">더 보기</string>
 
     // Thread
     <string name="thread_title">스레드</string>
