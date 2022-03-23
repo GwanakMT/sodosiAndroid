@@ -11,6 +11,7 @@ import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.ui.create.CreateActivity
 import com.sodosi.ui.home.HomeFragment
 import com.sodosi.ui.mypage.MypageFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  MainActivity.kt
@@ -19,6 +20,7 @@ import com.sodosi.ui.mypage.MypageFragment
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private val homeFragment by lazy { HomeFragment() }
     private val mypageFragment by lazy { MypageFragment() }

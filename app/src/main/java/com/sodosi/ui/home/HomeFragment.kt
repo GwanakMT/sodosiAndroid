@@ -2,8 +2,9 @@ package com.sodosi.ui.home
 
 import android.content.Intent
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.databinding.FragmentHomeBinding
@@ -11,6 +12,9 @@ import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.extensions.setCurrentItemWithDuration
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  *  HomeFragment.kt
@@ -19,6 +23,7 @@ import com.sodosi.ui.map.MapActivity
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val bannerHandler: Handler by lazy { Handler() }
     private var runnable: Runnable? = null
@@ -40,13 +45,35 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun initViews() = with(binding) {
         setOnClickListener()
         initViewPager()
+        initSodosiRecyclerView()
 
-        viewModel.getMapPreviewList()
+        viewModel.getMainSodosiList()
+        viewModel.getHotSodosiList()
+        viewModel.getNewSodosiList()
     }
 
     override fun observeData() {
-        viewModel.mapPreviewList.asLiveData().observe(viewLifecycleOwner) {
-            (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(it)
+        lifecycleScope.launchWhenStarted {
+            launch {
+                viewModel.mainSodosiList.collect { mainSodosiList ->
+                    (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(mainSodosiList)
+                    Log.d("TAG", "OBSERVE $mainSodosiList")
+                }
+            }
+
+            launch {
+                viewModel.hotSodosiList.collect { hotSodosiList ->
+                    (binding.rvHotSodosi.adapter as SodosiAdapter).submitList(hotSodosiList)
+                    Log.d("TAG", "OBSERVE $hotSodosiList")
+                }
+            }
+
+            launch {
+                viewModel.newSodosiList.collect { newSodosiList ->
+                    (binding.rvNewSodosi.adapter as SodosiAdapter).submitList(newSodosiList)
+                    Log.d("TAG", "OBSERVE $newSodosiList")
+                }
+            }
         }
     }
 
@@ -65,7 +92,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
             runnable = Runnable {
-                setCurrentItemWithDuration(currentItem+1, 500)
+                setCurrentItemWithDuration(currentItem + 1, 500)
             }
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -100,6 +127,24 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     }
                 }
             })
+        }
+    }
+
+    private fun initSodosiRecyclerView() {
+        binding.rvHotSodosi.apply {
+            adapter = SodosiAdapter().apply {
+                onItemClick = {
+
+                }
+            }
+        }
+
+        binding.rvNewSodosi.apply {
+            adapter = SodosiAdapter().apply {
+                onItemClick = {
+
+                }
+            }
         }
     }
 
