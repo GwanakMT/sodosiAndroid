@@ -56,6 +56,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             launch {
                 viewModel.mainSodosiList.collect { mainSodosiList ->
                     (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(mainSodosiList)
+                    binding.sodosiViewPager.setCurrentItem((Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % mainSodosiList.size), false)
                 }
             }
 
@@ -88,7 +89,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
             runnable = Runnable {
-                setCurrentItemWithDuration(currentItem + 1, 500)
+                setCurrentItemWithDuration(currentItem + 1, SCROLL_DURATION_TIME)
             }
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -152,7 +153,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     companion object {
-        private const val VIEWPAGER_PRE_VIEW = 3
         private const val SCROLL_DELAY_TIME = 3000L
+        private const val SCROLL_DURATION_TIME = 300L
     }
 }

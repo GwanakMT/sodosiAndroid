@@ -30,7 +30,7 @@ class SodosiViewPagerAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position % currentList.size])
+        holder.bind(currentList[position % currentList.size], position)
     }
 
     override fun getItemCount(): Int {
@@ -47,9 +47,10 @@ class SodosiViewPagerAdapter :
             binding.onItemClick = onItemClick
         }
 
-        fun bind(item: Sodosi) {
+        fun bind(item: Sodosi, position: Int) {
             binding.item = item
 
+            binding.tvIndicator.text = "${position % currentList.size + 1}/${currentList.size}"
             binding.tvEmoji.visibility = View.GONE
             when (item.icon) {
                 "cafe" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_cafe)
