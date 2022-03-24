@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.databinding.FragmentHomeBinding
+import com.sodosi.domain.entity.Sodosi
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.extensions.setCurrentItemWithDuration
 import com.sodosi.ui.list.SodosiListActivity
@@ -79,8 +80,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             adapter = SodosiViewPagerAdapter()
                 .apply {
                     onItemClick = {
-                        val intent = Intent(context, MapActivity::class.java)
-                        startActivity(intent)
+                        moveToSodosiMap(it)
                     }
                 }
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -131,7 +131,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         binding.rvHotSodosi.apply {
             adapter = SodosiAdapter().apply {
                 onItemClick = {
-
+                    moveToSodosiMap(it)
                 }
             }
         }
@@ -139,7 +139,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         binding.rvNewSodosi.apply {
             adapter = SodosiAdapter().apply {
                 onItemClick = {
-
+                    moveToSodosiMap(it)
                 }
             }
         }
@@ -150,6 +150,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             val intent = Intent(context, SodosiListActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun moveToSodosiMap(sodosi: Sodosi) {
+        val intent = Intent(context, MapActivity::class.java)
+        intent.putExtra("SODOSI_ID", sodosi.id)
+
+        startActivity(intent)
     }
 
     companion object {
