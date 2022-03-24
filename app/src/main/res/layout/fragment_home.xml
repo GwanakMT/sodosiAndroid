@@ -42,7 +42,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.core.widget.NestedScrollView
+        <com.sodosi.ui.common.customview.SodosiScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:overScrollMode="never"
@@ -133,6 +133,6 @@
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </com.sodosi.ui.common.customview.SodosiScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
