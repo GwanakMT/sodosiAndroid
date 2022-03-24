@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sodosi.BuildConfig
 import com.sodosi.databinding.ItemSodosiBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.util.LogUtil
+import java.lang.Exception
 
 /**
  *  SodosiAdapter.kt
@@ -44,9 +47,12 @@ class SodosiAdapter : ListAdapter<Sodosi, SodosiAdapter.ViewHolder>(DiffCallback
         }
 
         fun bind(item: Sodosi) {
-            Log.d("TAG", "SodosiAdapter: ${item.name}")
-
             binding.item = item
+            try {
+                binding.tvEmoji.text = item.icon
+            } catch (e: Exception) {
+                LogUtil.e("${e.message}", "${SodosiAdapter::class.simpleName}")
+            }
         }
     }
 

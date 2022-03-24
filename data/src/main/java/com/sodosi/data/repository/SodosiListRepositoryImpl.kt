@@ -18,14 +18,62 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 id = 111,
                 name = "똥손인 나도\n여기서 찍으면 인생샷",
                 userId = 111,
-                userProfile = "시장 관악산악회",
-                userName = "",
+                userProfile = "",
+                userName = "시장 관악산악회",
                 momentCount = 50,
                 userCount = 34,
                 status = "",
-                icon = "",
+                icon = "camera",
                 dateTime = ""
-            )
+            ),
+            Sodosi(
+                id = 222,
+                name = "우리 동네\n먹킷리스트",
+                userId = 222,
+                userProfile = "",
+                userName = "스위트걸",
+                momentCount = 48,
+                userCount = 32,
+                status = "",
+                icon = "cafe",
+                dateTime = ""
+            ),
+            Sodosi(
+                id = 333,
+                name = "을씨년스러운 장소들",
+                userId = 333,
+                userProfile = "",
+                userName = "SpooKiz",
+                momentCount = 35,
+                userCount = 20,
+                status = "",
+                icon = "danger",
+                dateTime = ""
+            ),
+            Sodosi(
+                id = 444,
+                name = "모두가 행복할 수 있는\n슬기로운 산책장소",
+                userId = 444,
+                userProfile = "",
+                userName = "강형욱",
+                momentCount = 12,
+                userCount = 30,
+                status = "",
+                icon = "dog",
+                dateTime = ""
+            ),
+            Sodosi(
+                id = 555,
+                name = "내 운세를 점쳐요\n사주타로맛집",
+                userId = 555,
+                userProfile = "",
+                userName = "도믿걸",
+                momentCount = 39,
+                userCount = 13,
+                status = "",
+                icon = "\uD83D\uDD2E",
+                dateTime = ""
+            ),
         )
     }
 

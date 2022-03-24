@@ -2,7 +2,6 @@ package com.sodosi.ui.home
 
 import android.content.Intent
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -57,21 +56,18 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             launch {
                 viewModel.mainSodosiList.collect { mainSodosiList ->
                     (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(mainSodosiList)
-                    Log.d("TAG", "OBSERVE $mainSodosiList")
                 }
             }
 
             launch {
                 viewModel.hotSodosiList.collect { hotSodosiList ->
                     (binding.rvHotSodosi.adapter as SodosiAdapter).submitList(hotSodosiList)
-                    Log.d("TAG", "OBSERVE $hotSodosiList")
                 }
             }
 
             launch {
                 viewModel.newSodosiList.collect { newSodosiList ->
                     (binding.rvNewSodosi.adapter as SodosiAdapter).submitList(newSodosiList)
-                    Log.d("TAG", "OBSERVE $newSodosiList")
                 }
             }
         }

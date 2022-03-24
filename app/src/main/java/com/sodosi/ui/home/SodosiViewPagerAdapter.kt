@@ -1,12 +1,16 @@
 package com.sodosi.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sodosi.R
 import com.sodosi.databinding.ItemSodosiViewpagerBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.util.LogUtil
+import java.lang.Exception
 
 /**
  *  SodosiViewPagerAdapter.kt
@@ -45,6 +49,23 @@ class SodosiViewPagerAdapter :
 
         fun bind(item: Sodosi) {
             binding.item = item
+
+            binding.tvEmoji.visibility = View.GONE
+            when (item.icon) {
+                "cafe" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_cafe)
+                "camera" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_camera)
+                "danger" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_danger)
+                "dog" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_dog)
+                else -> {
+                    binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_flag)
+                    try {
+                        binding.tvEmoji.text = item.icon
+                        binding.tvEmoji.visibility = View.VISIBLE
+                    } catch (e: Exception) {
+                        LogUtil.e("${e.message}", "${SodosiAdapter::class.simpleName}")
+                    }
+                }
+            }
         }
     }
 
