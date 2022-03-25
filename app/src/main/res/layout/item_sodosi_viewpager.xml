@@ -35,14 +35,22 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="똥손인 나도\n여기서 찍으면 인생샷!" />
 
-        <ImageView
-            android:id="@+id/ivProfile"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvProfile"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginTop="16dp"
             android:background="@color/green"
+            app:cardCornerRadius="4dp"
             app:layout_constraintStart_toStartOf="@id/tvSodosiName"
-            app:layout_constraintTop_toBottomOf="@id/tvSodosiName" />
+            app:layout_constraintTop_toBottomOf="@id/tvSodosiName">
+
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/green" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/ivOwnerName"
@@ -51,9 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:text="@{item.userName}"
-            app:layout_constraintBottom_toBottomOf="@id/ivProfile"
-            app:layout_constraintStart_toEndOf="@id/ivProfile"
-            app:layout_constraintTop_toTopOf="@id/ivProfile"
+            app:layout_constraintBottom_toBottomOf="@id/cvProfile"
+            app:layout_constraintStart_toEndOf="@id/cvProfile"
+            app:layout_constraintTop_toTopOf="@id/cvProfile"
             tools:text="시장 관악산악회" />
 
         <TextView
@@ -64,8 +72,8 @@
             android:layout_marginTop="8dp"
             android:text="@{@string/sodosi_user_count(String.valueOf(item.userCount))}"
             android:textColor="@color/gray2"
-            app:layout_constraintStart_toStartOf="@id/ivProfile"
-            app:layout_constraintTop_toBottomOf="@id/ivProfile"
+            app:layout_constraintStart_toStartOf="@id/cvProfile"
+            app:layout_constraintTop_toBottomOf="@id/cvProfile"
             tools:text="34명의 소시민들" />
 
         <View
@@ -100,7 +108,7 @@
             android:textColor="#8A8A8E"
             android:translationZ="10dp"
             app:layout_constraintBottom_toBottomOf="@id/ivSodosi"
-            app:layout_constraintStart_toStartOf="@id/ivProfile"
+            app:layout_constraintStart_toStartOf="@id/cvProfile"
             tools:text="1/5" />
 
         <View
@@ -127,8 +135,8 @@
             android:id="@+id/tvEmoji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="40dp"
             android:layout_marginBottom="24dp"
+            android:textSize="40dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/ivSodosi"
             app:layout_constraintEnd_toEndOf="@id/ivSodosi"
