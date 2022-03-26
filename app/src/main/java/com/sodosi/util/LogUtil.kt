@@ -11,7 +11,7 @@ import com.sodosi.BuildConfig
  */
 
 object LogUtil {
-    private const val TAG = "SODOSI"
+    private const val TAG = "SODOSI_LOG"
 
     fun v(msg: String, className: String = "") {
         if (BuildConfig.DEBUG) {
