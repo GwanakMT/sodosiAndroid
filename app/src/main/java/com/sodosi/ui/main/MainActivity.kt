@@ -34,17 +34,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun initViews() = with(binding) {
         changeFragment(activeFragment)
-
-        binding.bottomTab.setOnItemClickListener {
-            when (it.id) {
-                R.id.tabHome -> changeFragment(homeFragment)
-                R.id.tabCreate -> {
-                    val intent = Intent(this@MainActivity, CreateActivity::class.java)
-                    startActivity(intent)
-                }
-                R.id.tabMypage -> changeFragment(mypageFragment)
-            }
-        }
     }
 
     override fun observeData() {
