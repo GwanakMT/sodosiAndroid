@@ -1,4 +1,4 @@
-package com.sodosi.ui.home
+package com.sodosi.ui.main
 
 import android.view.LayoutInflater
 import android.view.View

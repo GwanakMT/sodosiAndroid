@@ -1,12 +1,10 @@
-package com.sodosi.ui.home
+package com.sodosi.ui.main
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sodosi.BuildConfig
 import com.sodosi.databinding.ItemSodosiBinding
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.util.LogUtil
