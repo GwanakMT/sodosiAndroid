@@ -117,6 +117,7 @@ class CertificationNumberFragment :
                 binding.tvCode5.text = getNumberWithIndex(4)
                 binding.tvCode6.text = getNumberWithIndex(5)
             }
+            if (it?.length ?: 0 >= 6) binding.btnNext.setStateNormal()
         }
     }
 
