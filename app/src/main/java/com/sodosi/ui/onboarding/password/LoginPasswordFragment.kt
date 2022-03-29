@@ -70,14 +70,9 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
     }
 
     private fun initView() {
-        binding.btnNext.setStateDisable()
         binding.etPassword.setHint(getString(R.string.onboarding_password_hint))
         binding.etPassword.textChangedListener = {
-            if ("$it".length >= 8) {
-                binding.btnNext.setStateNormal()
-            } else {
-                binding.btnNext.setStateDisable()
-            }
+            binding.btnNext.isEnabled = "$it".length >= 8
         }
     }
 }

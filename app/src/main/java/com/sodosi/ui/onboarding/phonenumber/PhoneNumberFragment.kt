@@ -61,22 +61,28 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
 
                 if (arguments?.get("onboarding_type") == OnboardingType.SIGNUP) {
                     navigate(R.id.fragment_phone_number) {
-                        findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(
-                            OnboardingType.SIGNUP
-                        ))
+                        findNavController().navigate(
+                            PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(
+                                OnboardingType.SIGNUP
+                            )
+                        )
                     }
                 } else {
                     navigate(R.id.fragment_phone_number) {
-                        findNavController().navigate(PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(
-                            OnboardingType.LOGIN
-                        ))
+                        findNavController().navigate(
+                            PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(
+                                OnboardingType.LOGIN
+                            )
+                        )
                     }
                 }
             } else {
                 binding.tvWarning.visibility = View.VISIBLE
                 binding.tvPhoneNumberGuide.visibility = View.GONE
-                binding.phoneNumberBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
-                binding.phoneNumberGuideBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+                binding.phoneNumberBackground.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
+                binding.phoneNumberGuideBackground.background =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
             }
         }
     }
@@ -88,13 +94,8 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
     private fun initView() {
         inputMethodManager.showSoftInput(binding.etPhoneNumber, 0)
 
-        binding.btnNext.setStateDisable()
         binding.etPhoneNumber.addTextChangedListener {
-            if ("$it".length == 11) {
-                binding.btnNext.setStateNormal()
-            } else {
-                binding.btnNext.setStateDisable()
-            }
+            binding.btnNext.isEnabled = "$it".length == 11
         }
     }
 }

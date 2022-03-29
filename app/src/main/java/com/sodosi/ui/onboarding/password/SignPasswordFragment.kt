@@ -53,11 +53,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
     override fun observeData() {
         lifecycleScope.launchWhenStarted {
             buttonEnable.collect {
-                if (it) {
-                    binding.btnNext.setStateNormal()
-                } else {
-                    binding.btnNext.setStateDisable()
-                }
+                binding.btnNext.isEnabled = it
             }
         }
     }
@@ -83,8 +79,6 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
     }
 
     private fun initView() {
-        binding.btnNext.setStateDisable()
-
         binding.etPassword.apply {
             setHint(getString(R.string.onboarding_password_hint))
             setFocus()
@@ -109,7 +103,6 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             val binding = DialogOnboardingTermsBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            binding.btnAllow.setStateDisable()
             binding.btnAllow.setOnClickListener {
                 inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
                 termsDialog.dismiss()
@@ -130,10 +123,10 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
 
                     isAllowAll.asLiveData().observe(viewLifecycleOwner) {
                         if (it) {
-                            binding.btnAllow.setStateNormal()
+                            binding.btnAllow.isEnabled = true
                             binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_checked_28, 0, 0, 0)
                         } else {
-                            binding.btnAllow.setStateDisable()
+                            binding.btnAllow.isEnabled = false
                             binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_unchecked_28, 0, 0, 0)
                         }
                     }

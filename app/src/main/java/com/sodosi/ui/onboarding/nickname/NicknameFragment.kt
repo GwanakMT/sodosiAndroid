@@ -59,13 +59,8 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     }
 
     private fun initView() {
-        binding.btnFinish.setStateDisable()
         binding.etNickname.addTextChangedListener {
-            if ("$it".length == 0) {
-                binding.btnFinish.setStateDisable()
-            } else {
-                binding.btnFinish.setStateNormal()
-            }
+            binding.btnFinish.isEnabled = "$it".length != 0
         }
     }
 

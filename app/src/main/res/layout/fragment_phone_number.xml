@@ -93,12 +93,14 @@
         app:layout_constraintStart_toStartOf="@id/phoneNumberGuideBackground"
         app:layout_constraintTop_toBottomOf="@id/phoneNumberGuideBackground" />
 
-    <com.sodosi.ui.common.customview.SodosiButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"
+        style="@style/SodosiButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/onboarding_button_horizontal_margin"
         android:layout_marginBottom="@dimen/onboarding_button_bottom_margin"
+        android:enabled="false"
         android:text="@string/onboarding_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

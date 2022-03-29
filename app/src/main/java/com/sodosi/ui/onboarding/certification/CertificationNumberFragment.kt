@@ -60,7 +60,11 @@ class CertificationNumberFragment :
         val onboardingType = arguments?.get("onboarding_type")
         if (onboardingType == OnboardingType.SIGNUP) {
             navigate(R.id.fragment_certification_number) {
-                findNavController().navigate(CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(OnboardingType.SIGNUP))
+                findNavController().navigate(
+                    CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(
+                        OnboardingType.SIGNUP
+                    )
+                )
             }
         } else {
             val intent = Intent(context, MainActivity::class.java)
@@ -99,8 +103,6 @@ class CertificationNumberFragment :
     }
 
     private fun initView() {
-        binding.btnNext.setStateDisable()
-
         binding.tvCode1.set()
         binding.tvCode2.set()
         binding.tvCode3.set()
@@ -117,7 +119,7 @@ class CertificationNumberFragment :
                 binding.tvCode5.text = getNumberWithIndex(4)
                 binding.tvCode6.text = getNumberWithIndex(5)
             }
-            if (it?.length ?: 0 >= 6) binding.btnNext.setStateNormal()
+            if (it?.length ?: 0 >= 6) binding.btnNext.isEnabled = true
         }
     }
 

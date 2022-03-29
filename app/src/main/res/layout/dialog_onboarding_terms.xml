@@ -47,11 +47,13 @@
         tools:itemCount="2"
         tools:listitem="@layout/item_onboarding_term" />
 
-    <com.sodosi.ui.common.customview.SodosiButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAllow"
+        style="@style/SodosiButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:enabled="false"
         android:text="@string/onboarding_allow_terms"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
