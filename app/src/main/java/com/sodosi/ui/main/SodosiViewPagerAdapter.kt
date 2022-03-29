@@ -50,21 +50,16 @@ class SodosiViewPagerAdapter :
         fun bind(item: Sodosi, position: Int) {
             binding.item = item
 
-            binding.tvIndicator.text = "${position % currentList.size + 1}/${currentList.size}"
-            binding.tvEmoji.visibility = View.GONE
+//            binding.tvIndicator.text = "${position % currentList.size + 1}/${currentList.size}"
+//            binding.tvEmoji.visibility = View.GONE
+
             when (item.icon) {
                 "cafe" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_cafe)
                 "camera" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_camera)
                 "danger" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_danger)
                 "dog" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_dog)
                 else -> {
-                    binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_flag)
-                    try {
-                        binding.tvEmoji.text = item.icon
-                        binding.tvEmoji.visibility = View.VISIBLE
-                    } catch (e: Exception) {
-                        LogUtil.e("${e.message}", "${SodosiAdapter::class.simpleName}")
-                    }
+
                 }
             }
         }

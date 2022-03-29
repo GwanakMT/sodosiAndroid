@@ -3,15 +3,15 @@ package com.sodosi.ui.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
-import com.sodosi.ui.common.extensions.setCurrentItemWithDuration
 import com.sodosi.ui.create.CreateActivity
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
@@ -107,13 +107,18 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                         moveToSodosiMap(it)
                     }
                 }
-            orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            clipToPadding = false
+
             offscreenPageLimit = 1
-            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            val pageMargin = resources.getDimension(R.dimen.main_viewpager_margin)
+            val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
+                page.translationX = pageMargin * position
+            }
+            setPageTransformer(pageTransformer)
 
             runnable = Runnable {
-                setCurrentItemWithDuration(currentItem + 1, SCROLL_DURATION_TIME)
+                currentItem += 1
+//                setCurrentItemWithDuration(currentItem + 1, SCROLL_DURATION_TIME)
             }
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
