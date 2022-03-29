@@ -52,6 +52,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.sodosi.ui.common.customview.SodosiScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:overScrollMode="never"
@@ -124,7 +125,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="58dp" />
 
+
+                <include
+                    android:id="@+id/footer"
+                    layout="@layout/layout_home_footer"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
             </LinearLayout>
         </com.sodosi.ui.common.customview.SodosiScrollView>
+
+        <ImageView
+            android:id="@+id/ivCreateSodosi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:src="@drawable/fab_create"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

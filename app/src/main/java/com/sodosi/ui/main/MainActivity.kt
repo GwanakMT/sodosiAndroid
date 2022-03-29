@@ -1,6 +1,7 @@
 package com.sodosi.ui.main
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Handler
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -11,6 +12,7 @@ import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.ui.common.extensions.setCurrentItemWithDuration
+import com.sodosi.ui.create.CreateActivity
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
 import com.sodosi.ui.mypage.MypageActivity
@@ -58,6 +60,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun initViews() = with(binding) {
+        changeStatusBarColorWhite()
+
         setOnClickListener()
         initViewPager()
         initSodosiRecyclerView()
@@ -175,6 +179,25 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
+
+        binding.ivCreateSodosi.setOnClickListener {
+            val intent = Intent(this, CreateActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.footer.tvBlog.setOnClickListener {
+            val blogIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOTER_URL_BLOG))
+            startActivity(blogIntent)
+        }
+
+        binding.footer.tvInstagram.setOnClickListener {
+            val instagramIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOGER_URL_INSTAGRAM))
+            startActivity(instagramIntent)
+        }
+
+        binding.footer.ivScrollTop.setOnClickListener {
+            binding.scrollView.smoothScrollTo(0, 0)
+        }
     }
 
     private fun moveToSodosiMap(sodosi: Sodosi) {
@@ -187,5 +210,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     companion object {
         private const val SCROLL_DELAY_TIME = 3000L
         private const val SCROLL_DURATION_TIME = 300L
+
+        private const val FOOTER_URL_BLOG = "https://medium.com/@gwanaksociety"
+        private const val FOOGER_URL_INSTAGRAM = ""
     }
 }

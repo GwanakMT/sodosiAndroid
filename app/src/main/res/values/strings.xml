@@ -48,6 +48,11 @@
     <string name="sodosi_user_count">%s명의 소시민들</string>
     <string name="sodosi_moment_count">%s개의 순간</string>
 
+    // Footer
+    <string name="footer_blog">블로그</string>
+    <string name="footer_instagram">인스타그램</string>
+    <string name="footer_copyright">© 2022 소도시 All Rights Reserved</string>
+
     // Thread
     <string name="thread_title">스레드</string>
     <string name="thread_comment_hint">코멘트를 남겨보세요.</string>
