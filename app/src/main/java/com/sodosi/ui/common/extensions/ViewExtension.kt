@@ -4,6 +4,10 @@ import android.animation.Animator
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.content.res.Resources
+import android.transition.Fade
+import android.transition.TransitionManager
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -61,4 +65,21 @@ fun ViewPager2.setCurrentItemWithDuration(
     animator.interpolator = interpolator
     animator.duration = duration
     animator.start()
+}
+
+fun View.setVisible() {
+    visibility = View.VISIBLE
+}
+
+fun View.setGone() {
+    visibility = View.GONE
+}
+
+fun View.setGoneWithAnimation() {
+    val transition = Fade()
+    transition.duration = 100
+    transition.addTarget(this)
+
+    TransitionManager.beginDelayedTransition(parent as ViewGroup?, transition)
+//    visibility = View.GONE
 }

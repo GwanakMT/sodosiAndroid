@@ -62,9 +62,18 @@
             app:layout_constraintTop_toBottomOf="@id/topbarDivider">
 
             <LinearLayout
+                android:id="@+id/homeContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <include
+                    android:id="@+id/suggestLayout"
+                    layout="@layout/layout_create_suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="154dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/sodosiViewPager"

@@ -6,12 +6,15 @@ import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.marginTop
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.ui.common.extensions.setGone
+import com.sodosi.ui.common.extensions.setGoneWithAnimation
 import com.sodosi.ui.create.CreateActivity
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
@@ -188,6 +191,22 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.ivCreateSodosi.setOnClickListener {
             val intent = Intent(this, CreateActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.suggestLayout.btnCreateSodosi.setOnClickListener {
+            val intent = Intent(this, CreateActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.suggestLayout.btnCancel.setOnClickListener {
+            binding.suggestLayout.root.animate()
+                .alpha(0.0f)
+                .translationY(-it.height.toFloat())
+                .duration = 1000L
+
+            binding.homeContainer.animate()
+                .translationY(-(binding.suggestLayout.root.height.toFloat() + binding.suggestLayout.root.marginTop))
+                .duration = 1000L
         }
 
         binding.footer.tvBlog.setOnClickListener {
