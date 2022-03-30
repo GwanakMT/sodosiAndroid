@@ -28,7 +28,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
             ),
             Sodosi(
                 id = 222,
-                name = "우리 동네\n먹킷리스트",
+                name = "나만 알고 싶은\n공부하기 좋은 카페",
                 userId = 222,
                 userProfile = "",
                 userName = "스위트걸",
@@ -40,7 +40,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
             ),
             Sodosi(
                 id = 333,
-                name = "을씨년스러운 장소들",
+                name = "직접 가보면\n을씨년스러운 장소",
                 userId = 333,
                 userProfile = "",
                 userName = "SpooKiz",
@@ -52,7 +52,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
             ),
             Sodosi(
                 id = 444,
-                name = "모두가 행복할 수 있는\n슬기로운 산책장소",
+                name = "댕댕이를 위한\n베스트 산책 코스",
                 userId = 444,
                 userProfile = "",
                 userName = "강형욱",
@@ -61,19 +61,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 status = "",
                 icon = "dog",
                 dateTime = ""
-            ),
-            Sodosi(
-                id = 555,
-                name = "내 운세를 점쳐요\n사주타로맛집",
-                userId = 555,
-                userProfile = "",
-                userName = "도믿걸",
-                momentCount = 39,
-                userCount = 13,
-                status = "",
-                icon = "\uD83D\uDD2E",
-                dateTime = ""
-            ),
+            )
         )
     }
 

@@ -1,16 +1,15 @@
 package com.sodosi.ui.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.R
 import com.sodosi.databinding.ItemSodosiViewpagerBinding
 import com.sodosi.domain.entity.Sodosi
-import com.sodosi.util.LogUtil
-import java.lang.Exception
 
 /**
  *  SodosiViewPagerAdapter.kt
@@ -54,10 +53,22 @@ class SodosiViewPagerAdapter :
 //            binding.tvEmoji.visibility = View.GONE
 
             when (item.icon) {
-                "cafe" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_cafe)
-                "camera" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_camera)
-                "danger" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_danger)
-                "dog" -> binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_dog)
+                "cafe" -> {
+                    binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_cafe)
+                    binding.cardViewBackground.setCardBackgroundColor(ContextCompat.getColor(binding.cardViewBackground.context, R.color.indigo))
+                }
+                "camera" -> {
+                    binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_camera)
+                    binding.cardViewBackground.setCardBackgroundColor(ContextCompat.getColor(binding.cardViewBackground.context, R.color.green800))
+                }
+                "danger" -> {
+                    binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_danger)
+                    binding.cardViewBackground.setCardBackgroundColor(ContextCompat.getColor(binding.cardViewBackground.context, R.color.orange))
+                }
+                "dog" -> {
+                    binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_dog)
+                    binding.cardViewBackground.setCardBackgroundColor(ContextCompat.getColor(binding.cardViewBackground.context, R.color.yellow))
+                }
                 else -> {
 
                 }

@@ -28,7 +28,6 @@
             android:id="@+id/cardViewBackground"
             android:layout_width="match_parent"
             android:layout_height="310dp"
-            android:backgroundTint="@color/green800"
             app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
