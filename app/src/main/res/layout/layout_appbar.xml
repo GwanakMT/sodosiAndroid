@@ -7,9 +7,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:paddingHorizontal="24dp">
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="@dimen/topbar_height">
 
         <ImageView
             android:id="@+id/btnLeft"

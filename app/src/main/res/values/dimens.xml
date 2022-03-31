@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="screen_width">320dp</dimen>
     <dimen name="topbar_height">56dp</dimen>
     <dimen name="bottom_tabbar_height">60dp</dimen>
 

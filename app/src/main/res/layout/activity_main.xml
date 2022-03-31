@@ -11,14 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:id="@+id/appbarGuideView"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="@dimen/topbar_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/ivTextLogo"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:src="@drawable/logo_sodosi_text"
             app:layout_constraintBottom_toBottomOf="@id/topbarDivider"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/appbarGuideView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.666" />
 
@@ -36,10 +43,9 @@
             android:id="@+id/ivMypage"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
-            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_navigation_mypage"
             app:layout_constraintBottom_toTopOf="@id/topbarDivider"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/appbarGuideView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -70,8 +76,9 @@
                 <include
                     android:id="@+id/suggestLayout"
                     layout="@layout/layout_create_suggest"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="154dp"
+                    android:layout_gravity="center"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp" />
 
