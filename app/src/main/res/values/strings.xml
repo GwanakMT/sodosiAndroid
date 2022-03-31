@@ -42,8 +42,10 @@
     <string name="onboarding_welcome">%s님의\n입주를 환영합니다!</string>
     
     // Home
-    <string name="hot_sodosi_list_title">지금 HOT한 소도시</string>
-    <string name="new_sodosi_list_title">최근 건설된 소도시</string>
+    <string name="join_sodosi_list_title">내가 참여 중인 소도시 🔨</string>
+    <string name="bookmark_sodosi_list_title">내 관심 소도시 👍</string>
+    <string name="hot_sodosi_list_title">지금 HOT한 소도시 🔥</string>
+    <string name="new_sodosi_list_title">새롭게 추천하는 도시 👋</string>
     <string name="more_sodosi">더 보기</string>
     <string name="sodosi_user_count">%s명의 소시민들</string>
     <string name="sodosi_moment_count">%s개의 순간</string>

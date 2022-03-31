@@ -23,70 +23,93 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginVertical="20dp"
         android:onClick="@{()->onItemClick.invoke(item)}">
+
+        <TextView
+            android:id="@+id/tvRank"
+            style="@style/Typography.HeadLines.Callout.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            android:visibility="gone"
+            android:textColor="@color/green800"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <View
+            android:id="@+id/emojiBackground"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/background_oval_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvRank"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvEmoji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:textSize="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="44dp"
+            app:layout_constraintBottom_toBottomOf="@id/emojiBackground"
+            app:layout_constraintEnd_toEndOf="@id/emojiBackground"
+            app:layout_constraintStart_toStartOf="@id/emojiBackground"
+            app:layout_constraintTop_toTopOf="@id/emojiBackground"
+            tools:text="🐥" />
 
         <TextView
             android:id="@+id/tvSodosiName"
             style="@style/Typography.HeadLines.Callout.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="14dp"
             android:text="@{item.name}"
-            app:layout_constraintStart_toEndOf="@id/tvEmoji"
-            app:layout_constraintTop_toTopOf="@id/tvEmoji"
-            tools:text="힙에 취하고 싶을 때" />
+            app:layout_constraintBottom_toTopOf="@id/tvUserCount"
+            app:layout_constraintStart_toEndOf="@id/emojiBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="동국대 새내기들 필수코스" />
 
         <TextView
             android:id="@+id/tvUserCount"
-            style="@style/Typography.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:text="@{@string/sodosi_user_count(String.valueOf(item.userCount))}"
             android:textColor="#8A8A8E"
-            app:layout_constraintStart_toEndOf="@id/tvEmoji"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvSodosiName"
             app:layout_constraintTop_toBottomOf="@id/tvSodosiName"
             tools:text="34명의 소시민들" />
 
         <View
             android:id="@+id/countDivider"
             android:layout_width="1dp"
-            android:layout_height="14dp"
+            android:layout_height="10dp"
             android:layout_marginStart="6dp"
-            android:background="#AEAEB2"
+            android:background="@color/gray2"
             app:layout_constraintBottom_toBottomOf="@id/tvUserCount"
             app:layout_constraintStart_toEndOf="@id/tvUserCount"
             app:layout_constraintTop_toTopOf="@id/tvUserCount" />
 
         <TextView
-            style="@style/Typography.Caption"
+            android:id="@+id/tvMomentCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:text="@{@string/sodosi_moment_count(String.valueOf(item.momentCount))}"
             android:textColor="#8A8A8E"
+            app:layout_constraintBottom_toBottomOf="@id/tvUserCount"
             app:layout_constraintStart_toEndOf="@id/countDivider"
             app:layout_constraintTop_toTopOf="@id/tvUserCount"
-            tools:text="50개의 순간들" />
+            tools:text="50개의 순간" />
 
         <ImageView
-            android:id="@+id/ivGoToSodosi"
-            android:layout_width="8dp"
-            android:layout_height="14dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_arrow_chevron_right"
+            android:layout_width="12dp"
+            android:layout_height="17dp"
+            android:src="@drawable/ic_bookmark_unselected"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

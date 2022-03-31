@@ -65,6 +65,88 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
         )
     }
 
+    override suspend fun getJoinSodosiList(): List<Sodosi> {
+        return listOf(
+            Sodosi(
+                id = 1,
+                name = "힙에 취하고 싶을 때",
+                userId = 1,
+                userProfile = "중구시립도서관",
+                userName = "",
+                momentCount = 30,
+                userCount = 10,
+                status = "",
+                icon = "\uD83C\uDFB1",
+                dateTime = ""
+            ),
+            Sodosi(
+                id = 2,
+                name = "동국대 새내기들 필수 코스",
+                userId = 2,
+                userProfile = "",
+                userName = "뭉치",
+                momentCount = 24,
+                userCount = 12,
+                status = "",
+                icon = "\uD83D\uDC25",
+                dateTime = ""
+            ),
+            Sodosi(
+                id = 3,
+                name = "비건들 모여라",
+                userId = 3,
+                userProfile = "",
+                userName = "민지짱",
+                momentCount = 15,
+                userCount = 3,
+                status = "",
+                icon = "\uD83C\uDF50",
+                dateTime = ""
+            ),
+        )
+    }
+
+    override suspend fun getBookmarkSodosiList(): List<Sodosi> {
+        return listOf(
+            Sodosi(
+                id = 1,
+                name = "힙에 취하고 싶을 때",
+                userId = 1,
+                userProfile = "중구시립도서관",
+                userName = "",
+                momentCount = 30,
+                userCount = 10,
+                status = "",
+                icon = "\uD83C\uDFB1",
+                dateTime = ""
+            ),
+            Sodosi(
+                id = 2,
+                name = "동국대 새내기들 필수 코스",
+                userId = 2,
+                userProfile = "",
+                userName = "뭉치",
+                momentCount = 24,
+                userCount = 12,
+                status = "",
+                icon = "\uD83D\uDC25",
+                dateTime = ""
+            ),
+            Sodosi(
+                id = 3,
+                name = "비건들 모여라",
+                userId = 3,
+                userProfile = "",
+                userName = "민지짱",
+                momentCount = 15,
+                userCount = 3,
+                status = "",
+                icon = "\uD83C\uDF50",
+                dateTime = ""
+            ),
+        )
+    }
+
     override suspend fun getHotSodosiList(): List<Sodosi> {
         return listOf(
             Sodosi(

@@ -5,9 +5,11 @@ import android.net.Uri
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.view.marginTop
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
@@ -178,6 +180,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     moveToSodosiMap(it)
                 }
             }
+
+            val dividerItemDecoration = DividerItemDecoration(
+                this@MainActivity,
+                LinearLayoutManager(this@MainActivity).orientation
+            )
+            addItemDecoration(dividerItemDecoration)
         }
 
         binding.rvNewSodosi.apply {
@@ -219,7 +227,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             binding.homeContainer.animate()
                 .translationY(-(binding.suggestLayout.root.height.toFloat() + binding.suggestLayout.root.marginTop))
                 .duration = 1000L
-       }
+        }
 
         binding.footer.tvBlog.setOnClickListener {
             val blogIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOTER_URL_BLOG))

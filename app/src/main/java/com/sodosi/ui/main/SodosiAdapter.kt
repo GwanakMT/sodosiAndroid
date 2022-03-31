@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sodosi.databinding.ItemSodosiBinding
+import com.sodosi.databinding.ItemSodosiTypeEmojiBinding
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.util.LogUtil
 import java.lang.Exception
@@ -23,7 +23,7 @@ class SodosiAdapter : ListAdapter<Sodosi, SodosiAdapter.ViewHolder>(DiffCallback
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return ViewHolder(ItemSodosiBinding.inflate(inflater, parent, false), onItemClick)
+        return ViewHolder(ItemSodosiTypeEmojiBinding.inflate(inflater, parent, false), onItemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -35,7 +35,7 @@ class SodosiAdapter : ListAdapter<Sodosi, SodosiAdapter.ViewHolder>(DiffCallback
     }
 
     inner class ViewHolder(
-        private val binding: ItemSodosiBinding,
+        private val binding: ItemSodosiTypeEmojiBinding,
         onItemClick: ((selectedItem: Sodosi) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {

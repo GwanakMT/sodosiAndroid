@@ -71,6 +71,7 @@
                 android:id="@+id/homeContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <include
@@ -78,7 +79,6 @@
                     layout="@layout/layout_create_suggest"
                     android:layout_width="@dimen/screen_width"
                     android:layout_height="154dp"
-                    android:layout_gravity="center"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp" />
 
@@ -99,7 +99,6 @@
                     android:layout_gravity="center"
                     app:borders="false"
                     app:dotHeight="6dp"
-
                     app:dotMargin="4dp"
                     app:dotSelectedColor="@color/green800"
                     app:dotSelectedWidth="18dp"
@@ -114,17 +113,102 @@
                     android:background="#F6F6F6" />
 
                 <TextView
-                    android:id="@+id/tvHotSodosiTitle"
-                    style="@style/Typography.Titles.Title3.Bold"
+                    android:id="@+id/tvJoinSodosiTitle"
+                    style="@style/Typography.HeadLines.Callout.Bold"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/join_sodosi_list_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvJoinSodosi"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_sodosi_type_emoji" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="18dp"
+                    android:text="추가하기" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="28dp"
+                    android:background="#F6F6F6" />
+
+                <TextView
+                    android:id="@+id/tvBookmarkSodosiTitle"
+                    style="@style/Typography.HeadLines.Callout.Bold"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="@string/bookmark_sodosi_list_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_sodosi_type_emoji" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="28dp"
+                    android:background="#F6F6F6" />
+
+                <TextView
+                    android:id="@+id/tvHotSodosiTitle"
+                    style="@style/Typography.HeadLines.Callout.Bold"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
                     android:text="@string/hot_sodosi_list_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvHotSodosi"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_sodosi_type_emoji" />
+
+                <TextView
+                    android:id="@+id/btnMoreHotSodosi"
+                    style="@style/MoreSodosi"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp" />
+
+                <View
                     android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="28dp"
+                    android:background="#F6F6F6" />
+
+                <TextView
+                    android:id="@+id/tvNewSodosiTitle"
+                    style="@style/Typography.HeadLines.Callout.Bold"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="@string/hot_sodosi_list_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNewSodosi"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
@@ -132,48 +216,21 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi" />
-
-                <TextView
-                    android:id="@+id/btnMoreHotSodosi"
-                    style="@style/MoreSodosi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/tvNewSodosiTitle"
-                    style="@style/Typography.Titles.Title3.Bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="18dp"
-                    android:layout_marginTop="60dp"
-                    android:text="@string/new_sodosi_list_title" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvNewSodosi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi" />
+                    tools:listitem="@layout/item_sodosi_type_emoji" />
 
                 <TextView
                     android:id="@+id/tvMoreNewSodosi"
                     style="@style/MoreSodosi"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="58dp" />
-
+                    android:layout_marginBottom="36dp" />
 
                 <include
                     android:id="@+id/footer"
                     layout="@layout/layout_home_footer"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="200dp"
+                    android:layout_marginTop="150dp" />
 
             </LinearLayout>
         </com.sodosi.ui.common.customview.SodosiScrollView>
@@ -185,6 +242,6 @@
             android:layout_margin="20dp"
             android:src="@drawable/fab_create"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/appbarGuideView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
