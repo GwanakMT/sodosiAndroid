@@ -85,12 +85,34 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="60dp" />
 
+                <com.thinkup.dotsindicator.DotsView
+                    android:id="@+id/dotsIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:borders="false"
+                    app:dotHeight="6dp"
+
+                    app:dotMargin="4dp"
+                    app:dotSelectedColor="@color/green800"
+                    app:dotSelectedWidth="18dp"
+                    app:dotUnselectedColor="@color/gray5"
+                    app:dotWidth="6dp"
+                    app:rounded="true" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="36dp"
+                    android:background="#F6F6F6" />
+
                 <TextView
                     android:id="@+id/tvHotSodosiTitle"
                     style="@style/Typography.Titles.Title3.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="28dp"
                     android:text="@string/hot_sodosi_list_title" />
 
                 <androidx.recyclerview.widget.RecyclerView

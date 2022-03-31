@@ -81,6 +81,9 @@ dependencies {
     // lottie
     implementation 'com.airbnb.android:lottie:3.0.7'
 
+    // open source library
+    implementation 'com.github.nicolasCastro:IndicatorsSuite:1.2.3' // dots indicator
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

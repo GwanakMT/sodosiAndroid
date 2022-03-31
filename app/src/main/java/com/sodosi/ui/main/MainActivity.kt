@@ -13,8 +13,6 @@ import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
-import com.sodosi.ui.common.extensions.setGone
-import com.sodosi.ui.common.extensions.setGoneWithAnimation
 import com.sodosi.ui.create.CreateActivity
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.map.MapActivity
@@ -35,6 +33,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private val bannerHandler: Handler by lazy { Handler() }
     private var runnable: Runnable? = null
     private var backPressWaitTime = 0L
+
+    private var sodosiViewPagerListSize = 0
 
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
@@ -81,6 +81,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(
                         mainSodosiList
                     )
+
+                    sodosiViewPagerListSize = mainSodosiList.size
+                    binding.dotsIndicator.loadItems(mainSodosiList.size, 0)
                     binding.sodosiViewPager.setCurrentItem(
                         (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % mainSodosiList.size),
                         false
@@ -124,9 +127,18 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 //                setCurrentItemWithDuration(currentItem + 1, SCROLL_DURATION_TIME)
             }
 
+            var previous = 0
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position % ((this@apply).adapter as SodosiViewPagerAdapter).itemCount)
+
+                    val current: Int = position % sodosiViewPagerListSize
+                    when {
+                        current == 0 -> binding.dotsIndicator.selectIndex(0)
+                        current > previous -> binding.dotsIndicator.next()
+                        current < previous -> binding.dotsIndicator.previous()
+                    }
+                    previous = current
 
                     runnable?.let {
                         bannerHandler.removeCallbacks(it)
@@ -207,7 +219,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             binding.homeContainer.animate()
                 .translationY(-(binding.suggestLayout.root.height.toFloat() + binding.suggestLayout.root.marginTop))
                 .duration = 1000L
-        }
+       }
 
         binding.footer.tvBlog.setOnClickListener {
             val blogIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOTER_URL_BLOG))
