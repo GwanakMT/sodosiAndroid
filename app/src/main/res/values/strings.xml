@@ -48,6 +48,12 @@
     <string name="sodosi_user_count">%s명의 소시민들</string>
     <string name="sodosi_moment_count">%s개의 순간</string>
 
+    // Home - Suggest
+    <string name="suggest_title">🗺 나만의 지도를 만들어보세요</string>
+    <string name="suggest_message">언제든지 내 취향을 가득 담은 지도를 만들 수 있어요\n평소에 좋아했던 곳으로 시작하면 어떨까요?</string>
+    <string name="suggest_ok">지금 시작하기</string>
+    <string name="suggest_no">일단 구경하기</string>
+
     // Footer
     <string name="footer_blog">블로그</string>
     <string name="footer_instagram">인스타그램</string>
