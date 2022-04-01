@@ -72,6 +72,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         initSodosiRecyclerView()
 
         viewModel.getMainSodosiList()
+        viewModel.getJoinSodosiList()
         viewModel.getHotSodosiList()
         viewModel.getNewSodosiList()
     }
@@ -90,6 +91,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                         (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % mainSodosiList.size),
                         false
                     )
+                }
+            }
+
+            launch {
+                viewModel.joinSodosiList.collect { joinSodosi ->
+                    (binding.rvJoinSodosi.adapter as SodosiAdapter).submitList(joinSodosi)
                 }
             }
 
@@ -174,6 +181,21 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun initSodosiRecyclerView() {
+        val dividerItemDecoration = DividerItemDecoration(
+            this@MainActivity,
+            LinearLayoutManager(this@MainActivity).orientation
+        )
+
+        binding.rvJoinSodosi.apply {
+            adapter = SodosiAdapter().apply {
+                onItemClick = {
+                    moveToSodosiMap(it)
+                }
+            }
+
+            addItemDecoration(dividerItemDecoration)
+        }
+
         binding.rvHotSodosi.apply {
             adapter = SodosiAdapter().apply {
                 onItemClick = {
@@ -181,10 +203,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 }
             }
 
-            val dividerItemDecoration = DividerItemDecoration(
-                this@MainActivity,
-                LinearLayoutManager(this@MainActivity).orientation
-            )
             addItemDecoration(dividerItemDecoration)
         }
 
@@ -194,6 +212,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     moveToSodosiMap(it)
                 }
             }
+
+            addItemDecoration(dividerItemDecoration)
         }
     }
 

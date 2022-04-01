@@ -3,6 +3,7 @@ package com.sodosi.ui.main
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.domain.usecase.GetHotSodosiListUseCase
+import com.sodosi.domain.usecase.GetJoinSodosiListUseCase
 import com.sodosi.domain.usecase.GetMainSodosiListUseCase
 import com.sodosi.domain.usecase.GetNewSodosiListUseCase
 import com.sodosi.ui.common.base.BaseViewModel
@@ -22,17 +23,27 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getMainSodosiListUseCase: GetMainSodosiListUseCase,
+    private val getJoinSodosiListUseCase: GetJoinSodosiListUseCase,
     private val getHotSodosiListUseCase: GetHotSodosiListUseCase,
     private val getNewSodosiListUseCase: GetNewSodosiListUseCase,
 ) : BaseViewModel() {
     private val _mainSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val mainSodosiList: StateFlow<List<Sodosi>> = _mainSodosiList
 
+    private val _joinSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
+    val joinSodosiList: StateFlow<List<Sodosi>> = _joinSodosiList
+
     private val _hotSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val hotSodosiList: StateFlow<List<Sodosi>> = _hotSodosiList
 
     private val _newSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val newSodosiList: StateFlow<List<Sodosi>> = _newSodosiList
+
+    fun getJoinSodosiList() {
+        viewModelScope.launch {
+            _joinSodosiList.value = getJoinSodosiListUseCase()
+        }
+    }
 
     fun getMainSodosiList() {
         viewModelScope.launch {
