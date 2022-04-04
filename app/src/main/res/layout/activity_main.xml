@@ -30,6 +30,16 @@
             app:layout_constraintVertical_bias="0.666" />
 
         <ImageView
+            android:id="@+id/ivCreateSodosi"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_add_plus"
+            app:layout_constraintBottom_toTopOf="@id/topbarDivider"
+            app:layout_constraintEnd_toStartOf="@id/ivSodosiList"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
             android:id="@+id/ivSodosiList"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
@@ -229,14 +239,5 @@
 
             </LinearLayout>
         </com.sodosi.ui.common.customview.SodosiScrollView>
-
-        <ImageView
-            android:id="@+id/ivCreateSodosi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:src="@drawable/fab_create"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/appbarGuideView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

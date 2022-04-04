@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">소도시</string>
 
-    // Bottom Tabbar
-    <string name="home">홈</string>
-    <string name="mypage">마이페이지</string>
-
     // Onboarding
     <string name="onboarding_start">시작하기</string>
     <string name="onboarding_login">이미 소도시 회원이에요!</string>

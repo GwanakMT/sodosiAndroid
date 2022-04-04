@@ -2,7 +2,6 @@
 <resources>
     <dimen name="screen_width">320dp</dimen>
     <dimen name="topbar_height">56dp</dimen>
-    <dimen name="bottom_tabbar_height">60dp</dimen>
 
     <dimen name="icon_width">24dp</dimen>
     <dimen name="icon_height">24dp</dimen>
