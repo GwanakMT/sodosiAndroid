@@ -1,15 +1,22 @@
 package com.sodosi.ui.create
 
+import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.Editable
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityCreateBinding
+import com.sodosi.ui.common.EmojiFilter
 import com.sodosi.ui.common.base.BaseActivity
 
 /**
@@ -20,7 +27,10 @@ import com.sodosi.ui.common.base.BaseActivity
  */
 
 class CreateActivity : BaseActivity<CreateViewModel, ActivityCreateBinding>() {
+    private val inputMethodManager: InputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
+
     private lateinit var exitDialog: Dialog
+    private var isSodosiPublic = true
 
     override val viewModel: CreateViewModel by viewModels()
 
@@ -33,6 +43,10 @@ class CreateActivity : BaseActivity<CreateViewModel, ActivityCreateBinding>() {
         initAppbar()
         initDialog()
         setOnClickListener()
+
+        setTextChangeListener()
+
+        return@with
     }
 
     override fun onBackPressed() {
@@ -71,12 +85,73 @@ class CreateActivity : BaseActivity<CreateViewModel, ActivityCreateBinding>() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setOnClickListener() {
         binding.btnCreateSodosi.setOnClickListener {
             val intent = Intent(this, LoadingActivity::class.java)
-            startActivity(intent)
+            intent.putExtra(EXTRA_SODOSI_NAME, binding.etSodosiName.text.toString())
+            intent.putExtra(EXTRA_SODOSI_EMOJI, binding.tvEmoji.text)
+            intent.putExtra(EXTRA_SODOSI_IS_PUBLIC, isSodosiPublic)
 
+            startActivity(intent)
             finish()
         }
+
+        binding.ivEmoji.setOnClickListener {
+            binding.etEmoji.text = null
+            binding.etEmoji.requestFocus()
+            inputMethodManager.showSoftInput(binding.etEmoji, 0)
+        }
+
+        binding.tvEmoji.setOnClickListener {
+            binding.etEmoji.text = null
+            binding.etEmoji.requestFocus()
+            inputMethodManager.showSoftInput(binding.etEmoji, 0)
+        }
+
+        binding.sodosiPublic.setOnClickListener {
+            isSodosiPublic = true
+            binding.ivPublic.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_checked))
+            binding.ivPrivate.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_unchecked))
+        }
+
+        binding.sodosiPrivate.setOnClickListener {
+            isSodosiPublic = false
+            binding.ivPublic.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_unchecked))
+            binding.ivPrivate.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_checked))
+        }
+    }
+
+    private fun setTextChangeListener() {
+        binding.etSodosiName.addTextChangedListener {
+            checkButtonEnable()
+        }
+
+        binding.etEmoji.filters = arrayOf(EmojiFilter())
+        binding.etEmoji.addTextChangedListener {
+            try {
+                if (it?.isNotEmpty() == true) {
+                    binding.ivEmoji.visibility = View.GONE
+                    checkButtonEnable()
+                }
+
+                val emoji = it?.substring(it.length - 2)
+                binding.tvEmoji.text = emoji
+                binding.etEmoji.text = emoji as? Editable
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
+    private fun checkButtonEnable() {
+        binding.btnCreateSodosi.isEnabled =
+            binding.etSodosiName.text.isNotEmpty() && binding.tvEmoji.text.length == 2
+    }
+
+    companion object {
+        const val EXTRA_SODOSI_NAME = "SODOSI_NAME"
+        const val EXTRA_SODOSI_EMOJI = "SODOSI_EMOJI"
+        const val EXTRA_SODOSI_IS_PUBLIC = "SODOSI_IS_PUBLIC"
     }
 }

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.create.CreateActivity">
+    android:layout_height="match_parent">
 
     <com.sodosi.ui.common.customview.SodosiAppbar
         android:id="@+id/appbar"
@@ -16,98 +15,165 @@
 
     <View
         android:id="@+id/emojiBackground"
-        android:layout_width="92dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/gray2"
+        android:layout_width="222dp"
+        android:layout_height="222dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_oval_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar" />
 
+    <ImageView
+        android:id="@+id/ivEmoji"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="32dp"
+        android:src="@drawable/create_sodosi_emoji_button"
+        app:layout_constraintBottom_toBottomOf="@id/emojiBackground"
+        app:layout_constraintEnd_toEndOf="@id/emojiBackground"
+        app:layout_constraintStart_toStartOf="@id/emojiBackground"
+        app:layout_constraintTop_toTopOf="@id/emojiBackground" />
+
     <TextView
-        android:id="@+id/tvAddEmoji"
+        android:id="@+id/tvEmoji"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/create_add_emoji"
+        android:textSize="70dp"
+        app:layout_constraintBottom_toBottomOf="@id/emojiBackground"
+        app:layout_constraintEnd_toEndOf="@id/emojiBackground"
+        app:layout_constraintStart_toStartOf="@id/emojiBackground"
+        app:layout_constraintTop_toTopOf="@id/emojiBackground" />
+
+    <EditText
+        android:id="@+id/etSodosiName"
+        style="@style/Typography.HeadLines.Callout.Bold"
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
+        android:hint="@string/create_sodosi_name_hint"
+        android:textColorHint="#ADADAD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emojiBackground" />
 
-    <TextView
-        android:id="@+id/tvSodosiName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/create_sodosi_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAddEmoji" />
-
     <View
-        android:id="@+id/inputBackground"
+        android:id="@+id/createSodosiDivider"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/background_rounded_gray"
+        android:layout_height="1dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/gray6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSodosiName" />
-
-    <EditText
-        android:id="@+id/etSodosiName"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/inputBackground"
-        app:layout_constraintEnd_toEndOf="@id/inputBackground"
-        app:layout_constraintStart_toStartOf="@id/inputBackground"
-        app:layout_constraintTop_toTopOf="@id/inputBackground" />
+        app:layout_constraintTop_toBottomOf="@id/etSodosiName" />
 
     <TextView
         android:id="@+id/tvSodosiVisibility"
+        style="@style/Typography.HeadLines.SubHeadLine.Bold"
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/create_sodosi_visibility"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createSodosiDivider" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sodosiPublic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="24dp"
-        android:text="@string/create_sodosi_visibility"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputBackground" />
+        app:layout_constraintStart_toStartOf="@id/tvSodosiVisibility"
+        app:layout_constraintTop_toBottomOf="@id/tvSodosiVisibility">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnPrivate"
-        style="@style/SodosiButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/create_sodosi_private"
-        app:layout_constraintEnd_toStartOf="@id/btnPublic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSodosiVisibility" />
+        <ImageView
+            android:id="@+id/ivPublic"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:src="@drawable/ic_interface_circle_checked"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnPublic"
-        style="@style/SodosiButton"
-        android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvPublic"
+            style="@style/Typography.Body.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_public"
+            app:layout_constraintStart_toEndOf="@id/ivPublic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPublicMessage"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_public_message"
+            android:textColor="#8A8A8E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPublic"
+            app:layout_constraintTop_toBottomOf="@id/tvPublic" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sodosiPrivate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="@string/create_sodosi_public"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnPrivate"
-        app:layout_constraintTop_toTopOf="@id/btnPrivate" />
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="@id/sodosiPublic"
+        app:layout_constraintTop_toBottomOf="@id/sodosiPublic">
+
+        <ImageView
+            android:id="@+id/ivPrivate"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:src="@drawable/ic_interface_circle_unchecked"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrivate"
+            style="@style/Typography.Body.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_private"
+            app:layout_constraintStart_toEndOf="@id/ivPrivate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrivateMessage"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_private_message"
+            android:textColor="#8A8A8E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPrivate"
+            app:layout_constraintTop_toBottomOf="@id/tvPrivate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCreateSodosi"
         style="@style/SodosiButton"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/screen_width"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:enabled="false"
         android:text="@string/create_sodosi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etEmoji"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

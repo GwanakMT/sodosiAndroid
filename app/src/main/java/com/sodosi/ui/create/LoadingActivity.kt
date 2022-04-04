@@ -3,6 +3,7 @@ package com.sodosi.ui.create
 import androidx.activity.viewModels
 import com.sodosi.databinding.ActivityLoadingBinding
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.util.LogUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -29,6 +30,10 @@ class LoadingActivity : BaseActivity<CreateViewModel, ActivityLoadingBinding>() 
 
             finish()
         }
+
+        LogUtil.d("${CreateActivity.EXTRA_SODOSI_NAME} : ${intent.extras?.get(CreateActivity.EXTRA_SODOSI_NAME)}")
+        LogUtil.d("${CreateActivity.EXTRA_SODOSI_EMOJI} : ${intent.extras?.get(CreateActivity.EXTRA_SODOSI_EMOJI)}")
+        LogUtil.d("${CreateActivity.EXTRA_SODOSI_IS_PUBLIC} : ${intent.extras?.get(CreateActivity.EXTRA_SODOSI_IS_PUBLIC)}")
 
         return@with
     }

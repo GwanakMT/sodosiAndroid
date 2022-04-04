@@ -84,13 +84,14 @@
     <string name="map_moment_sub_title">소도시 속 순간들</string>
 
     // Create
-    <string name="create_title">소도시 만들기</string>
-    <string name="create_add_emoji">이모지 추가하기</string>
-    <string name="create_sodosi_name">소도시 이름</string>
+    <string name="create_title">새로운 소도시</string>
+    <string name="create_sodosi_name_hint">ex. 선릉역 직장인들의 점심 맛집</string>
     <string name="create_sodosi_visibility">소도시 공개 여부</string>
-    <string name="create_sodosi_private">다같이 볼래요!</string>
-    <string name="create_sodosi_public">나만 볼래요</string>
-    <string name="create_sodosi">도시 만들기</string>
+    <string name="create_sodosi_private">비공개</string>
+    <string name="create_sodosi_private_message">나만 볼 수 있습니다.</string>
+    <string name="create_sodosi_public">공개</string>
+    <string name="create_sodosi_public_message">다른 사람과 소도시를 공유할 수 있습니다.</string>
+    <string name="create_sodosi">완료</string>
 
     <string name="create_exit_title">만드실 소도시... 정말 기대하고 있어요!</string>
     <string name="create_exit_message">중단 시 작성하신 소도시가 저장되지 않아요.\n정말 나가시겠어요?</string>
