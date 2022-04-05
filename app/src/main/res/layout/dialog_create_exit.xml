@@ -11,7 +11,9 @@
         android:id="@+id/tvExitTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_semibold"
         android:text="@string/create_exit_title"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,28 +24,55 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/create_exit_message"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvExitTitle" />
 
-    <Button
+    <androidx.cardview.widget.CardView
         android:id="@+id/btnExit"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:backgroundTint="#F6F6F6"
         android:text="@string/create_exit_exit"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toStartOf="@id/btnContinue"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvExitMessage" />
+        app:layout_constraintTop_toBottomOf="@id/tvExitMessage">
 
-    <Button
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/create_exit_exit"
+            android:textColor="#7D7D7D"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/btnContinue"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/create_exit_continue"
+        android:layout_height="48dp"
+        android:layout_marginTop="18dp"
+        android:backgroundTint="#C4C4C4"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnExit"
-        app:layout_constraintTop_toBottomOf="@id/tvExitMessage" />
+        app:layout_constraintTop_toBottomOf="@id/tvExitMessage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/pretendard_bold"
+            android:text="@string/create_exit_continue"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

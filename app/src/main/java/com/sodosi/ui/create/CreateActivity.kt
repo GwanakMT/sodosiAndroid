@@ -11,8 +11,8 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import androidx.activity.viewModels
+import androidx.cardview.widget.CardView
 import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityCreateBinding
@@ -67,12 +67,12 @@ class CreateActivity : BaseActivity<CreateViewModel, ActivityCreateBinding>() {
         exitDialog = Dialog(this).apply {
             setContentView(R.layout.dialog_create_exit)
 
-            findViewById<Button>(R.id.btnExit).setOnClickListener {
+            findViewById<CardView>(R.id.btnExit).setOnClickListener {
                 exitDialog.dismiss()
                 finish()
             }
 
-            findViewById<Button>(R.id.btnContinue).setOnClickListener {
+            findViewById<CardView>(R.id.btnContinue).setOnClickListener {
                 exitDialog.dismiss()
             }
 
