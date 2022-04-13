@@ -1,10 +1,12 @@
 package com.sodosi.ui.map
 
+import android.graphics.Point
 import android.view.View
 import androidx.activity.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skt.Tmap.TMapView
 import com.sodosi.BuildConfig
+import com.sodosi.R
 import com.sodosi.databinding.ActivityMapBinding
 import com.sodosi.ui.common.base.BaseActivity
 
@@ -18,6 +20,11 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
     override val viewModel: MapViewModel by viewModels()
 
     override fun initViews() = with(binding) {
+        changeStatusBarColorWhite()
+        binding.tvMapTitle.text = intent.getStringExtra(EXTRA_MAP_NAME)
+        binding.tvMomentCount.text = getString(R.string.sodosi_moment_count, intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString())
+        binding.tvMomentCount.text = getString(R.string.sodosi_moment_count, intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString())
+
         initMapView()
         initMomentBottomSheet()
         setOnClickListener()
@@ -35,6 +42,9 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
     }
 
     private fun initMomentBottomSheet() {
+        val size = Point()
+        windowManager.defaultDisplay.getRealSize(size)
+
         supportFragmentManager.beginTransaction()
             .replace(binding.momentBottomSheetContainer.id, momentBottomSheet)
             .commitNow()
@@ -42,7 +52,9 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.momentBottomSheetContainer)
         bottomSheetBehavior.apply {
             state = BottomSheetBehavior.STATE_COLLAPSED
-            peekHeight = 200
+            peekHeight = resources.getDimensionPixelSize(R.dimen.moment_bottom_sheet_peek_height)
+            maxHeight = (size.y - resources.getDimensionPixelSize(R.dimen.moment_bottom_sheet_not_include_max_height))
+
             addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
 
@@ -56,14 +68,19 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
     }
 
     private fun setOnClickListener() {
-        binding.momentBottomSheetContainer.setOnClickListener {  }
+        binding.momentBottomSheetContainer.setOnClickListener { }
         binding.btnBack.setOnClickListener { onBackPressed() }
-        binding.btnBookmark.setOnClickListener {
+        binding.btnMenu.setOnClickListener {
 
         }
     }
 
     companion object {
         private const val MAP_API_KEY = BuildConfig.TMAP_API_KEY
+
+        const val EXTRA_MAP_ID = "EXTRA_MAP_ID"
+        const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"
+        const val EXTRA_MOMENT_COUNT = "EXTRA_MOMENT_COUNT"
+
     }
 }

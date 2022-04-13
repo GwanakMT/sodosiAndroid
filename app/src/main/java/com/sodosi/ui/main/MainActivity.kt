@@ -266,7 +266,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     private fun moveToSodosiMap(sodosi: Sodosi) {
         val intent = Intent(this, MapActivity::class.java)
-        intent.putExtra("SODOSI_ID", sodosi.id)
+        intent.putExtra(MapActivity.EXTRA_MAP_ID, sodosi.id)
+        intent.putExtra(MapActivity.EXTRA_MAP_NAME, sodosi.name)
+        intent.putExtra(MapActivity.EXTRA_MOMENT_COUNT, sodosi.momentCount)
 
         startActivity(intent)
     }

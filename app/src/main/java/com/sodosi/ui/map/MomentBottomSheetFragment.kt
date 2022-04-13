@@ -18,6 +18,7 @@ class MomentBottomSheetFragment : BaseFragment<MapViewModel, FragmentMapBottomSh
     override fun getViewBinding() = FragmentMapBottomSheetBinding.inflate(layoutInflater)
 
     override fun initViews() = with(binding) {
+        binding.tvMomentCount.text = "7"
     }
 
     override fun observeData() {

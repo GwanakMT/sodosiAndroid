@@ -8,43 +8,121 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:background="@color/gray6">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mapContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:background="@drawable/background_map_title_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/backEllipse"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_ellipse"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_arrow_left"
-            android:translationZ="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/ic_arrow_backward"
+            app:layout_constraintBottom_toBottomOf="@id/backEllipse"
+            app:layout_constraintEnd_toEndOf="@id/backEllipse"
+            app:layout_constraintStart_toStartOf="@id/backEllipse"
+            app:layout_constraintTop_toTopOf="@id/backEllipse" />
 
-        <ImageView
-            android:id="@+id/btnBookmark"
-            android:layout_width="@dimen/icon_width"
-            android:layout_height="@dimen/icon_height"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_interface_bookmark"
-            android:translationZ="16dp"
+        <View
+            android:id="@+id/menuMoreEllipse"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_ellipse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/btnMenu"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_menu_more_vertical"
+            app:layout_constraintBottom_toBottomOf="@id/menuMoreEllipse"
+            app:layout_constraintEnd_toEndOf="@id/menuMoreEllipse"
+            app:layout_constraintStart_toStartOf="@id/menuMoreEllipse"
+            app:layout_constraintTop_toTopOf="@id/menuMoreEllipse" />
+
         <TextView
             android:id="@+id/tvMapTitle"
+            style="@style/Typography.HeadLines.Callout.Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:translationZ="16dp"
-            app:layout_constraintEnd_toStartOf="@id/btnBookmark"
-            app:layout_constraintStart_toEndOf="@id/btnBack"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toStartOf="@id/menuMoreEllipse"
+            app:layout_constraintStart_toEndOf="@id/backEllipse"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="우리 동네 힙한 LP바" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mapContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:translationZ="-10dp" />
+        <LinearLayout
+            android:id="@+id/momentCountLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_rounded_white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMapTitle">
+
+            <ImageView
+                android:id="@+id/ivMomentEmoji"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/moment_emoji" />
+
+            <TextView
+                android:id="@+id/tvMomentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                tools:text="50개의 순간" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/gpsEllipse"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/moment_bottom_sheet_peek_height_gps"
+            android:background="@drawable/ic_ellipse"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivGps"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:src="@drawable/ic_navigation_gps"
+            app:layout_constraintBottom_toBottomOf="@id/gpsEllipse"
+            app:layout_constraintEnd_toEndOf="@id/gpsEllipse"
+            app:layout_constraintStart_toStartOf="@id/gpsEllipse"
+            app:layout_constraintTop_toTopOf="@id/gpsEllipse" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView
