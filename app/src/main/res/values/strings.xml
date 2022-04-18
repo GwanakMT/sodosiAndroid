@@ -36,7 +36,7 @@
     <string name="onboarding_terms_allow_all_terms">약관 모두 동의</string>
 
     <string name="onboarding_welcome">%s님의\n입주를 환영합니다!</string>
-    
+
     // Home
     <string name="join_sodosi_list_title">내가 참여 중인 소도시 🔨</string>
     <string name="bookmark_sodosi_list_title">내 관심 소도시 👍</string>
@@ -98,4 +98,10 @@
     <string name="create_exit_message">중단 시 작성하신 소도시가 저장되지 않아요.\n정말 나가시겠어요?</string>
     <string name="create_exit_exit">나가기</string>
     <string name="create_exit_continue">이어하기</string>
+
+    // Mypage
+    <string name="mypage_created_sodosi">내가 만든 소도시</string>
+    <string name="mypage_joined_sodosi">참여 중인 소도시</string>
+    <string name="mypage_bookmark">북마크</string>
+    <string name="mypage_current_moment">최근 내가 남긴 순간</string>
 </resources>
