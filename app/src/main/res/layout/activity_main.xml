@@ -139,7 +139,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_emoji" />
+                    tools:listitem="@layout/item_sodosi_type_rectangle" />
 
                 <View
                     android:layout_width="match_parent"
@@ -156,14 +156,17 @@
                     android:text="@string/bookmark_sodosi_list_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBookmarkSodosi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
+                    android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
+                    android:paddingLeft="20dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_emoji" />
+                    tools:listitem="@layout/item_sodosi_type_square" />
 
                 <View
                     android:layout_width="match_parent"
@@ -188,7 +191,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_emoji" />
+                    tools:listitem="@layout/item_sodosi_type_rectangle" />
 
                 <TextView
                     android:id="@+id/btnMoreHotSodosi"
@@ -221,7 +224,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_emoji" />
+                    tools:listitem="@layout/item_sodosi_type_rectangle" />
 
                 <TextView
                     android:id="@+id/tvMoreNewSodosi"

@@ -17,5 +17,6 @@ data class Sodosi(
     val userCount: Int,         // 소시민 수
     val status: String,         // 상태값(Active/Reported)
     val icon: String,           // 소도시 아이콘
+    val thumbnailImage: String, // 소도시 썸네일 이미지
     val dateTime: String,       // 최종 저장 시간
 )

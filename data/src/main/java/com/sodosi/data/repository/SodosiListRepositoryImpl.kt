@@ -24,6 +24,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 34,
                 status = "",
                 icon = "camera",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -36,6 +37,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 32,
                 status = "",
                 icon = "cafe",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -48,6 +50,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 20,
                 status = "",
                 icon = "danger",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -60,6 +63,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 30,
                 status = "",
                 icon = "dog",
+                thumbnailImage = "",
                 dateTime = ""
             )
         )
@@ -77,6 +81,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 10,
                 status = "",
                 icon = "\uD83C\uDFB1",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -89,6 +94,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 12,
                 status = "",
                 icon = "\uD83D\uDC25",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -101,6 +107,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 3,
                 status = "",
                 icon = "\uD83C\uDF50",
+                thumbnailImage = "",
                 dateTime = ""
             ),
         )
@@ -118,6 +125,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 10,
                 status = "",
                 icon = "\uD83C\uDFB1",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -130,6 +138,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 12,
                 status = "",
                 icon = "\uD83D\uDC25",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -142,6 +151,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 3,
                 status = "",
                 icon = "\uD83C\uDF50",
+                thumbnailImage = "",
                 dateTime = ""
             ),
         )
@@ -159,6 +169,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 10,
                 status = "",
                 icon = "\uD83C\uDFB1",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -171,6 +182,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 12,
                 status = "",
                 icon = "\uD83D\uDC25",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -183,6 +195,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 3,
                 status = "",
                 icon = "\uD83C\uDF50",
+                thumbnailImage = "",
                 dateTime = ""
             ),
         )
@@ -200,6 +213,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 1,
                 status = "",
                 icon = "\uD83C\uDFB2",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -212,6 +226,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 5,
                 status = "",
                 icon = "\uD83E\uDD50",
+                thumbnailImage = "",
                 dateTime = ""
             ),
             Sodosi(
@@ -224,6 +239,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 userCount = 3,
                 status = "",
                 icon = "\uD83C\uDF50",
+                thumbnailImage = "",
                 dateTime = ""
             ),
         )

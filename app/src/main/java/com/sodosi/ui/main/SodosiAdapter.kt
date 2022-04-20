@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sodosi.databinding.ItemSodosiTypeEmojiBinding
+import com.sodosi.databinding.ItemSodosiTypeRectangleBinding
+import com.sodosi.databinding.ItemSodosiTypeSquareBinding
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.util.LogUtil
 import java.lang.Exception
@@ -17,25 +18,66 @@ import java.lang.Exception
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class SodosiAdapter : ListAdapter<Sodosi, SodosiAdapter.ViewHolder>(DiffCallback()) {
+class SodosiAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(DiffCallback()) {
+    enum class ViewType { RECTANGLE, SQUARE }
+
+    var itemViewType: ViewType = ViewType.RECTANGLE
     var onItemClick: ((selectedItem: Sodosi) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return ViewHolder(ItemSodosiTypeEmojiBinding.inflate(inflater, parent, false), onItemClick)
+        return when (itemViewType) {
+            ViewType.RECTANGLE -> RectangleViewHolder(
+                ItemSodosiTypeRectangleBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                ), onItemClick
+            )
+            ViewType.SQUARE -> SquareViewHolder(
+                ItemSodosiTypeSquareBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                ), onItemClick
+            )
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(itemViewType) {
+            ViewType.RECTANGLE -> (holder as RectangleViewHolder).bind(currentList[position])
+            ViewType.SQUARE -> (holder as SquareViewHolder).bind(currentList[position])
+        }
     }
 
     override fun getItemCount(): Int {
         return currentList.size
     }
 
-    inner class ViewHolder(
-        private val binding: ItemSodosiTypeEmojiBinding,
+    inner class RectangleViewHolder(
+        private val binding: ItemSodosiTypeRectangleBinding,
+        onItemClick: ((selectedItem: Sodosi) -> Unit)?
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.onItemClick = onItemClick
+        }
+
+        fun bind(item: Sodosi) {
+            binding.item = item
+            try {
+                binding.tvEmoji.text = item.icon
+            } catch (e: Exception) {
+                LogUtil.e("${e.message}", "${SodosiAdapter::class.simpleName}")
+            }
+        }
+    }
+
+    inner class SquareViewHolder(
+        private val binding: ItemSodosiTypeSquareBinding,
         onItemClick: ((selectedItem: Sodosi) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {

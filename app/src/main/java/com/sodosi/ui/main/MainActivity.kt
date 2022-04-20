@@ -73,6 +73,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
         viewModel.getMainSodosiList()
         viewModel.getJoinSodosiList()
+        viewModel.getBookmarkSodosiList()
         viewModel.getHotSodosiList()
         viewModel.getNewSodosiList()
     }
@@ -97,6 +98,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             launch {
                 viewModel.joinSodosiList.collect { joinSodosi ->
                     (binding.rvJoinSodosi.adapter as SodosiAdapter).submitList(joinSodosi)
+                }
+            }
+
+            launch {
+                viewModel.bookmarkSodosiList.collect { bookmarkSodosi ->
+                    (binding.rvBookmarkSodosi.adapter as SodosiAdapter).submitList(bookmarkSodosi)
                 }
             }
 
@@ -194,6 +201,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             }
 
             addItemDecoration(dividerItemDecoration)
+        }
+
+        binding.rvBookmarkSodosi.apply {
+            adapter = SodosiAdapter().apply {
+                itemViewType = SodosiAdapter.ViewType.SQUARE
+                onItemClick = {
+                    moveToSodosiMap(it)
+                }
+            }
         }
 
         binding.rvHotSodosi.apply {

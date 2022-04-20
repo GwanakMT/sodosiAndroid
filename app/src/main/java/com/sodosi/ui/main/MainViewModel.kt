@@ -2,10 +2,7 @@ package com.sodosi.ui.main
 
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.entity.Sodosi
-import com.sodosi.domain.usecase.GetHotSodosiListUseCase
-import com.sodosi.domain.usecase.GetJoinSodosiListUseCase
-import com.sodosi.domain.usecase.GetMainSodosiListUseCase
-import com.sodosi.domain.usecase.GetNewSodosiListUseCase
+import com.sodosi.domain.usecase.*
 import com.sodosi.ui.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +21,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getMainSodosiListUseCase: GetMainSodosiListUseCase,
     private val getJoinSodosiListUseCase: GetJoinSodosiListUseCase,
+    private val getBookmarkSodosiListUseCase: GetBookmarkSodosiListUseCase,
     private val getHotSodosiListUseCase: GetHotSodosiListUseCase,
     private val getNewSodosiListUseCase: GetNewSodosiListUseCase,
 ) : BaseViewModel() {
@@ -33,11 +31,20 @@ class MainViewModel @Inject constructor(
     private val _joinSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val joinSodosiList: StateFlow<List<Sodosi>> = _joinSodosiList
 
+    private val _bookmarkSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
+    val bookmarkSodosiList: StateFlow<List<Sodosi>> = _bookmarkSodosiList
+
     private val _hotSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val hotSodosiList: StateFlow<List<Sodosi>> = _hotSodosiList
 
     private val _newSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val newSodosiList: StateFlow<List<Sodosi>> = _newSodosiList
+
+    fun getMainSodosiList() {
+        viewModelScope.launch {
+            _mainSodosiList.value = getMainSodosiListUseCase()
+        }
+    }
 
     fun getJoinSodosiList() {
         viewModelScope.launch {
@@ -45,9 +52,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getMainSodosiList() {
+    fun getBookmarkSodosiList() {
         viewModelScope.launch {
-            _mainSodosiList.value = getMainSodosiListUseCase()
+            _bookmarkSodosiList.value = getBookmarkSodosiListUseCase()
         }
     }
 
