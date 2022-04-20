@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SodosiAndroid">
         <activity
+            android:name=".ui.sodosi.CreateMomentActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.mypage.MypageActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -45,9 +48,7 @@
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
+            tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".ui.font.FontTestActivity"
             android:exported="true"
@@ -80,9 +81,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- receiver -->
+            tools:ignore="LockedOrientationActivity" /> <!-- receiver -->
         <receiver
             android:name=".receiver.SMSReceiver"
             android:enabled="true"

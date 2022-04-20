@@ -1,5 +1,6 @@
 package com.sodosi.ui.sodosi
 
+import android.content.Intent
 import androidx.fragment.app.activityViewModels
 import com.sodosi.databinding.FragmentSodosiBottomSheetBinding
 import com.sodosi.ui.common.base.BaseFragment
@@ -19,9 +20,18 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentSodosiBo
 
     override fun initViews() = with(binding) {
         binding.tvMomentCount.text = "7"
+
+        setOnClickListener()
     }
 
     override fun observeData() {
 
+    }
+
+    private fun setOnClickListener() {
+        binding.etMoment.setOnClickListener {
+            val intent = Intent(context, CreateMomentActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

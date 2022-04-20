@@ -23,7 +23,6 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         changeStatusBarColorWhite()
         binding.tvMapTitle.text = intent.getStringExtra(EXTRA_MAP_NAME)
         binding.tvMomentCount.text = getString(R.string.sodosi_moment_count, intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString())
-        binding.tvMomentCount.text = getString(R.string.sodosi_moment_count, intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString())
 
         initMapView()
         initMomentBottomSheet()
@@ -76,7 +75,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     }
 
     companion object {
-        private const val MAP_API_KEY = BuildConfig.TMAP_API_KEY
+        const val MAP_API_KEY = BuildConfig.TMAP_API_KEY
 
         const val EXTRA_MAP_ID = "EXTRA_MAP_ID"
         const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"

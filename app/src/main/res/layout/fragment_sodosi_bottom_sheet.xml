@@ -30,12 +30,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view" />
 
-    <EditText
+    <TextView
         android:id="@+id/etMoment"
         style="@style/Typography.HeadLines.Callout"
         android:layout_width="@dimen/screen_width"
         android:layout_height="48dp"
         android:layout_margin="16dp"
+        android:gravity="center_vertical"
         android:background="#F6F6F6"
         android:hint="@string/map_moment_hint"
         android:paddingStart="38dp"
