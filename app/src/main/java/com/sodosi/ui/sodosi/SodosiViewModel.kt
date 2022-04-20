@@ -1,4 +1,4 @@
-package com.sodosi.ui.map
+package com.sodosi.ui.sodosi
 
 import com.sodosi.ui.common.base.BaseViewModel
 
@@ -9,6 +9,6 @@ import com.sodosi.ui.common.base.BaseViewModel
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class MapViewModel: BaseViewModel() {
+class SodosiViewModel: BaseViewModel() {
 
 }

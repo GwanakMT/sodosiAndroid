@@ -1,4 +1,4 @@
-package com.sodosi.ui.map
+package com.sodosi.ui.sodosi
 
 import android.graphics.Point
 import android.view.View
@@ -7,17 +7,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skt.Tmap.TMapView
 import com.sodosi.BuildConfig
 import com.sodosi.R
-import com.sodosi.databinding.ActivityMapBinding
+import com.sodosi.databinding.ActivitySodosiBinding
 import com.sodosi.ui.common.base.BaseActivity
 
-class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
+class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var mapView: TMapView
     private val momentBottomSheet by lazy { MomentBottomSheetFragment() }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
-    override fun getViewBinding() = ActivityMapBinding.inflate(layoutInflater)
+    override fun getViewBinding() = ActivitySodosiBinding.inflate(layoutInflater)
 
-    override val viewModel: MapViewModel by viewModels()
+    override val viewModel: SodosiViewModel by viewModels()
 
     override fun initViews() = with(binding) {
         changeStatusBarColorWhite()
@@ -81,6 +81,5 @@ class MapActivity : BaseActivity<MapViewModel, ActivityMapBinding>() {
         const val EXTRA_MAP_ID = "EXTRA_MAP_ID"
         const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"
         const val EXTRA_MOMENT_COUNT = "EXTRA_MOMENT_COUNT"
-
     }
 }

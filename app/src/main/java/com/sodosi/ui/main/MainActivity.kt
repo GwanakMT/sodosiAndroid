@@ -5,8 +5,8 @@ import android.net.Uri
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.marginTop
 import androidx.activity.viewModels
+import androidx.core.view.marginTop
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +17,7 @@ import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.ui.create.CreateActivity
 import com.sodosi.ui.list.SodosiListActivity
-import com.sodosi.ui.map.MapActivity
+import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.ui.mypage.MypageActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -281,10 +281,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun moveToSodosiMap(sodosi: Sodosi) {
-        val intent = Intent(this, MapActivity::class.java)
-        intent.putExtra(MapActivity.EXTRA_MAP_ID, sodosi.id)
-        intent.putExtra(MapActivity.EXTRA_MAP_NAME, sodosi.name)
-        intent.putExtra(MapActivity.EXTRA_MOMENT_COUNT, sodosi.momentCount)
+        val intent = Intent(this, SodosiActivity::class.java)
+        intent.putExtra(SodosiActivity.EXTRA_MAP_ID, sodosi.id)
+        intent.putExtra(SodosiActivity.EXTRA_MAP_NAME, sodosi.name)
+        intent.putExtra(SodosiActivity.EXTRA_MOMENT_COUNT, sodosi.momentCount)
 
         startActivity(intent)
     }

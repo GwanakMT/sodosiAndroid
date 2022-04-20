@@ -1,7 +1,7 @@
-package com.sodosi.ui.map
+package com.sodosi.ui.sodosi
 
 import androidx.fragment.app.activityViewModels
-import com.sodosi.databinding.FragmentMapBottomSheetBinding
+import com.sodosi.databinding.FragmentSodosiBottomSheetBinding
 import com.sodosi.ui.common.base.BaseFragment
 
 /**
@@ -11,11 +11,11 @@ import com.sodosi.ui.common.base.BaseFragment
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class MomentBottomSheetFragment : BaseFragment<MapViewModel, FragmentMapBottomSheetBinding>() {
+class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentSodosiBottomSheetBinding>() {
 
-    override val viewModel: MapViewModel by activityViewModels()
+    override val viewModel: SodosiViewModel by activityViewModels()
 
-    override fun getViewBinding() = FragmentMapBottomSheetBinding.inflate(layoutInflater)
+    override fun getViewBinding() = FragmentSodosiBottomSheetBinding.inflate(layoutInflater)
 
     override fun initViews() = with(binding) {
         binding.tvMomentCount.text = "7"

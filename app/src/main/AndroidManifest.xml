@@ -71,7 +71,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.map.MapActivity"
+            android:name=".ui.sodosi.SodosiActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
