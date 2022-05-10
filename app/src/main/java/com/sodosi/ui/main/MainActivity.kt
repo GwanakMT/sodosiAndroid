@@ -15,7 +15,7 @@ import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
-import com.sodosi.ui.create.CreateActivity
+import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.ui.mypage.MypageActivity
@@ -54,7 +54,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun onBackPressed() {
         when {
-            System.currentTimeMillis() - backPressWaitTime >= 1500 -> {
+            System.currentTimeMillis() - backPressWaitTime >= BACKPRESS_DELAY_TIME -> {
                 backPressWaitTime = System.currentTimeMillis()
                 Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
             }
@@ -72,7 +72,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         initSodosiRecyclerView()
 
         viewModel.getMainSodosiList()
-        viewModel.getJoinSodosiList()
+        viewModel.getCommentedSodosiList()
         viewModel.getBookmarkSodosiList()
         viewModel.getHotSodosiList()
         viewModel.getNewSodosiList()
@@ -96,26 +96,26 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             }
 
             launch {
-                viewModel.joinSodosiList.collect { joinSodosi ->
-                    (binding.rvJoinSodosi.adapter as SodosiAdapter).submitList(joinSodosi)
+                viewModel.commentedSodosiList.collect { commentedSodosi ->
+                    (binding.rvCommentedSodosi.adapter as SodosiListAdapter).submitList(commentedSodosi)
                 }
             }
 
             launch {
                 viewModel.bookmarkSodosiList.collect { bookmarkSodosi ->
-                    (binding.rvBookmarkSodosi.adapter as SodosiAdapter).submitList(bookmarkSodosi)
+                    (binding.rvBookmarkSodosi.adapter as SodosiListAdapter).submitList(bookmarkSodosi)
                 }
             }
 
             launch {
                 viewModel.hotSodosiList.collect { hotSodosiList ->
-                    (binding.rvHotSodosi.adapter as SodosiAdapter).submitList(hotSodosiList)
+                    (binding.rvHotSodosi.adapter as SodosiListAdapter).submitList(hotSodosiList)
                 }
             }
 
             launch {
                 viewModel.newSodosiList.collect { newSodosiList ->
-                    (binding.rvNewSodosi.adapter as SodosiAdapter).submitList(newSodosiList)
+                    (binding.rvNewSodosi.adapter as SodosiListAdapter).submitList(newSodosiList)
                 }
             }
         }
@@ -193,8 +193,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             LinearLayoutManager(this@MainActivity).orientation
         )
 
-        binding.rvJoinSodosi.apply {
-            adapter = SodosiAdapter().apply {
+        binding.rvCommentedSodosi.apply {
+            adapter = SodosiListAdapter().apply {
                 onItemClick = {
                     moveToSodosiMap(it)
                 }
@@ -204,8 +204,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
 
         binding.rvBookmarkSodosi.apply {
-            adapter = SodosiAdapter().apply {
-                itemViewType = SodosiAdapter.ViewType.SQUARE
+            adapter = SodosiListAdapter().apply {
+                itemViewType = SodosiListAdapter.ViewType.HORIZONTAL
                 onItemClick = {
                     moveToSodosiMap(it)
                 }
@@ -213,7 +213,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
 
         binding.rvHotSodosi.apply {
-            adapter = SodosiAdapter().apply {
+            adapter = SodosiListAdapter().apply {
                 onItemClick = {
                     moveToSodosiMap(it)
                 }
@@ -223,7 +223,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
 
         binding.rvNewSodosi.apply {
-            adapter = SodosiAdapter().apply {
+            adapter = SodosiListAdapter().apply {
                 onItemClick = {
                     moveToSodosiMap(it)
                 }
@@ -245,12 +245,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
 
         binding.ivCreateSodosi.setOnClickListener {
-            val intent = Intent(this, CreateActivity::class.java)
+            val intent = Intent(this, CreateSodosiActivity::class.java)
             startActivity(intent)
         }
 
         binding.suggestLayout.btnCreateSodosi.setOnClickListener {
-            val intent = Intent(this, CreateActivity::class.java)
+            val intent = Intent(this, CreateSodosiActivity::class.java)
             startActivity(intent)
         }
 
@@ -290,6 +290,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     companion object {
+        private const val BACKPRESS_DELAY_TIME = 1500
         private const val SCROLL_DELAY_TIME = 3000L
         private const val SCROLL_DURATION_TIME = 300L
 

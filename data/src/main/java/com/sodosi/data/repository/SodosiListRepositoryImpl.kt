@@ -69,7 +69,7 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
         )
     }
 
-    override suspend fun getJoinSodosiList(): List<Sodosi> {
+    override suspend fun getCommentedSodosiList(): List<Sodosi> {
         return listOf(
             Sodosi(
                 id = 1,

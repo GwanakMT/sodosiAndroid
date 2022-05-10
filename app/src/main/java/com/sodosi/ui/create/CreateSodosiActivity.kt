@@ -1,9 +1,7 @@
 package com.sodosi.ui.create
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.Editable
@@ -13,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityCreateBinding
@@ -20,19 +19,19 @@ import com.sodosi.ui.common.EmojiFilter
 import com.sodosi.ui.common.base.BaseActivity
 
 /**
- *  CreateActivity.kt
+ *  CreateSodosiActivity.kt
  *
  *  Created by Minji Jeong on 2022/03/07
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class CreateActivity : BaseActivity<CreateViewModel, ActivityCreateBinding>() {
+class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateBinding>() {
     private val inputMethodManager: InputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     private lateinit var exitDialog: Dialog
     private var isSodosiPublic = true
 
-    override val viewModel: CreateViewModel by viewModels()
+    override val viewModel: CreateSodosiViewModel by viewModels()
 
     override fun getViewBinding() = ActivityCreateBinding.inflate(layoutInflater)
 
@@ -85,15 +84,14 @@ class CreateActivity : BaseActivity<CreateViewModel, ActivityCreateBinding>() {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setOnClickListener() {
         binding.btnCreateSodosi.setOnClickListener {
-            val intent = Intent(this, LoadingActivity::class.java)
-            intent.putExtra(EXTRA_SODOSI_NAME, binding.etSodosiName.text.toString())
-            intent.putExtra(EXTRA_SODOSI_EMOJI, binding.tvEmoji.text)
-            intent.putExtra(EXTRA_SODOSI_IS_PUBLIC, isSodosiPublic)
+//            val intent = Intent(this, LoadingActivity::class.java)
+//            intent.putExtra(EXTRA_SODOSI_NAME, binding.etSodosiName.text.toString())
+//            intent.putExtra(EXTRA_SODOSI_EMOJI, binding.tvEmoji.text)
+//            intent.putExtra(EXTRA_SODOSI_IS_PUBLIC, isSodosiPublic)
 
-            startActivity(intent)
+//            startActivity(intent)
             finish()
         }
 
@@ -111,14 +109,14 @@ class CreateActivity : BaseActivity<CreateViewModel, ActivityCreateBinding>() {
 
         binding.sodosiPublic.setOnClickListener {
             isSodosiPublic = true
-            binding.ivPublic.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_checked))
-            binding.ivPrivate.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_unchecked))
+            binding.ivPublic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_checked))
+            binding.ivPrivate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_unchecked))
         }
 
         binding.sodosiPrivate.setOnClickListener {
             isSodosiPublic = false
-            binding.ivPublic.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_unchecked))
-            binding.ivPrivate.setImageDrawable(getDrawable(R.drawable.ic_interface_circle_checked))
+            binding.ivPublic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_unchecked))
+            binding.ivPrivate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_checked))
         }
     }
 

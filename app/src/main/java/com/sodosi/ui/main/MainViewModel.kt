@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getMainSodosiListUseCase: GetMainSodosiListUseCase,
-    private val getJoinSodosiListUseCase: GetJoinSodosiListUseCase,
+    private val getCommentedSodosiListUseCase: GetCommentedSodosiListUseCase,
     private val getBookmarkSodosiListUseCase: GetBookmarkSodosiListUseCase,
     private val getHotSodosiListUseCase: GetHotSodosiListUseCase,
     private val getNewSodosiListUseCase: GetNewSodosiListUseCase,
@@ -28,8 +28,8 @@ class MainViewModel @Inject constructor(
     private val _mainSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val mainSodosiList: StateFlow<List<Sodosi>> = _mainSodosiList
 
-    private val _joinSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
-    val joinSodosiList: StateFlow<List<Sodosi>> = _joinSodosiList
+    private val _commentedSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
+    val commentedSodosiList: StateFlow<List<Sodosi>> = _commentedSodosiList
 
     private val _bookmarkSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val bookmarkSodosiList: StateFlow<List<Sodosi>> = _bookmarkSodosiList
@@ -46,9 +46,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getJoinSodosiList() {
+    fun getCommentedSodosiList() {
         viewModelScope.launch {
-            _joinSodosiList.value = getJoinSodosiListUseCase()
+            _commentedSodosiList.value = getCommentedSodosiListUseCase()
         }
     }
 

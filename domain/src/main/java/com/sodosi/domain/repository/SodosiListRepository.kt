@@ -11,7 +11,7 @@ import com.sodosi.domain.entity.Sodosi
 
 interface SodosiListRepository {
     suspend fun getMainSodosiList(): List<Sodosi>
-    suspend fun getJoinSodosiList(): List<Sodosi>
+    suspend fun getCommentedSodosiList(): List<Sodosi>
     suspend fun getBookmarkSodosiList(): List<Sodosi>
     suspend fun getHotSodosiList(): List<Sodosi>
     suspend fun getNewSodosiList(): List<Sodosi>

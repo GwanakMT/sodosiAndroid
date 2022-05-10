@@ -131,7 +131,7 @@
                     android:text="@string/join_sodosi_list_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvJoinSodosi"
+                    android:id="@+id/rvCommentedSodosi"
                     android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -139,7 +139,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_rectangle" />
+                    tools:listitem="@layout/item_sodosi_type_vertical" />
 
                 <View
                     android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                     android:paddingLeft="20dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_square" />
+                    tools:listitem="@layout/item_sodosi_type_horizontal" />
 
                 <View
                     android:layout_width="match_parent"
@@ -191,7 +191,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_rectangle" />
+                    tools:listitem="@layout/item_sodosi_type_vertical" />
 
                 <TextView
                     android:id="@+id/btnMoreHotSodosi"
@@ -224,7 +224,7 @@
                     android:overScrollMode="never"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
-                    tools:listitem="@layout/item_sodosi_type_rectangle" />
+                    tools:listitem="@layout/item_sodosi_type_vertical" />
 
                 <TextView
                     android:id="@+id/tvMoreNewSodosi"
