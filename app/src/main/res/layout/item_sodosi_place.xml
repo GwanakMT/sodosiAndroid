@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="kotlin.jvm.functions.Function1" />
+
+        <import type="kotlin.Unit" />
+
+        <import type="com.sodosi.ui.sodosi.model.PlaceModel" />
+
+        <variable
+            name="item"
+            type="PlaceModel" />
+
+        <variable
+            name="onItemClick"
+            type="Function1&lt;PlaceModel, Unit>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        android:onClick="@{()->onItemClick.invoke(item)}">
+
+        <TextView
+            android:id="@+id/tvPlaceName"
+            style="@style/Typography.HeadLines.SubHeadLine.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center_vertical"
+            android:text="@{item.placeName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="장소" />
+
+        <ImageView
+            android:id="@+id/ivUserProfile"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPlaceName"
+            tools:src="@color/gray6" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{item.userName}"
+            app:layout_constraintStart_toEndOf="@id/ivUserProfile"
+            app:layout_constraintTop_toBottomOf="@id/tvPlaceName"
+            tools:text="유저명" />
+
+        <TextView
+            android:id="@+id/tvDateTime"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:textColor="#ADADAD"
+            app:layout_constraintBottom_toBottomOf="@id/tvUserName"
+            app:layout_constraintStart_toEndOf="@id/tvUserName"
+            app:layout_constraintTop_toTopOf="@id/tvUserName"
+            tools:text="1분전" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            style="@style/Typography.Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{item.comment}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivUserProfile"
+            app:layout_constraintTop_toBottomOf="@id/tvUserName"
+            tools:text="청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기..." />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/gray6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivUserProfile"
+            app:layout_constraintTop_toBottomOf="@id/tvComment" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

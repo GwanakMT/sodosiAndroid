@@ -79,10 +79,9 @@
     <string name="location_search_with_gps">현재 위치로 찾기</string>
 
     // Map
-    <string name="map_moment_title">소중한 장소를 공유해주세요</string>
-    <string name="map_input_hint">어쩌고 저쩌고</string>
-    <string name="map_moment_sub_title">시민들이 추천한 장소</string>
-    <string name="map_moment_hint">이 테마는 바로 여기!</string>
+    <string name="map_place_title">소중한 장소를 공유해주세요</string>
+    <string name="map_place_sub_title">시민들이 추천한 장소</string>
+    <string name="map_place_hint">이 테마는 바로 여기!</string>
 
     // Create
     <string name="create_title">새로운 소도시</string>

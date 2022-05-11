@@ -12,7 +12,7 @@ import com.sodosi.ui.common.base.BaseActivity
 
 class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var mapView: TMapView
-    private val momentBottomSheet by lazy { MomentBottomSheetFragment() }
+    private val momentBottomSheet by lazy { PlaceBottomSheetFragment() }
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun getViewBinding() = ActivitySodosiBinding.inflate(layoutInflater)
@@ -52,7 +52,6 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         bottomSheetBehavior.apply {
             state = BottomSheetBehavior.STATE_COLLAPSED
             peekHeight = resources.getDimensionPixelSize(R.dimen.moment_bottom_sheet_peek_height)
-            maxHeight = (size.y - resources.getDimensionPixelSize(R.dimen.moment_bottom_sheet_not_include_max_height))
 
             addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_rounded_white_bottomsheet">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view"
+        android:layout_width="60dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/gray5"
+        app:cardCornerRadius="80dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPlaceTitle"
+        style="@style/Typography.HeadLines.Callout.Bold"
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp"
+        android:text="@string/map_place_title"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <TextView
+        android:id="@+id/etPlace"
+        style="@style/Typography.HeadLines.Callout"
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:gravity="center_vertical"
+        android:background="#F6F6F6"
+        android:hint="@string/map_place_hint"
+        android:paddingStart="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPlaceTitle" />
+
+    <View
+        android:id="@+id/placeDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/gray6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPlace" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeDivider">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="160dp">
+
+            <TextView
+                android:id="@+id/tvPlaceSubTitle"
+                style="@style/Typography.HeadLines.Callout.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/map_place_sub_title"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="@id/placeRecyclerView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPlaceCount"
+                style="@style/Typography.HeadLines.Callout.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/green600"
+                app:layout_constraintBottom_toBottomOf="@id/tvPlaceSubTitle"
+                app:layout_constraintStart_toEndOf="@id/tvPlaceSubTitle"
+                app:layout_constraintTop_toTopOf="@id/tvPlaceSubTitle"
+                tools:text="7" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/placeRecyclerView"
+                android:layout_width="@dimen/screen_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPlaceSubTitle"
+                tools:listitem="@layout/item_sodosi_place" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
