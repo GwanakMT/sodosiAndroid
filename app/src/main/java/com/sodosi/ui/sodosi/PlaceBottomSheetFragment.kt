@@ -1,6 +1,7 @@
 package com.sodosi.ui.sodosi
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.sodosi.databinding.FragmentPlaceBottomSheetBinding
@@ -56,7 +57,12 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
     private fun initPlaceRecyclerView() {
         binding.placeRecyclerView.apply {
             adapter = placeAdapter.apply {
-                onItemClick = { }
+                onItemClick = {
+                    Toast.makeText(context, "move to place detail", Toast.LENGTH_SHORT).show()
+                }
+                onPhotoClick = { imageUrlList, position ->
+                    Toast.makeText(context, "position: $position", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
