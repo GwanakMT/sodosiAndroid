@@ -15,6 +15,7 @@ import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.list.SodosiListActivity
@@ -56,7 +57,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         when {
             System.currentTimeMillis() - backPressWaitTime >= BACKPRESS_DELAY_TIME -> {
                 backPressWaitTime = System.currentTimeMillis()
-                Toast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+                SodosiToast.makeText(this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
             }
             else -> {
                 super.onBackPressed()
