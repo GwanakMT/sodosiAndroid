@@ -6,6 +6,8 @@ buildscript {
         lifecycle_ktx_version = "2.4.1"
         navigation_version = "2.3.5"
         kotlin_version = "1.4.21"
+        coroutine_version = "1.6.0"
+        datastore_version = "1.0.0"
     }
     repositories {
         google()

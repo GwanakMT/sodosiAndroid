@@ -7,6 +7,7 @@ import com.sodosi.ui.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +25,8 @@ class MainViewModel @Inject constructor(
     private val getBookmarkSodosiListUseCase: GetBookmarkSodosiListUseCase,
     private val getHotSodosiListUseCase: GetHotSodosiListUseCase,
     private val getNewSodosiListUseCase: GetNewSodosiListUseCase,
+    private val setBooleanPreferencesUseCase: SetBooleanPreferencesUseCase,
+    private val getBooleanPreferencesOnceUseCase: GetBooleanPreferencesOnceUseCase,
 ) : BaseViewModel() {
     private val _mainSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val mainSodosiList: StateFlow<List<Sodosi>> = _mainSodosiList
@@ -39,6 +42,11 @@ class MainViewModel @Inject constructor(
 
     private val _newSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
     val newSodosiList: StateFlow<List<Sodosi>> = _newSodosiList
+
+    private val _bannerIsShow = MutableStateFlow(false)
+    val bannerIsShow = _bannerIsShow.combine(_bookmarkSodosiList) { bannerFlag, sodosiList ->
+        bannerFlag && sodosiList.isEmpty()
+    }
 
     fun getMainSodosiList() {
         viewModelScope.launch {
@@ -69,5 +77,21 @@ class MainViewModel @Inject constructor(
             _newSodosiList.value = getNewSodosiListUseCase()
 
         }
+    }
+
+    fun getBannerShowFlag() {
+        viewModelScope.launch {
+            _bannerIsShow.value = getBooleanPreferencesOnceUseCase(KEY_BANNER_SHOW_FLAG) ?: true
+        }
+    }
+
+    fun setBannerShowFlagFalse() {
+        viewModelScope.launch {
+            setBooleanPreferencesUseCase.invoke(KEY_BANNER_SHOW_FLAG, false)
+        }
+    }
+
+    companion object {
+        private const val KEY_BANNER_SHOW_FLAG = "KEY_BANNER_SHOW_FLAG"
     }
 }

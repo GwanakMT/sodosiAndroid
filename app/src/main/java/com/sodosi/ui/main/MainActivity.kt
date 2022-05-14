@@ -15,12 +15,12 @@ import com.sodosi.R
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.ui.mypage.MypageActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -68,9 +68,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         changeStatusBarColorWhite()
 
         setOnClickListener()
+        initBanner()
         initViewPager()
         initSodosiRecyclerView()
 
+        viewModel.getBannerShowFlag()
         viewModel.getMainSodosiList()
         viewModel.getCommentedSodosiList()
         viewModel.getBookmarkSodosiList()
@@ -80,6 +82,14 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun observeData() {
         lifecycleScope.launchWhenStarted {
+            launch {
+                viewModel.bannerIsShow.collect { flag ->
+                    if (flag) {
+                        binding.suggestLayout.root.setVisible()
+                    }
+                }
+            }
+
             launch {
                 viewModel.mainSodosiList.collect { mainSodosiList ->
                     (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(
@@ -187,6 +197,26 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
+    private fun initBanner() {
+        binding.suggestLayout.btnCreateSodosi.setOnClickListener {
+            val intent = Intent(this, CreateSodosiActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.suggestLayout.btnCancel.setOnClickListener {
+            binding.suggestLayout.root.animate()
+                .alpha(0.0f)
+                .translationY(-it.height.toFloat())
+                .duration = 1000L
+
+            binding.homeContainer.animate()
+                .translationY(-(binding.suggestLayout.root.height.toFloat() + binding.suggestLayout.root.marginTop))
+                .duration = 1000L
+
+            viewModel.setBannerShowFlagFalse()
+        }
+    }
+
     private fun initSodosiRecyclerView() {
         val dividerItemDecoration = DividerItemDecoration(
             this@MainActivity,
@@ -247,22 +277,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.ivCreateSodosi.setOnClickListener {
             val intent = Intent(this, CreateSodosiActivity::class.java)
             startActivity(intent)
-        }
-
-        binding.suggestLayout.btnCreateSodosi.setOnClickListener {
-            val intent = Intent(this, CreateSodosiActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.suggestLayout.btnCancel.setOnClickListener {
-            binding.suggestLayout.root.animate()
-                .alpha(0.0f)
-                .translationY(-it.height.toFloat())
-                .duration = 1000L
-
-            binding.homeContainer.animate()
-                .translationY(-(binding.suggestLayout.root.height.toFloat() + binding.suggestLayout.root.marginTop))
-                .duration = 1000L
         }
 
         binding.footer.tvBlog.setOnClickListener {
