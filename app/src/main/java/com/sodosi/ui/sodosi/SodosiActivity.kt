@@ -9,11 +9,16 @@ import com.sodosi.BuildConfig
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySodosiBinding
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.sodosi.model.PlaceModel
 
 class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var mapView: TMapView
-    private val momentBottomSheet by lazy { PlaceBottomSheetFragment() }
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+
+    private val placeBottomSheet by lazy { PlaceBottomSheetFragment() }
+    private val momentBottomSheet by lazy { MomentBottomSheetFragment.newInstance(::onDismissMomentBottomSheet) }
+
+    private lateinit var placeBottomSheetBehavior: BottomSheetBehavior<View>
+    private lateinit var momentBottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun getViewBinding() = ActivitySodosiBinding.inflate(layoutInflater)
 
@@ -22,10 +27,14 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     override fun initViews() = with(binding) {
         changeStatusBarColorWhite()
         binding.tvMapTitle.text = intent.getStringExtra(EXTRA_MAP_NAME)
-        binding.tvMomentCount.text = getString(R.string.sodosi_moment_count, intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString())
+        binding.tvMomentCount.text = getString(
+            R.string.sodosi_moment_count,
+            intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString()
+        )
 
         initMapView()
-        initMomentBottomSheet()
+        initPlaceBottomSheetBehavior()
+        initMomentBottomSheetBehavior()
         setOnClickListener()
     }
 
@@ -40,16 +49,17 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.mapContainer.addView(mapView)
     }
 
-    private fun initMomentBottomSheet() {
+    private fun initPlaceBottomSheetBehavior() {
         val size = Point()
         windowManager.defaultDisplay.getRealSize(size)
 
         supportFragmentManager.beginTransaction()
-            .replace(binding.momentBottomSheetContainer.id, momentBottomSheet)
+            .replace(binding.placeBottomSheetContainer.id, placeBottomSheet)
             .commitNow()
 
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.momentBottomSheetContainer)
-        bottomSheetBehavior.apply {
+        placeBottomSheetBehavior = BottomSheetBehavior.from(binding.placeBottomSheetContainer)
+        placeBottomSheetBehavior.apply {
+            isHideable = false
             state = BottomSheetBehavior.STATE_COLLAPSED
             peekHeight = resources.getDimensionPixelSize(R.dimen.moment_bottom_sheet_peek_height)
 
@@ -65,12 +75,53 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         }
     }
 
+    private fun initMomentBottomSheetBehavior() {
+        val size = Point()
+        windowManager.defaultDisplay.getRealSize(size)
+
+        supportFragmentManager.beginTransaction()
+            .replace(binding.momentBottomSheetContainer.id, momentBottomSheet)
+            .commitNow()
+
+        momentBottomSheetBehavior = BottomSheetBehavior.from(binding.momentBottomSheetContainer)
+        momentBottomSheetBehavior.apply {
+            isHideable = true
+            state = BottomSheetBehavior.STATE_HIDDEN
+            peekHeight = resources.getDimensionPixelSize(R.dimen.moment_bottom_sheet_peek_height)
+
+            addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+                }
+            })
+        }
+    }
+
     private fun setOnClickListener() {
+        binding.placeBottomSheetContainer.setOnClickListener { }
         binding.momentBottomSheetContainer.setOnClickListener { }
         binding.btnBack.setOnClickListener { onBackPressed() }
-        binding.btnMenu.setOnClickListener {
+        binding.btnMenu.setOnClickListener { }
+    }
 
-        }
+    fun showMomentBottomSheet(model: PlaceModel) {
+        placeBottomSheetBehavior.isHideable = true
+        placeBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        momentBottomSheetBehavior.isHideable = false
+        momentBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+
+        momentBottomSheet.setPlaceData(model)
+    }
+
+    private fun onDismissMomentBottomSheet() {
+        placeBottomSheetBehavior.isHideable = false
+        placeBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        momentBottomSheetBehavior.isHideable = true
+        momentBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     companion object {

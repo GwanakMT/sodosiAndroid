@@ -58,7 +58,7 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
         binding.placeRecyclerView.apply {
             adapter = placeAdapter.apply {
                 onItemClick = {
-                    Toast.makeText(context, "move to place detail", Toast.LENGTH_SHORT).show()
+                    (requireActivity() as SodosiActivity).showMomentBottomSheet(it)
                 }
                 onPhotoClick = { imageUrlList, position ->
                     Toast.makeText(context, "position: $position", Toast.LENGTH_SHORT).show()

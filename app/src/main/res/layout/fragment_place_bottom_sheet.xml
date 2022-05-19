@@ -64,7 +64,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="160dp">
+            android:paddingBottom="@dimen/moment_bottom_sheet_peek_height">
 
             <TextView
                 android:id="@+id/tvPlaceSubTitle"

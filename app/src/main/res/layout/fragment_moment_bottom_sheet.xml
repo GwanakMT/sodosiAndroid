@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_rounded_white_bottomsheet">
+
+        <TextView
+            android:id="@+id/tvPlaceName"
+            style="@style/Typography.HeadLines.Callout.Bold"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="중구구립도서관" />
+
+        <ImageView
+            android:id="@+id/btnDismiss"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_x"
+            app:layout_constraintEnd_toEndOf="@id/tvPlaceName"
+            app:layout_constraintTop_toTopOf="@id/tvPlaceName" />
+
+        <TextView
+            android:id="@+id/tvPlaceAddress"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="#7D7D7D"
+            app:layout_constraintStart_toStartOf="@id/tvPlaceName"
+            app:layout_constraintTop_toBottomOf="@id/tvPlaceName"
+            tools:text="서울특별시 성동구 독서당로 187" />
+
+        <View
+            android:id="@+id/placeDivider"
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="8dp"
+            android:background="#C4C4C4"
+            app:layout_constraintBottom_toBottomOf="@id/tvPlaceAddress"
+            app:layout_constraintStart_toEndOf="@id/tvPlaceAddress"
+            app:layout_constraintTop_toTopOf="@id/tvPlaceAddress" />
+
+        <TextView
+            android:id="@+id/tvMomentCount"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textColor="#7D7D7D"
+            app:layout_constraintBottom_toBottomOf="@id/tvPlaceAddress"
+            app:layout_constraintStart_toEndOf="@id/placeDivider"
+            app:layout_constraintTop_toTopOf="@id/tvPlaceAddress"
+            tools:text="3개의 순간" />
+
+        <View
+            android:id="@+id/momentDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="95dp"
+            android:background="@color/gray6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/momentDivider">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/screen_width"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:paddingBottom="160dp">
+
+                <TextView
+                    android:id="@+id/tvMomentTitle"
+                    style="@style/Typography.HeadLines.Callout.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="이 장소 속 순간들"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMomentCountColored"
+                    style="@style/Typography.HeadLines.Callout.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:textColor="@color/green600"
+                    app:layout_constraintBottom_toBottomOf="@id/tvMomentTitle"
+                    app:layout_constraintStart_toEndOf="@id/tvMomentTitle"
+                    app:layout_constraintTop_toTopOf="@id/tvMomentTitle"
+                    tools:text="3" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMoment"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.329"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvMomentTitle"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_sodosi_moment" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

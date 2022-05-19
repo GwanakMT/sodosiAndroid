@@ -10,6 +10,7 @@ package com.sodosi.ui.sodosi.model
 data class PlaceModel(
     val id: String,
     val placeName: String,
+    val placeAddress: String,
     val userName: String,
     val userProfile: String,
     val dateTime: String,
