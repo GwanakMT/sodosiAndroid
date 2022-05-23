@@ -1,13 +1,14 @@
 package com.sodosi.ui.sodosi
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.sodosi.databinding.FragmentMomentBottomSheetBinding
+import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.sodosi.adapter.MomentListAdapter
 import com.sodosi.ui.sodosi.model.PlaceModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -58,6 +59,14 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
 
     private fun setMomentRecyclerView() {
         binding.rvMoment.adapter = momentAdapter
+        momentAdapter.onItemClick = {
+            val intent = Intent(requireContext(), SodosiCommentActivity::class.java)
+            startActivity(intent)
+        }
+
+        momentAdapter.onPhotoClick = { imageUrlList, position ->
+
+        }
     }
 
     companion object {

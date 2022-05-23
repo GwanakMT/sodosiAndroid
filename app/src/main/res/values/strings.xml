@@ -62,16 +62,13 @@
     <string name="thread_comment_hint">코멘트를 남겨보세요.</string>
 
     // Thread - 신고
-    <string name="report_title">신고하려는 이유를 선택해주세요</string>
-    <string name="report_explain">회원님의 신고는 익명으로 처리됩니다. 누군가 위험한 상황에 있다고 생각된다면 즉시 응급 서비스 기관에 연락하시기 바랍니다.</string>
+    <string name="report_title">신고하는 이유를 선택해주세요</string>
     <string name="report_case1">셀카나 개인정보가 포함되어 있어요.</string>
-    <string name="report_case2">불법적인 글이에요.</string>
     <string name="report_case3">음란성 글이에요.</string>
     <string name="report_case4">중복/도배성 글이에요.</string>
     <string name="report_case5">광고/홍보성 글이에요.</string>
     <string name="report_case6">분쟁을 야기하는 글이에요.</string>
-    <string name="report_greeting">신고해주셔서 감사합니다.</string>
-    <string name="report_sub_greeting">회원님의 소중한 의견은 깨끗한 소도시 커뮤니티를\n유지하는데 도움이 됩니다.</string>
+    <string name="report_submit">신고가 접수되었어요. 감사합니다!</string>
 
     // Location
     <string name="location_title">우리 동네 설정</string>
@@ -82,6 +79,12 @@
     <string name="map_place_title">소중한 장소를 공유해주세요</string>
     <string name="map_place_sub_title">시민들이 추천한 장소</string>
     <string name="map_place_hint">이 테마는 바로 여기!</string>
+
+    // Map - Comment
+    <string name="comment">댓글</string>
+    
+    <string name="report">신고하기</string>
+    <string name="close">닫기</string>
 
     // Create
     <string name="create_title">새로운 소도시</string>
