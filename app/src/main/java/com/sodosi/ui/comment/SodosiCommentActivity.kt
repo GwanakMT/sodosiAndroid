@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySodosiCommentBinding
+import com.sodosi.databinding.LayoutSodosiCommentMenuDialogBinding
 import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
@@ -49,15 +50,18 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
     private fun initMenuDialog() {
         menuDialog = Dialog(this)
         menuDialog.apply {
-            setContentView(R.layout.layout_sodosi_menu_dialog)
+            val binding = LayoutSodosiCommentMenuDialogBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-            findViewById<TextView>(R.id.tvReport).setOnClickListener {
-                menuDialog.dismiss()
-                reportDialog.show()
-            }
+            with(binding) {
+                tvReport.setOnClickListener {
+                    menuDialog.dismiss()
+                    reportDialog.show()
+                }
 
-            findViewById<TextView>(R.id.tvClose).setOnClickListener {
-                menuDialog.dismiss()
+                tvClose.setOnClickListener {
+                    menuDialog.dismiss()
+                }
             }
 
             window?.apply {

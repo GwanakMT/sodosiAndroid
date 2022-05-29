@@ -6,18 +6,50 @@
     android:orientation="vertical"
     android:paddingHorizontal="16dp">
 
-    <TextView
-        android:id="@+id/tvReport"
-        style="@style/Typography.HeadLines"
+    <LinearLayout
+        android:id="@+id/reportLayout"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:backgroundTint="@color/white"
         android:layout_marginBottom="8dp"
         android:background="@drawable/background_rounded_green"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:text="@string/report"
-        android:textColor="@color/pink"
-        android:textSize="18dp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvBookmark"
+            style="@style/Typography.HeadLines"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="@string/sodosi_menu_bookmark" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray6" />
+
+        <TextView
+            android:id="@+id/tvShare"
+            style="@style/Typography.HeadLines"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="@string/sodosi_menu_share" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray6" />
+
+        <TextView
+            android:id="@+id/tvReport"
+            style="@style/Typography.HeadLines"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="@string/report"
+            android:textColor="@color/pink" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvClose"

@@ -1,18 +1,29 @@
 package com.sodosi.ui.sodosi
 
+import android.app.Dialog
+import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skt.Tmap.TMapView
 import com.sodosi.BuildConfig
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySodosiBinding
+import com.sodosi.databinding.LayoutSodosiMenuDialogBinding
+import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.sodosi.model.PlaceModel
 
 class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var mapView: TMapView
+    private lateinit var menuDialog: Dialog
+    private lateinit var reportDialog: Dialog
 
     private val placeBottomSheet by lazy { PlaceBottomSheetFragment() }
     private val momentBottomSheet by lazy { MomentBottomSheetFragment.newInstance(::onDismissMomentBottomSheet) }
@@ -36,6 +47,8 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         initPlaceBottomSheetBehavior()
         initMomentBottomSheetBehavior()
         setOnClickListener()
+        initMenuDialog()
+        initReportDialog()
     }
 
     override fun observeData() {
@@ -105,7 +118,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.placeBottomSheetContainer.setOnClickListener { }
         binding.momentBottomSheetContainer.setOnClickListener { }
         binding.btnBack.setOnClickListener { onBackPressed() }
-        binding.btnMenu.setOnClickListener { }
+        binding.btnMenu.setOnClickListener { menuDialog.show() }
     }
 
     fun showMomentBottomSheet(model: PlaceModel) {
@@ -122,6 +135,63 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         placeBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         momentBottomSheetBehavior.isHideable = true
         momentBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    }
+
+    private fun initMenuDialog() {
+        menuDialog = Dialog(this)
+        menuDialog.apply {
+            val binding = LayoutSodosiMenuDialogBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+
+            with(binding) {
+                tvBookmark.setOnClickListener {
+
+                }
+
+                tvShare.setOnClickListener {
+
+                }
+
+                tvReport.setOnClickListener {
+                    menuDialog.dismiss()
+                    reportDialog.show()
+                }
+
+                tvClose.setOnClickListener {
+                    menuDialog.dismiss()
+                }
+            }
+
+            window?.apply {
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                attributes.windowAnimations = R.style.BottomDialogAnimation
+            }
+        }
+    }
+
+    private fun initReportDialog() {
+        reportDialog = Dialog(this)
+        reportDialog.apply {
+            val binding = LayoutSodosiReportDialogBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+
+            binding.onItemClick = {
+                SodosiToast.makeText(context, getString(R.string.report_submit), Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            window?.apply {
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setGravity(Gravity.BOTTOM)
+                setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                attributes.windowAnimations = R.style.BottomDialogAnimation
+            }
+        }
+    }
+
+    private fun showMenuDialog() {
+
     }
 
     companion object {
