@@ -6,8 +6,7 @@ import com.sodosi.domain.usecase.*
 import com.sodosi.ui.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,60 +27,39 @@ class MainViewModel @Inject constructor(
     private val setBooleanPreferencesUseCase: SetBooleanPreferencesUseCase,
     private val getBooleanPreferencesOnceUseCase: GetBooleanPreferencesOnceUseCase,
 ) : BaseViewModel() {
-    private val _mainSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
-    val mainSodosiList: StateFlow<List<Sodosi>> = _mainSodosiList
+    // 이거 그냥.. 기동할 때 리스트 주르륵 받아오면 안되나;
+    // state로 분기해서 list만 주르륵 만들어놓고
+    // Unit 발행해서 이벤트 발생하면 로딩 돌리면서 목록 걍 다 바꿔주기;
 
-    private val _commentedSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
-    val commentedSodosiList: StateFlow<List<Sodosi>> = _commentedSodosiList
+    private val _listUpdated = MutableStateFlow(Unit)
+    val listUpdated = _listUpdated.asStateFlow()
 
-    private val _bookmarkSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
-    val bookmarkSodosiList: StateFlow<List<Sodosi>> = _bookmarkSodosiList
+    var mainSodosiList = emptyList<Sodosi>()
+    var commentedSodosiList = emptyList<Sodosi>()
+    var bookmarkSodosiList = emptyList<Sodosi>()
+    var hotSodosiList = emptyList<Sodosi>()
+    var newSodosiList = emptyList<Sodosi>()
 
-    private val _hotSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
-    val hotSodosiList: StateFlow<List<Sodosi>> = _hotSodosiList
+    private val _bannerVisibleOrGone = MutableStateFlow(false)
+    val bannerVisibleOrGone = _bannerVisibleOrGone.asStateFlow()
 
-    private val _newSodosiList = MutableStateFlow<List<Sodosi>>(listOf())
-    val newSodosiList: StateFlow<List<Sodosi>> = _newSodosiList
-
-    private val _bannerIsShow = MutableStateFlow(false)
-    val bannerIsShow = _bannerIsShow.combine(_bookmarkSodosiList) { bannerFlag, sodosiList ->
-        bannerFlag && sodosiList.isEmpty()
-    }
-
-    fun getMainSodosiList() {
+    fun setSodosiList() {
         viewModelScope.launch {
-            _mainSodosiList.value = getMainSodosiListUseCase()
+            mainSodosiList = getMainSodosiListUseCase()
+            commentedSodosiList = getCommentedSodosiListUseCase()
+            bookmarkSodosiList = getBookmarkSodosiListUseCase()
+            hotSodosiList = getHotSodosiListUseCase()
+            newSodosiList = getNewSodosiListUseCase()
+
+            if (bookmarkSodosiList.isNotEmpty()) setBannerFlag()
+            _listUpdated.emit(Unit)
         }
     }
 
-    fun getCommentedSodosiList() {
+    private fun setBannerFlag() {
         viewModelScope.launch {
-            _commentedSodosiList.value = getCommentedSodosiListUseCase()
-        }
-    }
-
-    fun getBookmarkSodosiList() {
-        viewModelScope.launch {
-            _bookmarkSodosiList.value = getBookmarkSodosiListUseCase()
-        }
-    }
-
-    fun getHotSodosiList() {
-        viewModelScope.launch {
-            _hotSodosiList.value = getHotSodosiListUseCase()
-        }
-    }
-
-    fun getNewSodosiList() {
-        viewModelScope.launch {
-            _newSodosiList.value = getNewSodosiListUseCase()
-
-        }
-    }
-
-    fun getBannerShowFlag() {
-        viewModelScope.launch {
-            _bannerIsShow.value = getBooleanPreferencesOnceUseCase(KEY_BANNER_SHOW_FLAG) ?: true
+            _bannerVisibleOrGone.value =
+                getBooleanPreferencesOnceUseCase(KEY_BANNER_SHOW_FLAG) ?: true
         }
     }
 

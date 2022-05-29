@@ -7,20 +7,22 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.marginTop
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
-import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.list.SodosiListActivity
-import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.ui.mypage.MypageActivity
+import com.sodosi.ui.sodosi.SodosiActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -68,65 +70,42 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun initViews() = with(binding) {
         changeStatusBarColorWhite()
 
-        setOnClickListener()
-        initBanner()
         initViewPager()
-        initSodosiRecyclerView()
+        initRecyclerView()
+        setOnClickListener()
 
-        viewModel.getBannerShowFlag()
-        viewModel.getMainSodosiList()
-        viewModel.getCommentedSodosiList()
-        viewModel.getBookmarkSodosiList()
-        viewModel.getHotSodosiList()
-        viewModel.getNewSodosiList()
+        viewModel.setSodosiList()
     }
 
     override fun observeData() {
-        lifecycleScope.launchWhenStarted {
-            launch {
-                viewModel.bannerIsShow.collect { flag ->
-                    if (flag) {
-                        binding.suggestLayout.root.setVisible()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.bannerVisibleOrGone.collect { flag ->
+                        if (flag) setUiOfSuggestBanner()
                     }
                 }
-            }
 
-            launch {
-                viewModel.mainSodosiList.collect { mainSodosiList ->
-                    (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(
-                        mainSodosiList
-                    )
+                launch {
+                    viewModel.listUpdated.collect {
+                        with(viewModel) {
+                            if (mainSodosiList.isNotEmpty()) {
+                                (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(mainSodosiList)
 
-                    sodosiViewPagerListSize = mainSodosiList.size
-                    binding.dotsIndicator.loadItems(mainSodosiList.size, 0)
-                    binding.sodosiViewPager.setCurrentItem(
-                        (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % mainSodosiList.size),
-                        false
-                    )
-                }
-            }
+                                sodosiViewPagerListSize = mainSodosiList.size
+                                binding.dotsIndicator.loadItems(mainSodosiList.size, 0)
+                                binding.sodosiViewPager.setCurrentItem(
+                                    (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % mainSodosiList.size),
+                                    false
+                                )
 
-            launch {
-                viewModel.commentedSodosiList.collect { commentedSodosi ->
-                    (binding.rvCommentedSodosi.adapter as SodosiListAdapter).submitList(commentedSodosi)
-                }
-            }
-
-            launch {
-                viewModel.bookmarkSodosiList.collect { bookmarkSodosi ->
-                    (binding.rvBookmarkSodosi.adapter as SodosiListAdapter).submitList(bookmarkSodosi)
-                }
-            }
-
-            launch {
-                viewModel.hotSodosiList.collect { hotSodosiList ->
-                    (binding.rvHotSodosi.adapter as SodosiListAdapter).submitList(hotSodosiList)
-                }
-            }
-
-            launch {
-                viewModel.newSodosiList.collect { newSodosiList ->
-                    (binding.rvNewSodosi.adapter as SodosiListAdapter).submitList(newSodosiList)
+                                (binding.rvCommentedSodosi.adapter as SodosiListAdapter).submitList(commentedSodosiList)
+                                (binding.rvBookmarkSodosi.adapter as SodosiListAdapter).submitList(bookmarkSodosiList)
+                                (binding.rvHotSodosi.adapter as SodosiListAdapter).submitList(hotSodosiList)
+                                (binding.rvNewSodosi.adapter as SodosiListAdapter).submitList(newSodosiList)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -198,27 +177,31 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    private fun initBanner() {
-        binding.suggestLayout.btnCreateSodosi.setOnClickListener {
-            val intent = Intent(this, CreateSodosiActivity::class.java)
-            startActivity(intent)
-        }
+    private fun setUiOfSuggestBanner() {
+        with(binding.suggestLayout) {
+            btnCreateSodosi.setOnClickListener {
+                val intent = Intent(this@MainActivity, CreateSodosiActivity::class.java)
+                startActivity(intent)
+            }
 
-        binding.suggestLayout.btnCancel.setOnClickListener {
-            binding.suggestLayout.root.animate()
-                .alpha(0.0f)
-                .translationY(-it.height.toFloat())
-                .duration = 1000L
+            btnCancel.setOnClickListener {
+                root.animate()
+                    .alpha(0.0f)
+                    .translationY(-it.height.toFloat())
+                    .duration = 1000L
 
-            binding.homeContainer.animate()
-                .translationY(-(binding.suggestLayout.root.height.toFloat() + binding.suggestLayout.root.marginTop))
-                .duration = 1000L
+                binding.homeContainer.animate()
+                    .translationY(-(root.height.toFloat() + root.marginTop))
+                    .duration = 1000L
 
-            viewModel.setBannerShowFlagFalse()
+                viewModel.setBannerShowFlagFalse()
+            }
+
+            root.setVisible()
         }
     }
 
-    private fun initSodosiRecyclerView() {
+    private fun initRecyclerView() {
         val dividerItemDecoration = DividerItemDecoration(
             this@MainActivity,
             LinearLayoutManager(this@MainActivity).orientation

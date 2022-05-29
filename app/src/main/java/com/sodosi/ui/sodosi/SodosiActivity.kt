@@ -60,6 +60,13 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         mapView.setSKTMapApiKey(MAP_API_KEY)
 
         binding.mapContainer.addView(mapView)
+
+        // TODO
+        // 1) 현재 내 위치 표시 (focus) + 커스텀할 수 있는지
+        // 2) Marker 찍기 + Marker 이미지 커스텀
+        // 3) Marker 클릭 이벤트 + BS 띄우기
+        // 4) GeoCoding : 장소 기준은 장소명인가, address인가 ex) 신명아파트에 대한 리뷰인지, 창현로 60에 대한 리뷰인지
+        // 5) 나침반모드 고정? 시야 표출?
     }
 
     private fun initPlaceBottomSheetBehavior() {
@@ -89,6 +96,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     }
 
     private fun initMomentBottomSheetBehavior() {
+        // TODO: 이 사이즈는 뭐할 때 쓰는거지
         val size = Point()
         windowManager.defaultDisplay.getRealSize(size)
 
@@ -188,10 +196,6 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
                 attributes.windowAnimations = R.style.BottomDialogAnimation
             }
         }
-    }
-
-    private fun showMenuDialog() {
-
     }
 
     companion object {
