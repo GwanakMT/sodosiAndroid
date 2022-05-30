@@ -27,10 +27,6 @@ class MainViewModel @Inject constructor(
     private val setBooleanPreferencesUseCase: SetBooleanPreferencesUseCase,
     private val getBooleanPreferencesOnceUseCase: GetBooleanPreferencesOnceUseCase,
 ) : BaseViewModel() {
-    // 이거 그냥.. 기동할 때 리스트 주르륵 받아오면 안되나;
-    // state로 분기해서 list만 주르륵 만들어놓고
-    // Unit 발행해서 이벤트 발생하면 로딩 돌리면서 목록 걍 다 바꿔주기;
-
     private val _listUpdated = MutableStateFlow(Unit)
     val listUpdated = _listUpdated.asStateFlow()
 

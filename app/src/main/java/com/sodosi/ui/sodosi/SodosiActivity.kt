@@ -55,6 +55,14 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
 
     }
 
+    override fun onBackPressed() {
+        if (placeBottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
+            onDismissMomentBottomSheet()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun initMapView() {
         mapView = TMapView(this);
         mapView.setSKTMapApiKey(MAP_API_KEY)
