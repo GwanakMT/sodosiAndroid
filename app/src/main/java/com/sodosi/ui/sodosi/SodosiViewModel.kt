@@ -26,33 +26,39 @@ class SodosiViewModel: BaseViewModel() {
             _placeList.value = listOf(
                 PlaceModel(
                     id = "",
-                    placeName = "어메이징브루잉컴퍼니",
-                    placeAddress = "서울특별시 성동구 독서당로 187",
-                    userName = "중구도서관",
+                    placeName = "송계옥 성수점",
+                    placeAddress = "서울특별시 성동구 성수2가3동 아차산로11길 11",
+                    userName = "민짱",
                     userProfile = "",
                     dateTime = "",
                     comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl)
+                    photo = listOf(imageUrl),
+                    longitude = 127.05948648,
+                    latitude = 37.54484706
                 ),
                 PlaceModel(
                     id = "",
-                    placeName = "GANADARA",
-                    placeAddress = "서울특별시 성동구 독서당로 187",
+                    placeName = "에르제",
+                    placeAddress = "서울특별시 성동구 아차산로 135",
                     userName = "Jay Park",
                     userProfile = "",
                     dateTime = "",
                     comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl, imageUrl)
+                    photo = listOf(imageUrl, imageUrl),
+                    longitude = 127.05904210,
+                    latitude = 37.54387494
                 ),
                 PlaceModel(
                     id = "",
-                    placeName = "취향로 3가",
-                    placeAddress = "서울특별시 성동구 독서당로 187",
+                    placeName = "성수옥상",
+                    placeAddress = "서울특별시 성동구 성수동2가",
                     userName = "메롱",
                     userProfile = "",
                     dateTime = "",
                     comment = "여기 진짜 맛있음 ㅋㅋ",
-                    photo = listOf(imageUrl, imageUrl, imageUrl, imageUrl)
+                    photo = listOf(imageUrl, imageUrl, imageUrl, imageUrl),
+                    longitude = 127.06104200,
+                    latitude = 37.54123640
                 ),
             )
         }
@@ -69,7 +75,9 @@ class SodosiViewModel: BaseViewModel() {
                     userProfile = "",
                     dateTime = "",
                     comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl, imageUrl)
+                    photo = listOf(imageUrl, imageUrl),
+                    longitude = 0.0,
+                    latitude = 0.0
                 ),
                 PlaceModel(
                     id = "",
@@ -79,7 +87,9 @@ class SodosiViewModel: BaseViewModel() {
                     userProfile = "",
                     dateTime = "",
                     comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl)
+                    photo = listOf(imageUrl),
+                    longitude = 0.0,
+                    latitude = 0.0
                 ),
                 PlaceModel(
                     id = "",
@@ -89,7 +99,9 @@ class SodosiViewModel: BaseViewModel() {
                     userProfile = "",
                     dateTime = "",
                     comment = "여기 진짜 맛있음 ㅋㅋ",
-                    photo = listOf(imageUrl, imageUrl, imageUrl, imageUrl)
+                    photo = listOf(imageUrl, imageUrl, imageUrl, imageUrl),
+                    longitude = 0.0,
+                    latitude = 0.0
                 ),
             )
         }

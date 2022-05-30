@@ -1,6 +1,7 @@
 package com.sodosi.ui.sodosi
 
 import android.app.Dialog
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Point
@@ -10,7 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.skt.Tmap.TMapMarkerItem
 import com.skt.Tmap.TMapView
 import com.sodosi.BuildConfig
 import com.sodosi.R
@@ -20,11 +25,15 @@ import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.sodosi.model.PlaceModel
+import kotlinx.coroutines.launch
 
 class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var mapView: TMapView
     private lateinit var menuDialog: Dialog
     private lateinit var reportDialog: Dialog
+
+    private lateinit var defaultMarker: Bitmap
+    private lateinit var hotMarker: Bitmap
 
     private val placeBottomSheet by lazy { PlaceBottomSheetFragment() }
     private val momentBottomSheet by lazy { MomentBottomSheetFragment.newInstance(::onDismissMomentBottomSheet) }
@@ -53,7 +62,19 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     }
 
     override fun observeData() {
-
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.placeList.collect {
+                    it.forEach { place ->
+                        mapView.addMarkerItem(place.id + place.placeName, TMapMarkerItem().apply {
+                            longitude = place.longitude
+                            latitude = place.latitude
+                            icon = defaultMarker
+                        })
+                    }
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -74,6 +95,12 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.map_point_icon)
         mapView.setIcon(bitmap)
         mapView.setIconVisibility(true)
+
+        // 지도에 표시할 마커 목록 가져오기
+        defaultMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_default_icon)
+        hotMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_hot_icon)
+
+        viewModel.getPlaceList()
 
         // TODO
         // 1) 현재 내 위치 표시 (focus) + 커스텀할 수 있는지

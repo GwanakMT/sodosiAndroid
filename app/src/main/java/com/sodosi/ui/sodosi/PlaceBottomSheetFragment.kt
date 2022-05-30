@@ -26,10 +26,7 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
 
     override fun initViews() = with(binding) {
         setOnClickListener()
-
         initPlaceRecyclerView()
-
-        viewModel.getPlaceList()
     }
 
     override fun observeData() {

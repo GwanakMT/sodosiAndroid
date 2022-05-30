@@ -16,4 +16,6 @@ data class PlaceModel(
     val dateTime: String,
     val comment: String,
     val photo: List<String>,
+    val longitude: Double,
+    val latitude: Double,
 )
