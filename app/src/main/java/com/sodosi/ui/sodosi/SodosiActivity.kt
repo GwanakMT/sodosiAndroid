@@ -1,6 +1,7 @@
 package com.sodosi.ui.sodosi
 
 import android.app.Dialog
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
@@ -69,12 +70,22 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
 
         binding.mapContainer.addView(mapView)
 
+        // 현재 위치 표시하는 아이콘 설정
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.map_point_icon)
+        mapView.setIcon(bitmap)
+        mapView.setIconVisibility(true)
+
         // TODO
         // 1) 현재 내 위치 표시 (focus) + 커스텀할 수 있는지
         // 2) Marker 찍기 + Marker 이미지 커스텀
         // 3) Marker 클릭 이벤트 + BS 띄우기
         // 4) GeoCoding : 장소 기준은 장소명인가, address인가 ex) 신명아파트에 대한 리뷰인지, 창현로 60에 대한 리뷰인지
         // 5) 나침반모드 고정? 시야 표출?
+    }
+
+    private fun setGpsCenter() {
+        mapView.setTrackingMode(true)
+        mapView.setCenterPoint(mapView.locationPoint.longitude, mapView.locationPoint.latitude)
     }
 
     private fun initPlaceBottomSheetBehavior() {
@@ -135,6 +146,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.momentBottomSheetContainer.setOnClickListener { }
         binding.btnBack.setOnClickListener { onBackPressed() }
         binding.btnMenu.setOnClickListener { menuDialog.show() }
+        binding.gpsEllipse.setOnClickListener { setGpsCenter() }
     }
 
     fun showMomentBottomSheet(model: PlaceModel) {
