@@ -18,6 +18,10 @@
         <variable
             name="onItemClick"
             type="Function1&lt;Sodosi, Unit>" />
+
+        <variable
+            name="onBookmarkClick"
+            type="Function1&lt;Sodosi, Unit>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -107,9 +111,11 @@
             tools:text="50개의 순간" />
 
         <ImageView
+            android:id="@+id/ivBookmark"
             android:layout_width="12dp"
+            android:onClick="@{()->onBookmarkClick.invoke(item)}"
             android:layout_height="17dp"
-            android:src="@drawable/ic_bookmark_unselected"
+            android:src="@{item.bookmarked ? @drawable/ic_bookmark_selected : @drawable/ic_bookmark_unselected}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

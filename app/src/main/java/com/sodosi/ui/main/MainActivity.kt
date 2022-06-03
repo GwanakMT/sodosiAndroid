@@ -211,6 +211,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 onItemClick = {
                     moveToSodosiMap(it)
                 }
+                onBookmarkClick = {
+                    toggleBookmark(it)
+                }
             }
 
             addItemDecoration(dividerItemDecoration)
@@ -222,6 +225,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 onItemClick = {
                     moveToSodosiMap(it)
                 }
+                onBookmarkClick = {
+                    toggleBookmark(it)
+                }
             }
         }
 
@@ -229,6 +235,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             adapter = SodosiListAdapter().apply {
                 onItemClick = {
                     moveToSodosiMap(it)
+                }
+                onBookmarkClick = {
+                    toggleBookmark(it)
                 }
             }
 
@@ -239,6 +248,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             adapter = SodosiListAdapter().apply {
                 onItemClick = {
                     moveToSodosiMap(it)
+                }
+                onBookmarkClick = {
+                    toggleBookmark(it)
                 }
             }
 
@@ -284,6 +296,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         intent.putExtra(SodosiActivity.EXTRA_MOMENT_COUNT, sodosi.momentCount)
 
         startActivity(intent)
+    }
+
+    private fun toggleBookmark(sodosi: Sodosi) {
+
     }
 
     companion object {

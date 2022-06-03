@@ -22,6 +22,7 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
 
     var itemViewType: ViewType = ViewType.VERTICAL
     var onItemClick: ((selectedItem: Sodosi) -> Unit)? = null
+    var onBookmarkClick: ((selectedItem: Sodosi) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,7 +33,7 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
                     inflater,
                     parent,
                     false
-                ), onItemClick
+                ), onItemClick, onBookmarkClick
             )
             ViewType.HORIZONTAL -> SquareViewHolder(
                 ItemSodosiTypeHorizontalBinding.inflate(
@@ -57,12 +58,14 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
 
     class RectangleViewHolder(
         private val binding: ItemSodosiTypeVerticalBinding,
-        onItemClick: ((selectedItem: Sodosi) -> Unit)?
+        onItemClick: ((selectedItem: Sodosi) -> Unit)?,
+        onBookmarkClick: ((selectedItem: Sodosi) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.onItemClick = onItemClick
+            binding.onBookmarkClick = onBookmarkClick
         }
 
         fun bind(item: Sodosi) {

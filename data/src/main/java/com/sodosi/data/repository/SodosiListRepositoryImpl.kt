@@ -170,7 +170,8 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 status = "",
                 icon = "\uD83C\uDFB1",
                 thumbnailImage = "",
-                dateTime = ""
+                dateTime = "",
+                bookmarked = true,
             ),
             Sodosi(
                 id = 2,
@@ -183,7 +184,8 @@ class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
                 status = "",
                 icon = "\uD83D\uDC25",
                 thumbnailImage = "",
-                dateTime = ""
+                dateTime = "",
+                bookmarked = true,
             ),
             Sodosi(
                 id = 3,
