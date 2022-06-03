@@ -23,7 +23,7 @@
     <dimen name="onboarding_warning_top_margin">10dp</dimen>
 
     // map
-    <dimen name="moment_bottom_sheet_peek_height">160dp</dimen>
+    <dimen name="moment_bottom_sheet_peek_height">188dp</dimen>
     <dimen name="moment_bottom_sheet_peek_height_gps">176dp</dimen>
     <dimen name="moment_bottom_sheet_not_include_max_height">216dp</dimen>
 </resources>

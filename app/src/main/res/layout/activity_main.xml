@@ -118,7 +118,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:background="@drawable/shadow_main_divider"
+                    android:background="@drawable/shadow_bottom_sheet_background"
                     android:layout_height="72dp" />
 
                 <TextView

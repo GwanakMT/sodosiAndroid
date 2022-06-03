@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_rounded_white_bottomsheet">
+    android:background="@drawable/shadow_bottom_sheet_background"
+    android:paddingTop="28dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/view"
@@ -22,7 +23,8 @@
         android:id="@+id/tvPlaceTitle"
         style="@style/Typography.HeadLines.Callout.Bold"
         android:layout_width="@dimen/screen_width"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
+        android:gravity="center_vertical"
         android:layout_margin="26dp"
         android:text="@string/map_place_title"
         android:textSize="18dp"
@@ -30,19 +32,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view" />
 
-    <TextView
+    <androidx.cardview.widget.CardView
         android:id="@+id/etPlace"
-        style="@style/Typography.HeadLines.Callout"
         android:layout_width="@dimen/screen_width"
         android:layout_height="48dp"
         android:layout_margin="16dp"
-        android:gravity="center_vertical"
-        android:background="#F6F6F6"
-        android:hint="@string/map_place_hint"
-        android:paddingStart="38dp"
+        android:backgroundTint="#F6F6F6"
+        app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPlaceTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvPlaceTitle">
+
+        <TextView
+            style="@style/Typography.HeadLines.Callout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/map_place_hint"
+            android:textColor="#ADADAD"
+            app:drawableStartCompat="@drawable/ic_search_ellipse" />
+    </androidx.cardview.widget.CardView>
 
     <View
         android:id="@+id/placeDivider"
@@ -92,8 +104,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/placeRecyclerView"
                 android:layout_width="@dimen/screen_width"
+                android:layout_marginTop="6dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"

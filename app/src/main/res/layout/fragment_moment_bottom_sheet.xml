@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_rounded_white_bottomsheet">
+        android:background="@drawable/shadow_bottom_sheet_background">
 
         <TextView
             android:id="@+id/tvPlaceName"
