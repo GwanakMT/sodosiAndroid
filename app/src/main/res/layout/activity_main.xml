@@ -118,9 +118,8 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:layout_marginTop="36dp"
-                    android:background="#F6F6F6" />
+                    android:background="@drawable/shadow_main_divider"
+                    android:layout_height="72dp" />
 
                 <TextView
                     android:id="@+id/tvJoinSodosiTitle"
