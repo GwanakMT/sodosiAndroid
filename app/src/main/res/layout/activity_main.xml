@@ -127,6 +127,7 @@
                     style="@style/Typography.HeadLines.Callout.Bold"
                     android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
+                    android:textSize="18dp"
                     android:layout_marginTop="8dp"
                     android:text="@string/join_sodosi_list_title" />
 
@@ -144,7 +145,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="8dp"
                     android:background="#F6F6F6" />
 
                 <TextView
@@ -153,13 +154,14 @@
                     android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
+                    android:textSize="18dp"
                     android:text="@string/bookmark_sodosi_list_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvBookmarkSodosi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="24dp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
@@ -180,6 +182,7 @@
                     android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
+                    android:textSize="18dp"
                     android:text="@string/hot_sodosi_list_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -198,7 +201,7 @@
                     style="@style/MoreSodosi"
                     android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="36dp" />
+                    android:layout_marginTop="8dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -210,9 +213,20 @@
                     android:id="@+id/tvNewSodosiTitle"
                     style="@style/Typography.HeadLines.Callout.Bold"
                     android:layout_width="@dimen/screen_width"
+                    android:text="@string/new_sodosi_list_title"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:text="@string/hot_sodosi_list_title" />
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/tvNewSodosiUpdatedAt"
+                    style="@style/Typography.Caption"
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_height="22dp"
+                    android:text="오전 12:00 업데이트됨"
+                    android:layout_marginTop="6dp"
+                    android:textColor="#ADADAD"
+                    tools:text="오전 12:00 업데이트됨" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvNewSodosi"
@@ -229,16 +243,16 @@
                 <TextView
                     android:id="@+id/tvMoreNewSodosi"
                     style="@style/MoreSodosi"
-                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="36dp" />
+                    android:layout_width="@dimen/screen_width"
+                    android:layout_marginTop="8dp" />
 
                 <include
                     android:id="@+id/footer"
                     layout="@layout/layout_home_footer"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_marginTop="150dp" />
+                    android:layout_marginTop="64dp" />
 
             </LinearLayout>
         </com.sodosi.ui.common.customview.SodosiScrollView>
