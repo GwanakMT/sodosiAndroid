@@ -24,6 +24,7 @@ import com.sodosi.databinding.LayoutSodosiMenuDialogBinding
 import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.common.extensions.resize
 import com.sodosi.ui.sodosi.model.PlaceModel
 import kotlinx.coroutines.launch
 
@@ -92,13 +93,13 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.mapContainer.addView(mapView)
 
         // 현재 위치 표시하는 아이콘 설정
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.map_point_icon)
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.map_point_icon).resize(32)
         mapView.setIcon(bitmap)
         mapView.setIconVisibility(true)
 
         // 지도에 표시할 마커 목록 가져오기
-        defaultMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_default_icon)
-        hotMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_hot_icon)
+        defaultMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_default_icon).resize(24)
+        hotMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_hot_icon).resize(24)
 
         viewModel.getPlaceList()
 

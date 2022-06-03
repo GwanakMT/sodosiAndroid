@@ -5,6 +5,7 @@ import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.view.View
@@ -105,4 +106,8 @@ fun ImageView.setImageWithUrl(url: String, radius: Int = 0) {
         .load(url)
         .apply(options)
         .into(this)
+}
+
+fun Bitmap.resize(size: Int): Bitmap {
+    return Bitmap.createScaledBitmap(this, size.dp, size.dp, true)
 }
