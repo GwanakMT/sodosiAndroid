@@ -76,7 +76,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/moment_bottom_sheet_peek_height">
+            android:paddingBottom="@dimen/place_bottom_sheet_peek_height">
 
             <TextView
                 android:id="@+id/tvPlaceSubTitle"
@@ -104,11 +104,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/placeRecyclerView"
                 android:layout_width="@dimen/screen_width"
-                android:layout_marginTop="6dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvPlaceSubTitle"
                 tools:listitem="@layout/item_sodosi_place" />

@@ -128,7 +128,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         placeBottomSheetBehavior.apply {
             isHideable = false
             state = BottomSheetBehavior.STATE_COLLAPSED
-            peekHeight = resources.getDimensionPixelSize(R.dimen.moment_bottom_sheet_peek_height)
+            peekHeight = resources.getDimensionPixelSize(R.dimen.place_bottom_sheet_peek_height)
 
             addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {

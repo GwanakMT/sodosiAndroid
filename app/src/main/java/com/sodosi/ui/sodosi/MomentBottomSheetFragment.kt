@@ -36,7 +36,6 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
             launch {
                 viewModel.momentList.collect {
                     if (it.isNotEmpty()) {
-                        binding.tvMomentCountColored.text = it.size.toString()
                         binding.tvMomentCount.text = "${it.size}개의 순간"
                         momentAdapter.submitList(it)
                     }
