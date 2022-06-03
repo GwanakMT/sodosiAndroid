@@ -6,17 +6,17 @@ import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
@@ -202,9 +202,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun initRecyclerView() {
-        val dividerItemDecoration = DividerItemDecoration(
-            this@MainActivity,
-            LinearLayoutManager(this@MainActivity).orientation
+        val dividerItemDecoration = HorizontalItemDecoration(
+            ContextCompat.getDrawable(this, R.drawable.horizontal_decoration) ?: return
         )
 
         binding.rvCommentedSodosi.apply {
