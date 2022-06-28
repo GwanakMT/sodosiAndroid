@@ -1,4 +1,4 @@
-package com.sodosi.ui.sodosi
+package com.sodosi.ui.sodosi.bottomsheet
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.sodosi.databinding.FragmentMomentBottomSheetBinding
 import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.sodosi.SodosiViewModel
 import com.sodosi.ui.sodosi.adapter.MomentListAdapter
 import com.sodosi.ui.sodosi.model.PlaceModel
 import kotlinx.coroutines.launch

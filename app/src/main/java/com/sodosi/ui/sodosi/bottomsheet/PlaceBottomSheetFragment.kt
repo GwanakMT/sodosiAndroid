@@ -1,4 +1,4 @@
-package com.sodosi.ui.sodosi
+package com.sodosi.ui.sodosi.bottomsheet
 
 import android.content.Intent
 import android.widget.Toast
@@ -6,8 +6,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.sodosi.databinding.FragmentPlaceBottomSheetBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.sodosi.CreateMomentActivity
+import com.sodosi.ui.sodosi.SodosiActivity
+import com.sodosi.ui.sodosi.SodosiViewModel
 import com.sodosi.ui.sodosi.adapter.PlaceListAdapter
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**

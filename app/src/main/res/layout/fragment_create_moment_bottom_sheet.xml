@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shadow_bottom_sheet_background">
+
+        <TextView
+            android:id="@+id/createMomentTitle"
+            style="@style/Typography.HeadLines.Callout.Bold"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:text="@string/sodosi_create_moment_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currentPlace"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="22dp"
+            android:layout_marginTop="28dp"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            app:drawableStartCompat="@drawable/ic_search_ellipse"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/createMomentTitle"
+            tools:text="현위치: 서울특별시" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/SodosiButton"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/sodosi_create_moment_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currentPlace" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

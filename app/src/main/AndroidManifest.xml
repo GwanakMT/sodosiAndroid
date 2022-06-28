@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SodosiAndroid">
         <activity
+            android:name=".ui.post.SearchPlaceActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.comment.SodosiCommentActivity"
             android:exported="true" />
         <activity

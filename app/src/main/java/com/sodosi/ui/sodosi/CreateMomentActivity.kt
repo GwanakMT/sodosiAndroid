@@ -1,12 +1,17 @@
 package com.sodosi.ui.sodosi
 
+import android.view.View
 import androidx.activity.viewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skt.Tmap.TMapView
 import com.sodosi.databinding.ActivityCreateMomentBinding
-    import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.sodosi.bottomsheet.CreateMomentBottomSheetFragment
 
 class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateMomentBinding>() {
     private lateinit var mapView: TMapView
+    private val createMomentBottomSheet by lazy { CreateMomentBottomSheetFragment.newInstance() }
+    private lateinit var createMomentBottomSheetBehavior: BottomSheetBehavior<View>
 
     override fun getViewBinding() = ActivityCreateMomentBinding.inflate(layoutInflater)
 
@@ -14,6 +19,7 @@ class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateM
 
     override fun initViews() = with(binding) {
         initMapView()
+        initCreateMomentBottomSheetBehavior()
         setOnClickListener()
     }
 
@@ -30,5 +36,17 @@ class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateM
 
     private fun setOnClickListener() {
         binding.btnBack.setOnClickListener { onBackPressed() }
+    }
+
+    private fun initCreateMomentBottomSheetBehavior() {
+        supportFragmentManager.beginTransaction()
+            .replace(binding.createMomentBottomSheetContainer.id, createMomentBottomSheet)
+            .commitNow()
+
+        createMomentBottomSheetBehavior = BottomSheetBehavior.from(binding.createMomentBottomSheetContainer)
+        createMomentBottomSheetBehavior.apply {
+            isHideable = false
+            state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 }

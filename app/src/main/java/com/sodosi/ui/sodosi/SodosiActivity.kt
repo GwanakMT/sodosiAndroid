@@ -25,6 +25,8 @@ import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.resize
+import com.sodosi.ui.sodosi.bottomsheet.MomentBottomSheetFragment
+import com.sodosi.ui.sodosi.bottomsheet.PlaceBottomSheetFragment
 import com.sodosi.ui.sodosi.model.PlaceModel
 import kotlinx.coroutines.launch
 
