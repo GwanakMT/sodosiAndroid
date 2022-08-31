@@ -11,6 +11,7 @@ import com.sodosi.databinding.FragmentNicknameBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  NicknameFragment.kt
@@ -19,6 +20,7 @@ import com.sodosi.ui.onboarding.OnboardingViewModel
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBinding>() {
     override fun getViewBinding() = FragmentNicknameBinding.inflate(layoutInflater)
 

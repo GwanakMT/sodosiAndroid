@@ -19,6 +19,7 @@ import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingViewModel
 import com.sodosi.ui.onboarding.nickname.TermsAdapter
 import com.sodosi.ui.onboarding.nickname.TermsDetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
@@ -30,6 +31,7 @@ import kotlinx.coroutines.flow.combine
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPasswordBinding>() {
     private lateinit var termsDialog: Dialog
     private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }

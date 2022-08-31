@@ -8,6 +8,7 @@ buildscript {
         kotlin_version = "1.4.21"
         coroutine_version = "1.6.0"
         datastore_version = "1.0.0"
+        okhttp_version = "4.3.1"
     }
     repositories {
         google()

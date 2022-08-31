@@ -5,11 +5,12 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.sodosi.R
 import com.sodosi.databinding.FragmentStartBinding
-import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingType
 import com.sodosi.ui.onboarding.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  StartFragment.kt
@@ -18,6 +19,7 @@ import com.sodosi.ui.onboarding.OnboardingViewModel
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class StartFragment : BaseFragment<OnboardingViewModel, FragmentStartBinding>() {
     override fun getViewBinding() = FragmentStartBinding.inflate(layoutInflater)
 

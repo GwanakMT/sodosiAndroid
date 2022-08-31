@@ -5,6 +5,7 @@ import com.sodosi.R
 import com.sodosi.databinding.ActivityTermsDetailBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.onboarding.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  TermsDetailActivity.kt
@@ -13,6 +14,7 @@ import com.sodosi.ui.onboarding.OnboardingViewModel
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class TermsDetailActivity : BaseActivity<OnboardingViewModel, ActivityTermsDetailBinding>() {
     override fun getViewBinding() = ActivityTermsDetailBinding.inflate(layoutInflater)
 

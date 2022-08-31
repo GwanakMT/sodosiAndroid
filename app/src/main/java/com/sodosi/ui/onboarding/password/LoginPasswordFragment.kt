@@ -12,6 +12,7 @@ import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.main.MainActivity
 import com.sodosi.ui.onboarding.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  SignPasswordFragment.kt
@@ -20,6 +21,7 @@ import com.sodosi.ui.onboarding.OnboardingViewModel
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPasswordBinding>() {
     private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 

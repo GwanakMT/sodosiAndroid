@@ -18,6 +18,7 @@ import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.main.MainActivity
 import com.sodosi.ui.onboarding.OnboardingType
 import com.sodosi.ui.onboarding.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  CertificationNumberFragment.kt
@@ -26,6 +27,7 @@ import com.sodosi.ui.onboarding.OnboardingViewModel
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class CertificationNumberFragment :
     BaseFragment<OnboardingViewModel, FragmentCertificationNumberBinding>(),
     FirebaseAuthManager.VerificationPhoneListener {

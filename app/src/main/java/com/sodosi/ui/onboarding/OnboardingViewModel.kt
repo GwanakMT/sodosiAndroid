@@ -2,8 +2,13 @@ package com.sodosi.ui.onboarding
 
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.entity.Terms
+import com.sodosi.domain.usecase.user.CheckPhoneNumberUseCase
 import com.sodosi.ui.common.base.BaseViewModel
+import com.sodosi.ui.common.base.EventFlow
+import com.sodosi.ui.common.base.MutableEventFlow
+import com.sodosi.ui.common.base.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +25,9 @@ import javax.inject.Inject
  */
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor() : BaseViewModel() {
+class OnboardingViewModel @Inject constructor(
+    private val checkPhoneNumberUseCase: CheckPhoneNumberUseCase,
+) : BaseViewModel() {
     private val _timer = MutableStateFlow(MINUTE_3)
     val timer: StateFlow<Int> = _timer
 
@@ -32,6 +39,16 @@ class OnboardingViewModel @Inject constructor() : BaseViewModel() {
 
     private val _isSignSuccess = MutableStateFlow<Boolean?>(null)
     val isSignSuccess: StateFlow<Boolean?> = _isSignSuccess
+
+    private val _userNotJoined = MutableEventFlow<Boolean>()
+    val userNotJoined: EventFlow<Boolean> = _userNotJoined.asEventFlow()
+
+    fun checkUserNotJoined(phoneNumber: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = checkPhoneNumberUseCase(phoneNumber)
+            _userNotJoined.emit(result)
+        }
+    }
 
     private fun startTimer() {
         viewModelScope.launch {
