@@ -60,11 +60,14 @@ class CertificationNumberFragment :
 
     override fun onAuthSuccess() {
         val onboardingType = arguments?.get("onboarding_type")
+        val phoneNumber = arguments?.getString("phoneNumber") ?: return
+
         if (onboardingType == OnboardingType.SIGNUP) {
             navigate(R.id.fragment_certification_number) {
                 findNavController().navigate(
                     CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(
-                        OnboardingType.SIGNUP
+                        phoneNumber = phoneNumber,
+                        onboardingType = OnboardingType.SIGNUP
                     )
                 )
             }
@@ -82,11 +85,21 @@ class CertificationNumberFragment :
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
-            if (viewModel.timer.value > 0) {
-                val smsCode = binding.etCertificationNumber.text.toString()
-                authManager.signInWithPhoneAuthCredential(smsCode, this)
-            } else {
-                setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
+//            if (viewModel.timer.value > 0) {
+//                val smsCode = binding.etCertificationNumber.text.toString()
+//                authManager.signInWithPhoneAuthCredential(smsCode, this)
+//            } else {
+//                setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
+//            }
+
+            val phoneNumber = arguments?.getString("phoneNumber") ?: return@setOnClickListener
+            navigate(R.id.fragment_certification_number) {
+                findNavController().navigate(
+                    CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(
+                        phoneNumber = phoneNumber,
+                        onboardingType = OnboardingType.SIGNUP
+                    )
+                )
             }
         }
 

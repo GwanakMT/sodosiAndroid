@@ -43,7 +43,8 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
                 // TODO: Progress stop
                 if (userNotJoined) {
                     // 2-3) 가입되어있지 않다면 다음 단계(휴대폰 인증 페이지)로 이동
-                    moveToSignUpScreen()
+                    val phoneNumber = binding.etPhoneNumber.text.toString()
+                    moveToSignUpScreen(phoneNumber)
                 } else {
                     // 2-4) 이미 가입되어있다면 토스트 메세지와 함께 비밀번호 페이지로 이동
                     SodosiToast.makeText(requireContext(), "이미 가입되어있는 번호입니다.", Toast.LENGTH_SHORT).show()
@@ -101,11 +102,12 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
         return Pattern.matches("^01(?:0|1|[6-9])[0-9]{8}", phoneNumber)
     }
 
-    private fun moveToSignUpScreen() {
+    private fun moveToSignUpScreen(phoneNumber: String) {
         navigate(R.id.fragment_phone_number) {
             findNavController().navigate(
                 PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentCertificationNumber(
-                    OnboardingType.SIGNUP
+                    onboardingType = OnboardingType.SIGNUP,
+                    phoneNumber = phoneNumber
                 )
             )
         }

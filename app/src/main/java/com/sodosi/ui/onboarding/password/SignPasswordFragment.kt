@@ -21,7 +21,6 @@ import com.sodosi.ui.onboarding.nickname.TermsAdapter
 import com.sodosi.ui.onboarding.nickname.TermsDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 
 /**
@@ -73,7 +72,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             val password = binding.etPassword.getText()
             val rePassword = binding.etRePassword.getText()
             if (password == rePassword) {
-                showTermsDialog()
+                showTermsDialog(password)
             } else {
                 binding.etRePassword.setViewWarning()
             }
@@ -99,7 +98,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
         inputMethodManager.showSoftInput(binding.etPassword, 0)
     }
 
-    private fun showTermsDialog() {
+    private fun showTermsDialog(password: String) {
         termsDialog = Dialog(requireContext())
         termsDialog.apply {
             val binding = DialogOnboardingTermsBinding.inflate(layoutInflater)
@@ -109,8 +108,14 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
                 inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
                 termsDialog.dismiss()
 
+                val phoneNumber = arguments?.getString("phoneNumber") ?: return@setOnClickListener
                 navigate(R.id.fragment_sign_password) {
-                    findNavController().navigate(SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname())
+                    findNavController().navigate(
+                        SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname(
+                            phoneNumber = phoneNumber,
+                            password = password,
+                        )
+                    )
                 }
             }
 

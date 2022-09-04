@@ -3,6 +3,7 @@ package com.sodosi.ui.onboarding
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.entity.Terms
 import com.sodosi.domain.usecase.user.CheckPhoneNumberUseCase
+import com.sodosi.domain.usecase.user.SignUpUseCase
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
@@ -10,9 +11,7 @@ import com.sodosi.ui.common.base.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,27 +26,26 @@ import javax.inject.Inject
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val checkPhoneNumberUseCase: CheckPhoneNumberUseCase,
+    private val signUpUseCase: SignUpUseCase,
 ) : BaseViewModel() {
     private val _timer = MutableStateFlow(MINUTE_3)
     val timer: StateFlow<Int> = _timer
 
-    private val _isNicknamePossible = MutableSharedFlow<Boolean>()
-    val isNicknamePossible: SharedFlow<Boolean> = _isNicknamePossible
-
-    private val _isLoginSuccess = MutableStateFlow<Boolean?>(null)
-    val isLoginSuccess: StateFlow<Boolean?> = _isLoginSuccess
-
-    private val _isSignSuccess = MutableStateFlow<Boolean?>(null)
-    val isSignSuccess: StateFlow<Boolean?> = _isSignSuccess
-
     private val _userNotJoined = MutableEventFlow<Boolean>()
     val userNotJoined: EventFlow<Boolean> = _userNotJoined.asEventFlow()
 
-    fun checkUserNotJoined(phoneNumber: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = checkPhoneNumberUseCase(phoneNumber)
-            _userNotJoined.emit(result)
-        }
+    private val _isNicknamePossible = MutableEventFlow<Boolean>()
+    val isNicknamePossible: EventFlow<Boolean> = _isNicknamePossible.asEventFlow()
+
+    private val _isLoginSuccess = MutableEventFlow<Boolean>()
+    val isLoginSuccess: EventFlow<Boolean> = _isLoginSuccess.asEventFlow()
+
+    private val _isSignSuccess = MutableEventFlow<Boolean>()
+    val isSignSuccess: EventFlow<Boolean> = _isSignSuccess.asEventFlow()
+
+    fun resetTimer() {
+        _timer.value = MINUTE_3
+        startTimer()
     }
 
     private fun startTimer() {
@@ -59,9 +57,11 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    fun resetTimer() {
-        _timer.value = MINUTE_3
-        startTimer()
+    fun checkUserNotJoined(phoneNumber: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = checkPhoneNumberUseCase(phoneNumber)
+            _userNotJoined.emit(result)
+        }
     }
 
     fun getTerms(): List<Terms> {
@@ -78,11 +78,27 @@ class OnboardingViewModel @Inject constructor(
     }
 
     fun login() {
-        _isLoginSuccess.value = true
+        viewModelScope.launch {
+            _isLoginSuccess.emit(true)
+        }
     }
 
-    fun singIn() {
-        _isSignSuccess.value = true
+    fun signIn(phoneNumber: String, nickName: String, password: String) {
+        viewModelScope.launch {
+            val result = signUpUseCase(
+                phoneNumber = phoneNumber,
+                password = password,
+                name = "-",
+                nickName = nickName,
+                agreeInfoMap = mapOf(
+                    Pair("1", "true"),
+                    Pair("2", "true"),
+                    Pair("3", "true"),
+                )
+            )
+
+            _isSignSuccess.emit(result)
+        }
     }
 
     companion object {

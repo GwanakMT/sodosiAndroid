@@ -15,5 +15,5 @@ data class UserSignUpRequest(
     val password: String = "",                              // 비밀번호
     val name: String = "",                                  // 유저 이름(본명)
     val nickname: String = "",                              // 유저 이름(닉네임)
-    val agreeInfoMap: Map<Long, Boolean> = emptyMap(),      // 동의한 약관
+    val agreeInfoMap: Map<String, String> = emptyMap(),      // 동의한 약관
 )

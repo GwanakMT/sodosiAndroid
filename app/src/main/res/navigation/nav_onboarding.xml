@@ -36,6 +36,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
             <argument
+                android:name="phoneNumber"
+                app:argType="String" />
+
+            <argument
                 android:name="onboarding_type"
                 app:argType="com.sodosi.ui.onboarding.OnboardingType" />
         </action>
@@ -66,6 +70,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
             <argument
+                android:name="phoneNumber"
+                app:argType="string" />
+
+            <argument
                 android:name="onboarding_type"
                 app:argType="com.sodosi.ui.onboarding.OnboardingType" />
         </action>
@@ -82,7 +90,15 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="phoneNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="password"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
