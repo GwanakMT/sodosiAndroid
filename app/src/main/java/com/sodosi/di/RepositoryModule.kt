@@ -1,17 +1,16 @@
 package com.sodosi.di
 
-import com.sodosi.data.repository.SodosiListRepositoryImpl
+import com.sodosi.data.repository.SodosiRepositoryImpl
 import com.sodosi.data.repository.TokenRepositoryImpl
 import com.sodosi.data.repository.UserRepositoryImpl
 import com.sodosi.data.repository.datastore.DataStoreRepositoryImpl
-import com.sodosi.domain.repository.SodosiListRepository
+import com.sodosi.domain.repository.SodosiRepository
 import com.sodosi.domain.repository.TokenRepository
 import com.sodosi.domain.repository.UserRepository
 import com.sodosi.domain.repository.datastore.DataStoreRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -39,5 +38,5 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindSodosiListRepository(impl: SodosiListRepositoryImpl): SodosiListRepository
+    abstract fun bindSodosiRepository(impl: SodosiRepositoryImpl): SodosiRepository
 }

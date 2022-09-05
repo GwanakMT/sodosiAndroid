@@ -2,6 +2,7 @@ package com.sodosi.ui.create
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.Editable
@@ -15,8 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityCreateBinding
+import com.sodosi.domain.Result
 import com.sodosi.ui.common.EmojiFilter
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
+import com.sodosi.ui.sodosi.SodosiActivity
+import com.sodosi.util.LogUtil
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  *  CreateSodosiActivity.kt
@@ -25,6 +31,7 @@ import com.sodosi.ui.common.base.BaseActivity
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@AndroidEntryPoint
 class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateBinding>() {
     private val inputMethodManager: InputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
@@ -36,6 +43,25 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
     override fun getViewBinding() = ActivityCreateBinding.inflate(layoutInflater)
 
     override fun observeData() {
+        repeatOnStarted {
+            viewModel.createSodosi.collect {
+                when (it) {
+                    is Result.Success -> {
+                        moveToSodosiScreen()
+                    }
+                    is Result.Error -> {
+
+                    }
+                }
+            }
+
+            viewModel.isLoading.collect {
+                when (it) {
+                    true -> {} // show
+                    false -> {} // hide
+                }
+            }
+        }
     }
 
     override fun initViews() = with(binding) {
@@ -86,13 +112,13 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
 
     private fun setOnClickListener() {
         binding.btnCreateSodosi.setOnClickListener {
-//            val intent = Intent(this, LoadingActivity::class.java)
-//            intent.putExtra(EXTRA_SODOSI_NAME, binding.etSodosiName.text.toString())
-//            intent.putExtra(EXTRA_SODOSI_EMOJI, binding.tvEmoji.text)
-//            intent.putExtra(EXTRA_SODOSI_IS_PUBLIC, isSodosiPublic)
+            val name = binding.etSodosiName.text.toString()
+            val icon = binding.tvEmoji.text.toString()
+            val viewState = isSodosiPublic
 
-//            startActivity(intent)
-            finish()
+            LogUtil.d("name: $name, icon: $icon, viewState: $viewState")
+
+            viewModel.createSodosi(name, icon, viewState)
         }
 
         binding.ivEmoji.setOnClickListener {
@@ -145,6 +171,16 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
     private fun checkButtonEnable() {
         binding.btnCreateSodosi.isEnabled =
             binding.etSodosiName.text.isNotEmpty() && binding.tvEmoji.text.length == 2
+    }
+
+    private fun moveToSodosiScreen() {
+        val intent = Intent(this, SodosiActivity::class.java)
+        intent.putExtra(EXTRA_SODOSI_NAME, binding.etSodosiName.text.toString())
+        intent.putExtra(EXTRA_SODOSI_EMOJI, binding.tvEmoji.text)
+        intent.putExtra(EXTRA_SODOSI_IS_PUBLIC, isSodosiPublic)
+
+        startActivity(intent)
+        finish()
     }
 
     companion object {

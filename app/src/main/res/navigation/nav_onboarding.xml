@@ -36,8 +36,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
             <argument
-                android:name="phoneNumber"
-                app:argType="String" />
+                android:name="phone_number"
+                app:argType="string" />
 
             <argument
                 android:name="onboarding_type"
@@ -70,7 +70,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
             <argument
-                android:name="phoneNumber"
+                android:name="phone_number"
                 app:argType="string" />
 
             <argument
@@ -92,7 +92,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
             <argument
-                android:name="phoneNumber"
+                android:name="phone_number"
                 app:argType="string" />
 
             <argument

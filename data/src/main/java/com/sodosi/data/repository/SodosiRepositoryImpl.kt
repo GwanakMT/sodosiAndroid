@@ -1,17 +1,42 @@
 package com.sodosi.data.repository
 
+import com.sodosi.data.network.api.SodosiApi
+import com.sodosi.data.spec.request.CreateSodosiRequest
+import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Sodosi
-import com.sodosi.domain.repository.SodosiListRepository
+import com.sodosi.domain.repository.SodosiRepository
 import javax.inject.Inject
 
 /**
- *  SodosiListRepositoryImpl.kt
+ *  SodosiRepositoryImpl.kt
  *
  *  Created by Minji Jeong on 2022/03/23
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class SodosiListRepositoryImpl @Inject constructor() : SodosiListRepository {
+class SodosiRepositoryImpl @Inject constructor(
+    private val sodosiApi: SodosiApi
+) : SodosiRepository {
+    override suspend fun createSodosi(
+        name: String,
+        icon: String,
+        viewState: Boolean
+    ): Result<Long> {
+        val request = CreateSodosiRequest(
+            name = name,
+            icon = icon,
+            viewStatus = viewState
+        )
+
+        return try {
+            val result = sodosiApi.createSodosi(request)
+
+            Result.Success(result.data.id)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getMainSodosiList(): List<Sodosi> {
         return listOf(
             Sodosi(

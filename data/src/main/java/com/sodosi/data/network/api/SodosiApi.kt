@@ -1,5 +1,6 @@
 package com.sodosi.data.network.api
 
+import com.sodosi.data.spec.request.CreateSodosiRequest
 import com.sodosi.data.spec.request.UserSignInRequest
 import com.sodosi.data.spec.request.UserSignUpRequest
 import com.sodosi.data.spec.response.*
@@ -37,5 +38,7 @@ interface SodosiApi {
     @GET("/api/v1/users/logout")
     suspend fun logout(): BaseResponse<Boolean>
 
-
+    // 소도시 생성
+    @POST("/api/v1/sodosis")
+    suspend fun createSodosi(@Body createSodosiRequest: CreateSodosiRequest): BaseResponse<CreateSodosiResponse>
 }
