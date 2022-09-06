@@ -44,8 +44,9 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
 
     override fun observeData() {
         repeatOnStarted {
-            viewModel.createSodosi.collect {
-                when (it) {
+            viewModel.createSodosiResult.collect {
+                // TODO: progress stop
+                when (it.first) {
                     is Result.Success -> {
                         moveToSodosiScreen()
                     }
@@ -119,6 +120,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
             LogUtil.d("name: $name, icon: $icon, viewState: $viewState")
 
             viewModel.createSodosi(name, icon, viewState)
+            // TODO: progress start
         }
 
         binding.ivEmoji.setOnClickListener {

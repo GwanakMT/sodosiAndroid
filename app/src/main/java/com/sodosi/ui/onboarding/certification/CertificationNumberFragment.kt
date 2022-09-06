@@ -60,7 +60,7 @@ class CertificationNumberFragment :
 
     override fun onAuthSuccess() {
         val onboardingType = arguments?.get("onboarding_type")
-        val phoneNumber = arguments?.getString("phoneNumber") ?: return
+        val phoneNumber = arguments?.getString("phone_number") ?: return
 
         if (onboardingType == OnboardingType.SIGNUP) {
             navigate(R.id.fragment_certification_number) {
@@ -92,7 +92,7 @@ class CertificationNumberFragment :
 //                setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
 //            }
 
-            val phoneNumber = arguments?.getString("phoneNumber") ?: return@setOnClickListener
+            val phoneNumber = arguments?.getString("phone_number") ?: return@setOnClickListener
             navigate(R.id.fragment_certification_number) {
                 findNavController().navigate(
                     CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(

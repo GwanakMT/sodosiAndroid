@@ -1,8 +1,10 @@
 package com.sodosi.ui.onboarding
 
 import androidx.lifecycle.viewModelScope
+import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Terms
 import com.sodosi.domain.usecase.user.CheckPhoneNumberUseCase
+import com.sodosi.domain.usecase.user.SignInUseCase
 import com.sodosi.domain.usecase.user.SignUpUseCase
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
@@ -27,6 +29,7 @@ import javax.inject.Inject
 class OnboardingViewModel @Inject constructor(
     private val checkPhoneNumberUseCase: CheckPhoneNumberUseCase,
     private val signUpUseCase: SignUpUseCase,
+    private val signInUseCase: SignInUseCase,
 ) : BaseViewModel() {
     private val _timer = MutableStateFlow(MINUTE_3)
     val timer: StateFlow<Int> = _timer
@@ -40,8 +43,8 @@ class OnboardingViewModel @Inject constructor(
     private val _isLoginSuccess = MutableEventFlow<Boolean>()
     val isLoginSuccess: EventFlow<Boolean> = _isLoginSuccess.asEventFlow()
 
-    private val _isSignSuccess = MutableEventFlow<Boolean>()
-    val isSignSuccess: EventFlow<Boolean> = _isSignSuccess.asEventFlow()
+    private val _isSignUpSuccess = MutableEventFlow<Boolean>()
+    val isSignUpSuccess: EventFlow<Boolean> = _isSignUpSuccess.asEventFlow()
 
     fun resetTimer() {
         _timer.value = MINUTE_3
@@ -77,14 +80,17 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    fun login() {
-        viewModelScope.launch {
-            _isLoginSuccess.emit(true)
+    fun login(phoneNumber: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when(signInUseCase(phoneNumber, password)) {
+                is Result.Success -> _isLoginSuccess.emit(true)
+                is Result.Error -> _isLoginSuccess.emit(false)
+            }
         }
     }
 
-    fun signIn(phoneNumber: String, nickName: String, password: String) {
-        viewModelScope.launch {
+    fun signUp(phoneNumber: String, nickName: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = signUpUseCase(
                 phoneNumber = phoneNumber,
                 password = password,
@@ -97,7 +103,7 @@ class OnboardingViewModel @Inject constructor(
                 )
             )
 
-            _isSignSuccess.emit(result)
+            _isSignUpSuccess.emit(result)
         }
     }
 

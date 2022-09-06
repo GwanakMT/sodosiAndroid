@@ -108,7 +108,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
                 inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
                 termsDialog.dismiss()
 
-                val phoneNumber = arguments?.getString("phoneNumber") ?: return@setOnClickListener
+                val phoneNumber = arguments?.getString("phone_number") ?: return@setOnClickListener
                 navigate(R.id.fragment_sign_password) {
                     findNavController().navigate(
                         SignPasswordFragmentDirections.actionFragmentSignPasswordToFragmentNickname(

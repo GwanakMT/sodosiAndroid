@@ -51,6 +51,11 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="phone_number"
+                app:argType="string" />
+
             <argument
                 android:name="onboarding_type"
                 app:argType="com.sodosi.ui.onboarding.OnboardingType" />

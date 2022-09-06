@@ -48,7 +48,8 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
                 } else {
                     // 2-4) 이미 가입되어있다면 토스트 메세지와 함께 비밀번호 페이지로 이동
                     SodosiToast.makeText(requireContext(), "이미 가입되어있는 번호입니다.", Toast.LENGTH_SHORT).show()
-                    moveToLoginScreen()
+                    val phoneNumber = binding.etPhoneNumber.text.toString()
+                    moveToLoginScreen(phoneNumber)
                 }
             }
         }
@@ -86,7 +87,7 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
                     // TODO: Progress start
                 } else {
                     // 3-1) 로그인이라면 비밀번호 입력 페이지로 이동
-                    moveToLoginScreen()
+                    moveToLoginScreen(phoneNumber)
                 }
             } else {
                 // 1-2) 핸드폰 번호가 유효하지 않다면 Error View 처리
@@ -113,11 +114,12 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
         }
     }
 
-    private fun moveToLoginScreen() {
+    private fun moveToLoginScreen(phoneNumber: String) {
         navigate(R.id.fragment_phone_number) {
             findNavController().navigate(
                 PhoneNumberFragmentDirections.actionFragmentPhoneNumberToFragmentLoginPassword(
-                    OnboardingType.LOGIN
+                    phoneNumber = phoneNumber,
+                    onboardingType = OnboardingType.LOGIN
                 )
             )
         }

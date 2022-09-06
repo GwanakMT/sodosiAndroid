@@ -12,6 +12,7 @@ import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.main.MainActivity
 import com.sodosi.ui.onboarding.OnboardingViewModel
+import com.sodosi.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -28,6 +29,7 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
     override fun getViewBinding() = FragmentLoginPasswordBinding.inflate(layoutInflater)
 
     override val viewModel: OnboardingViewModel by viewModels()
+    private var phoneNumber = ""
 
     override fun initViews() = with(binding) {
         inputMethodManager.showSoftInput(binding.etPassword, 0)
@@ -36,6 +38,8 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
         setOnClickListener()
 
         initView()
+
+        phoneNumber = arguments?.getString("phone_number") ?: ""
     }
 
     override fun observeData() {
@@ -61,7 +65,10 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
-            viewModel.login()
+            val password: String = binding.etPassword.getText()
+
+            LogUtil.d("minjiji: $phoneNumber, $password")
+            viewModel.login(phoneNumber, password)
         }
 
         binding.tvForgotPassword.setOnClickListener {
