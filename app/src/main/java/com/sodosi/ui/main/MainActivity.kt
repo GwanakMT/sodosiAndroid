@@ -284,6 +284,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             startActivity(instagramIntent)
         }
 
+        binding.footer.tvCoffee.setOnClickListener {
+            val coffeeIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOGER_URL_COFFEE))
+            startActivity(coffeeIntent)
+        }
+
         binding.footer.ivScrollTop.setOnClickListener {
             binding.scrollView.smoothScrollTo(0, 0)
         }
@@ -309,5 +314,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
         private const val FOOTER_URL_BLOG = "https://medium.com/@gwanaksociety"
         private const val FOOGER_URL_INSTAGRAM = "https://www.instagram.com/society.gwanak/"
+        private const val FOOGER_URL_COFFEE = "https://www.instagram.com/society.gwanak/" // FIXME
     }
 }
