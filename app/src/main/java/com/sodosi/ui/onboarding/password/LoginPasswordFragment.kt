@@ -29,7 +29,6 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
     override fun getViewBinding() = FragmentLoginPasswordBinding.inflate(layoutInflater)
 
     override val viewModel: OnboardingViewModel by viewModels()
-    private var phoneNumber = ""
 
     override fun initViews() = with(binding) {
         inputMethodManager.showSoftInput(binding.etPassword, 0)
@@ -38,8 +37,6 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
         setOnClickListener()
 
         initView()
-
-        phoneNumber = arguments?.getString("phone_number") ?: ""
     }
 
     override fun observeData() {
@@ -66,14 +63,18 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
             val password: String = binding.etPassword.getText()
+            val phoneNumber = arguments?.getString("phone_number") ?: ""
 
-            LogUtil.d("minjiji: $phoneNumber, $password")
             viewModel.login(phoneNumber, password)
         }
 
         binding.tvForgotPassword.setOnClickListener {
+            val phoneNumber = arguments?.getString("phone_number") ?: ""
+
             navigate(R.id.fragment_login_password) {
-                findNavController().navigate(LoginPasswordFragmentDirections.actionFragmentLoginPasswordToFragmentCertificationNumber())
+                findNavController().navigate(LoginPasswordFragmentDirections.actionFragmentLoginPasswordToFragmentCertificationNumber(
+                    phoneNumber = phoneNumber
+                ))
             }
         }
     }
