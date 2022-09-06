@@ -85,21 +85,11 @@ class CertificationNumberFragment :
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
-//            if (viewModel.timer.value > 0) {
-//                val smsCode = binding.etCertificationNumber.text.toString()
-//                authManager.signInWithPhoneAuthCredential(smsCode, this)
-//            } else {
-//                setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
-//            }
-
-            val phoneNumber = arguments?.getString("phone_number") ?: return@setOnClickListener
-            navigate(R.id.fragment_certification_number) {
-                findNavController().navigate(
-                    CertificationNumberFragmentDirections.actionFragmentCertificationNumberToFragmentSignPassword(
-                        phoneNumber = phoneNumber,
-                        onboardingType = OnboardingType.SIGNUP
-                    )
-                )
+            if (viewModel.timer.value > 0) {
+                val smsCode = binding.etCertificationNumber.text.toString()
+                authManager.signInWithPhoneAuthCredential(smsCode, this)
+            } else {
+                setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
             }
         }
 

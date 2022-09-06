@@ -50,7 +50,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun checkPhoneNumber(phoneNumber: String): Boolean {
         return try {
             val result = sodosiApi.checkPhoneNumber(phoneNumber)
-            result.data.valid
+            result.data.code == "NOT_JOINED"
         } catch (e: Exception) {
             false
         }
