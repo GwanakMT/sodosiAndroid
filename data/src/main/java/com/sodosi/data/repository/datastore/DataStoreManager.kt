@@ -22,6 +22,10 @@ class DataStoreManager(private val dataStore: DataStore<Preferences>) {
         setDataStore(stringPreferencesKey(key), value)
     }
 
+    suspend fun setDataStoreLong(key: String, value: Long) {
+        setDataStore(longPreferencesKey(key), value)
+    }
+
     private suspend fun <T> setDataStore(key: Preferences.Key<T>, value: T) {
         dataStore.edit { preferences ->
             preferences[key] = value
@@ -41,6 +45,10 @@ class DataStoreManager(private val dataStore: DataStore<Preferences>) {
         return getDataStore(stringPreferencesKey(key))
     }
 
+    fun getDataStoreLong(key: String): Flow<Long?> {
+        return getDataStore(longPreferencesKey(key))
+    }
+
     suspend fun getDataStoreIntOnce(key: String): Int? {
         return getDataStoreInt(key).first()
     }
@@ -52,6 +60,10 @@ class DataStoreManager(private val dataStore: DataStore<Preferences>) {
 
     suspend fun getDataStoreStringOnce(key: String): String? {
         return getDataStoreString(key).first()
+    }
+
+    suspend fun getDataStoreLongOnce(key: String): Long? {
+        return getDataStoreLong(key).first()
     }
 
     private fun <T> getDataStore(key: Preferences.Key<T>): Flow<T?> {

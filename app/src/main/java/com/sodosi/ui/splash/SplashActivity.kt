@@ -28,6 +28,8 @@ class SplashActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.sub_black)
 
         CoroutineScope(Dispatchers.Main).launch {
+            viewModel.setVisitedTime(System.currentTimeMillis())
+
             delay(1000)
 
             val intent = if (viewModel.checkHasToken()) {

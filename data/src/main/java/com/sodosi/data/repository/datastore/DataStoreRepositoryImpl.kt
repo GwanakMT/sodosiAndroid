@@ -35,6 +35,10 @@ class DataStoreRepositoryImpl @Inject constructor(
         return datastoreManager.getDataStoreString(key)
     }
 
+    override fun getDataStoreLong(key: String): Flow<Long?> {
+        return datastoreManager.getDataStoreLong(key)
+    }
+
     override suspend fun getDataStoreIntOnce(key: String): Int? {
         return datastoreManager.getDataStoreIntOnce(key)
     }
@@ -47,6 +51,10 @@ class DataStoreRepositoryImpl @Inject constructor(
         return datastoreManager.getDataStoreStringOnce(key)
     }
 
+    override suspend fun getDataStoreLongOnce(key: String): Long? {
+        return datastoreManager.getDataStoreLongOnce(key)
+    }
+
     override suspend fun setDataStoreInt(key: String, value: Int) {
         return datastoreManager.setDataStoreInt(key, value)
     }
@@ -57,5 +65,9 @@ class DataStoreRepositoryImpl @Inject constructor(
 
     override suspend fun setDataStoreString(key: String, value: String) {
         return datastoreManager.setDataStoreString(key, value)
+    }
+
+    override suspend fun setDataStoreLong(key: String, value: Long) {
+        return datastoreManager.setDataStoreLong(key, value)
     }
 }

@@ -4,19 +4,26 @@ import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMypageBinding
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
     override val viewModel: MypageViewModel by viewModels()
 
     override fun getViewBinding() = ActivityMypageBinding.inflate(layoutInflater)
 
     override fun observeData() {
-
+        repeatOnStarted {
+            viewModel.userBaseProfile.collect {
+                initBaseProfile(it.first, it.second, it.third)
+            }
+        }
     }
 
     override fun initViews() = with(binding) {
         initAppbar()
-        initProfile()
+        initUserSodosiInfo()
     }
 
     private fun initAppbar() {
@@ -31,9 +38,12 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
         }
     }
 
-    private fun initProfile() {
-        binding.tvProfileNickname.text = "중구구립도서관"
-        binding.tvHourAgo.text = "1시간 전 방문"
+    private fun initBaseProfile(nickname: String, profileImage: String, lastVisitedTime: String) {
+        binding.tvProfileNickname.text = nickname
+        binding.tvHourAgo.text = "$lastVisitedTime 방문"
+    }
+
+    private fun initUserSodosiInfo() {
         binding.tvCreatedSodosiCount.text = "35"
         binding.tvJoinedSodosiCount.text = "35"
         binding.tvBookmarkCount.text = "35"
