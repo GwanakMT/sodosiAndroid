@@ -89,7 +89,7 @@
 
     <string name="sodosi_menu_bookmark">관심 소도시에 추가</string>
     <string name="sodosi_menu_share">공유하기</string>
-    
+
     // Map - Create Moment
     <string name="sodosi_create_moment_title">공유할 장소로 핀을 이동하세요</string>
     <string name="sodosi_create_moment_button">이 위치로 주소 설정</string>
@@ -114,4 +114,8 @@
     <string name="mypage_joined_sodosi">참여 중인 소도시</string>
     <string name="mypage_bookmark">북마크</string>
     <string name="mypage_current_moment">최근 내가 남긴 순간</string>
+    <string name="mypage_last_visited_time">%s 방문</string>
+
+    // Setting
+    <string name="setting_title">설정</string>
 </resources>

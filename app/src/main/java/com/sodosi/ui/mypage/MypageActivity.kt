@@ -1,10 +1,12 @@
 package com.sodosi.ui.mypage
 
+import android.content.Intent
 import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMypageBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
+import com.sodosi.ui.setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,14 +35,15 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
             }
 
             initRightButton(R.drawable.ic_interface_settings_future) {
-
+                val settingIntent = Intent(this@MypageActivity, SettingActivity::class.java)
+                startActivity(settingIntent)
             }
         }
     }
 
     private fun initBaseProfile(nickname: String, profileImage: String, lastVisitedTime: String) {
         binding.tvProfileNickname.text = nickname
-        binding.tvHourAgo.text = "$lastVisitedTime 방문"
+        binding.tvHourAgo.text = getString(R.string.mypage_last_visited_time, lastVisitedTime)
     }
 
     private fun initUserSodosiInfo() {
