@@ -83,13 +83,4 @@ class UserRepositoryImpl @Inject constructor(
             Result.Error(e)
         }
     }
-
-    override suspend fun logout(): Result<Unit> {
-        return try {
-            sodosiApi.logout() // FIXME: 얘는 result 없나?
-            Result.Success(Unit)
-        } catch (e: Exception) {
-            Result.Error(e)
-        }
-    }
 }

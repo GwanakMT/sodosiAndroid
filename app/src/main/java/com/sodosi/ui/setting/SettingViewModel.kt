@@ -2,6 +2,7 @@ package com.sodosi.ui.setting
 
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.usecase.user.GetPhoneNumberUseCase
+import com.sodosi.domain.usecase.user.LogoutUseCase
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
@@ -20,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val getPhoneNumberUseCase: GetPhoneNumberUseCase,
+    private val logoutUseCase: LogoutUseCase,
 ) : BaseViewModel() {
 
     private val _phoneNumber: MutableEventFlow<String> = MutableEventFlow()
@@ -32,6 +34,12 @@ class SettingViewModel @Inject constructor(
     private fun getPhoneNumber() {
         viewModelScope.launch {
             _phoneNumber.emit(getPhoneNumberUseCase())
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            logoutUseCase()
         }
     }
 }

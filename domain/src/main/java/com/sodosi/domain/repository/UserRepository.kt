@@ -30,7 +30,4 @@ interface UserRepository {
         phoneNumber: String,
         password: String,
     ): Result<Boolean>
-
-    // 로그아웃
-    suspend fun logout(): Result<Unit>
 }

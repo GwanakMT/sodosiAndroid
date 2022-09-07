@@ -1,7 +1,6 @@
 package com.sodosi.domain.usecase.user
 
-import com.sodosi.domain.Result
-import com.sodosi.domain.repository.UserRepository
+import com.sodosi.domain.usecase.token.SetTokenUseCase
 import javax.inject.Inject
 
 /**
@@ -12,9 +11,11 @@ import javax.inject.Inject
  */
 
 class LogoutUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val setTokenUseCase: SetTokenUseCase,
+    private val setPhoneNumberUseCase: SetPhoneNumberUseCase,
 ) {
-    suspend operator fun invoke(): Result<Unit> {
-        return userRepository.logout()
+    suspend operator fun invoke() {
+        setTokenUseCase("")
+        setPhoneNumberUseCase("")
     }
 }

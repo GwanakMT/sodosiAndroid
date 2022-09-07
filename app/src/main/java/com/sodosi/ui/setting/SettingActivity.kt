@@ -1,5 +1,6 @@
 package com.sodosi.ui.setting
 
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.view.View
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.sodosi.databinding.ActivitySettingBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -104,10 +106,15 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
     }
 
     private fun logout() {
-        SodosiToast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show()
+        viewModel.logout()
+
+        val intent = Intent(this, OnboardingActivity::class.java)
+        finishAffinity()
+        startActivity(intent)
     }
 
     private fun deleteUser() {
         SodosiToast.makeText(this, "탈퇴하기", Toast.LENGTH_SHORT).show()
     }
 }
+

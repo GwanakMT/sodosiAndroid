@@ -34,10 +34,6 @@ interface SodosiApi {
     @POST("/api/v1/users/login")
     suspend fun signIn(@Body signInRequest: UserSignInRequest): BaseResponse<UserSignInResponse>
 
-    // 로그아웃
-    @GET("/api/v1/users/logout")
-    suspend fun logout(): BaseResponse<Boolean>
-
     // 소도시 생성
     @POST("/api/v1/sodosis")
     suspend fun createSodosi(@Body createSodosiRequest: CreateSodosiRequest): BaseResponse<CreateSodosiResponse>
