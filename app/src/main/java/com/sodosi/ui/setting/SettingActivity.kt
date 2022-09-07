@@ -86,7 +86,8 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
     }
 
     private fun moveToSettingPassword() {
-        SodosiToast.makeText(this, "비밀번호 변경", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, PasswordSettingActivity::class.java)
+        startActivity(intent)
     }
 
     private fun moveToSettingNotification() {
