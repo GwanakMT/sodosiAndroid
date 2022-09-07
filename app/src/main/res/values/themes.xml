@@ -123,6 +123,7 @@
     </style>
 
     <style name="Typography.HeadLines.SubHeadLine">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
         <item name="android:textSize">15dp</item>
     </style>
 

@@ -1,6 +1,5 @@
 package com.sodosi.ui.setting
 
-import android.content.Intent
 import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySettingBinding
@@ -29,10 +28,6 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
             initLeftButton(R.drawable.ic_arrow_left) {
                 onBackPressed()
             }
-        }
-
-        binding.button.setOnClickListener {
-            startActivity(Intent(this, WebViewActivity::class.java))
         }
     }
 }
