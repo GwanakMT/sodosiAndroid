@@ -44,21 +44,21 @@ class PasswordSettingActivity : BaseActivity<SettingViewModel, ActivityPasswordS
 
         binding.etBeforePassword.textChangedListener = {
             textListener1 = "$it".length >= 8
-            checkSubmitButtonState()
+            checkButtonEnable()
         }
 
         binding.etAfterPassword.textChangedListener = {
             textListener2 = "$it".length >= 8
-            checkSubmitButtonState()
+            checkButtonEnable()
         }
 
         binding.etAfterPasswordCheck.textChangedListener = {
             textListener3 = "$it".length >= 8
-            checkSubmitButtonState()
+            checkButtonEnable()
         }
     }
 
-    private fun checkSubmitButtonState() {
+    private fun checkButtonEnable() {
         if (textListener1 && textListener2 && textListener3) {
             binding.btnFinish.setTextColor(Color.parseColor("#0F0F10"))
         } else {

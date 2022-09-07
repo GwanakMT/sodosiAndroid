@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -20,6 +21,7 @@ import com.sodosi.domain.Result
 import com.sodosi.ui.common.EmojiFilter
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
+import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -124,15 +126,11 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
         }
 
         binding.ivEmoji.setOnClickListener {
-            binding.etEmoji.text = null
-            binding.etEmoji.requestFocus()
-            inputMethodManager.showSoftInput(binding.etEmoji, 0)
+            clickEmojiField()
         }
 
         binding.tvEmoji.setOnClickListener {
-            binding.etEmoji.text = null
-            binding.etEmoji.requestFocus()
-            inputMethodManager.showSoftInput(binding.etEmoji, 0)
+            clickEmojiField()
         }
 
         binding.sodosiPublic.setOnClickListener {
@@ -168,6 +166,14 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
 
             }
         }
+    }
+
+    private fun clickEmojiField() {
+        binding.etEmoji.text = null
+        binding.etEmoji.requestFocus()
+        inputMethodManager.showSoftInput(binding.etEmoji, 0)
+
+        SodosiToast.makeText(this, "소도시 컨셉에 맞는 이모지를 골라주세요.", Toast.LENGTH_SHORT).show()
     }
 
     private fun checkButtonEnable() {
