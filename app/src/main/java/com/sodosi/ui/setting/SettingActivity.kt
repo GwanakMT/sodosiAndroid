@@ -23,7 +23,7 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
     override fun observeData() {
         repeatOnStarted {
             viewModel.phoneNumber.collect {
-                initView(it)
+                setData(it)
             }
         }
     }
@@ -71,7 +71,7 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
         }
     }
 
-    private fun initView(phoneNumber: String) {
+    private fun setData(phoneNumber: String) {
         binding.versionName.text = getVersionName()
         binding.phoneNumber.text = phoneNumber
     }
@@ -90,7 +90,8 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
     }
 
     private fun moveToSettingNotification() {
-        SodosiToast.makeText(this, "앱 알림 설정", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, NotificationSettingActivity::class.java)
+        startActivity(intent)
     }
 
     private fun moveToWebDocs() {

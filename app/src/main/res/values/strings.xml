@@ -118,4 +118,5 @@
 
     // Setting
     <string name="setting_title">설정</string>
+    <string name="setting_notification">앱 알림 설정</string>
 </resources>

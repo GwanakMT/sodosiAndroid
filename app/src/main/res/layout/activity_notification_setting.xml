@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.setting.NotificationSettingActivity">
+
+        <com.sodosi.ui.common.customview.SodosiAppbar
+            android:id="@+id/appbar"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/notiTitle1"
+            style="@style/Typography.HeadLines.SubHeadLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:text="소도시, 댓글 알림"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <TextView
+            android:id="@+id/notiMessage1"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:text="내 소도시 알림, 댓글 등의 알림이 전송돼요."
+            android:textColor="#ADADAD"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notiTitle1" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/notiToggle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:thumb="@drawable/thumb_selector"
+            app:layout_constraintBottom_toBottomOf="@id/notiMessage1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/notiTitle1"
+            app:track="@drawable/track_selector" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_margin="20dp"
+            android:background="@color/gray6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notiMessage1" />
+
+        <TextView
+            android:id="@+id/notiTitle2"
+            style="@style/Typography.HeadLines.SubHeadLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:text="소도시 추천"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <TextView
+            android:id="@+id/notiMessage2"
+            style="@style/TextAppearance.AppCompat.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:text="내 취향을 저격하는 소도시 추천이 전송돼요."
+            android:textColor="#ADADAD"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notiTitle2" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/notiToggle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:thumb="@drawable/thumb_selector"
+            app:layout_constraintBottom_toBottomOf="@id/notiMessage2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/notiTitle2"
+            app:track="@drawable/track_selector" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
