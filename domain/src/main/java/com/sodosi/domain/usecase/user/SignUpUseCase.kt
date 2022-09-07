@@ -12,7 +12,8 @@ import javax.inject.Inject
  */
 
 class SignUpUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val setPhoneNumberUseCase: SetPhoneNumberUseCase,
 ) {
     suspend operator fun invoke(
         phoneNumber: String,
@@ -31,7 +32,10 @@ class SignUpUseCase @Inject constructor(
             )
 
             when(result) {
-                is Result.Success -> true
+                is Result.Success -> {
+                    setPhoneNumberUseCase(phoneNumber)
+                    true
+                }
                 is Result.Error -> false
             }
         } catch (e: Exception) {

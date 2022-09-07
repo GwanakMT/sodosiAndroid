@@ -13,11 +13,15 @@ import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(
     private val userRepository: UserRepository,
+    private val setPhoneNumberUseCase: SetPhoneNumberUseCase,
 ) {
     suspend operator fun invoke(
         phoneNumber: String,
         password: String,
     ): Result<Boolean> {
-        return userRepository.signIn(phoneNumber, password)
+        val result = userRepository.signIn(phoneNumber, password)
+        if (result is Result.Success) setPhoneNumberUseCase(phoneNumber)
+
+        return result
     }
 }
