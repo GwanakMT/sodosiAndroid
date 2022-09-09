@@ -115,9 +115,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.sodosiViewPager.apply {
             adapter = SodosiViewPagerAdapter()
                 .apply {
-                    onItemClick = {
-                        moveToSodosiMap(it)
-                    }
+                    onItemClick = ::moveToSodosi
                 }
 
             offscreenPageLimit = 1
@@ -208,12 +206,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
         binding.rvCommentedSodosi.apply {
             adapter = SodosiListAdapter().apply {
-                onItemClick = {
-                    moveToSodosiMap(it)
-                }
-                onBookmarkClick = {
-                    toggleBookmark(it)
-                }
+                onItemClick = ::moveToSodosi
+                onBookmarkClick = ::toggleBookmark
             }
 
             addItemDecoration(dividerItemDecoration)
@@ -222,23 +216,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.rvBookmarkSodosi.apply {
             adapter = SodosiListAdapter().apply {
                 itemViewType = SodosiListAdapter.ViewType.HORIZONTAL
-                onItemClick = {
-                    moveToSodosiMap(it)
-                }
-                onBookmarkClick = {
-                    toggleBookmark(it)
-                }
+                onItemClick = ::moveToSodosi
+                onBookmarkClick = ::toggleBookmark
             }
         }
 
         binding.rvHotSodosi.apply {
             adapter = SodosiListAdapter().apply {
-                onItemClick = {
-                    moveToSodosiMap(it)
-                }
-                onBookmarkClick = {
-                    toggleBookmark(it)
-                }
+                onItemClick = ::moveToSodosi
+                onBookmarkClick = ::toggleBookmark
             }
 
             addItemDecoration(dividerItemDecoration)
@@ -246,12 +232,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
         binding.rvNewSodosi.apply {
             adapter = SodosiListAdapter().apply {
-                onItemClick = {
-                    moveToSodosiMap(it)
-                }
-                onBookmarkClick = {
-                    toggleBookmark(it)
-                }
+                onItemClick = ::moveToSodosi
+                onBookmarkClick = ::toggleBookmark
             }
 
             addItemDecoration(dividerItemDecoration)
@@ -294,13 +276,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    private fun moveToSodosiMap(sodosi: Sodosi) {
-        val intent = Intent(this, SodosiActivity::class.java)
-        intent.putExtra(SodosiActivity.EXTRA_MAP_ID, sodosi.id)
-        intent.putExtra(SodosiActivity.EXTRA_MAP_NAME, sodosi.name)
-        intent.putExtra(SodosiActivity.EXTRA_MOMENT_COUNT, sodosi.momentCount)
-
-        startActivity(intent)
+    private fun moveToSodosi(sodosi: Sodosi) {
+        startActivity(SodosiActivity.getIntent(this, sodosi.id, sodosi.name, sodosi.momentCount))
     }
 
     private fun toggleBookmark(sodosi: Sodosi) {

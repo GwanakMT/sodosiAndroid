@@ -1,11 +1,15 @@
 package com.sodosi.ui.sodosi
 
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
+import android.location.LocationListener
+import android.location.LocationManager
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +35,7 @@ import com.sodosi.ui.sodosi.model.PlaceModel
 import kotlinx.coroutines.launch
 
 class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
-    private lateinit var mapView: TMapView
+    private val mapView: TMapView by lazy { TMapView(this) }
     private lateinit var menuDialog: Dialog
     private lateinit var reportDialog: Dialog
 
@@ -44,9 +48,15 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var placeBottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var momentBottomSheetBehavior: BottomSheetBehavior<View>
 
+    private val locationManager: LocationManager by lazy { getSystemService(LOCATION_SERVICE) as LocationManager }
+
     override fun getViewBinding() = ActivitySodosiBinding.inflate(layoutInflater)
 
     override val viewModel: SodosiViewModel by viewModels()
+
+    private val locationListener = LocationListener { location ->
+        mapView.setLocationPoint(location.longitude, location.latitude)
+    }
 
     override fun initViews() = with(binding) {
         changeStatusBarColorWhite()
@@ -56,6 +66,10 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
             intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString()
         )
 
+        // 1) LocationManager 세팅하기
+        initLocationManager()
+
+        // 2) MapView 세팅하기
         initMapView()
         initPlaceBottomSheetBehavior()
         initMomentBottomSheetBehavior()
@@ -89,33 +103,41 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     }
 
     private fun initMapView() {
-        mapView = TMapView(this);
         mapView.setSKTMapApiKey(MAP_API_KEY)
 
+        // mapView 세팅
         binding.mapContainer.addView(mapView)
+        mapView.mapType = TMapView.MAPTYPE_STANDARD
+        mapView.setLanguage(TMapView.LANGUAGE_KOREAN)
 
-        // 현재 위치 표시하는 아이콘 설정
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.map_point_icon).resize(32)
-        mapView.setIcon(bitmap)
+        // 소도시에서 사용할 아이콘 설정
+        val myLocationBitmap = BitmapFactory.decodeResource(resources, R.drawable.map_point_icon).resize(32)
+        mapView.setIcon(myLocationBitmap)
         mapView.setIconVisibility(true)
 
-        // 지도에 표시할 마커 목록 가져오기
         defaultMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_default_icon).resize(24)
         hotMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_hot_icon).resize(24)
 
-        viewModel.getPlaceList()
+        // 소도시 선택했을 때 시작 위치 세팅
+        // TODO: 기획이 맞는지 확인 필요
+        val locationPoint = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        locationPoint?.let {
+            mapView.setLocationPoint(it.longitude, it.latitude)
+            mapView.setCenterPoint(it.longitude, it.latitude, false)
+        }
 
-        // TODO
-        // 1) 현재 내 위치 표시 (focus) + 커스텀할 수 있는지
-        // 2) Marker 찍기 + Marker 이미지 커스텀
-        // 3) Marker 클릭 이벤트 + BS 띄우기
-        // 4) GeoCoding : 장소 기준은 장소명인가, address인가 ex) 신명아파트에 대한 리뷰인지, 창현로 60에 대한 리뷰인지
-        // 5) 나침반모드 고정? 시야 표출?
+        // 지도에 표시할 마커 목록 가져오기
+        viewModel.getPlaceList()
     }
 
-    private fun setGpsCenter() {
+    private fun initLocationManager() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1.0f, locationListener)
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 1.0f, locationListener)
+    }
+
+    private fun moveFocusToCenterPoint() {
         mapView.setTrackingMode(true)
-        mapView.setCenterPoint(mapView.locationPoint.longitude, mapView.locationPoint.latitude)
+        mapView.setCenterPoint(mapView.locationPoint.longitude, mapView.locationPoint.latitude, true)
     }
 
     private fun initPlaceBottomSheetBehavior() {
@@ -145,7 +167,6 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     }
 
     private fun initMomentBottomSheetBehavior() {
-        // TODO: 이 사이즈는 뭐할 때 쓰는거지
         val size = Point()
         windowManager.defaultDisplay.getRealSize(size)
 
@@ -176,7 +197,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.momentBottomSheetContainer.setOnClickListener { }
         binding.btnBack.setOnClickListener { onBackPressed() }
         binding.btnMenu.setOnClickListener { menuDialog.show() }
-        binding.gpsEllipse.setOnClickListener { setGpsCenter() }
+        binding.gpsEllipse.setOnClickListener { moveFocusToCenterPoint() }
     }
 
     fun showMomentBottomSheet(model: PlaceModel) {
@@ -251,8 +272,16 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     companion object {
         const val MAP_API_KEY = BuildConfig.TMAP_API_KEY
 
-        const val EXTRA_MAP_ID = "EXTRA_MAP_ID"
-        const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"
-        const val EXTRA_MOMENT_COUNT = "EXTRA_MOMENT_COUNT"
+        private const val EXTRA_MAP_ID = "EXTRA_MAP_ID"
+        private const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"
+        private const val EXTRA_MOMENT_COUNT = "EXTRA_MOMENT_COUNT"
+
+        fun getIntent(context: Context, id: Long, name: String, momentCount: Int): Intent {
+            return Intent(context, SodosiActivity::class.java).apply {
+                putExtra(EXTRA_MAP_ID, id)
+                putExtra(EXTRA_MAP_NAME, name)
+                putExtra(EXTRA_MOMENT_COUNT, momentCount)
+            }
+        }
     }
 }
