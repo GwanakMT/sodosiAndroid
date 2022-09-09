@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
 import com.sodosi.databinding.FragmentCreateMomentBottomSheetBinding
-import com.sodosi.databinding.FragmentMomentBottomSheetBinding
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.post.SearchPlaceActivity
 import com.sodosi.ui.sodosi.SodosiViewModel
@@ -19,15 +18,20 @@ import com.sodosi.ui.sodosi.SodosiViewModel
 class CreateMomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentCreateMomentBottomSheetBinding>() {
     override val viewModel: SodosiViewModel by activityViewModels()
 
-
     override fun getViewBinding() = FragmentCreateMomentBottomSheetBinding.inflate(layoutInflater)
 
     override fun initViews() = with(binding) {
+        initView()
         setOnClickListener()
     }
 
     override fun observeData() {
 
+    }
+
+    private fun initView() {
+        val startPlace = arguments?.getString(KEY_START_PLACE, "") ?: ""
+        setCurrentPlaceName(startPlace)
     }
 
     private fun setOnClickListener() {
@@ -36,10 +40,19 @@ class CreateMomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentCr
         }
     }
 
+    fun setCurrentPlaceName(placeName: String) {
+        binding.currentPlace.text = placeName
+    }
+
     companion object {
-        fun newInstance(): CreateMomentBottomSheetFragment {
-            val newFragment = CreateMomentBottomSheetFragment()
-            newFragment.arguments = Bundle()
+        private const val KEY_START_PLACE = "KEY_START_PLACE"
+
+        fun newInstance(startPlace: String): CreateMomentBottomSheetFragment {
+            val newFragment = CreateMomentBottomSheetFragment().apply {
+                arguments = Bundle().apply {
+                    putString(KEY_START_PLACE, startPlace)
+                }
+            }
 
             return newFragment
         }

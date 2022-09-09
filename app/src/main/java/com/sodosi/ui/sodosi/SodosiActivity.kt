@@ -48,12 +48,11 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var placeBottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var momentBottomSheetBehavior: BottomSheetBehavior<View>
 
-    private val locationManager: LocationManager by lazy { getSystemService(LOCATION_SERVICE) as LocationManager }
-
     override fun getViewBinding() = ActivitySodosiBinding.inflate(layoutInflater)
 
     override val viewModel: SodosiViewModel by viewModels()
 
+    private val locationManager: LocationManager by lazy { getSystemService(LOCATION_SERVICE) as LocationManager }
     private val locationListener = LocationListener { location ->
         mapView.setLocationPoint(location.longitude, location.latitude)
     }
@@ -118,8 +117,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         defaultMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_default_icon).resize(24)
         hotMarker = BitmapFactory.decodeResource(resources, R.drawable.map_marker_hot_icon).resize(24)
 
-        // 소도시 선택했을 때 시작 위치 세팅
-        // TODO: 기획이 맞는지 확인 필요
+        // 현재 내 위치 표시
         val locationPoint = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         locationPoint?.let {
             mapView.setLocationPoint(it.longitude, it.latitude)

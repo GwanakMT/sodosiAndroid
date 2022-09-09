@@ -1,6 +1,5 @@
 package com.sodosi.ui.sodosi.bottomsheet
 
-import android.content.Intent
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -48,8 +47,7 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
 
     private fun setOnClickListener() {
         binding.etPlace.setOnClickListener {
-            val intent = Intent(context, CreateMomentActivity::class.java)
-            startActivity(intent)
+            startActivity(CreateMomentActivity.getIntent(requireContext()))
         }
     }
 

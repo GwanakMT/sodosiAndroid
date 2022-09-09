@@ -119,6 +119,7 @@
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
             android:src="@drawable/ic_navigation_gps"
+            android:background="?attr/actionBarItemBackground"
             app:layout_constraintBottom_toBottomOf="@id/gpsEllipse"
             app:layout_constraintEnd_toEndOf="@id/gpsEllipse"
             app:layout_constraintStart_toStartOf="@id/gpsEllipse"
