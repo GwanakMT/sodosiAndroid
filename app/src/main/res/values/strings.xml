@@ -124,4 +124,10 @@
     <string name="setting_password_after_check">새 비밀번호 다시 입력</string>
     <string name="setting_notification">앱 알림 설정</string>
     <string name="setting_finish">완료</string>
+
+    // Sodosi List
+    <string name="sodosi_total_list_title">전체 소도시</string>
+    <string name="sodosi_total">전체</string>
+    <string name="sodosi_sort_popular">인기순</string>
+    <string name="sodosi_sort_fastest">최신순</string>
 </resources>
