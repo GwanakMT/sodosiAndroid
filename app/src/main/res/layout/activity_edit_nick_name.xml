@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.sodosi.ui.common.customview.SodosiAppbar
+            android:id="@+id/appbar"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnFinish"
+            style="@style/Typography.HeadLines.Callout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:text="@string/setting_finish"
+            android:textColor="@color/green600"
+            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintTop_toTopOf="@id/appbar" />
+
+        <TextView
+            android:id="@+id/nickNameTitle"
+            style="@style/Typography.HeadLines.SubHeadLine.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="닉네임"
+            android:textColor="#8A8A8E"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <View
+            android:id="@+id/inputBackground"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/background_rounded_gray"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/nickNameTitle" />
+
+        <EditText
+            android:id="@+id/etNickname"
+            style="@style/EditText"
+            android:maxLines="1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/onboarding_nickname_hint"
+            app:layout_constraintBottom_toBottomOf="@id/inputBackground"
+            app:layout_constraintEnd_toStartOf="@id/btnClearText"
+            app:layout_constraintStart_toStartOf="@id/inputBackground"
+            app:layout_constraintTop_toTopOf="@id/inputBackground" />
+
+        <ImageView
+            android:id="@+id/btnClearText"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_textfield_clear"
+            app:layout_constraintBottom_toBottomOf="@id/inputBackground"
+            app:layout_constraintEnd_toEndOf="@id/inputBackground"
+            app:layout_constraintTop_toTopOf="@id/inputBackground" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

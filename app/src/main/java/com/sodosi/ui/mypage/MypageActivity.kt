@@ -26,6 +26,8 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
     override fun initViews() = with(binding) {
         initAppbar()
         initUserSodosiInfo()
+
+        setOnClickListener()
     }
 
     private fun initAppbar() {
@@ -50,5 +52,11 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
         binding.tvCreatedSodosiCount.text = "35"
         binding.tvJoinedSodosiCount.text = "35"
         binding.tvBookmarkCount.text = "35"
+    }
+
+    private fun setOnClickListener() {
+        binding.tvProfileNickname.setOnClickListener {
+            startActivity(EditNickNameActivity.getIntent(this, "중구구립도서관"))
+        }
     }
 }
