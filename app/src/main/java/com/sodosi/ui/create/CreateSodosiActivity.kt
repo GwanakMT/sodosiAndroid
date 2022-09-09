@@ -10,9 +10,9 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
@@ -57,7 +57,9 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
                     }
                 }
             }
+        }
 
+        repeatOnStarted {
             viewModel.isLoading.collect {
                 when (it) {
                     true -> {} // show
@@ -95,20 +97,19 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
         exitDialog = Dialog(this).apply {
             setContentView(R.layout.dialog_create_exit)
 
-            findViewById<CardView>(R.id.btnExit).setOnClickListener {
+            findViewById<TextView>(R.id.btnExit).setOnClickListener {
                 exitDialog.dismiss()
                 finish()
             }
 
-            findViewById<CardView>(R.id.btnContinue).setOnClickListener {
+            findViewById<TextView>(R.id.btnContinue).setOnClickListener {
                 exitDialog.dismiss()
             }
 
             window?.apply {
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                setGravity(Gravity.BOTTOM)
+                setGravity(Gravity.CENTER)
                 setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                attributes.windowAnimations = R.style.BottomDialogAnimation
             }
         }
     }
@@ -135,14 +136,14 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
 
         binding.sodosiPublic.setOnClickListener {
             isSodosiPublic = true
-            binding.ivPublic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_checked))
-            binding.ivPrivate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_unchecked))
+            binding.ivPublic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_checked_24))
+            binding.ivPrivate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_unchecked_24))
         }
 
         binding.sodosiPrivate.setOnClickListener {
             isSodosiPublic = false
-            binding.ivPublic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_unchecked))
-            binding.ivPrivate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_circle_checked))
+            binding.ivPublic.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_unchecked_24))
+            binding.ivPrivate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_interface_checked_24))
         }
     }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -80,9 +79,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sodosiPublic"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@id/tvSodosiVisibility"
         app:layout_constraintStart_toStartOf="@id/tvSodosiVisibility"
         app:layout_constraintTop_toBottomOf="@id/tvSodosiVisibility">
 
@@ -90,7 +90,7 @@
             android:id="@+id/ivPublic"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
-            android:src="@drawable/ic_interface_circle_checked"
+            android:src="@drawable/ic_interface_checked_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -120,9 +120,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sodosiPrivate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="@id/tvSodosiVisibility"
         app:layout_constraintStart_toStartOf="@id/sodosiPublic"
         app:layout_constraintTop_toBottomOf="@id/sodosiPublic">
 
@@ -130,7 +131,7 @@
             android:id="@+id/ivPrivate"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
-            android:src="@drawable/ic_interface_circle_unchecked"
+            android:src="@drawable/ic_interface_unchecked_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
