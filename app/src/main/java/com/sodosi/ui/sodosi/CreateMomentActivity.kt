@@ -16,11 +16,13 @@ import com.skt.Tmap.poi_item.TMapPOIItem
 import com.sodosi.R
 import com.sodosi.databinding.ActivityCreateMomentBinding
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.extensions.resize
 import com.sodosi.ui.sodosi.bottomsheet.CreateMomentBottomSheetFragment
 
 class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateMomentBinding>() {
     private val mapView: TMapView by lazy { TMapView(this) }
+
     private lateinit var createMomentBottomSheet: CreateMomentBottomSheetFragment
     private lateinit var createMomentBottomSheetBehavior: BottomSheetBehavior<View>
 
@@ -41,7 +43,11 @@ class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateM
     }
 
     override fun observeData() {
-
+        repeatOnStarted {
+            viewModel.gpsAddress.collect {
+                setCurrentPlaceName(it)
+            }
+        }
     }
 
     private fun initMapView() {
@@ -78,7 +84,7 @@ class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateM
         binding.gpsEllipse.setOnClickListener { moveFocusToCenterPoint() }
 
         mapView.setOnDisableScrollWithZoomLevelListener { zoomLevel, centerPoint ->
-            setCurrentPlaceName(getPoiData(centerPoint.longitude, centerPoint.latitude))
+            getPoiData(centerPoint.longitude, centerPoint.latitude, false)
         }
 
         mapView.setOnClickListenerCallBack(object : TMapView.OnClickListenerCallback {
@@ -98,7 +104,7 @@ class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateM
                 pointF: PointF?
             ): Boolean {
                 val centerPoint = mapView.centerPoint
-                setCurrentPlaceName(getPoiData(centerPoint.longitude, centerPoint.latitude))
+                getPoiData(centerPoint.longitude, centerPoint.latitude, false)
                 return true
             }
         })
@@ -110,12 +116,13 @@ class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateM
     }
 
     private fun initBottomSheet() {
-        val centerPoint = mapView.centerPoint
-        val startPlace = getPoiData(centerPoint.longitude, centerPoint.latitude)
-        createMomentBottomSheet = CreateMomentBottomSheetFragment.newInstance(startPlace)
+        createMomentBottomSheet = CreateMomentBottomSheetFragment.newInstance("")
         supportFragmentManager.beginTransaction()
             .replace(binding.createMomentBottomSheetContainer.id, createMomentBottomSheet)
             .commitNow()
+
+        val centerPoint = mapView.centerPoint
+        getPoiData(centerPoint.longitude, centerPoint.latitude, true)
     }
 
     private fun initCreateMomentBottomSheetBehavior() {
@@ -126,10 +133,8 @@ class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateM
         }
     }
 
-    private fun getPoiData(longitude: Double, latitude: Double): String {
-        // TODO: 위도, 경도 -> 주소(한글)
-        val poiData = "$longitude, $latitude"
-        return poiData
+    private fun getPoiData(longitude: Double, latitude: Double, isLive: Boolean) {
+        viewModel.convertGpsToAddress(longitude, latitude, isLive)
     }
 
     private fun setCurrentPlaceName(placeName: String) {
