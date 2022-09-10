@@ -20,6 +20,7 @@ import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.extensions.resize
 import com.sodosi.ui.sodosi.bottomsheet.CreateMomentBottomSheetFragment
 
+// 기획 변경으로 페이지 삭제
 class CreateMomentActivity : BaseActivity<CreateMomentViewModel, ActivityCreateMomentBinding>() {
     private val mapView: TMapView by lazy { TMapView(this) }
 

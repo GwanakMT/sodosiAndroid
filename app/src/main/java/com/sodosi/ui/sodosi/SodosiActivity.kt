@@ -29,6 +29,7 @@ import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.resize
+import com.sodosi.ui.post.SearchPlaceActivity
 import com.sodosi.ui.sodosi.bottomsheet.MomentBottomSheetFragment
 import com.sodosi.ui.sodosi.bottomsheet.PlaceBottomSheetFragment
 import com.sodosi.ui.sodosi.model.PlaceModel
@@ -42,7 +43,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var defaultMarker: Bitmap
     private lateinit var hotMarker: Bitmap
 
-    private val placeBottomSheet by lazy { PlaceBottomSheetFragment() }
+    private val placeBottomSheet by lazy { PlaceBottomSheetFragment.newInstance(::moveToSearchPlaceActivityWithLocation) }
     private val momentBottomSheet by lazy { MomentBottomSheetFragment.newInstance(::onDismissMomentBottomSheet) }
 
     private lateinit var placeBottomSheetBehavior: BottomSheetBehavior<View>
@@ -264,6 +265,13 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
                 setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 attributes.windowAnimations = R.style.BottomDialogAnimation
             }
+        }
+    }
+
+    private fun moveToSearchPlaceActivityWithLocation() {
+        val currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        currentLocation?.let {
+            startActivity(SearchPlaceActivity.getIntent(this, it.longitude, it.latitude))
         }
     }
 

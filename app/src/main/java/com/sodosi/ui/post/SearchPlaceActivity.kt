@@ -1,5 +1,7 @@
 package com.sodosi.ui.post
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.skt.Tmap.TMapData
@@ -37,5 +39,15 @@ class SearchPlaceActivity : BaseActivity<SearchPlaceViewModel, ActivitySearchPla
         }
     }
 
+    companion object {
+        private val KEY_CURRENT_LONGITUDE = "KEY_CURRENT_LONGITUDE"
+        private val KEY_CURRENT_LATITUDE = "KEY_CURRENT_LATITUDE"
 
+        fun getIntent(context: Context, currentLongitude: Double, currentLatitude: Double): Intent {
+            return Intent(context, SearchPlaceActivity::class.java).apply {
+                putExtra(KEY_CURRENT_LONGITUDE, currentLongitude)
+                putExtra(KEY_CURRENT_LATITUDE, currentLatitude)
+            }
+        }
+    }
 }

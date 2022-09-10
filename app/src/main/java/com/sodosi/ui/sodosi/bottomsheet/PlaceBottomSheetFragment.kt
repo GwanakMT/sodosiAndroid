@@ -47,7 +47,7 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
 
     private fun setOnClickListener() {
         binding.etPlace.setOnClickListener {
-            startActivity(CreateMomentActivity.getIntent(requireContext()))
+            moveToSearchPlaceActivityWithLocation?.invoke()
         }
     }
 
@@ -61,6 +61,15 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
                     Toast.makeText(context, "position: $position", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    companion object {
+        private var moveToSearchPlaceActivityWithLocation: (() -> Unit)? = null
+
+        fun newInstance(moveToSearchPlaceActivityWithLocation: () -> Unit): PlaceBottomSheetFragment {
+            this.moveToSearchPlaceActivityWithLocation = moveToSearchPlaceActivityWithLocation
+            return PlaceBottomSheetFragment()
         }
     }
 }
