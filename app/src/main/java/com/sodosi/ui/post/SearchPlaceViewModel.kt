@@ -1,6 +1,17 @@
 package com.sodosi.ui.post
 
+import androidx.lifecycle.viewModelScope
+import com.skt.Tmap.TMapData
+import com.skt.Tmap.TMapPoint
+import com.sodosi.model.POIDataModel
 import com.sodosi.ui.common.base.BaseViewModel
+import com.sodosi.util.LogUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 /**
  *  SearchPlaceViewModel.kt
@@ -10,5 +21,47 @@ import com.sodosi.ui.common.base.BaseViewModel
  */
 
 class SearchPlaceViewModel : BaseViewModel() {
+    private val tMapData: TMapData by lazy { TMapData() }
 
+    private val _poiList: MutableStateFlow<List<POIDataModel>> = MutableStateFlow(listOf())
+    val poiList: StateFlow<List<POIDataModel>> = _poiList.asStateFlow()
+
+    fun search(text: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                if (text.isEmpty()) _poiList.emit(emptyList())
+                val titlePoi = tMapData.findTitlePOI(text)
+                if (titlePoi.isNotEmpty()) {
+                    val latitude = titlePoi[0].noorLat.toDouble()
+                    val longitude = titlePoi[0].noorLon.toDouble()
+                    val tMapPoint = TMapPoint(latitude, longitude)
+                    val data = tMapData.findAroundNamePOI(tMapPoint, "").subList(0, Random.nextInt(5) + 1) // 10개 자르기
+
+                    _poiList.value = data.map {
+                        POIDataModel(
+                            placeName = it.name ?: "",
+                            address = getRoadAddressName(it.noorLat, it.noorLon),
+                            latitude = it.noorLat ?: "",
+                            longitude = it.noorLon ?: "",
+                        )
+                    }
+                }
+            } catch (e: Exception) {
+                LogUtil.e(e.message.toString())
+            }
+        }
+    }
+
+    private fun getRoadAddressName(lat: String, lon: String): String {
+        return try {
+            val latitude = lat.toDouble()
+            val longitude = lon.toDouble()
+
+            val reverseGeo = tMapData.reverseGeocoding(latitude, longitude, "A00")
+
+            reverseGeo?.strFullAddress?.split(",")?.last() ?: ""
+        } catch (e: Exception) {
+            ""
+        }
+    }
 }

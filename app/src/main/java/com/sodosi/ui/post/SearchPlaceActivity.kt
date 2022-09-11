@@ -2,33 +2,49 @@ package com.sodosi.ui.post
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
-import com.skt.Tmap.TMapData
+import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySearchPlaceBinding
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
+import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.common.extensions.setGone
+import com.sodosi.ui.common.extensions.setVisible
+import kotlin.concurrent.timer
 
 class SearchPlaceActivity : BaseActivity<SearchPlaceViewModel, ActivitySearchPlaceBinding>() {
-    private val tMapData: TMapData by lazy { TMapData() }
+    private var lastTypingTime: Long = System.currentTimeMillis()
+    private var lastTypingText = ""
 
     override val viewModel: SearchPlaceViewModel by viewModels()
+    private val searchResultAdapter by lazy { SearchResultAdapter() }
 
     override fun getViewBinding(): ActivitySearchPlaceBinding =
         ActivitySearchPlaceBinding.inflate(layoutInflater)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContentView(binding.root)
-    }
-
     override fun initViews() = with(binding) {
         initAppbar()
+        initSearchBar()
+        initRecyclerView()
+        setListener()
     }
 
     override fun observeData() {
+        repeatOnStarted {
+            viewModel.poiList.collect {
+                if (it.isNotEmpty()) {
+                    binding.emptyLayout.root.setGone()
+                    binding.searchResultRecyclerView.setVisible()
 
+                    searchResultAdapter.submitList(it)
+                } else {
+                    binding.emptyLayout.root.setVisible()
+                    binding.searchResultRecyclerView.setGone()
+                }
+            }
+        }
     }
 
     private fun initAppbar() {
@@ -36,6 +52,43 @@ class SearchPlaceActivity : BaseActivity<SearchPlaceViewModel, ActivitySearchPla
             initLeftButton(R.drawable.ic_arrow_left) {
                 onBackPressed()
             }
+        }
+    }
+
+    private fun initSearchBar() {
+        binding.etPlace.addTextChangedListener {
+            lastTypingTime = System.currentTimeMillis()
+        }
+
+        timer(period = 500, initialDelay = 500) {
+            if (lastTypingTime < System.currentTimeMillis() - 500 && binding.etPlace.text.toString() != lastTypingText) {
+                lastTypingText = binding.etPlace.text.toString()
+                viewModel.search(lastTypingText)
+            }
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.searchResultRecyclerView.apply {
+            adapter = searchResultAdapter.apply {
+                onItemClick = {
+                    SodosiToast.makeText(context, "search: ${it.placeName}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setListener() {
+        binding.etPlace.addTextChangedListener {
+            if("$it".length > 0) {
+                binding.ivClearText.setVisible()
+            } else {
+                binding.ivClearText.setGone()
+            }
+        }
+
+        binding.ivClearText.setOnClickListener {
+            binding.etPlace.text = null
         }
     }
 

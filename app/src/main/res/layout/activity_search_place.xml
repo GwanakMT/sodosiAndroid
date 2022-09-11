@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -44,6 +45,7 @@
                 <EditText
                     android:id="@+id/etPlace"
                     style="@style/Typography.HeadLines.Callout"
+                    android:maxLines="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="12dp"
@@ -52,7 +54,7 @@
                     android:textColorHint="#ADADAD" />
 
                 <ImageView
-                    android:id="@+id/ivCancel"
+                    android:id="@+id/ivClearText"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_close_circle" />
@@ -69,15 +71,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchLayout" />
 
+        <include
+            android:id="@+id/emptyLayout"
+            layout="@layout/layout_search_result_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultRecyclerView"
             android:layout_width="@dimen/screen_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintTop_toBottomOf="@id/divider"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
+            tools:itemCount="3"
+            tools:listitem="@layout/item_search_place" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
