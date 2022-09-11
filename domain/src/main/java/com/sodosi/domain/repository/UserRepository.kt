@@ -17,7 +17,7 @@ interface UserRepository {
         name: String,
         nickName: String,
         agreeInfoMap: Map<String, String>
-    ): Result<Boolean>
+    ): Result<Pair<Boolean, String>>
 
     // 전화번호 중복 확인
     suspend fun checkPhoneNumber(phoneNumber: String): Boolean

@@ -35,31 +35,16 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
 
     override fun observeData() {
         repeatOnStarted {
-            viewModel.isNicknamePossible.collect { isPossible ->
-                if (isPossible) {
-                    // 2-1) 닉네임이 사용 가능하다면 회원가입 로직 실행
-                    val nickname = binding.etNickname.text.toString()
-                    val phoneNumber = arguments?.getString("phone_number") ?: return@collect
-                    val password = arguments?.getString("password") ?: return@collect
-
-                    viewModel.signUp(phoneNumber, nickname, password)
-                } else {
-                    // 2-2) 이미 있는 닉네임이라면 Error View
-                    binding.tvWarning.visibility = View.VISIBLE
-                    binding.inputBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
-                }
-            }
-        }
-
-        repeatOnStarted {
-            viewModel.isSignUpSuccess.collect { isSigned ->
-                if (isSigned) {
-                    // 3-1) 회원가입 성공했으면 웰컴 화면으로 이동
+            viewModel.isSignUpSuccess.collect { result ->
+                if (result.first) {
+                    // 2-1) 회원가입 성공했으면 웰컴 화면으로 이동
                     val nickname = binding.etNickname.text.toString()
                     moveToWelcomeScreen(nickname)
                 } else {
-                    // 3-2) 회원가입 실패하면
-                    // TODO
+                    // 2-2) 회원가입 실패했으면 실패 메세지 보여주기
+                    binding.tvWarning.visibility = View.VISIBLE
+                    binding.tvWarning.text = result.second
+                    binding.inputBackground.background = ContextCompat.getDrawable(requireContext(), R.drawable.background_rounded_pink)
                 }
             }
         }
@@ -82,8 +67,12 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
 
     private fun setOnClickListener() {
         binding.btnFinish.setOnClickListener {
-            // 1) 닉네임 중복 체크
-            viewModel.checkNickname(binding.etNickname.text.toString())
+            // 1) 닉네임 중복체크와 회원가입 로직을 합쳤기 때문에 바로 signup 함수 호출()
+            val nickname = binding.etNickname.text.toString()
+            val phoneNumber = arguments?.getString("phone_number") ?: return@setOnClickListener
+            val password = arguments?.getString("password") ?: return@setOnClickListener
+
+            viewModel.signUp(phoneNumber, nickname, password)
         }
     }
 

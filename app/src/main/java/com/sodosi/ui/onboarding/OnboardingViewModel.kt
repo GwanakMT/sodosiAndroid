@@ -37,14 +37,11 @@ class OnboardingViewModel @Inject constructor(
     private val _userNotJoined = MutableEventFlow<Boolean>()
     val userNotJoined: EventFlow<Boolean> = _userNotJoined.asEventFlow()
 
-    private val _isNicknamePossible = MutableEventFlow<Boolean>()
-    val isNicknamePossible: EventFlow<Boolean> = _isNicknamePossible.asEventFlow()
-
     private val _isLoginSuccess = MutableEventFlow<Boolean>()
     val isLoginSuccess: EventFlow<Boolean> = _isLoginSuccess.asEventFlow()
 
-    private val _isSignUpSuccess = MutableEventFlow<Boolean>()
-    val isSignUpSuccess: EventFlow<Boolean> = _isSignUpSuccess.asEventFlow()
+    private val _isSignUpSuccess = MutableEventFlow<Pair<Boolean, String>>()
+    val isSignUpSuccess: EventFlow<Pair<Boolean, String>> = _isSignUpSuccess.asEventFlow()
 
     fun resetTimer() {
         _timer.value = MINUTE_3
@@ -72,12 +69,6 @@ class OnboardingViewModel @Inject constructor(
             Terms(1, "[필수] 서비스 이용약관 동의", "", false),
             Terms(2, "[필수] 개인정보 처리방침 동의", "", false)
         )
-    }
-
-    fun checkNickname(nickname: String) {
-        viewModelScope.launch {
-            _isNicknamePossible.emit(true)
-        }
     }
 
     fun login(phoneNumber: String, password: String) {

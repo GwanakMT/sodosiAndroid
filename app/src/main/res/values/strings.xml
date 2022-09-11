@@ -31,7 +31,6 @@
 
     <string name="onboarding_input_nickname">시민님의 닉네임을 알려주세요!</string>
     <string name="onboarding_nickname_hint">호랑이는 가죽을 남기고</string>
-    <string name="onboarding_nickname_warning">이미 있는 별명이에요!</string>
 
     <string name="onboarding_terms_allow_all_terms">약관 모두 동의</string>
 

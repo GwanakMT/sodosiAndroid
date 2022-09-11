@@ -21,7 +21,7 @@ class SignUpUseCase @Inject constructor(
         name: String,
         nickName: String,
         agreeInfoMap: Map<String, String>,
-    ): Boolean {
+    ): Pair<Boolean, String> {
         return try {
             val result = userRepository.signUp(
                 phoneNumber,
@@ -34,12 +34,12 @@ class SignUpUseCase @Inject constructor(
             when(result) {
                 is Result.Success -> {
                     setPhoneNumberUseCase(phoneNumber)
-                    true
+                    Pair(result.data.first, result.data.second)
                 }
-                is Result.Error -> false
+                is Result.Error -> Pair(false, result.exception.message.toString())
             }
         } catch (e: Exception) {
-            false
+            Pair(false, e.message.toString())
         }
     }
 }

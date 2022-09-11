@@ -28,7 +28,7 @@ class UserRepositoryImpl @Inject constructor(
         name: String,
         nickName: String,
         agreeInfoMap: Map<String, String>
-    ): Result<Boolean> {
+    ): Result<Pair<Boolean, String>> {
         val request = UserSignUpRequest(
             phone = phoneNumber,
             password = password,
@@ -41,7 +41,11 @@ class UserRepositoryImpl @Inject constructor(
             val result = sodosiApi.signUp(request)
             setTokenUseCase(result.data.token)
 
-            Result.Success(true)
+            if (result.data.token.isEmpty()) {
+                Result.Success(Pair(false, result.message))
+            } else {
+                Result.Success(Pair(true, result.message))
+            }
         } catch (e: Exception) {
             Result.Error(e)
         }
