@@ -72,7 +72,7 @@ class SearchPlaceActivity : BaseActivity<SearchPlaceViewModel, ActivitySearchPla
         binding.searchResultRecyclerView.apply {
             adapter = searchResultAdapter.apply {
                 onItemClick = {
-                    SodosiToast.makeText(context, "search: ${it.placeName}", Toast.LENGTH_SHORT).show()
+                    startActivity(PostMomentActivity.getIntent(context, it))
                 }
             }
         }
