@@ -11,5 +11,147 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.sodosi.ui.common.customview.SodosiAppbar
+            android:id="@+id/appbar"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnSubmit"
+            style="@style/Typography.HeadLines.Callout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sodosi_create_moment_finish"
+            android:textColor="#ADADAD"
+            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintTop_toTopOf="@id/appbar" />
+
+        <ImageView
+            android:id="@+id/ivLocationIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_location_pin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            app:tint="@color/green600" />
+
+        <TextView
+            android:id="@+id/tvPlaceName"
+            style="@style/Typography.Body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            tools:text="남산타운 아파트 36동" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/gray6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPlaceName" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photoRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:listitem="@layout/item_post_moment_photo" />
+
+        <EditText
+            android:id="@+id/etMoment"
+            style="@style/Typography.Body"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="top"
+            android:inputType="text"
+            android:padding="20dp"
+            android:textColor="#0F0F10"
+            android:textColorHint="#ADADAD"
+            app:layout_constraintBottom_toTopOf="@id/photoCountLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photoRecyclerView"
+            tools:hint="~~~에 찰떡인 장소를 기록해주세요" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/photoCountLayout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPhotoCount"
+                style="@style/Typography.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/ivPhoto"
+                app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                app:layout_constraintTop_toTopOf="@id/ivPhoto"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/tvDivider"
+                style="@style/Typography.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                app:layout_constraintBottom_toBottomOf="@id/tvPhotoCount"
+                app:layout_constraintStart_toEndOf="@id/tvPhotoCount"
+                app:layout_constraintTop_toTopOf="@id/tvPhotoCount" />
+
+            <TextView
+                android:id="@+id/tvCountLimit"
+                style="@style/Typography.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                app:layout_constraintBottom_toBottomOf="@id/tvDivider"
+                app:layout_constraintStart_toEndOf="@id/tvDivider"
+                app:layout_constraintTop_toTopOf="@id/tvDivider" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

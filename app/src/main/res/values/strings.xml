@@ -92,6 +92,9 @@
     // Map - Create Moment
     <string name="sodosi_create_moment_title">공유할 장소로 핀을 이동하세요</string>
     <string name="sodosi_create_moment_button">이 위치로 주소 설정</string>
+    <string name="sodosi_create_moment">장소 기록</string>
+    <string name="sodosi_create_moment_finish">완료</string>
+    <string name="sodosi_create_moment_hint">"%s"에 찰떡인 장소를 기록해주세요.</string>
 
     // Create
     <string name="create_title">새로운 소도시</string>
