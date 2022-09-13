@@ -50,6 +50,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
                 // TODO: progress stop
                 when (it.first) {
                     is Result.Success -> {
+                        SodosiToast.makeText(this@CreateSodosiActivity, "소도시가 정상적으로 건설됐어요!", Toast.LENGTH_SHORT).show()
                         moveToSodosiScreen()
                     }
                     is Result.Error -> {
@@ -187,6 +188,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
         intent.putExtra(EXTRA_SODOSI_NAME, binding.etSodosiName.text.toString())
         intent.putExtra(EXTRA_SODOSI_EMOJI, binding.tvEmoji.text)
         intent.putExtra(EXTRA_SODOSI_IS_PUBLIC, isSodosiPublic)
+        intent.putExtra(EXTRA_HAS_SODOSI, viewModel.hasSodosi)
 
         startActivity(intent)
         finish()
@@ -196,5 +198,6 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
         const val EXTRA_SODOSI_NAME = "SODOSI_NAME"
         const val EXTRA_SODOSI_EMOJI = "SODOSI_EMOJI"
         const val EXTRA_SODOSI_IS_PUBLIC = "SODOSI_IS_PUBLIC"
+        const val EXTRA_HAS_SODOSI = "EXTRA_HAS_SODOSI"
     }
 }

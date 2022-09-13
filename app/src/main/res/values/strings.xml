@@ -110,6 +110,11 @@
     <string name="create_exit_message">중단 시 만들고 계신 소도시가 저장되지 않아요.\n정말 나가시겠어요?</string>
     <string name="create_exit_exit">나가기</string>
     <string name="create_exit_continue">이어하기</string>
+    
+    <string name="create_first_title">첫 소도시 건설을 축하해요!🎉</string>
+    <string name="create_first_message">사장님의 취향이 듬뿍 담긴 도시가 완성됐어요!\n꽤 멋진 도시가 될 것 같은데요?</string>
+    <string name="create_first_next_step">장소 추가하기</string>
+    <string name="create_first_pass_step">나중에 하기</string>
 
     // Mypage
     <string name="mypage_created_sodosi">내가 만든 소도시</string>

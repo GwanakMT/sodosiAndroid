@@ -13,6 +13,7 @@ import android.location.LocationManager
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
@@ -29,6 +30,7 @@ import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.resize
+import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.post.SearchPlaceActivity
 import com.sodosi.ui.sodosi.bottomsheet.MomentBottomSheetFragment
 import com.sodosi.ui.sodosi.bottomsheet.PlaceBottomSheetFragment
@@ -39,6 +41,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private val mapView: TMapView by lazy { TMapView(this) }
     private lateinit var menuDialog: Dialog
     private lateinit var reportDialog: Dialog
+    private lateinit var firstSodosiDialog: Dialog
 
     private lateinit var defaultMarker: Bitmap
     private lateinit var hotMarker: Bitmap
@@ -59,6 +62,8 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     }
 
     override fun initViews() = with(binding) {
+        checkIsFirstSodosi()
+
         changeStatusBarColorWhite()
         binding.tvMapTitle.text = intent.getStringExtra(EXTRA_MAP_NAME)
         binding.tvMomentCount.text = getString(
@@ -272,6 +277,32 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         val currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         currentLocation?.let {
             startActivity(SearchPlaceActivity.getIntent(this, it.longitude, it.latitude))
+        }
+    }
+
+    private fun checkIsFirstSodosi() {
+        val hasSodosiBefore = intent.getBooleanExtra(CreateSodosiActivity.EXTRA_HAS_SODOSI, true)
+        if (!hasSodosiBefore) {
+            firstSodosiDialog = Dialog(this).apply {
+                setContentView(R.layout.dialog_make_sodosi_first)
+
+                findViewById<TextView>(R.id.btnNextStep).setOnClickListener {
+                    firstSodosiDialog.dismiss()
+                    moveToSearchPlaceActivityWithLocation()
+                }
+
+                findViewById<TextView>(R.id.btnPassStep).setOnClickListener {
+                    firstSodosiDialog.dismiss()
+                }
+
+                window?.apply {
+                    setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    setGravity(Gravity.CENTER)
+                    setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                }
+            }
+
+            firstSodosiDialog.show()
         }
     }
 

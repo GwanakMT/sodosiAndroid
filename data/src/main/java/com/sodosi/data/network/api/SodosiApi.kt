@@ -37,4 +37,8 @@ interface SodosiApi {
     // 소도시 생성
     @POST("/api/v1/sodosis")
     suspend fun createSodosi(@Body createSodosiRequest: CreateSodosiRequest): BaseResponse<CreateSodosiResponse>
+
+    // 소도시 생성한 적 있는지 여부
+    @GET("/api/v1/users/has-sodosi")
+    suspend fun hasSodosi(): BaseResponse<HasSodosiResponse>
 }

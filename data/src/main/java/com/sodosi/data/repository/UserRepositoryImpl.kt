@@ -87,4 +87,13 @@ class UserRepositoryImpl @Inject constructor(
             Result.Error(e)
         }
     }
+
+    override suspend fun hasSodosi(): Boolean {
+        return try {
+            val result = sodosiApi.hasSodosi()
+            result.data.hasSodosi
+        } catch (e: Exception) {
+            true
+        }
+    }
 }
