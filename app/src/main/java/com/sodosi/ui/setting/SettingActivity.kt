@@ -51,11 +51,11 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
             binding.settingPhoneNumber -> moveToSettingPhoneNumber()
             binding.settingPassword -> moveToSettingPassword()
             binding.settingNotification -> moveToSettingNotification()
-            binding.termsOfService -> moveToWebDocs()
-            binding.privacyPolicy -> moveToWebDocs()
-            binding.openSourceInfo -> moveToWebDocs()
+            binding.termsOfService -> moveToWebDocs(WebViewActivity.TYPE_TERMS_OF_SERVICE)
+            binding.privacyPolicy -> moveToWebDocs(WebViewActivity.TYPE_PRIVACY_POLICY)
+            binding.openSourceInfo -> moveToWebDocs(WebViewActivity.TYPE_OPEN_SOURCE_INFO)
             binding.versionName -> moveToVersionInfo()
-            binding.sodosiMakers -> moveToSodosiMakers()
+            binding.sodosiMakers -> moveToWebDocs(WebViewActivity.TYPE_SODOSI_MAKERS)
             binding.logout -> logout()
             binding.deleteUser -> deleteUser()
         }
@@ -95,16 +95,12 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
         startActivity(intent)
     }
 
-    private fun moveToWebDocs() {
-        SodosiToast.makeText(this, "약관 및 정책", Toast.LENGTH_SHORT).show()
+    private fun moveToWebDocs(type: String) {
+        startActivity(WebViewActivity.getIntent(this, type))
     }
 
     private fun moveToVersionInfo() {
         SodosiToast.makeText(this, "버전 정보", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun moveToSodosiMakers() {
-        SodosiToast.makeText(this, "소도시를 만든 사람들", Toast.LENGTH_SHORT).show()
     }
 
     private fun logout() {
