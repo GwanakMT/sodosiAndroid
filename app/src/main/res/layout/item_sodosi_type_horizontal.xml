@@ -9,15 +9,15 @@
 
         <import type="kotlin.Unit" />
 
-        <import type="com.sodosi.domain.entity.Sodosi" />
+        <import type="com.sodosi.model.SodosiModel" />
 
         <variable
             name="item"
-            type="Sodosi" />
+            type="SodosiModel" />
 
         <variable
             name="onItemClick"
-            type="Function1&lt;Sodosi, Unit>" />
+            type="Function1&lt;SodosiModel, Unit>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

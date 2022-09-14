@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.R
 import com.sodosi.databinding.ItemSodosiViewpagerBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.model.SodosiModel
 
 /**
  *  SodosiViewPagerAdapter.kt
@@ -19,8 +20,8 @@ import com.sodosi.domain.entity.Sodosi
  */
 
 class SodosiViewPagerAdapter :
-    ListAdapter<Sodosi, SodosiViewPagerAdapter.ViewHolder>(DiffCallback()) {
-    var onItemClick: ((selectedItem: Sodosi) -> Unit)? = null
+    ListAdapter<SodosiModel, SodosiViewPagerAdapter.ViewHolder>(DiffCallback()) {
+    var onItemClick: ((selectedItem: SodosiModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -38,7 +39,7 @@ class SodosiViewPagerAdapter :
 
     inner class ViewHolder(
         private val binding: ItemSodosiViewpagerBinding,
-        onItemClick: ((selectedItem: Sodosi) -> Unit)?
+        onItemClick: ((selectedItem: SodosiModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -46,7 +47,7 @@ class SodosiViewPagerAdapter :
             binding.onItemClick = onItemClick
         }
 
-        fun bind(item: Sodosi, position: Int) {
+        fun bind(item: SodosiModel, position: Int) {
             binding.item = item
 
 //            binding.tvIndicator.text = "${position % currentList.size + 1}/${currentList.size}"
@@ -76,12 +77,12 @@ class SodosiViewPagerAdapter :
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<Sodosi>() {
-        override fun areItemsTheSame(oldItem: Sodosi, newItem: Sodosi): Boolean {
+    private class DiffCallback : DiffUtil.ItemCallback<SodosiModel>() {
+        override fun areItemsTheSame(oldItem: SodosiModel, newItem: SodosiModel): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Sodosi, newItem: Sodosi): Boolean {
+        override fun areContentsTheSame(oldItem: SodosiModel, newItem: SodosiModel): Boolean {
             return oldItem.id == newItem.id
         }
     }

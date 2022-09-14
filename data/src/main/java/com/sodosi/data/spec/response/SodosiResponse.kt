@@ -1,13 +1,16 @@
-package com.sodosi.domain.entity
+package com.sodosi.data.spec.response
+
+import kotlinx.serialization.Serializable
 
 /**
- *  Sodosi.kt
+ *  SodosiResponse.kt
  *
- *  Created by Minji Jeong on 2022/03/07
+ *  Created by Minji Jeong on 2022/09/15
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-data class Sodosi(
+@Serializable
+data class SodosiResponse(
     val id: Int,                    // 소도시 아이디
     val name: String,               // 소도시 이름
     val momentCount: Int,           // 해당 소도시에 기록된 순간 수

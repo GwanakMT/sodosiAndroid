@@ -62,12 +62,12 @@
             android:layout_height="10dp"
             android:layout_marginEnd="6dp"
             android:background="@color/gray2"
-            app:layout_constraintBottom_toBottomOf="@id/tvSortFastest"
-            app:layout_constraintEnd_toStartOf="@id/tvSortFastest"
-            app:layout_constraintTop_toTopOf="@id/tvSortFastest" />
+            app:layout_constraintBottom_toBottomOf="@id/tvSortRecent"
+            app:layout_constraintEnd_toStartOf="@id/tvSortRecent"
+            app:layout_constraintTop_toTopOf="@id/tvSortRecent" />
 
         <TextView
-            android:id="@+id/tvSortFastest"
+            android:id="@+id/tvSortRecent"
             style="@style/Typography.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,8 +81,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sodosiList"
             android:layout_width="@dimen/screen_width"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSodosiTotalTitle"
             tools:itemCount="3"

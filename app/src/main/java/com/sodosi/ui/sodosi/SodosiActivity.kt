@@ -313,7 +313,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         private const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"
         private const val EXTRA_MOMENT_COUNT = "EXTRA_MOMENT_COUNT"
 
-        fun getIntent(context: Context, id: Long, name: String, momentCount: Int): Intent {
+        fun getIntent(context: Context, id: Int, name: String, momentCount: Int): Intent {
             return Intent(context, SodosiActivity::class.java).apply {
                 putExtra(EXTRA_MAP_ID, id)
                 putExtra(EXTRA_MAP_NAME, name)

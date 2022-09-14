@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.databinding.ItemSodosiTypeHorizontalBinding
 import com.sodosi.databinding.ItemSodosiTypeVerticalBinding
-import com.sodosi.domain.entity.Sodosi
+import com.sodosi.model.SodosiModel
 import com.sodosi.util.LogUtil
 
 /**
@@ -17,12 +17,12 @@ import com.sodosi.util.LogUtil
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil) {
+class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diffUtil) {
     enum class ViewType { VERTICAL, HORIZONTAL }
 
     var itemViewType: ViewType = ViewType.VERTICAL
-    var onItemClick: ((selectedItem: Sodosi) -> Unit)? = null
-    var onBookmarkClick: ((selectedItem: Sodosi) -> Unit)? = null
+    var onItemClick: ((selectedItem: SodosiModel) -> Unit)? = null
+    var onBookmarkClick: ((selectedItem: SodosiModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -58,8 +58,8 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
 
     class RectangleViewHolder(
         private val binding: ItemSodosiTypeVerticalBinding,
-        onItemClick: ((selectedItem: Sodosi) -> Unit)?,
-        onBookmarkClick: ((selectedItem: Sodosi) -> Unit)?
+        onItemClick: ((selectedItem: SodosiModel) -> Unit)?,
+        onBookmarkClick: ((selectedItem: SodosiModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -68,7 +68,7 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
             binding.onBookmarkClick = onBookmarkClick
         }
 
-        fun bind(item: Sodosi) {
+        fun bind(item: SodosiModel) {
             binding.item = item
             try {
                 binding.tvEmoji.text = item.icon
@@ -80,7 +80,7 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
 
     class SquareViewHolder(
         private val binding: ItemSodosiTypeHorizontalBinding,
-        onItemClick: ((selectedItem: Sodosi) -> Unit)?
+        onItemClick: ((selectedItem: SodosiModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -88,7 +88,7 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
             binding.onItemClick = onItemClick
         }
 
-        fun bind(item: Sodosi) {
+        fun bind(item: SodosiModel) {
             binding.item = item
             try {
                 binding.tvEmoji.text = item.icon
@@ -99,12 +99,12 @@ class SodosiListAdapter : ListAdapter<Sodosi, RecyclerView.ViewHolder>(diffUtil)
     }
 
     companion object {
-        private val diffUtil = object : DiffUtil.ItemCallback<Sodosi>() {
-            override fun areItemsTheSame(oldItem: Sodosi, newItem: Sodosi): Boolean {
+        private val diffUtil = object : DiffUtil.ItemCallback<SodosiModel>() {
+            override fun areItemsTheSame(oldItem: SodosiModel, newItem: SodosiModel): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Sodosi, newItem: Sodosi): Boolean {
+            override fun areContentsTheSame(oldItem: SodosiModel, newItem: SodosiModel): Boolean {
                 return oldItem.id == newItem.id
             }
         }

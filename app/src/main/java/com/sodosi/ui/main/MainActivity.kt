@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMainBinding
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.common.customview.SodosiToast
@@ -90,7 +91,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     viewModel.listUpdated.collect {
                         with(viewModel) {
                             if (mainSodosiList.isNotEmpty()) {
-                                (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(mainSodosiList)
+//                                (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(mainSodosiList)
 
                                 sodosiViewPagerListSize = mainSodosiList.size
                                 binding.dotsIndicator.loadItems(mainSodosiList.size, 0)
@@ -99,10 +100,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                                     false
                                 )
 
-                                (binding.rvCommentedSodosi.adapter as SodosiListAdapter).submitList(commentedSodosiList)
-                                (binding.rvBookmarkSodosi.adapter as SodosiListAdapter).submitList(bookmarkSodosiList)
-                                (binding.rvHotSodosi.adapter as SodosiListAdapter).submitList(hotSodosiList)
-                                (binding.rvNewSodosi.adapter as SodosiListAdapter).submitList(newSodosiList)
+//                                (binding.rvCommentedSodosi.adapter as SodosiListAdapter).submitList(commentedSodosiList)
+//                                (binding.rvBookmarkSodosi.adapter as SodosiListAdapter).submitList(bookmarkSodosiList)
+//                                (binding.rvHotSodosi.adapter as SodosiListAdapter).submitList(hotSodosiList)
+//                                (binding.rvNewSodosi.adapter as SodosiListAdapter).submitList(newSodosiList)
                             }
                         }
                     }
@@ -276,11 +277,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    private fun moveToSodosi(sodosi: Sodosi) {
+    private fun moveToSodosi(sodosi: SodosiModel) {
         startActivity(SodosiActivity.getIntent(this, sodosi.id, sodosi.name, sodosi.momentCount))
     }
 
-    private fun toggleBookmark(sodosi: Sodosi) {
+    private fun toggleBookmark(sodosi: SodosiModel) {
 
     }
 

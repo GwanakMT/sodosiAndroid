@@ -18,4 +18,5 @@ interface SodosiRepository {
     suspend fun getBookmarkSodosiList(): List<Sodosi>
     suspend fun getHotSodosiList(): List<Sodosi>
     suspend fun getNewSodosiList(): List<Sodosi>
+    suspend fun getAllSodosiList(sortBy: String): Result<List<Sodosi>>
 }

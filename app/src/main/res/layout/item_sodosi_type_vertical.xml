@@ -9,19 +9,19 @@
 
         <import type="kotlin.Unit" />
 
-        <import type="com.sodosi.domain.entity.Sodosi" />
+        <import type="com.sodosi.model.SodosiModel" />
 
         <variable
             name="item"
-            type="Sodosi" />
+            type="SodosiModel" />
 
         <variable
             name="onItemClick"
-            type="Function1&lt;Sodosi, Unit>" />
+            type="Function1&lt;SodosiModel, Unit>" />
 
         <variable
             name="onBookmarkClick"
-            type="Function1&lt;Sodosi, Unit>" />
+            type="Function1&lt;SodosiModel, Unit>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="10dp"
             android:visibility="gone"
-            android:textColor="@color/green800"
+            android:textColor="#ADADAD"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -115,7 +115,7 @@
             android:layout_width="12dp"
             android:onClick="@{()->onBookmarkClick.invoke(item)}"
             android:layout_height="17dp"
-            android:src="@{item.bookmarked ? @drawable/ic_bookmark_selected : @drawable/ic_bookmark_unselected}"
+            android:src="@{item.marked ? @drawable/ic_bookmark_selected : @drawable/ic_bookmark_unselected}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
