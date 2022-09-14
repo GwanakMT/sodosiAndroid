@@ -24,8 +24,6 @@ class MainViewModel @Inject constructor(
     private val getBookmarkSodosiListUseCase: GetBookmarkSodosiListUseCase,
     private val getHotSodosiListUseCase: GetHotSodosiListUseCase,
     private val getNewSodosiListUseCase: GetNewSodosiListUseCase,
-    private val setBooleanPreferencesUseCase: SetBooleanPreferencesUseCase,
-    private val getBooleanPreferencesOnceUseCase: GetBooleanPreferencesOnceUseCase,
 ) : BaseViewModel() {
     private val _listUpdated = MutableStateFlow(Unit)
     val listUpdated = _listUpdated.asStateFlow()
@@ -54,14 +52,13 @@ class MainViewModel @Inject constructor(
 
     private fun setBannerFlag() {
         viewModelScope.launch {
-            _bannerVisibleOrGone.value =
-                getBooleanPreferencesOnceUseCase(KEY_BANNER_SHOW_FLAG) ?: true
+            _bannerVisibleOrGone.value = true
         }
     }
 
     fun setBannerShowFlagFalse() {
         viewModelScope.launch {
-            setBooleanPreferencesUseCase.invoke(KEY_BANNER_SHOW_FLAG, false)
+            // set false
         }
     }
 

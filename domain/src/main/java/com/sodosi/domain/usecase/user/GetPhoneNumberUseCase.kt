@@ -14,10 +14,6 @@ class GetPhoneNumberUseCase @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
 ) {
     suspend operator fun invoke(): String {
-        return dataStoreRepository.getDataStoreStringOnce(KEY_PHONE_NUMBER) ?: ""
-    }
-
-    companion object {
-        private const val KEY_PHONE_NUMBER = "KEY_PHONE_NUMBER"
+        return dataStoreRepository.getPhoneNumber()
     }
 }

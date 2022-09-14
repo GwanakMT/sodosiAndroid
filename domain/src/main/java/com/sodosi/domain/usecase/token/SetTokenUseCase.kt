@@ -1,6 +1,6 @@
 package com.sodosi.domain.usecase.token
 
-import com.sodosi.domain.repository.TokenRepository
+import com.sodosi.domain.repository.datastore.DataStoreRepository
 import javax.inject.Inject
 
 /**
@@ -11,9 +11,9 @@ import javax.inject.Inject
  */
 
 class SetTokenUseCase @Inject constructor(
-    private val tokenRepository: TokenRepository
+    private val dataStoreRepository: DataStoreRepository
 ){
-    operator fun invoke(accessToken: String) {
-        tokenRepository.setToken(accessToken)
+    suspend operator fun invoke(accessToken: String) {
+        dataStoreRepository.setToken(accessToken)
     }
 }

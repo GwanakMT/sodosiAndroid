@@ -10,18 +10,27 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface DataStoreRepository {
-    fun getDataStoreInt(key: String): Flow<Int?>
-    fun getDataStoreBoolean(key: String): Flow<Boolean?>
-    fun getDataStoreString(key: String): Flow<String?>
-    fun getDataStoreLong(key: String): Flow<Long?>
+    suspend fun setToken(accessToken: String)
+    suspend fun getToken(): String
 
-    suspend fun getDataStoreIntOnce(key: String): Int?
-    suspend fun getDataStoreBooleanOnce(key: String): Boolean?
-    suspend fun getDataStoreStringOnce(key: String): String?
-    suspend fun getDataStoreLongOnce(key: String): Long?
+    suspend fun setLastVisitedTime(currentTimeMillis: Long)
+    suspend fun getLastVisitedTime(): Long
 
-    suspend fun setDataStoreInt(key: String, value: Int)
-    suspend fun setDataStoreBoolean(key: String, value: Boolean)
-    suspend fun setDataStoreString(key: String, value: String)
-    suspend fun setDataStoreLong(key: String, value: Long)
+    suspend fun setPhoneNumber(phoneNumber: String)
+    suspend fun getPhoneNumber(): String
+
+//    fun getDataStoreInt(key: String): Flow<Int?>
+//    fun getDataStoreBoolean(key: String): Flow<Boolean?>
+//    fun getDataStoreString(key: String): Flow<String?>
+//    fun getDataStoreLong(key: String): Flow<Long?>
+//
+//    suspend fun getDataStoreIntOnce(key: String): Int?
+//    suspend fun getDataStoreBooleanOnce(key: String): Boolean?
+//    suspend fun getDataStoreStringOnce(key: String): String?
+//    suspend fun getDataStoreLongOnce(key: String): Long?
+//
+//    suspend fun setDataStoreInt(key: String, value: Int)
+//    suspend fun setDataStoreBoolean(key: String, value: Boolean)
+//    suspend fun setDataStoreString(key: String, value: String)
+//    suspend fun setDataStoreLong(key: String, value: Long)
 }

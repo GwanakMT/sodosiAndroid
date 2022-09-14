@@ -6,6 +6,7 @@ import com.sodosi.domain.usecase.user.SetLastVisitedTimeUseCase
 import com.sodosi.ui.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 /**
@@ -22,7 +23,7 @@ class IntroViewModel @Inject constructor(
 ): BaseViewModel() {
 
     fun checkHasToken(): Boolean {
-        return getTokenUseCase().isNotBlank()
+        return runBlocking { getTokenUseCase().isNotBlank() }
     }
 
     fun setVisitedTime(currentTimeMillis: Long) {

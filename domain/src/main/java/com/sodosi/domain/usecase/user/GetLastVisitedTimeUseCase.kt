@@ -14,9 +14,9 @@ class GetLastVisitedTimeUseCase @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
 ) {
     suspend operator fun invoke(currentTimeMillis: Long): String {
-        val diffTime = dataStoreRepository.getDataStoreLongOnce(KEY_LAST_VISITED_TIME)?.let {
+        val diffTime = dataStoreRepository.getLastVisitedTime().let {
             (currentTimeMillis - it) / 1000
-        } ?: 0
+        }
 
         return if (diffTime < SEC) {
             "방금 전"
@@ -34,8 +34,6 @@ class GetLastVisitedTimeUseCase @Inject constructor(
     }
 
     companion object {
-        private const val KEY_LAST_VISITED_TIME = "KEY_LAST_VISITED_TIME"
-
         private const val SEC = 60
         private const val MIN = 60
         private const val HOUR = 24

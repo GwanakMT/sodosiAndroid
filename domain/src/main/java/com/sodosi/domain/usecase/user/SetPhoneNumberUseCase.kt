@@ -14,10 +14,6 @@ class SetPhoneNumberUseCase @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
 ) {
     suspend operator fun invoke(phoneNumber: String) {
-        dataStoreRepository.setDataStoreString(KEY_PHONE_NUMBER, phoneNumber)
-    }
-
-    companion object {
-        private const val KEY_PHONE_NUMBER = "KEY_PHONE_NUMBER"
+        dataStoreRepository.setPhoneNumber(phoneNumber)
     }
 }

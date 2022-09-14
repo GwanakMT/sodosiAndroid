@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
@@ -48,7 +49,7 @@ object NetworkModule {
             })
             addInterceptor(object : Interceptor {
                 override fun intercept(chain: Interceptor.Chain): Response {
-                    val token = getTokenUseCase()
+                    val token = runBlocking { getTokenUseCase() }
 
                     Log.d("TAG", "TOKEN: $token")
 

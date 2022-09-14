@@ -1,11 +1,9 @@
 package com.sodosi.di
 
 import com.sodosi.data.repository.SodosiRepositoryImpl
-import com.sodosi.data.repository.TokenRepositoryImpl
 import com.sodosi.data.repository.UserRepositoryImpl
 import com.sodosi.data.repository.datastore.DataStoreRepositoryImpl
 import com.sodosi.domain.repository.SodosiRepository
-import com.sodosi.domain.repository.TokenRepository
 import com.sodosi.domain.repository.UserRepository
 import com.sodosi.domain.repository.datastore.DataStoreRepository
 import dagger.Binds
@@ -27,10 +25,6 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindDataStoreRepository(impl: DataStoreRepositoryImpl): DataStoreRepository
-
-    @Singleton
-    @Binds
-    abstract fun bindTokenRepository(impl: TokenRepositoryImpl): TokenRepository
 
     @Singleton
     @Binds
