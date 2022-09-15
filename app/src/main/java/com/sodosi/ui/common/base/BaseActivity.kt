@@ -1,12 +1,18 @@
 package com.sodosi.ui.common.base
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.viewbinding.ViewBinding
 import com.sodosi.R
+import com.sodosi.ui.common.customview.PermissionDialog
 import com.sodosi.ui.common.customview.Progress
+import com.sodosi.ui.onboarding.OnboardingActivity
 
 /**
  *  BaseActivity.kt
@@ -23,11 +29,30 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
 
     abstract fun getViewBinding(): VB
 
+    private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (!isGranted) {
+            PermissionDialog(this).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
         setContentView(binding.root)
         initState()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (this !is OnboardingActivity) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    PermissionDialog(this).show()
+                } else {
+                    permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                }
+            }
+        }
     }
 
     open fun initState() {
