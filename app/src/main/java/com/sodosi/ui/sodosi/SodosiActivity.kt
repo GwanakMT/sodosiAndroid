@@ -139,9 +139,8 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 1.0f, locationListener)
     }
 
-    private fun moveFocusToCenterPoint() {
-        mapView.setTrackingMode(true)
-        mapView.setCenterPoint(mapView.locationPoint.longitude, mapView.locationPoint.latitude, true)
+    private fun moveFocusToCenterPoint(animate: Boolean) {
+        mapView.setCenterPoint(mapView.locationPoint.longitude, mapView.locationPoint.latitude, animate)
     }
 
     private fun initPlaceBottomSheetBehavior() {
@@ -201,7 +200,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.momentBottomSheetContainer.setOnClickListener { }
         binding.btnBack.setOnClickListener { onBackPressed() }
         binding.btnMenu.setOnClickListener { menuDialog.show() }
-        binding.gpsEllipse.setOnClickListener { moveFocusToCenterPoint() }
+        binding.gpsEllipse.setOnClickListener { moveFocusToCenterPoint(true) }
     }
 
     fun showMomentBottomSheet(model: PlaceModel) {

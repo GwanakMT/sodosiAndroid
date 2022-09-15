@@ -12,6 +12,7 @@ import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.main.SodosiListAdapter
+import com.sodosi.ui.sodosi.SodosiActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +24,7 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
 
     override fun initViews() = with(binding) {
         progress.show()
-        
+
         initAppbar()
         initRecyclerView()
 
@@ -114,7 +115,7 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
         binding.sodosiList.apply {
             adapter = sodosiListAdapter.apply {
                 itemViewType = SodosiListAdapter.ViewType.VERTICAL
-                onItemClick = {}
+                onItemClick = ::moveToSodosi
                 onBookmarkClick = ::onBookmarkClick
             }
         }
@@ -128,6 +129,17 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
         binding.tvSortRecent.setOnClickListener {
             viewModel.setCurrentTab(SodosiListViewModel.SORT_BY_RECENT)
         }
+    }
+
+    private fun moveToSodosi(sodosi: SodosiModel) {
+        val intent = SodosiActivity.getIntent(
+            context = this,
+            id = sodosi.id,
+            name = sodosi.name,
+            momentCount = sodosi.momentCount
+        )
+
+        startActivity(intent)
     }
 
     private fun onBookmarkClick(sodosi: SodosiModel) {
