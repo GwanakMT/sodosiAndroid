@@ -3,6 +3,7 @@ package com.sodosi.data.repository
 import com.sodosi.data.mapper.SodosiMapper
 import com.sodosi.data.network.api.SodosiApi
 import com.sodosi.data.spec.request.CreateSodosiRequest
+import com.sodosi.data.spec.request.MarkSodosiRequest
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.domain.repository.SodosiRepository
@@ -67,6 +68,26 @@ class SodosiRepositoryImpl @Inject constructor(
             }
 
             Result.Success(allSodosiList)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun markSodosi(id: Long): Result<Boolean> {
+        val request = MarkSodosiRequest(sodosiid = id)
+
+        return try {
+            val result = sodosiApi.markSodosi(request)
+            Result.Success(result.data.marked)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun unmarkSodosi(id: Long): Result<Boolean> {
+        return try {
+            val result = sodosiApi.unmarkSodosi(id)
+            Result.Success(result.data.marked)
         } catch (e: Exception) {
             Result.Error(e)
         }

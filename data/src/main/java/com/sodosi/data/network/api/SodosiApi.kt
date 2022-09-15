@@ -1,13 +1,11 @@
 package com.sodosi.data.network.api
 
 import com.sodosi.data.spec.request.CreateSodosiRequest
+import com.sodosi.data.spec.request.MarkSodosiRequest
 import com.sodosi.data.spec.request.UserSignInRequest
 import com.sodosi.data.spec.request.UserSignUpRequest
 import com.sodosi.data.spec.response.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  *  SodosiApi.kt
@@ -41,6 +39,14 @@ interface SodosiApi {
     // 소도시 전체 목록
     @GET("/api/v1/sodosis")
     suspend fun getAllSodosiList(@Query("sortSodosiCode") sortSodosiCode: String): BaseResponse<List<SodosiResponse>>
+
+    // 관심 소도시 등록
+    @POST("/api/v1/my/sodosis")
+    suspend fun markSodosi(@Body markSodosiRequest: MarkSodosiRequest): BaseResponse<SodosiResponse>
+
+    // 관심 소도시 해지
+    @DELETE("/api/v1/my/sodosis/{id}")
+    suspend fun unmarkSodosi(@Path("id") id: Long): BaseResponse<SodosiResponse>
 
     // 소도시 생성한 적 있는지 여부
     @GET("/api/v1/users/has-sodosi")

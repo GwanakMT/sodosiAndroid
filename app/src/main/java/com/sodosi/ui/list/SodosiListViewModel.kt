@@ -3,10 +3,13 @@ package com.sodosi.ui.list
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
 import com.sodosi.domain.usecase.sodosi.GetAllSodosiListUseCase
+import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
 import com.sodosi.model.SodosiModel
 import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.ui.common.base.BaseViewModel
+import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
+import com.sodosi.ui.common.base.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SodosiListViewModel @Inject constructor(
     private val getAllSodosiUseCase: GetAllSodosiListUseCase,
+    private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
     var sodosiListSortByRecent: List<SodosiModel>? = null
@@ -34,11 +38,15 @@ class SodosiListViewModel @Inject constructor(
     private val inquiryAllSodosiListSortByRecent = MutableEventFlow<Unit>()
     private val inquiryAllSodosiListSortByPopular = MutableEventFlow<Unit>()
 
-    val inquirySodosiListSuccessEvent = inquiryAllSodosiListSortByRecent.combine(inquiryAllSodosiListSortByPopular) { _, _ -> }
+    val inquirySodosiListSuccessEvent =
+        inquiryAllSodosiListSortByRecent.combine(inquiryAllSodosiListSortByPopular) { _, _ -> }
     val inquirySodosiListErrorEvent = MutableEventFlow<String>()
 
     private val _currentTab = MutableStateFlow(SORT_BY_POPULAR)
     val currentTab: StateFlow<String> = _currentTab.asStateFlow()
+
+    private val _updateMarkStateEvent = MutableEventFlow<Result<Unit>>()
+    val updateMarkStateEvent: EventFlow<Result<Unit>> = _updateMarkStateEvent.asEventFlow()
 
     init {
         getSodosiListSortByRecent()
@@ -71,9 +79,25 @@ class SodosiListViewModel @Inject constructor(
 
     fun setCurrentTab(sortBy: String) {
         viewModelScope.launch {
-            when(sortBy) {
+            when (sortBy) {
                 SORT_BY_RECENT -> _currentTab.value = SORT_BY_RECENT
                 SORT_BY_POPULAR -> _currentTab.value = SORT_BY_POPULAR
+            }
+        }
+    }
+
+    fun patchMarkSodosi(id: Long, isMarkedCurrent: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = patchMarkSodosiUseCase(id, isMarkedCurrent)) {
+                is Result.Success -> {
+                    sodosiListSortByPopular?.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    sodosiListSortByRecent?.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    _updateMarkStateEvent.emit(Result.Success(Unit))
+                }
+
+                is Result.Error -> {
+                    _updateMarkStateEvent.emit(Result.Error(result.exception))
+                }
             }
         }
     }

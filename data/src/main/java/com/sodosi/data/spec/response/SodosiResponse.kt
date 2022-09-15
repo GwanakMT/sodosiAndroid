@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SodosiResponse(
-    val id: Int,                    // 소도시 아이디
+    val id: Long,                   // 소도시 아이디
     val name: String,               // 소도시 이름
     val momentCount: Int,           // 해당 소도시에 기록된 순간 수
     val userCount: Int,             // 해당 소도시에 참여한 사람 수
