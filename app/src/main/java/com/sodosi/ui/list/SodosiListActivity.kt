@@ -22,6 +22,8 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
     private val sodosiListAdapter = SodosiListAdapter()
 
     override fun initViews() = with(binding) {
+        progress.show()
+        
         initAppbar()
         initRecyclerView()
 
@@ -31,7 +33,7 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
     override fun observeData() {
         repeatOnStarted {
             viewModel.inquirySodosiListSuccessEvent.collect {
-                // TODO: stop progress bar
+                progress.dismiss()
                 viewModel.sodosiListSortByPopular?.let { sodosiListAdapter.submitList(it) }
             }
         }

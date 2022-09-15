@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.viewbinding.ViewBinding
 import com.sodosi.R
+import com.sodosi.ui.common.customview.Progress
 
 /**
  *  BaseActivity.kt
@@ -15,7 +16,7 @@ import com.sodosi.R
  */
 
 abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatActivity() {
-
+    val progress: Progress by lazy { Progress(this) }
     abstract val viewModel: VM
 
     protected lateinit var binding: VB

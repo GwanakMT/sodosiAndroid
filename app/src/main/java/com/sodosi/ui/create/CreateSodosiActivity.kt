@@ -47,7 +47,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
     override fun observeData() {
         repeatOnStarted {
             viewModel.createSodosiResult.collect {
-                // TODO: progress stop
+                progress.dismiss()
                 when (it.first) {
                     is Result.Success -> {
                         SodosiToast.makeText(this@CreateSodosiActivity, "소도시가 정상적으로 건설됐어요!", Toast.LENGTH_SHORT).show()
@@ -124,7 +124,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
             LogUtil.d("name: $name, icon: $icon, viewState: $viewState")
 
             viewModel.createSodosi(name, icon, viewState)
-            // TODO: progress start
+            progress.show()
         }
 
         binding.ivEmoji.setOnClickListener {

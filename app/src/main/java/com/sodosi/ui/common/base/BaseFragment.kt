@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.sodosi.ui.common.customview.Progress
 
 /**
  *  BaseFragment.kt
@@ -15,6 +16,7 @@ import androidx.viewbinding.ViewBinding
  */
 
 abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
+    val progress: Progress by lazy { Progress(requireContext()) }
 
     abstract val viewModel: VM
 
