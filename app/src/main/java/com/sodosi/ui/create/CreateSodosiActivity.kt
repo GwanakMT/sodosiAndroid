@@ -54,7 +54,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
                         moveToSodosiScreen()
                     }
                     is Result.Error -> {
-
+                        SodosiToast.makeText(this@CreateSodosiActivity, "소도시 생성 실패... 다시 시도해주세요", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
