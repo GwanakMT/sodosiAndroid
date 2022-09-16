@@ -55,6 +55,7 @@
             android:id="@+id/etNickname"
             style="@style/EditText"
             android:maxLines="1"
+            android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:hint="@string/onboarding_nickname_hint"

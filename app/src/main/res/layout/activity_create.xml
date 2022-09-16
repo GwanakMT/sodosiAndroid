@@ -51,6 +51,8 @@
         android:layout_marginTop="34dp"
         android:gravity="center"
         android:hint="@string/create_sodosi_name_hint"
+        android:inputType="text"
+        android:maxLength="24"
         android:textColorHint="#ADADAD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -121,8 +121,6 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
             val icon = binding.tvEmoji.text.toString()
             val viewState = isSodosiPublic
 
-            LogUtil.d("name: $name, icon: $icon, viewState: $viewState")
-
             viewModel.createSodosi(name, icon, viewState)
             progress.show()
         }

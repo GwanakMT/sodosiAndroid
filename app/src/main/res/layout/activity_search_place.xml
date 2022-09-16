@@ -46,6 +46,7 @@
                     android:id="@+id/etPlace"
                     style="@style/Typography.HeadLines.Callout"
                     android:maxLines="1"
+                    android:inputType="text"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="12dp"
