@@ -14,11 +14,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMainBinding
-import com.sodosi.domain.entity.Sodosi
 import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.list.SodosiListActivity
@@ -41,6 +41,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private var backPressWaitTime = 0L
 
     private var sodosiViewPagerListSize = 0
+
+    private val viewPagerAdapter by lazy { SodosiViewPagerAdapter() }
+    private val commentedSodosiAdapter by lazy { SodosiListAdapter() }
+    private val markedSodosiAdapter by lazy { SodosiListAdapter() }
+    private val hotSodosiAdapter by lazy { SodosiListAdapter() }
+    private val newSodosiAdapter by lazy { SodosiListAdapter() }
 
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
@@ -74,37 +80,37 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         initViewPager()
         initRecyclerView()
         setOnClickListener()
-
-        viewModel.setSodosiList()
     }
 
     override fun observeData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.bannerVisibleOrGone.collect { flag ->
-                        if (flag) setUiOfSuggestBanner()
+                    viewModel.hasSodosi.collect {
+                        setUiOfSuggestBanner(it)
                     }
                 }
 
                 launch {
-                    viewModel.listUpdated.collect {
-                        with(viewModel) {
-                            if (mainSodosiList.isNotEmpty()) {
-//                                (binding.sodosiViewPager.adapter as SodosiViewPagerAdapter).submitList(mainSodosiList)
+                    viewModel.sodosiListsUpdatedEvent.collect { networkSuccess ->
+                        if (networkSuccess) {
+                            commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
+                            markedSodosiAdapter.submitList(viewModel.mainSodosiList)
+                            hotSodosiAdapter.submitList(viewModel.hotSodosiList)
+                            newSodosiAdapter.submitList(viewModel.newSodosiList)
 
-                                sodosiViewPagerListSize = mainSodosiList.size
-                                binding.dotsIndicator.loadItems(mainSodosiList.size, 0)
+                            if (viewModel.mainSodosiList.isNotEmpty()) {
+                                viewPagerAdapter.submitList(viewModel.mainSodosiList)
+
+                                sodosiViewPagerListSize = viewModel.mainSodosiList.size
+                                binding.dotsIndicator.loadItems(sodosiViewPagerListSize, 0)
                                 binding.sodosiViewPager.setCurrentItem(
-                                    (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % mainSodosiList.size),
+                                    (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % sodosiViewPagerListSize),
                                     false
                                 )
-
-//                                (binding.rvCommentedSodosi.adapter as SodosiListAdapter).submitList(commentedSodosiList)
-//                                (binding.rvBookmarkSodosi.adapter as SodosiListAdapter).submitList(bookmarkSodosiList)
-//                                (binding.rvHotSodosi.adapter as SodosiListAdapter).submitList(hotSodosiList)
-//                                (binding.rvNewSodosi.adapter as SodosiListAdapter).submitList(newSodosiList)
                             }
+                        } else {
+                            // Error View
                         }
                     }
                 }
@@ -176,7 +182,45 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    private fun setUiOfSuggestBanner() {
+    private fun setUiOfSuggestBanner(hasSodosi: Boolean) {
+        if (hasSodosi) {
+            binding.suggestLayout.root.setGone()
+        } else {
+            binding.suggestLayout.root.setVisible()
+        }
+    }
+
+    private fun initRecyclerView() {
+        val dividerItemDecoration = HorizontalItemDecoration(
+            ContextCompat.getDrawable(this, R.drawable.horizontal_decoration) ?: return
+        )
+
+        setCommentedSodosiList(dividerItemDecoration)
+        setMarkedSodosiList()
+        setHotSodosiList(dividerItemDecoration)
+        setNewSodosiList(dividerItemDecoration)
+    }
+
+    private fun setOnClickListener() {
+        // 뷰 클릭 이벤트 설정
+        with(binding) {
+            ivSodosiList.setOnClickListener {
+                val intent = Intent(this@MainActivity, SodosiListActivity::class.java)
+                startActivity(intent)
+            }
+
+            ivMypage.setOnClickListener {
+                val intent = Intent(this@MainActivity, MypageActivity::class.java)
+                startActivity(intent)
+            }
+
+            ivCreateSodosi.setOnClickListener {
+                val intent = Intent(this@MainActivity, CreateSodosiActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        // 상단 배너 뷰 클릭 이벤트 설정
         with(binding.suggestLayout) {
             btnCreateSodosi.setOnClickListener {
                 val intent = Intent(this@MainActivity, CreateSodosiActivity::class.java)
@@ -193,87 +237,73 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     .translationY(-(root.height.toFloat() + root.marginTop))
                     .duration = 1000L
 
-                viewModel.setBannerShowFlagFalse()
+//                viewModel.setBannerShowFlagFalse()
+            }
+        }
+
+        // 푸터 뷰 클릭 이벤트 설정
+        with(binding.footer) {
+            tvBlog.setOnClickListener {
+                val blogIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOTER_URL_BLOG))
+                startActivity(blogIntent)
             }
 
-            root.setVisible()
+            tvInstagram.setOnClickListener {
+                val instagramIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOGER_URL_INSTAGRAM))
+                startActivity(instagramIntent)
+            }
+
+            tvCoffee.setOnClickListener {
+                val coffeeIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOGER_URL_COFFEE))
+                startActivity(coffeeIntent)
+            }
+
+            ivScrollTop.setOnClickListener {
+                binding.scrollView.smoothScrollTo(0, 0)
+            }
         }
     }
 
-    private fun initRecyclerView() {
-        val dividerItemDecoration = HorizontalItemDecoration(
-            ContextCompat.getDrawable(this, R.drawable.horizontal_decoration) ?: return
-        )
-
+    private fun setCommentedSodosiList(divider: HorizontalItemDecoration) {
         binding.rvCommentedSodosi.apply {
-            adapter = SodosiListAdapter().apply {
+            adapter = commentedSodosiAdapter.apply {
                 onItemClick = ::moveToSodosi
                 onBookmarkClick = ::toggleBookmark
             }
 
-            addItemDecoration(dividerItemDecoration)
+            addItemDecoration(divider)
         }
+    }
 
+    private fun setMarkedSodosiList() {
         binding.rvBookmarkSodosi.apply {
-            adapter = SodosiListAdapter().apply {
+            adapter = markedSodosiAdapter.apply {
                 itemViewType = SodosiListAdapter.ViewType.HORIZONTAL
                 onItemClick = ::moveToSodosi
                 onBookmarkClick = ::toggleBookmark
             }
         }
+    }
 
+    private fun setHotSodosiList(divider: HorizontalItemDecoration) {
         binding.rvHotSodosi.apply {
-            adapter = SodosiListAdapter().apply {
+            adapter = hotSodosiAdapter.apply {
                 onItemClick = ::moveToSodosi
                 onBookmarkClick = ::toggleBookmark
             }
 
-            addItemDecoration(dividerItemDecoration)
-        }
-
-        binding.rvNewSodosi.apply {
-            adapter = SodosiListAdapter().apply {
-                onItemClick = ::moveToSodosi
-                onBookmarkClick = ::toggleBookmark
-            }
-
-            addItemDecoration(dividerItemDecoration)
+            addItemDecoration(divider)
         }
     }
 
-    private fun setOnClickListener() {
-        binding.ivSodosiList.setOnClickListener {
-            val intent = Intent(this, SodosiListActivity::class.java)
-            startActivity(intent)
-        }
+    private fun setNewSodosiList(divider: HorizontalItemDecoration) {
+        binding.rvNewSodosi.apply {
+            adapter = newSodosiAdapter.apply {
+                onItemClick = ::moveToSodosi
+                onBookmarkClick = ::toggleBookmark
+            }
 
-        binding.ivMypage.setOnClickListener {
-            val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.ivCreateSodosi.setOnClickListener {
-            val intent = Intent(this, CreateSodosiActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.footer.tvBlog.setOnClickListener {
-            val blogIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOTER_URL_BLOG))
-            startActivity(blogIntent)
-        }
-
-        binding.footer.tvInstagram.setOnClickListener {
-            val instagramIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOGER_URL_INSTAGRAM))
-            startActivity(instagramIntent)
-        }
-
-        binding.footer.tvCoffee.setOnClickListener {
-            val coffeeIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FOOGER_URL_COFFEE))
-            startActivity(coffeeIntent)
-        }
-
-        binding.footer.ivScrollTop.setOnClickListener {
-            binding.scrollView.smoothScrollTo(0, 0)
+            addItemDecoration(divider)
         }
     }
 

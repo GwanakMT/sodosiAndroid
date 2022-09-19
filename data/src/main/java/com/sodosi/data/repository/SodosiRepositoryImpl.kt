@@ -6,6 +6,7 @@ import com.sodosi.data.spec.request.CreateSodosiRequest
 import com.sodosi.data.spec.request.MarkSodosiRequest
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.domain.entity.SodosiCategory
 import com.sodosi.domain.repository.SodosiRepository
 import javax.inject.Inject
 
@@ -40,24 +41,37 @@ class SodosiRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMainSodosiList(): List<Sodosi> {
-        return listOf()
-    }
+    override suspend fun getMainSodosiList(): Result<Pair<Boolean, Map<SodosiCategory, List<Sodosi>>>> {
+        return try {
+            val result = sodosiApi.getMainSodosiList()
+            val mainSodosiList = HashMap<SodosiCategory, List<Sodosi>>()
 
-    override suspend fun getCommentedSodosiList(): List<Sodosi> {
-        return listOf()
-    }
+            mainSodosiList.put(SodosiCategory.MAIN_BANNER, emptyList())
 
-    override suspend fun getBookmarkSodosiList(): List<Sodosi> {
-        return listOf()
-    }
+            // 내가 참여중인 소도시
+            mainSodosiList.put(SodosiCategory.COMMENTED, result.data.mySodosiList.map {
+                sodosiMapper.mapToEntitiy(it)
+            })
 
-    override suspend fun getHotSodosiList(): List<Sodosi> {
-        return listOf()
-    }
+            // 내 관심 소도시
+            mainSodosiList.put(SodosiCategory.MARKED, result.data.interestSodosiList.map {
+                sodosiMapper.mapToEntitiy(it)
+            })
 
-    override suspend fun getNewSodosiList(): List<Sodosi> {
-        return listOf()
+            // 지금 HOT한 소도시
+            mainSodosiList.put(SodosiCategory.HOT, result.data.hotSodosiList.map {
+                sodosiMapper.mapToEntitiy(it)
+            })
+
+            // 새롭게 추천하는 소도시
+            mainSodosiList.put(SodosiCategory.NEW, result.data.newSodosiList.map {
+                sodosiMapper.mapToEntitiy(it)
+            })
+
+            Result.Success(Pair(false, mainSodosiList))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
     override suspend fun getAllSodosiList(sortBy: String): Result<List<Sodosi>> {

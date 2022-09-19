@@ -36,6 +36,10 @@ interface SodosiApi {
     @POST("/api/v1/sodosis")
     suspend fun createSodosi(@Body createSodosiRequest: CreateSodosiRequest): BaseResponse<CreateSodosiResponse>
 
+    // 메인화면에 보여질 소도시 목록
+    @GET("/api/v1/sodosis/main")
+    suspend fun getMainSodosiList(): BaseResponse<MainSodosiListsResponse>
+
     // 소도시 전체 목록
     @GET("/api/v1/sodosis")
     suspend fun getAllSodosiList(@Query("sortSodosiCode") sortSodosiCode: String): BaseResponse<List<SodosiResponse>>

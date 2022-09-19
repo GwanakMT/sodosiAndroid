@@ -1,6 +1,8 @@
-package com.sodosi.domain.usecase
+package com.sodosi.domain.usecase.home
 
+import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Sodosi
+import com.sodosi.domain.entity.SodosiCategory
 import com.sodosi.domain.repository.SodosiRepository
 import javax.inject.Inject
 
@@ -14,7 +16,7 @@ import javax.inject.Inject
 class GetMainSodosiListUseCase @Inject constructor(
     private val repository: SodosiRepository
 ) {
-    suspend operator fun invoke(): List<Sodosi> {
+    suspend operator fun invoke(): Result<Pair<Boolean, Map<SodosiCategory, List<Sodosi>>>> {
         return repository.getMainSodosiList()
     }
 }

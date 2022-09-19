@@ -14,5 +14,13 @@ data class Sodosi(
     val userCount: Int,             // 해당 소도시에 참여한 사람 수
     val icon: String,               // 아이콘(이모지)
     val momentImage: String?,       // 대표 이미지
-    val isMarked: Boolean,            // 북마크 여부
+    val isMarked: Boolean,          // 북마크 여부
 )
+
+enum class SodosiCategory {
+    MAIN_BANNER,        // 메인 배너
+    COMMENTED,          // 내가 참여한 소도시
+    MARKED,             // 내 관심 소도시
+    HOT,                // 지금 HOT한 소도시
+    NEW,                // 새롭게 추천하는 소도시
+}
