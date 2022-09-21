@@ -23,7 +23,6 @@ import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.sodosi.SodosiActivity
-import com.sodosi.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -46,12 +45,12 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
 
     override fun observeData() {
         repeatOnStarted {
-            viewModel.createSodosiResult.collect {
+            viewModel.createSodosiResult.collect { result ->
                 progress.dismiss()
-                when (it.first) {
+                when (result.first) {
                     is Result.Success -> {
                         SodosiToast.makeText(this@CreateSodosiActivity, "소도시가 정상적으로 건설됐어요!", Toast.LENGTH_SHORT).show()
-                        moveToSodosiScreen()
+                        moveToSodosiScreen((result.first as Result.Success<Long>).data)
                     }
                     is Result.Error -> {
                         SodosiToast.makeText(this@CreateSodosiActivity, "소도시 생성 실패... 다시 시도해주세요", Toast.LENGTH_SHORT).show()
@@ -181,23 +180,14 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
             binding.etSodosiName.text.isNotEmpty() && binding.tvEmoji.text.length == 2
     }
 
-    private fun moveToSodosiScreen() {
-        val intent = Intent(this, SodosiActivity::class.java)
-        intent.putExtra(EXTRA_SODOSI_NAME, binding.etSodosiName.text.toString())
-        intent.putExtra(EXTRA_SODOSI_EMOJI, binding.tvEmoji.text)
-        intent.putExtra(EXTRA_SODOSI_IS_PUBLIC, isSodosiPublic)
-        intent.putExtra(EXTRA_HAS_SODOSI, viewModel.hasSodosi)
+    private fun moveToSodosiScreen(id: Long) {
+        val intent = SodosiActivity.getIntent(this, id, name = binding.etSodosiName.text.toString(), 0, viewModel.hasSodosi)
 
         startActivity(intent)
         finish()
     }
 
     companion object {
-        const val EXTRA_SODOSI_NAME = "SODOSI_NAME"
-        const val EXTRA_SODOSI_EMOJI = "SODOSI_EMOJI"
-        const val EXTRA_SODOSI_IS_PUBLIC = "SODOSI_IS_PUBLIC"
-        const val EXTRA_HAS_SODOSI = "EXTRA_HAS_SODOSI"
-
         fun getIntent(context: Context): Intent {
             return Intent(context, CreateSodosiActivity::class.java)
         }

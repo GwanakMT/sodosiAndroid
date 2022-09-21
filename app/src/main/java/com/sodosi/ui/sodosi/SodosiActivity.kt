@@ -280,7 +280,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     }
 
     private fun checkIsFirstSodosi() {
-        val hasSodosiBefore = intent.getBooleanExtra(CreateSodosiActivity.EXTRA_HAS_SODOSI, true)
+        val hasSodosiBefore = intent.getBooleanExtra(EXTRA_HAS_SODOSI, true)
         if (!hasSodosiBefore) {
             firstSodosiDialog = Dialog(this).apply {
                 setContentView(R.layout.dialog_make_sodosi_first)
@@ -311,12 +311,14 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         private const val EXTRA_MAP_ID = "EXTRA_MAP_ID"
         private const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"
         private const val EXTRA_MOMENT_COUNT = "EXTRA_MOMENT_COUNT"
+        private const val EXTRA_HAS_SODOSI = "EXTRA_HAS_SODOSI"
 
-        fun getIntent(context: Context, id: Long, name: String, momentCount: Int): Intent {
+        fun getIntent(context: Context, id: Long, name: String, momentCount: Int, hasSodosi: Boolean = true): Intent {
             return Intent(context, SodosiActivity::class.java).apply {
                 putExtra(EXTRA_MAP_ID, id)
                 putExtra(EXTRA_MAP_NAME, name)
                 putExtra(EXTRA_MOMENT_COUNT, momentCount)
+                putExtra(EXTRA_HAS_SODOSI, hasSodosi)
             }
         }
     }
