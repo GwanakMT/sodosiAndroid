@@ -118,11 +118,14 @@
 
     // Mypage
     <string name="mypage_created_sodosi">내가 만든 소도시</string>
-    <string name="mypage_joined_sodosi">참여 중인 소도시</string>
+    <string name="mypage_commented_sodosi">참여 중인 소도시</string>
     <string name="mypage_bookmark">북마크</string>
     <string name="mypage_current_moment">최근 내가 남긴 순간</string>
     <string name="mypage_last_visited_time">%s 방문</string>
     <string name="mypage_edit_nickname">닉네임 설정</string>
+    <string name="mypage_marked_sodosi">관심 소도시</string>
+    <string name="mypage_move_to_create">지도 추가하기</string>
+    <string name="mypage_add_marked_sodosi">관심 소도시 추가하기</string>
 
     // Setting
     <string name="setting_title">설정</string>

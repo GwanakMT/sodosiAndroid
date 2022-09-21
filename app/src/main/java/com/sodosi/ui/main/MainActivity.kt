@@ -205,26 +205,22 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         // 뷰 클릭 이벤트 설정
         with(binding) {
             ivSodosiList.setOnClickListener {
-                val intent = Intent(this@MainActivity, SodosiListActivity::class.java)
-                startActivity(intent)
+                startActivity(SodosiListActivity.getIntent(this@MainActivity))
             }
 
             ivMypage.setOnClickListener {
-                val intent = Intent(this@MainActivity, MypageActivity::class.java)
-                startActivity(intent)
+                startActivity(MypageActivity.getIntent(this@MainActivity))
             }
 
             ivCreateSodosi.setOnClickListener {
-                val intent = Intent(this@MainActivity, CreateSodosiActivity::class.java)
-                startActivity(intent)
+                startActivity(CreateSodosiActivity.getIntent(this@MainActivity))
             }
         }
 
         // 상단 배너 뷰 클릭 이벤트 설정
         with(binding.suggestLayout) {
             btnCreateSodosi.setOnClickListener {
-                val intent = Intent(this@MainActivity, CreateSodosiActivity::class.java)
-                startActivity(intent)
+                startActivity(CreateSodosiActivity.getIntent(this@MainActivity))
             }
 
             btnCancel.setOnClickListener {

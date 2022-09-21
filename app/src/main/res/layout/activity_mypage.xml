@@ -115,12 +115,12 @@
         android:layout_height="32dp"
         android:layout_marginTop="24dp"
         android:background="@color/gray6"
-        app:layout_constraintEnd_toStartOf="@id/tvJoinedSodosiCount"
+        app:layout_constraintEnd_toStartOf="@id/tvCommentedSodosiCount"
         app:layout_constraintStart_toEndOf="@id/tvCreatedSodosiCount"
         app:layout_constraintTop_toBottomOf="@id/profileDivider" />
 
     <TextView
-        android:id="@+id/tvJoinedSodosiCount"
+        android:id="@+id/tvCommentedSodosiCount"
         style="@style/Typography.HeadLines.Callout.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -138,9 +138,9 @@
         android:layout_marginTop="4dp"
         android:text="참여 중인 소도시"
         android:textColor="#8A8A8E"
-        app:layout_constraintEnd_toEndOf="@id/tvJoinedSodosiCount"
-        app:layout_constraintStart_toStartOf="@id/tvJoinedSodosiCount"
-        app:layout_constraintTop_toBottomOf="@id/tvJoinedSodosiCount" />
+        app:layout_constraintEnd_toEndOf="@id/tvCommentedSodosiCount"
+        app:layout_constraintStart_toStartOf="@id/tvCommentedSodosiCount"
+        app:layout_constraintTop_toBottomOf="@id/tvCommentedSodosiCount" />
 
     <View
         android:id="@+id/profileInfoDivider2"
@@ -149,7 +149,7 @@
         android:layout_marginTop="24dp"
         android:background="@color/gray6"
         app:layout_constraintEnd_toStartOf="@id/tvBookmarkCount"
-        app:layout_constraintStart_toEndOf="@id/tvJoinedSodosiCount"
+        app:layout_constraintStart_toEndOf="@id/tvCommentedSodosiCount"
         app:layout_constraintTop_toBottomOf="@id/profileDivider" />
 
     <TextView

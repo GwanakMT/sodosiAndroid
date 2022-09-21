@@ -1,5 +1,7 @@
 package com.sodosi.ui.list
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.widget.Toast
@@ -144,5 +146,11 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
 
     private fun onBookmarkClick(sodosi: SodosiModel) {
         viewModel.patchMarkSodosi(sodosi.id, sodosi.isMarked)
+    }
+
+    companion object {
+        fun getIntent(context: Context): Intent {
+            return Intent(context, SodosiListActivity::class.java)
+        }
     }
 }

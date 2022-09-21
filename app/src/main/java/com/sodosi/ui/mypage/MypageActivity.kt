@@ -1,5 +1,6 @@
 package com.sodosi.ui.mypage
 
+import android.content.Context
 import android.content.Intent
 import androidx.activity.viewModels
 import com.sodosi.R
@@ -50,13 +51,31 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
 
     private fun initUserSodosiInfo() {
         binding.tvCreatedSodosiCount.text = "35"
-        binding.tvJoinedSodosiCount.text = "35"
+        binding.tvCommentedSodosiCount.text = "35"
         binding.tvBookmarkCount.text = "35"
     }
 
     private fun setOnClickListener() {
         binding.tvProfileNickname.setOnClickListener {
             startActivity(EditNickNameActivity.getIntent(this, "중구구립도서관"))
+        }
+
+        binding.tvCreatedSodosiCount.setOnClickListener {
+            startActivity(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.CREATED))
+        }
+
+        binding.tvCommentedSodosiCount.setOnClickListener {
+            startActivity(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.COMMENTED))
+        }
+
+        binding.tvBookmarkCount.setOnClickListener {
+            startActivity(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.MARKED))
+        }
+    }
+
+    companion object {
+        fun getIntent(context: Context): Intent {
+            return Intent(context, MypageActivity::class.java)
         }
     }
 }

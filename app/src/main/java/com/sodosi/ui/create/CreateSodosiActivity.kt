@@ -197,5 +197,9 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
         const val EXTRA_SODOSI_EMOJI = "SODOSI_EMOJI"
         const val EXTRA_SODOSI_IS_PUBLIC = "SODOSI_IS_PUBLIC"
         const val EXTRA_HAS_SODOSI = "EXTRA_HAS_SODOSI"
+
+        fun getIntent(context: Context): Intent {
+            return Intent(context, CreateSodosiActivity::class.java)
+        }
     }
 }
