@@ -4,6 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.SodosiCategory
 import com.sodosi.domain.usecase.home.GetMainSodosiListUseCase
+import com.sodosi.domain.usecase.home.GetMainSuggestBannerHiddenUseCase
+import com.sodosi.domain.usecase.home.SetMainSuggestBannerHiddenUseCase
 import com.sodosi.model.SodosiModel
 import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.ui.common.base.BaseViewModel
@@ -25,6 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getMainSodosiListUseCase: GetMainSodosiListUseCase,
+    private val getMainSuggestBannerHiddenUseCase: GetMainSuggestBannerHiddenUseCase,
+    private val setMainSuggestBannerHiddenUseCase: SetMainSuggestBannerHiddenUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
     var mainSodosiList = emptyList<SodosiModel>()
@@ -36,8 +40,8 @@ class MainViewModel @Inject constructor(
     private val _sodosiListsUpdatedEvent = MutableEventFlow<Boolean>()
     val sodosiListsUpdatedEvent = _sodosiListsUpdatedEvent.asEventFlow()
 
-    private val _hasSodosi = MutableStateFlow(false)
-    val hasSodosi = _hasSodosi.asStateFlow()
+    private val _showSuggestBanner = MutableStateFlow(false)
+    val showSuggestBanner = _showSuggestBanner.asStateFlow()
 
     init {
         getMainSodosiList()
@@ -54,7 +58,9 @@ class MainViewModel @Inject constructor(
                     hotSodosiList = sodosiListMap[SodosiCategory.HOT]?.map { sodosiMapper.mapToModel(it) } ?: emptyList()
                     newSodosiList = sodosiListMap[SodosiCategory.NEW]?.map { sodosiMapper.mapToModel(it) } ?: emptyList()
 
-                    _hasSodosi.emit(result.data.first)
+                    val hasSodosi = result.data.first
+                    val suggestBannerHidden = getMainSuggestBannerHiddenUseCase()
+                    _showSuggestBanner.emit(!hasSodosi && !suggestBannerHidden)
                     _sodosiListsUpdatedEvent.emit(true)
                 }
 
@@ -62,6 +68,12 @@ class MainViewModel @Inject constructor(
                     _sodosiListsUpdatedEvent.emit(false)
                 }
             }
+        }
+    }
+
+    fun setSuggestBannerHide() {
+        viewModelScope.launch {
+            setMainSuggestBannerHiddenUseCase()
         }
     }
 

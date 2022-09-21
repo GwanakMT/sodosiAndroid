@@ -68,7 +68,7 @@ class SodosiRepositoryImpl @Inject constructor(
                 sodosiMapper.mapToEntitiy(it)
             })
 
-            Result.Success(Pair(false, mainSodosiList))
+            Result.Success(Pair(result.data.hasSodosi, mainSodosiList))
         } catch (e: Exception) {
             Result.Error(e)
         }

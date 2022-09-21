@@ -26,6 +26,7 @@ class DataStoreRepositoryImpl @Inject constructor(
         private const val KEY_CURRENT_TIME = "KEY_CURRENT_TIME"
         private const val KEY_LAST_VISITED_TIME = "KEY_LAST_VISITED_TIME"
         private const val KEY_PHONE_NUMBER = "KEY_PHONE_NUMBER"
+        private const val KEY_SUGGEST_BANNER_HIDDEN = "KEY_SUGGEST_BANNER_HIDDEN"
     }
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "SODOSI_DATASTORE")
@@ -55,6 +56,14 @@ class DataStoreRepositoryImpl @Inject constructor(
 
     override suspend fun getPhoneNumber(): String {
         return getDataStoreStringOnce(KEY_PHONE_NUMBER) ?: ""
+    }
+
+    override suspend fun getSuggestBannerHidden(): Boolean {
+        return datastoreManager.getDataStoreBooleanOnce(KEY_SUGGEST_BANNER_HIDDEN) ?: false
+    }
+
+    override suspend fun setSuggestBannerHidden() {
+        setDataStoreBoolean(KEY_SUGGEST_BANNER_HIDDEN, true)
     }
 
     private fun getDataStoreInt(key: String): Flow<Int?> {

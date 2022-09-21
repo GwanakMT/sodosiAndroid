@@ -86,7 +86,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.hasSodosi.collect {
+                    viewModel.showSuggestBanner.collect {
                         setUiOfSuggestBanner(it)
                     }
                 }
@@ -182,11 +182,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
     }
 
-    private fun setUiOfSuggestBanner(hasSodosi: Boolean) {
-        if (hasSodosi) {
-            binding.suggestLayout.root.setGone()
-        } else {
+    private fun setUiOfSuggestBanner(showSuggestBanner: Boolean) {
+        if (showSuggestBanner) {
             binding.suggestLayout.root.setVisible()
+        } else {
+            binding.suggestLayout.root.setGone()
         }
     }
 
@@ -220,10 +220,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         // 상단 배너 뷰 클릭 이벤트 설정
         with(binding.suggestLayout) {
             btnCreateSodosi.setOnClickListener {
+                viewModel.setSuggestBannerHide()
                 startActivity(CreateSodosiActivity.getIntent(this@MainActivity))
             }
 
             btnCancel.setOnClickListener {
+                viewModel.setSuggestBannerHide()
                 root.animate()
                     .alpha(0.0f)
                     .translationY(-it.height.toFloat())
@@ -232,8 +234,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 binding.homeContainer.animate()
                     .translationY(-(root.height.toFloat() + root.marginTop))
                     .duration = 1000L
-
-//                viewModel.setBannerShowFlagFalse()
             }
         }
 

@@ -19,6 +19,9 @@ interface DataStoreRepository {
     suspend fun setPhoneNumber(phoneNumber: String)
     suspend fun getPhoneNumber(): String
 
+    suspend fun setSuggestBannerHidden()
+    suspend fun getSuggestBannerHidden(): Boolean
+
 //    fun getDataStoreInt(key: String): Flow<Int?>
 //    fun getDataStoreBoolean(key: String): Flow<Boolean?>
 //    fun getDataStoreString(key: String): Flow<String?>
