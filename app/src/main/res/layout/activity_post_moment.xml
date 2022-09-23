@@ -75,7 +75,7 @@
             android:clipToPadding="false"
             android:visibility="gone"
             android:orientation="horizontal"
-            android:paddingTop="20dp"
+            tools:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

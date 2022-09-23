@@ -10,13 +10,13 @@ import com.bumptech.glide.Glide
 import com.sodosi.databinding.ItemPostMomentPhotoBinding
 
 /**
- *  PostImageAdapter.kt
+ *  PhotoAdapter.kt
  *
  *  Created by Minji Jeong on 2022/09/23
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class PhotoImageAdapter : ListAdapter<Uri, PhotoImageAdapter.PhotoViewHolder>(diffUtil) {
+class PhotoAdapter : ListAdapter<Uri, PhotoAdapter.PhotoViewHolder>(diffUtil) {
     var onPhotoClick: ((selectedUri: Uri, position: Int) -> Unit)? = null
     var onDeleteButtonClick: ((position: Int) -> Unit)? = null
 

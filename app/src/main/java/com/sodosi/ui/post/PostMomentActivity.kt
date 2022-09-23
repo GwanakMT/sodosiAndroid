@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentBinding>() {
     override val viewModel: PostMomentViewModel by viewModels()
     private var momentPlace: POIDataModel? = null
-    private val photoAdapter: PhotoImageAdapter by lazy { PhotoImageAdapter() }
+    private val photoAdapter: PhotoAdapter by lazy { PhotoAdapter() }
 
     override fun getViewBinding() = ActivityPostMomentBinding.inflate(layoutInflater)
 
