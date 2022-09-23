@@ -3,20 +3,65 @@ package com.sodosi.ui.post
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
+import android.provider.MediaStore
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityPostMomentBinding
 import com.sodosi.model.POIDataModel
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.common.extensions.setGone
+import com.sodosi.ui.common.extensions.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentBinding>() {
     override val viewModel: PostMomentViewModel by viewModels()
     private var momentPlace: POIDataModel? = null
+    private val photoAdapter: PhotoImageAdapter by lazy { PhotoImageAdapter() }
 
     override fun getViewBinding() = ActivityPostMomentBinding.inflate(layoutInflater)
+
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                val newPhotoList = mutableListOf<Uri>()
+
+                // 1) 사진을 여러장 선택한 경우
+                if (it.data?.clipData != null) {
+                    val count = it.data?.clipData?.itemCount ?: 0
+                    if (count > 5) {
+                        SodosiToast.makeText(this, "사진은 최대 5장까지 선택 가능합니다.", Toast.LENGTH_SHORT)
+                            .show()
+                        return@registerForActivityResult
+                    }
+
+                    for (i in 0 until count) {
+                        val imageUri =
+                            it.data?.clipData?.getItemAt(i)?.uri ?: return@registerForActivityResult
+                        newPhotoList.add(imageUri)
+                    }
+                } else {
+                    // 2) 사진을 한 장만 선택한 경우
+                    it.data?.data?.let { uri ->
+                        newPhotoList.add(uri)
+                    }
+                }
+
+                photoAdapter.submitList(newPhotoList)
+                binding.tvPhotoCount.text = newPhotoList.size.toString()
+
+                if (newPhotoList.size > 0) {
+                    binding.photoRecyclerView.setVisible()
+                } else {
+                    binding.photoRecyclerView.setGone()
+                }
+            }
+        }
 
     override fun observeData() {
 
@@ -55,7 +100,12 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
     }
 
     private fun initPhotoRecyclerView() {
-        // TODO: 이미지 가져오기 구현
+        binding.photoRecyclerView.apply {
+            adapter = photoAdapter.apply {
+                onPhotoClick = ::photoClickEvent
+                onDeleteButtonClick = ::deletePhoto
+            }
+        }
     }
 
     private fun setListener() {
@@ -63,8 +113,30 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
 
         }
 
-        binding.photoCountLayout.setOnClickListener {
-            // TODO: Move To Gallary
+        binding.ivPhoto.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            galleryLauncher.launch(intent)
+        }
+    }
+
+    private fun photoClickEvent(uri: Uri, position: Int) {
+        SodosiToast.makeText(this@PostMomentActivity, "$uri, $position", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun deletePhoto(position: Int) {
+        if (position < photoAdapter.currentList.size) {
+            val newPhotoList = photoAdapter.currentList.toMutableList()
+            newPhotoList.removeAt(position)
+
+            photoAdapter.submitList(newPhotoList)
+            binding.tvPhotoCount.text = newPhotoList.size.toString()
+
+            if (newPhotoList.size == 0) {
+                binding.photoRecyclerView.setGone()
+            }
         }
     }
 
