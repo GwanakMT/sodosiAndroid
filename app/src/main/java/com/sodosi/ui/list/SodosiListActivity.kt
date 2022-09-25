@@ -52,7 +52,7 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
                 when (it) {
                     SodosiListViewModel.SORT_BY_RECENT -> {
                         sodosiListAdapter.submitList(viewModel.sodosiListSortByRecent) {
-                            binding.sodosiList.smoothScrollToPosition(0)
+                            binding.sodosiList.scrollToPosition(0)
                         }
 
                         // selected
@@ -66,7 +66,7 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
 
                     SodosiListViewModel.SORT_BY_POPULAR -> {
                         sodosiListAdapter.submitList(viewModel.sodosiListSortByPopular) {
-                            binding.sodosiList.smoothScrollToPosition(0)
+                            binding.sodosiList.scrollToPosition(0)
                         }
 
                         // selected

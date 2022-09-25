@@ -3,7 +3,6 @@ package com.sodosi.data.repository
 import com.sodosi.data.mapper.SodosiMapper
 import com.sodosi.data.network.api.SodosiApi
 import com.sodosi.data.spec.request.CreateSodosiRequest
-import com.sodosi.data.spec.request.MarkSodosiRequest
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Sodosi
 import com.sodosi.domain.entity.SodosiCategory
@@ -88,10 +87,8 @@ class SodosiRepositoryImpl @Inject constructor(
     }
 
     override suspend fun markSodosi(id: Long): Result<Boolean> {
-        val request = MarkSodosiRequest(sodosiid = id)
-
         return try {
-            val result = sodosiApi.markSodosi(request)
+            val result = sodosiApi.markSodosi(id)
             Result.Success(result.data.marked)
         } catch (e: Exception) {
             Result.Error(e)
@@ -101,7 +98,7 @@ class SodosiRepositoryImpl @Inject constructor(
     override suspend fun unmarkSodosi(id: Long): Result<Boolean> {
         return try {
             val result = sodosiApi.unmarkSodosi(id)
-            Result.Success(result.data.marked)
+            Result.Success(result.code != 200) // 200이면 mark 해제된 것이므로 false 리턴
         } catch (e: Exception) {
             Result.Error(e)
         }

@@ -38,8 +38,7 @@ class SodosiListViewModel @Inject constructor(
     private val inquiryAllSodosiListSortByRecent = MutableEventFlow<Unit>()
     private val inquiryAllSodosiListSortByPopular = MutableEventFlow<Unit>()
 
-    val inquirySodosiListSuccessEvent =
-        inquiryAllSodosiListSortByRecent.combine(inquiryAllSodosiListSortByPopular) { _, _ -> }
+    val inquirySodosiListSuccessEvent = inquiryAllSodosiListSortByRecent.combine(inquiryAllSodosiListSortByPopular) { _, _ -> }
     val inquirySodosiListErrorEvent = MutableEventFlow<String>()
 
     private val _currentTab = MutableStateFlow(SORT_BY_POPULAR)
@@ -90,8 +89,8 @@ class SodosiListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = patchMarkSodosiUseCase(id, isMarkedCurrent)) {
                 is Result.Success -> {
-                    sodosiListSortByPopular?.map { if (it.id == id) it.copy(isMarked = result.data) else it }
-                    sodosiListSortByRecent?.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    sodosiListSortByPopular = sodosiListSortByPopular?.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    sodosiListSortByRecent = sodosiListSortByRecent?.map { if (it.id == id) it.copy(isMarked = result.data) else it }
                     _updateMarkStateEvent.emit(Result.Success(Unit))
                 }
 

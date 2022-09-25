@@ -112,9 +112,9 @@
 
         <ImageView
             android:id="@+id/ivBookmark"
-            android:layout_width="12dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:onClick="@{()->onBookmarkClick.invoke(item)}"
-            android:layout_height="17dp"
             android:src="@{item.marked ? @drawable/ic_bookmark_selected : @drawable/ic_bookmark_unselected}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
