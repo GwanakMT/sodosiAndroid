@@ -16,6 +16,7 @@ interface SodosiRepository {
 
     suspend fun getMainSodosiList(): Result<Pair<Boolean, Map<SodosiCategory, List<Sodosi>>>>
     suspend fun getAllSodosiList(sortBy: String): Result<List<Sodosi>>
+    suspend fun getMarkedSodosiList(): Result<List<Sodosi>>
 
     suspend fun markSodosi(id: Long): Result<Boolean>
     suspend fun unmarkSodosi(id: Long): Result<Boolean>

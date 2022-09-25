@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.databinding.ItemSodosiTypeHorizontalBinding
 import com.sodosi.databinding.ItemSodosiTypeVerticalBinding
 import com.sodosi.model.SodosiModel
+import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.util.LogUtil
 
 /**
@@ -65,7 +66,11 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
 
         init {
             binding.onItemClick = onItemClick
-            binding.onBookmarkClick = onBookmarkClick
+            if (onBookmarkClick != null) {
+                binding.onBookmarkClick = onBookmarkClick
+            } else {
+                binding.ivBookmark.setGone()
+            }
         }
 
         fun bind(item: SodosiModel) {
