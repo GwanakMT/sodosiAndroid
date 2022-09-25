@@ -123,6 +123,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
     }
 
     private fun photoClickEvent(uri: Uri, position: Int) {
+        startActivity(ZoomPhotoActivity.getIntent(this, position, photoAdapter.currentList))
         SodosiToast.makeText(this@PostMomentActivity, "$uri, $position", Toast.LENGTH_SHORT).show()
     }
 

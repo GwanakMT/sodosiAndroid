@@ -103,7 +103,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                                 viewPagerAdapter.submitList(viewModel.mainSodosiList)
 
                                 sodosiViewPagerListSize = viewModel.mainSodosiList.size
-                                binding.dotsIndicator.loadItems(sodosiViewPagerListSize, 0)
+//                                binding.dotsIndicator.loadItems(sodosiViewPagerListSize, 0)
                                 binding.sodosiViewPager.setCurrentItem(
                                     (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % sodosiViewPagerListSize),
                                     false
@@ -158,9 +158,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
                     val current: Int = position % sodosiViewPagerListSize
                     when {
-                        current == 0 -> binding.dotsIndicator.selectIndex(0)
-                        current > previous -> binding.dotsIndicator.next()
-                        current < previous -> binding.dotsIndicator.previous()
+//                        current == 0 -> binding.dotsIndicator.selectIndex(0)
+//                        current > previous -> binding.dotsIndicator.next()
+//                        current < previous -> binding.dotsIndicator.previous()
                     }
                     previous = current
 
