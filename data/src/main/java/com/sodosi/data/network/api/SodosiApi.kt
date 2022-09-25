@@ -43,6 +43,11 @@ interface SodosiApi {
     @GET("/api/v1/sodosis")
     suspend fun getAllSodosiList(@Query("sortSodosiCode") sortSodosiCode: String): BaseResponse<List<SodosiResponse>>
 
+    // 내가 만든 소도시 목록
+    @GET("/api/v1/users/sodosis")
+    suspend fun getCreatedSodosiList(): BaseResponse<List<SodosiResponse>>
+
+    // 북마크한 소도시 목록
     @GET("/api/v1/users/bookmarks")
     suspend fun getMarkedSodosiList(): BaseResponse<List<SodosiResponse>>
 

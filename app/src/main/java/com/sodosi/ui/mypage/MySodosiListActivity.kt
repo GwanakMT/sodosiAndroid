@@ -68,6 +68,7 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
 
     private fun initCreatedSodosiList(appbarTitle: String) {
         initAppbar(appbarTitle)
+        viewModel.getCreatedSodosiList()
         binding.movePageText.text = getString(R.string.mypage_move_to_create)
         binding.movePageButton.setOnClickListener {
             startActivity(CreateSodosiActivity.getIntent(this))

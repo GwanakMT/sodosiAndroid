@@ -86,6 +86,16 @@ class SodosiRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getCreatedSodosiList(): Result<List<Sodosi>> {
+        return try {
+            val result = sodosiApi.getCreatedSodosiList()
+            val sodosiList = result.data.map { sodosiMapper.mapToEntitiy(it) }
+            Result.Success(sodosiList)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getMarkedSodosiList(): Result<List<Sodosi>> {
         return try {
             val result = sodosiApi.getMarkedSodosiList()

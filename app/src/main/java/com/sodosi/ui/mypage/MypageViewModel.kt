@@ -3,6 +3,7 @@ package com.sodosi.ui.mypage
 import androidx.lifecycle.viewModelScope
 import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.domain.Result
+import com.sodosi.domain.usecase.sodosi.GetCreatedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.GetMarkedSodosiListUseCase
 import com.sodosi.domain.usecase.user.GetLastVisitedTimeUseCase
 import com.sodosi.model.SodosiModel
@@ -28,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MypageViewModel @Inject constructor(
     private val getLastVisitedTimeUseCase: GetLastVisitedTimeUseCase,
+    private val getCreatedSodosiListUseCase: GetCreatedSodosiListUseCase,
     private val getMarkedSodosiListUseCase: GetMarkedSodosiListUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
@@ -49,6 +51,20 @@ class MypageViewModel @Inject constructor(
             val lastVisitedTime = getLastVisitedTimeUseCase(System.currentTimeMillis())
 
             _userBaseProfile.emit(Triple(nickname, profileImage, lastVisitedTime))
+        }
+    }
+
+    fun getCreatedSodosiList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when(val result = getCreatedSodosiListUseCase()) {
+                is Result.Success -> {
+                    val list = result.data.map { sodosiMapper.mapToModel(it) }
+                    _sodosiList.emit(Result.Success(list))
+                }
+                is Result.Error -> {
+                    _sodosiList.emit(Result.Error(result.exception))
+                }
+            }
         }
     }
 
