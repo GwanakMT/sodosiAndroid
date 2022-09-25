@@ -114,6 +114,19 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                         }
                     }
                 }
+
+                launch {
+                    viewModel.patchMarkSodosiEvent.collect { networkResult ->
+                        if (networkResult) {
+                            commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
+                            markedSodosiAdapter.submitList(viewModel.mainSodosiList)
+                            hotSodosiAdapter.submitList(viewModel.hotSodosiList)
+                            newSodosiAdapter.submitList(viewModel.newSodosiList)
+                        } else {
+                            SodosiToast.makeText(this@MainActivity, "관심 소도시 등록/해제 실패...", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
     }
@@ -308,7 +321,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun toggleBookmark(sodosi: SodosiModel) {
-
+        viewModel.patchMarkSodosi(sodosi.id, sodosi.isMarked)
     }
 
     companion object {

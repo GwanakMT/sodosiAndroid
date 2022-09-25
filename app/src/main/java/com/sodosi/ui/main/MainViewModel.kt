@@ -6,12 +6,14 @@ import com.sodosi.domain.entity.SodosiCategory
 import com.sodosi.domain.usecase.home.GetMainSodosiListUseCase
 import com.sodosi.domain.usecase.home.GetMainSuggestBannerHiddenUseCase
 import com.sodosi.domain.usecase.home.SetMainSuggestBannerHiddenUseCase
+import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
 import com.sodosi.model.SodosiModel
 import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -29,6 +31,7 @@ class MainViewModel @Inject constructor(
     private val getMainSodosiListUseCase: GetMainSodosiListUseCase,
     private val getMainSuggestBannerHiddenUseCase: GetMainSuggestBannerHiddenUseCase,
     private val setMainSuggestBannerHiddenUseCase: SetMainSuggestBannerHiddenUseCase,
+    private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
     var mainSodosiList = emptyList<SodosiModel>()
@@ -39,6 +42,9 @@ class MainViewModel @Inject constructor(
 
     private val _sodosiListsUpdatedEvent = MutableEventFlow<Boolean>()
     val sodosiListsUpdatedEvent = _sodosiListsUpdatedEvent.asEventFlow()
+
+    private val _patchMarkSodosiEvent = MutableEventFlow<Boolean>()
+    val patchMarkSodosiEvent = _patchMarkSodosiEvent.asEventFlow()
 
     private val _showSuggestBanner = MutableStateFlow(false)
     val showSuggestBanner = _showSuggestBanner.asStateFlow()
@@ -74,6 +80,26 @@ class MainViewModel @Inject constructor(
     fun setSuggestBannerHide() {
         viewModelScope.launch {
             setMainSuggestBannerHiddenUseCase()
+        }
+    }
+
+    fun patchMarkSodosi(id: Long, isMarkedCurrent: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = patchMarkSodosiUseCase(id, isMarkedCurrent)) {
+                is Result.Success -> {
+                    mainSodosiList = mainSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    commentedSodosiList = commentedSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    bookmarkSodosiList = bookmarkSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    hotSodosiList = hotSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+                    newSodosiList = newSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
+
+                    _patchMarkSodosiEvent.emit(true)
+                }
+
+                is Result.Error -> {
+                    _patchMarkSodosiEvent.emit(false)
+                }
+            }
         }
     }
 
