@@ -3,13 +3,11 @@ package com.sodosi.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.R
 import com.sodosi.databinding.ItemSodosiViewpagerBinding
-import com.sodosi.domain.entity.Sodosi
 import com.sodosi.model.SodosiModel
 
 /**
@@ -49,9 +47,6 @@ class SodosiViewPagerAdapter :
 
         fun bind(item: SodosiModel, position: Int) {
             binding.item = item
-
-//            binding.tvIndicator.text = "${position % currentList.size + 1}/${currentList.size}"
-//            binding.tvEmoji.visibility = View.GONE
 
             when (item.icon) {
                 "cafe" -> {

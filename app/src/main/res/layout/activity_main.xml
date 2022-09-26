@@ -102,6 +102,21 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="60dp" />
 
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/fakeViewPager"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp" />
+
+                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:dotsColor="@color/gray5"
+                    app:dotsSize="6dp"
+                    app:dotsSpacing="4dp"
+                    app:dotsWidthFactor="4"
+                    app:selectedDotColor="@color/green600" />
+
                 <View
                     android:layout_width="match_parent"
                     android:background="@drawable/shadow_bottom_sheet_background"

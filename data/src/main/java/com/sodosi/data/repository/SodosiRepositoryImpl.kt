@@ -45,27 +45,32 @@ class SodosiRepositoryImpl @Inject constructor(
             val result = sodosiApi.getMainSodosiList()
             val mainSodosiList = HashMap<SodosiCategory, List<Sodosi>>()
 
-            mainSodosiList.put(SodosiCategory.MAIN_BANNER, emptyList())
+            val bannerList = result.data.bannerList
+            if (bannerList.isNotEmpty()) {
+                mainSodosiList[SodosiCategory.MAIN_BANNER] = bannerList.map { sodosiMapper.mapToEntitiy(it) }
+            } else {
+                mainSodosiList[SodosiCategory.MAIN_BANNER] = DEFAULT_BANNER_LIST
+            }
 
             // 내가 참여중인 소도시
-            mainSodosiList.put(SodosiCategory.COMMENTED, result.data.mySodosiList.map {
+            mainSodosiList[SodosiCategory.COMMENTED] = result.data.mySodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
-            })
+            }
 
             // 내 관심 소도시
-            mainSodosiList.put(SodosiCategory.MARKED, result.data.interestSodosiList.map {
+            mainSodosiList[SodosiCategory.MARKED] = result.data.interestSodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
-            })
+            }
 
             // 지금 HOT한 소도시
-            mainSodosiList.put(SodosiCategory.HOT, result.data.hotSodosiList.map {
+            mainSodosiList[SodosiCategory.HOT] = result.data.hotSodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
-            })
+            }
 
             // 새롭게 추천하는 소도시
-            mainSodosiList.put(SodosiCategory.NEW, result.data.newSodosiList.map {
+            mainSodosiList[SodosiCategory.NEW] = result.data.newSodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
-            })
+            }
 
             Result.Success(Pair(result.data.hasSodosi, mainSodosiList))
         } catch (e: Exception) {
@@ -122,5 +127,46 @@ class SodosiRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Result.Error(e)
         }
+    }
+
+    companion object {
+        private val DEFAULT_BANNER_LIST = listOf(
+            Sodosi(
+                id = 0,
+                name = "똥손인 나도\n여기서 찍으면 인생샷!",
+                momentCount = 0,
+                userCount = 0,
+                icon = "camera",
+                momentImage = null,
+                isMarked = false
+            ),
+            Sodosi(
+                id = 1,
+                name = "댕댕이를 위한\n베스트 산책 코스",
+                momentCount = 0,
+                userCount = 0,
+                icon = "dog",
+                momentImage = null,
+                isMarked = false
+            ),
+            Sodosi(
+                id = 2,
+                name = "나만 알고 싶은\n공부하기 좋은 카페",
+                momentCount = 0,
+                userCount = 0,
+                icon = "cafe",
+                momentImage = null,
+                isMarked = false
+            ),
+            Sodosi(
+                id = 3,
+                name = "직접 가보면\n을씨년스러운 장소",
+                momentCount = 0,
+                userCount = 0,
+                icon = "danger",
+                momentImage = null,
+                isMarked = false
+            ),
+        )
     }
 }

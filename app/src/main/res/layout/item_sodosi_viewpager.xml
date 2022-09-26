@@ -65,6 +65,7 @@
             android:layout_height="10dp"
             android:layout_marginStart="6dp"
             android:background="@color/white"
+            android:outlineProvider="none"
             android:translationZ="4dp"
             app:layout_constraintBottom_toBottomOf="@id/tvUserCount"
             app:layout_constraintStart_toEndOf="@id/tvUserCount"

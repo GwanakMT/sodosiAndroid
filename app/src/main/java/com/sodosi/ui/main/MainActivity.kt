@@ -1,6 +1,7 @@
 package com.sodosi.ui.main
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Handler
 import android.view.View
@@ -43,6 +44,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private var sodosiViewPagerListSize = 0
 
     private val viewPagerAdapter by lazy { SodosiViewPagerAdapter() }
+    private val fakeViewPagerAdapter by lazy { FakeViewPagerAdapter() }
+
     private val commentedSodosiAdapter by lazy { SodosiListAdapter() }
     private val markedSodosiAdapter by lazy { SodosiListAdapter() }
     private val hotSodosiAdapter by lazy { SodosiListAdapter() }
@@ -95,15 +98,16 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     viewModel.sodosiListsUpdatedEvent.collect { networkSuccess ->
                         if (networkSuccess) {
                             commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
-                            markedSodosiAdapter.submitList(viewModel.mainSodosiList)
+                            markedSodosiAdapter.submitList(viewModel.bookmarkSodosiList)
                             hotSodosiAdapter.submitList(viewModel.hotSodosiList)
                             newSodosiAdapter.submitList(viewModel.newSodosiList)
 
                             if (viewModel.mainSodosiList.isNotEmpty()) {
                                 viewPagerAdapter.submitList(viewModel.mainSodosiList)
+                                fakeViewPagerAdapter.submitList(viewModel.mainSodosiList)
 
                                 sodosiViewPagerListSize = viewModel.mainSodosiList.size
-//                                binding.dotsIndicator.loadItems(sodosiViewPagerListSize, 0)
+                                binding.fakeViewPager.setCurrentItem(0, false)
                                 binding.sodosiViewPager.setCurrentItem(
                                     (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % sodosiViewPagerListSize),
                                     false
@@ -119,7 +123,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     viewModel.patchMarkSodosiEvent.collect { networkResult ->
                         if (networkResult) {
                             commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
-                            markedSodosiAdapter.submitList(viewModel.mainSodosiList)
+                            markedSodosiAdapter.submitList(viewModel.bookmarkSodosiList)
                             hotSodosiAdapter.submitList(viewModel.hotSodosiList)
                             newSodosiAdapter.submitList(viewModel.newSodosiList)
                         } else {
@@ -133,10 +137,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     private fun initViewPager() {
         binding.sodosiViewPager.apply {
-            adapter = SodosiViewPagerAdapter()
-                .apply {
-                    onItemClick = ::moveToSodosi
-                }
+            adapter = viewPagerAdapter.apply {
+                onItemClick = ::moveToSodosi
+            }
 
             offscreenPageLimit = 1
 
@@ -147,22 +150,22 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             setPageTransformer(pageTransformer)
 
             runnable = Runnable {
-                currentItem += 1
-//                setCurrentItemWithDuration(currentItem + 1, SCROLL_DURATION_TIME)
+                setCurrentItem(currentItem + 1, true)
             }
 
-            var previous = 0
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position % ((this@apply).adapter as SodosiViewPagerAdapter).itemCount)
+                    super.onPageSelected(position % viewPagerAdapter.itemCount)
 
-                    val current: Int = position % sodosiViewPagerListSize
-                    when {
-//                        current == 0 -> binding.dotsIndicator.selectIndex(0)
-//                        current > previous -> binding.dotsIndicator.next()
-//                        current < previous -> binding.dotsIndicator.previous()
+                    val realPosition = position % viewPagerAdapter.currentList.size
+                    when(realPosition) {
+                        1 -> binding.indicator.selectedDotColor = Color.parseColor("#FFCC00")
+                        2 -> binding.indicator.selectedDotColor = Color.parseColor("#5856D6")
+                        3 -> binding.indicator.selectedDotColor = Color.parseColor("#FF9500")
+                        else -> binding.indicator.selectedDotColor = Color.parseColor("#01AD00")
                     }
-                    previous = current
+
+                    binding.fakeViewPager.setCurrentItem(realPosition, true)
 
                     runnable?.let {
                         bannerHandler.removeCallbacks(it)
@@ -193,6 +196,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 }
             })
         }
+
+        binding.fakeViewPager.apply {
+            adapter = fakeViewPagerAdapter
+        }
+
+        binding.indicator.attachTo(binding.fakeViewPager)
     }
 
     private fun setUiOfSuggestBanner(showSuggestBanner: Boolean) {
@@ -277,7 +286,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.rvCommentedSodosi.apply {
             adapter = commentedSodosiAdapter.apply {
                 onItemClick = ::moveToSodosi
-                onBookmarkClick = ::toggleBookmark
             }
 
             addItemDecoration(divider)
