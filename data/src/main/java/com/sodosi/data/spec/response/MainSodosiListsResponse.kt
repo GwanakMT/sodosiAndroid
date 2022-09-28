@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MainSodosiListsResponse(
     val hasSodosi: Boolean = false,                                 // 소도시 생성 여부
-    val bannerList: List<SodosiResponse> = emptyList(),             // 메인 배너 소도시
+    val bannerSodosiList: List<SodosiResponse> = emptyList(),             // 메인 배너 소도시
     val mySodosiList: List<SodosiResponse> = emptyList(),           // 내가 참여중인 소도시
     val interestSodosiList: List<SodosiResponse> = emptyList(),     // 내 관심 소도시
     val hotSodosiList: List<SodosiResponse> = emptyList(),          // 지금 HOT한 소도시

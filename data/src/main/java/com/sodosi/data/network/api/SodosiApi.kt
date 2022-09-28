@@ -56,8 +56,8 @@ interface SodosiApi {
     suspend fun markSodosi(@Path("id") id: Long): BaseResponse<SodosiResponse>
 
     // 관심 소도시 해지
-    @DELETE("/api/v1/bookmarks/{id}")
-    suspend fun unmarkSodosi(@Path("id") id: Long): BaseResponse<EmptyBody>
+    @DELETE("/api/v1/sodosis/{id}/bookmark")
+    suspend fun unmarkSodosi(@Path("id") id: Long): BaseResponse<EmptyBody?>
 
     // 소도시 생성한 적 있는지 여부
     @GET("/api/v1/users/has-sodosi")

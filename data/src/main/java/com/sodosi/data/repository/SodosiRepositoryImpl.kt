@@ -43,36 +43,32 @@ class SodosiRepositoryImpl @Inject constructor(
     override suspend fun getMainSodosiList(): Result<Pair<Boolean, Map<SodosiCategory, List<Sodosi>>>> {
         return try {
             val result = sodosiApi.getMainSodosiList()
-            val mainSodosiList = HashMap<SodosiCategory, List<Sodosi>>()
+            val bannerSodosiList = HashMap<SodosiCategory, List<Sodosi>>()
 
-            val bannerList = result.data.bannerList
-            if (bannerList.isNotEmpty()) {
-                mainSodosiList[SodosiCategory.MAIN_BANNER] = bannerList.map { sodosiMapper.mapToEntitiy(it) }
-            } else {
-                mainSodosiList[SodosiCategory.MAIN_BANNER] = DEFAULT_BANNER_LIST
-            }
+            val bannerList = result.data.bannerSodosiList
+            bannerSodosiList[SodosiCategory.MAIN_BANNER] = bannerList.map { sodosiMapper.mapToEntitiy(it) }
 
             // 내가 참여중인 소도시
-            mainSodosiList[SodosiCategory.COMMENTED] = result.data.mySodosiList.map {
+            bannerSodosiList[SodosiCategory.COMMENTED] = result.data.mySodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
             }
 
             // 내 관심 소도시
-            mainSodosiList[SodosiCategory.MARKED] = result.data.interestSodosiList.map {
+            bannerSodosiList[SodosiCategory.MARKED] = result.data.interestSodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
             }
 
             // 지금 HOT한 소도시
-            mainSodosiList[SodosiCategory.HOT] = result.data.hotSodosiList.map {
+            bannerSodosiList[SodosiCategory.HOT] = result.data.hotSodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
             }
 
             // 새롭게 추천하는 소도시
-            mainSodosiList[SodosiCategory.NEW] = result.data.newSodosiList.map {
+            bannerSodosiList[SodosiCategory.NEW] = result.data.newSodosiList.map {
                 sodosiMapper.mapToEntitiy(it)
             }
 
-            Result.Success(Pair(result.data.hasSodosi, mainSodosiList))
+            Result.Success(Pair(result.data.hasSodosi, bannerSodosiList))
         } catch (e: Exception) {
             Result.Error(e)
         }
