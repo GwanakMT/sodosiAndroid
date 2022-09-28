@@ -52,6 +52,38 @@
             app:layout_constraintStart_toEndOf="@id/tvRank"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/sodosiImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/emojiBackground"
+            app:layout_constraintEnd_toEndOf="@id/emojiBackground"
+            app:layout_constraintStart_toStartOf="@id/emojiBackground"
+            app:layout_constraintTop_toTopOf="@id/emojiBackground" />
+
+        <View
+            android:id="@+id/emojiBackground2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="48dp"
+            android:background="@drawable/background_oval_gray"
+            android:backgroundTint="@color/white"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/sodosiImageView"
+            app:layout_constraintTop_toTopOf="@id/sodosiImageView" />
+
+        <TextView
+            android:id="@+id/tvEmoji2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/emojiBackground2"
+            app:layout_constraintEnd_toEndOf="@id/emojiBackground2"
+            app:layout_constraintStart_toStartOf="@id/emojiBackground2"
+            app:layout_constraintTop_toTopOf="@id/emojiBackground2"
+            tools:text="🐥" />
+
         <TextView
             android:id="@+id/tvEmoji"
             android:layout_width="wrap_content"
