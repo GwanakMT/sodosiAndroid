@@ -8,7 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
@@ -46,7 +46,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
 
     override fun getViewBinding() = FragmentSignPasswordBinding.inflate(layoutInflater)
 
-    override val viewModel: OnboardingViewModel by viewModels()
+    override val viewModel: OnboardingViewModel by activityViewModels()
 
     override fun initViews() = with(binding) {
         initAppbar()
@@ -121,6 +121,8 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             binding.btnAllow.setOnClickListener {
                 inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
                 termsDialog.dismiss()
+
+                viewModel.setAllowTerms((binding.rvTerms.adapter as TermsAdapter).getItems())
 
                 val phoneNumber = arguments?.getString("phone_number") ?: return@setOnClickListener
                 navigate(R.id.fragment_sign_password) {

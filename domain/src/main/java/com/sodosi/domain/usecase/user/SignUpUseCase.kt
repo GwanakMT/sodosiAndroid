@@ -20,7 +20,7 @@ class SignUpUseCase @Inject constructor(
         password: String,
         name: String,
         nickName: String,
-        agreeInfoMap: Map<String, String>,
+        agreeInfoMap: Map<String, Boolean>,
     ): Pair<Boolean, String> {
         return try {
             val result = userRepository.signUp(

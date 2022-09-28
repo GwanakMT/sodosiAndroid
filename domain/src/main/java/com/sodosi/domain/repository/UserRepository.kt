@@ -17,7 +17,7 @@ interface UserRepository {
         password: String,
         name: String,
         nickName: String,
-        agreeInfoMap: Map<String, String>
+        agreeInfoMap: Map<String, Boolean>
     ): Result<Pair<Boolean, String>>
 
     // 전화번호 중복 확인

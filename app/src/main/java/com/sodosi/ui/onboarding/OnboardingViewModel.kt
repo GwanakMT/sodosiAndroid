@@ -42,6 +42,8 @@ class OnboardingViewModel @Inject constructor(
     private val _userPrivacyPolicyTerms = MutableEventFlow<List<Terms>>()
     val userPrivacyPolicyTerms = _userPrivacyPolicyTerms.asEventFlow()
 
+    private var agreeInfoMap = mapOf<String, Boolean>()
+
     private val _isLoginSuccess = MutableEventFlow<Boolean>()
     val isLoginSuccess: EventFlow<Boolean> = _isLoginSuccess.asEventFlow()
 
@@ -78,6 +80,15 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
+    fun setAllowTerms(list: List<Terms>) {
+        val newMap = HashMap<String, Boolean>()
+        list.forEach {
+            newMap[it.id.toString()] = it.isAllow
+        }
+
+        agreeInfoMap = newMap
+    }
+
     fun login(phoneNumber: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when(signInUseCase(phoneNumber, password)) {
@@ -94,11 +105,7 @@ class OnboardingViewModel @Inject constructor(
                 password = password,
                 name = "-",
                 nickName = nickName,
-                agreeInfoMap = mapOf(
-                    Pair("1", "true"),
-                    Pair("2", "true"),
-                    Pair("3", "true"),
-                )
+                agreeInfoMap = agreeInfoMap
             )
 
             _isSignUpSuccess.emit(result)

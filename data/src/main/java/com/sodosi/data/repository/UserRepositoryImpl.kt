@@ -28,7 +28,7 @@ class UserRepositoryImpl @Inject constructor(
         password: String,
         name: String,
         nickName: String,
-        agreeInfoMap: Map<String, String>
+        agreeInfoMap: Map<String, Boolean>
     ): Result<Pair<Boolean, String>> {
         val request = UserSignUpRequest(
             phone = phoneNumber,

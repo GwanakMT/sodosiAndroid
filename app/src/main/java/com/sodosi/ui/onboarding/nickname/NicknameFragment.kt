@@ -3,7 +3,7 @@ package com.sodosi.ui.onboarding.nickname
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentNicknameBinding
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBinding>() {
     override fun getViewBinding() = FragmentNicknameBinding.inflate(layoutInflater)
 
-    override val viewModel: OnboardingViewModel by viewModels()
+    override val viewModel: OnboardingViewModel by activityViewModels()
 
     override fun initViews() = with(binding) {
         initAppbar()
