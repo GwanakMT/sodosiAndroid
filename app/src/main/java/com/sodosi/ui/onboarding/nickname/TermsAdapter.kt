@@ -27,6 +27,9 @@ class TermsAdapter :
     private val _isAllowAll = MutableStateFlow<Boolean>(false)
     val isAllowAll: StateFlow<Boolean> = _isAllowAll
 
+    private val _isAllowAllEssentialTerms = MutableStateFlow<Boolean>(false)
+    val isAllowAllEssentialTerms: StateFlow<Boolean> = _isAllowAllEssentialTerms
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolder(ItemOnboardingTermBinding.inflate(inflater, parent, false), onItemClick)
@@ -62,11 +65,13 @@ class TermsAdapter :
 
         fun bind(terms: Terms, position: Int) {
             binding.item = terms
-            binding.tvTerms.switchCheckDrawable(terms.isAgree)
+            binding.tvTerms.switchCheckDrawable(terms.isAllow)
             binding.tvTerms.setOnClickListener {
-                items[position].isAgree = !items[position].isAgree
-                binding.tvTerms.switchCheckDrawable(items[position].isAgree)
+                items[position].isAllow = !items[position].isAllow
+                binding.tvTerms.switchCheckDrawable(items[position].isAllow)
             }
+
+            binding.termsTitle.text = "[${if (terms.essential) "필수" else "선택"}] ${terms.title}"
         }
     }
 
@@ -77,7 +82,8 @@ class TermsAdapter :
             setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_unchecked_24, 0, 0, 0)
         }
 
-        _isAllowAll.value = items.all { it.isAgree }
+        _isAllowAllEssentialTerms.value = items.filter { (it.essential && it.isAllow) || !it.essential }.size == items.size
+        _isAllowAll.value = items.all { it.isAllow }
     }
 
     inner class TermsDiffCallback(

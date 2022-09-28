@@ -20,8 +20,8 @@ interface SodosiApi {
     suspend fun checkPhoneNumber(@Query("phoneNumber") phoneNumber: String): BaseResponse<UsersCheckPhoneNumberResponse>
 
     // 사용자 이용 약관 정보
-    @GET("/api/v1/users/user-privacy-policy-contents")
-    suspend fun getUserPrivacyPolicyContents(): BaseResponse<UserPrivacyPolicyContentsResponse >
+    @GET("/api/v1/user-privacy-policy-contents")
+    suspend fun getUserPrivacyPolicyContents(): BaseResponse<List<UserPrivacyPolicyContentsResponse>>
 
     // 회원가입
     @POST("/api/v1/users")

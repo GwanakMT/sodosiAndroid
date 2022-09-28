@@ -13,6 +13,7 @@ import com.sodosi.R
 import com.sodosi.ui.common.customview.PermissionDialog
 import com.sodosi.ui.common.customview.Progress
 import com.sodosi.ui.onboarding.OnboardingActivity
+import com.sodosi.ui.onboarding.nickname.TermsDetailActivity
 
 /**
  *  BaseActivity.kt
@@ -44,7 +45,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
 
     override fun onResume() {
         super.onResume()
-        if (this !is OnboardingActivity) {
+        if (this !is OnboardingActivity && this !is TermsDetailActivity) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                     PermissionDialog(this).show()

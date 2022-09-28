@@ -7,14 +7,17 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.DialogOnboardingTermsBinding
 import com.sodosi.databinding.FragmentSignPasswordBinding
+import com.sodosi.domain.entity.Terms
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.base.repeatOnStarted
+import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.onboarding.OnboardingViewModel
 import com.sodosi.ui.onboarding.nickname.TermsAdapter
@@ -52,9 +55,20 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
     }
 
     override fun observeData() {
-        lifecycleScope.launchWhenStarted {
+        repeatOnStarted {
             buttonEnable.collect {
                 binding.btnNext.isEnabled = it
+            }
+        }
+
+        repeatOnStarted {
+            viewModel.userPrivacyPolicyTerms.collect {
+                val password = binding.etPassword.getText()
+                if (it.isNotEmpty()) {
+                    showTermsDialog(password, it)
+                } else {
+                    SodosiToast.makeText(requireContext(), "이용약관을 불러오는데 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -72,7 +86,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             val password = binding.etPassword.getText()
             val rePassword = binding.etRePassword.getText()
             if (password == rePassword) {
-                showTermsDialog(password)
+                viewModel.getTerms()
             } else {
                 binding.etRePassword.setViewWarning()
             }
@@ -98,7 +112,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
         inputMethodManager.showSoftInput(binding.etPassword, 0)
     }
 
-    private fun showTermsDialog(password: String) {
+    private fun showTermsDialog(password: String, termsList: List<Terms>) {
         termsDialog = Dialog(requireContext())
         termsDialog.apply {
             val binding = DialogOnboardingTermsBinding.inflate(layoutInflater)
@@ -122,7 +136,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             binding.rvTerms.apply {
                 itemAnimator?.changeDuration = 0
                 adapter = TermsAdapter().apply {
-                    submitList(viewModel.getTerms())
+                    submitList(termsList)
                     onItemClick = {
                         val intent = Intent(context, TermsDetailActivity::class.java)
                         startActivity(intent)
@@ -130,12 +144,14 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
 
                     isAllowAll.asLiveData().observe(viewLifecycleOwner) {
                         if (it) {
-                            binding.btnAllow.isEnabled = true
                             binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_checked_28, 0, 0, 0)
                         } else {
-                            binding.btnAllow.isEnabled = false
                             binding.tvAllowAllTerms.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_interface_unchecked_28, 0, 0, 0)
                         }
+                    }
+
+                    isAllowAllEssentialTerms.asLiveData().observe(viewLifecycleOwner) {
+                        binding.btnAllow.isEnabled = it
                     }
                 }
             }
@@ -143,7 +159,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             binding.tvAllowAllTerms.setOnClickListener {
                 val isAllowAll = (binding.rvTerms.adapter as TermsAdapter).isAllowAll.value
                 (binding.rvTerms.adapter as TermsAdapter).submitList((binding.rvTerms.adapter as TermsAdapter).getItems().map {
-                    it.copy(isAgree = !isAllowAll)
+                    it.copy(isAllow = !isAllowAll)
                 })
             }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Terms
 import com.sodosi.domain.usecase.user.CheckPhoneNumberUseCase
+import com.sodosi.domain.usecase.user.GetUserPrivacyPolicyContentsUseCase
 import com.sodosi.domain.usecase.user.SignInUseCase
 import com.sodosi.domain.usecase.user.SignUpUseCase
 import com.sodosi.ui.common.base.BaseViewModel
@@ -28,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val checkPhoneNumberUseCase: CheckPhoneNumberUseCase,
+    private val getUserPrivacyPolicyContentsUseCase: GetUserPrivacyPolicyContentsUseCase,
     private val signUpUseCase: SignUpUseCase,
     private val signInUseCase: SignInUseCase,
 ) : BaseViewModel() {
@@ -36,6 +38,9 @@ class OnboardingViewModel @Inject constructor(
 
     private val _userNotJoined = MutableEventFlow<Boolean>()
     val userNotJoined: EventFlow<Boolean> = _userNotJoined.asEventFlow()
+
+    private val _userPrivacyPolicyTerms = MutableEventFlow<List<Terms>>()
+    val userPrivacyPolicyTerms = _userPrivacyPolicyTerms.asEventFlow()
 
     private val _isLoginSuccess = MutableEventFlow<Boolean>()
     val isLoginSuccess: EventFlow<Boolean> = _isLoginSuccess.asEventFlow()
@@ -64,11 +69,13 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    fun getTerms(): List<Terms> {
-        return listOf(
-            Terms(1, "[필수] 서비스 이용약관 동의", "", false),
-            Terms(2, "[필수] 개인정보 처리방침 동의", "", false)
-        )
+    fun getTerms() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when(val result = getUserPrivacyPolicyContentsUseCase()) {
+                is Result.Success -> _userPrivacyPolicyTerms.emit(result.data)
+                is Result.Error -> _userPrivacyPolicyTerms.emit(emptyList())
+            }
+        }
     }
 
     fun login(phoneNumber: String, password: String) {

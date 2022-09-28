@@ -1,6 +1,7 @@
 package com.sodosi.data.mapper
 
 import com.sodosi.data.spec.response.UserPrivacyPolicyContentsResponse
+import com.sodosi.domain.entity.Terms
 import javax.inject.Inject
 
 /**
@@ -11,9 +12,14 @@ import javax.inject.Inject
  */
 
 class UserPrivacyPolicyMapper @Inject constructor() {
-    fun mapToEntity(privacyPolicyList: List<UserPrivacyPolicyContentsResponse.PrivacyPolicy>): List<String> {
+    fun mapToEntity(privacyPolicyList: List<UserPrivacyPolicyContentsResponse>): List<Terms> {
         return privacyPolicyList.map {
-            it.toString()
+            Terms(
+                id = it.id,
+                title = it.kind.desc,
+                content = it.contents,
+                essential = it.essential
+            )
         }
     }
 }

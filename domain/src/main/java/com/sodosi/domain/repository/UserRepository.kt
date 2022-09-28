@@ -1,6 +1,7 @@
 package com.sodosi.domain.repository
 
 import com.sodosi.domain.Result
+import com.sodosi.domain.entity.Terms
 
 /**
  *  UserRepository.kt
@@ -23,7 +24,7 @@ interface UserRepository {
     suspend fun checkPhoneNumber(phoneNumber: String): Boolean
 
     // 사용자 이용 약관 정보
-    suspend fun getUserPrivacyPolicyContents(): Result<List<String>>
+    suspend fun getUserPrivacyPolicyContents(): Result<List<Terms>>
 
     // 로그인
     suspend fun signIn(

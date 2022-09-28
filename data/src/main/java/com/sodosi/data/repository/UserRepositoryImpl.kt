@@ -5,6 +5,7 @@ import com.sodosi.data.network.api.SodosiApi
 import com.sodosi.data.spec.request.UserSignInRequest
 import com.sodosi.data.spec.request.UserSignUpRequest
 import com.sodosi.domain.Result
+import com.sodosi.domain.entity.Terms
 import com.sodosi.domain.repository.UserRepository
 import com.sodosi.domain.usecase.token.SetTokenUseCase
 import javax.inject.Inject
@@ -60,10 +61,10 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserPrivacyPolicyContents(): Result<List<String>> {
+    override suspend fun getUserPrivacyPolicyContents(): Result<List<Terms>> {
         return try {
             val result = sodosiApi.getUserPrivacyPolicyContents()
-            Result.Success(userPrivacyPolicyMapper.mapToEntity(result.data.results))
+            Result.Success(userPrivacyPolicyMapper.mapToEntity(result.data))
         } catch (e: Exception) {
             Result.Error(e)
         }

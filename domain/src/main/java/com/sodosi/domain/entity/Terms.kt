@@ -11,5 +11,6 @@ data class Terms(
     val id: Long,
     val title: String,
     val content: String,
-    var isAgree: Boolean = false
+    val essential: Boolean,
+    var isAllow: Boolean = false,
 )
