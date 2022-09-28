@@ -1,16 +1,20 @@
 package com.sodosi.ui.mypage
 
 import androidx.lifecycle.viewModelScope
+import com.sodosi.databinding.ToastSodosiBinding
 import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.domain.Result
+import com.sodosi.domain.entity.User
 import com.sodosi.domain.usecase.sodosi.GetCreatedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.GetMarkedSodosiListUseCase
 import com.sodosi.domain.usecase.user.GetLastVisitedTimeUseCase
+import com.sodosi.domain.usecase.user.GetUserInfoUseCase
 import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
+import com.sodosi.ui.common.customview.SodosiToast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -28,14 +32,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MypageViewModel @Inject constructor(
+    private val getUserInfoUseCase: GetUserInfoUseCase,
     private val getLastVisitedTimeUseCase: GetLastVisitedTimeUseCase,
     private val getCreatedSodosiListUseCase: GetCreatedSodosiListUseCase,
     private val getMarkedSodosiListUseCase: GetMarkedSodosiListUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
 
-    private val _userBaseProfile = MutableSharedFlow<Triple<String, String, String>>() // Name, Profile Image, Last Visited Time
-    val userBaseProfile: SharedFlow<Triple<String, String, String>> = _userBaseProfile.asSharedFlow()
+    private val _userBaseProfile = MutableSharedFlow<Result<Pair<User, String>>>() // User, Last Visited Time
+    val userBaseProfile: SharedFlow<Result<Pair<User, String>>> = _userBaseProfile.asSharedFlow()
 
     private val _sodosiList = MutableEventFlow<Result<List<SodosiModel>>>()
     val sodosiList: EventFlow<Result<List<SodosiModel>>> = _sodosiList.asEventFlow()
@@ -46,11 +51,17 @@ class MypageViewModel @Inject constructor(
 
     private fun getUserBaseProfile() {
         viewModelScope.launch {
-            val nickname = "중구구립도서관"
-            val profileImage = ""
-            val lastVisitedTime = getLastVisitedTimeUseCase(System.currentTimeMillis())
+            try {
+                val result = getUserInfoUseCase()
+                val lastVisitedTime = getLastVisitedTimeUseCase(System.currentTimeMillis())
 
-            _userBaseProfile.emit(Triple(nickname, profileImage, lastVisitedTime))
+                when(result) {
+                    is Result.Success -> _userBaseProfile.emit(Result.Success(Pair(result.data, lastVisitedTime)))
+                    is Result.Error -> _userBaseProfile.emit(Result.Error(result.exception))
+                }
+            } catch (e: Exception) {
+
+            }
         }
     }
 

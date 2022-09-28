@@ -1,7 +1,9 @@
 package com.sodosi.data.mapper
 
+import com.sodosi.data.spec.response.UserMyPageInfoResponse
 import com.sodosi.data.spec.response.UserPrivacyPolicyContentsResponse
 import com.sodosi.domain.entity.Terms
+import com.sodosi.domain.entity.User
 import javax.inject.Inject
 
 /**
@@ -21,5 +23,14 @@ class UserPrivacyPolicyMapper @Inject constructor() {
                 essential = it.essential
             )
         }
+    }
+
+    fun mapToEntity(spec: UserMyPageInfoResponse): User {
+        return User(
+            nickName = spec.nickname,
+            madeSodosiCount = spec.madeSodosiCount,
+            participateSodosiCount = spec.participateSodosiCount,
+            bookmarkSodosiCount = spec.bookmarkSodosiCount
+        )
     }
 }

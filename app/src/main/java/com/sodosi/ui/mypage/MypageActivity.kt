@@ -2,11 +2,15 @@ package com.sodosi.ui.mypage
 
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMypageBinding
+import com.sodosi.domain.Result
+import com.sodosi.domain.entity.User
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
+import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.setting.SettingActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,15 +23,19 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
     override fun observeData() {
         repeatOnStarted {
             viewModel.userBaseProfile.collect {
-                initBaseProfile(it.first, it.second, it.third)
+                when(it) {
+                    is Result.Success -> initBaseProfile(it.data.first, it.data.second)
+                    is Result.Error -> {
+                        SodosiToast.makeText(binding.root.context, "내 정보를 가져오는데 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }
             }
         }
     }
 
     override fun initViews() = with(binding) {
         initAppbar()
-        initUserSodosiInfo()
-
         setOnClickListener()
     }
 
@@ -44,20 +52,18 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
         }
     }
 
-    private fun initBaseProfile(nickname: String, profileImage: String, lastVisitedTime: String) {
-        binding.tvProfileNickname.text = nickname
+    private fun initBaseProfile(user: User, lastVisitedTime: String) {
+        binding.tvProfileNickname.text = user.nickName
         binding.tvHourAgo.text = getString(R.string.mypage_last_visited_time, lastVisitedTime)
-    }
 
-    private fun initUserSodosiInfo() {
-        binding.tvCreatedSodosiCount.text = "35"
-        binding.tvCommentedSodosiCount.text = "35"
-        binding.tvBookmarkCount.text = "35"
+        binding.tvCreatedSodosiCount.text = user.madeSodosiCount.toString()
+        binding.tvCommentedSodosiCount.text = user.participateSodosiCount.toString()
+        binding.tvBookmarkCount.text = user.bookmarkSodosiCount.toString()
     }
 
     private fun setOnClickListener() {
         binding.tvProfileNickname.setOnClickListener {
-            startActivity(EditNickNameActivity.getIntent(this, "중구구립도서관"))
+            startActivity(EditNickNameActivity.getIntent(this, binding.tvProfileNickname.text.toString()))
         }
 
         binding.tvCreatedSodosiCount.setOnClickListener {

@@ -2,6 +2,7 @@ package com.sodosi.domain.repository
 
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Terms
+import com.sodosi.domain.entity.User
 
 /**
  *  UserRepository.kt
@@ -34,4 +35,7 @@ interface UserRepository {
 
     // 소도시 생성 여부(has-sodosi)
     suspend fun hasSodosi(): Boolean
+
+    // 마이페이지 정보 조회
+    suspend fun getMyPageInfo(): Result<User>
 }

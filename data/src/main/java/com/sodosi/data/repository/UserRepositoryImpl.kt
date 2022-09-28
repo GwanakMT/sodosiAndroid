@@ -6,6 +6,7 @@ import com.sodosi.data.spec.request.UserSignInRequest
 import com.sodosi.data.spec.request.UserSignUpRequest
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Terms
+import com.sodosi.domain.entity.User
 import com.sodosi.domain.repository.UserRepository
 import com.sodosi.domain.usecase.token.SetTokenUseCase
 import javax.inject.Inject
@@ -95,6 +96,15 @@ class UserRepositoryImpl @Inject constructor(
             result.data.hasSodosi
         } catch (e: Exception) {
             true
+        }
+    }
+
+    override suspend fun getMyPageInfo(): Result<User> {
+        return try {
+            val result = sodosiApi.getMyPageInfo()
+            Result.Success(userPrivacyPolicyMapper.mapToEntity(result.data))
+        } catch (e: Exception) {
+            Result.Error(e)
         }
     }
 }
