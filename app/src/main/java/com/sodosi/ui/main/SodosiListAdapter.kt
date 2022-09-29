@@ -27,6 +27,7 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
     var itemViewType: ViewType = ViewType.VERTICAL
     var onItemClick: ((selectedItem: SodosiModel) -> Unit)? = null
     var onBookmarkClick: ((selectedItem: SodosiModel) -> Unit)? = null
+    var showRank = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,8 +38,7 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
                     inflater,
                     parent,
                     false
-                ), onItemClick, onBookmarkClick
-            )
+                ), onItemClick, onBookmarkClick, showRank)
             ViewType.HORIZONTAL -> SquareViewHolder(
                 ItemSodosiTypeHorizontalBinding.inflate(
                     inflater,
@@ -63,7 +63,8 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
     class RectangleViewHolder(
         private val binding: ItemSodosiTypeVerticalBinding,
         onItemClick: ((selectedItem: SodosiModel) -> Unit)?,
-        onBookmarkClick: ((selectedItem: SodosiModel) -> Unit)?
+        onBookmarkClick: ((selectedItem: SodosiModel) -> Unit)?,
+        private val showRank: Boolean,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -78,6 +79,14 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
 
         fun bind(item: SodosiModel) {
             binding.item = item
+
+            if (showRank) {
+                binding.tvRank.setVisible()
+                binding.tvRank.text = (adapterPosition + 1).toString()
+            } else {
+                binding.tvRank.setGone()
+            }
+
             try {
                 when {
                     item.icon == "camera" ||

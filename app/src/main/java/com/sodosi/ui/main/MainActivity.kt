@@ -311,6 +311,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             adapter = hotSodosiAdapter.apply {
                 onItemClick = ::moveToSodosi
                 onBookmarkClick = ::toggleBookmark
+                showRank = true
             }
 
             addItemDecoration(divider)
