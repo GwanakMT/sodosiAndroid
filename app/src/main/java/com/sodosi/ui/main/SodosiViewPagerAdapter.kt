@@ -48,6 +48,12 @@ class SodosiViewPagerAdapter :
         fun bind(item: SodosiModel, position: Int) {
             binding.item = item
 
+            if (item.isMarked) {
+                binding.ivBookmark.setImageResource(R.drawable.ic_bookmark_selected)
+            } else {
+                binding.ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected)
+            }
+
             when (item.icon) {
                 "cafe" -> {
                     binding.ivSodosi.setImageResource(R.drawable.sodosi_viewpager_cafe)
