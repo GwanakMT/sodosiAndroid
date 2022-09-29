@@ -237,6 +237,10 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             ivCreateSodosi.setOnClickListener {
                 startActivity(CreateSodosiActivity.getIntent(this@MainActivity))
             }
+
+            tvEditMarkedSodosi.setOnClickListener {
+
+            }
         }
 
         // 상단 배너 뷰 클릭 이벤트 설정

@@ -148,20 +148,38 @@
                     android:layout_marginTop="8dp"
                     android:background="#F6F6F6" />
 
-                <TextView
-                    android:id="@+id/tvBookmarkSodosiTitle"
-                    style="@style/Typography.HeadLines.Callout.Bold"
-                    android:layout_width="@dimen/screen_width"
+
+                <LinearLayout
                     android:layout_height="wrap_content"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_marginTop="28dp"
-                    android:textSize="18dp"
-                    android:text="@string/bookmark_sodosi_list_title" />
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvBookmarkSodosiTitle"
+                        style="@style/Typography.HeadLines.Callout.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/bookmark_sodosi_list_title"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/tvEditMarkedSodosi"
+                        style="@style/Typography.HeadLines.SubHeadLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="편집하기"
+                        android:textColor="#8A8A8E" />
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvBookmarkSodosi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:nestedScrollingEnabled="false"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:overScrollMode="never"

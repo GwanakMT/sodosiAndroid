@@ -138,10 +138,44 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
 
         fun bind(item: SodosiModel) {
             binding.item = item
+
             try {
-                binding.tvEmoji.text = item.icon
+                when {
+                    item.icon == "camera" ||
+                    item.icon == "dog" ||
+                    item.icon == "cafe" ||
+                    item.icon == "danger" -> {
+                        binding.tvEmoji.setGone()
+                        binding.sodosiImageView.setVisible()
+
+                        set3DImage(item.icon)
+                    }
+                    item.momentImage.isNullOrEmpty() -> {
+                        binding.sodosiImageView.setGone()
+                        binding.tvEmoji.setVisible()
+                        binding.tvEmoji.text = item.icon
+                    }
+                    else -> {
+                        binding.tvEmoji.setGone()
+                        binding.sodosiImageView.setVisible()
+                        Glide.with(binding.root.context)
+                            .load(item.momentImage)
+                            .centerCrop()
+                            .error(R.drawable.background_oval_gray)
+                            .into(binding.sodosiImageView)
+                    }
+                }
             } catch (e: Exception) {
                 LogUtil.e("${e.message}", "${SodosiListAdapter::class.simpleName}")
+            }
+        }
+
+        private fun set3DImage(icon: String) {
+            when(icon) {
+                "cafe" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_cafe)
+                "camera" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_camera)
+                "danger" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_danger)
+                "dog" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_dog)
             }
         }
     }

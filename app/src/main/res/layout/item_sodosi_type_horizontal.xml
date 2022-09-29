@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toTopOf="@id/background" />
 
             <ImageView
-                android:id="@+id/ivSodosiThumbnail"
+                android:id="@+id/sodosiImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone" />
