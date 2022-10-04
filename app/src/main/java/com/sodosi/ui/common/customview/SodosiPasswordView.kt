@@ -63,9 +63,15 @@ class SodosiPasswordView @JvmOverloads constructor(
 
     fun getText(): String = binding.etPassword.text.toString()
 
-    fun setViewWarning() {
+    fun setViewWarning(text: String? = null) {
         binding.inputBackground.background = ContextCompat.getDrawable(context, R.drawable.background_rounded_pink)
         binding.tvWarning.visibility = View.VISIBLE
+        text?.let { binding.tvWarning.text = text }
+    }
+
+    fun disableWarning() {
+        binding.inputBackground.background = ContextCompat.getDrawable(context, R.drawable.background_rounded_gray)
+        binding.tvWarning.visibility = View.GONE
     }
 
     fun setHint(hint: String) {

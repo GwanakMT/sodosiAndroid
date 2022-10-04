@@ -1,5 +1,6 @@
 package com.sodosi.data.network.api
 
+import com.sodosi.data.spec.request.ChangePasswordRequest
 import com.sodosi.data.spec.request.CreateSodosiRequest
 import com.sodosi.data.spec.request.UserSignInRequest
 import com.sodosi.data.spec.request.UserSignUpRequest
@@ -69,4 +70,12 @@ interface SodosiApi {
     // 마이페이지 정보 조회
     @GET("/api/v1/users")
     suspend fun getMyPageInfo(): BaseResponse<UserMyPageInfoResponse>
+
+    // 비밀번호 변경하기 전 일치여부 확인
+    @GET("/api/v1/users/check/password")
+    suspend fun checkCurrentPassword(@Query("password") password: String): BaseResponse<CheckPasswordResponse>
+
+    // 비밀번호 변경
+    @PUT("/api/v1/users/password")
+    suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest): BaseResponse<UserSignInResponse>
 }

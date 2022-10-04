@@ -40,4 +40,7 @@ interface UserRepository {
     suspend fun getMyPageInfo(): Result<User>
 
     suspend fun unregisterUser(): Result<Unit>
+
+    suspend fun checkCurrentPassword(password: String): Result<Boolean>
+    suspend fun changePassword(password: String): Result<Boolean>
 }

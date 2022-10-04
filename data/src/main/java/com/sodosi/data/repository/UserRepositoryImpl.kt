@@ -2,6 +2,7 @@ package com.sodosi.data.repository
 
 import com.sodosi.data.mapper.UserPrivacyPolicyMapper
 import com.sodosi.data.network.api.SodosiApi
+import com.sodosi.data.spec.request.ChangePasswordRequest
 import com.sodosi.data.spec.request.UserSignInRequest
 import com.sodosi.data.spec.request.UserSignUpRequest
 import com.sodosi.domain.Result
@@ -115,6 +116,28 @@ class UserRepositoryImpl @Inject constructor(
                 Result.Success(Unit)
             } else {
                 Result.Error(Exception(result.message))
+            }
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun checkCurrentPassword(password: String): Result<Boolean> {
+        return try {
+            val result = sodosiApi.checkCurrentPassword(password)
+            Result.Success(result.data.valid)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun changePassword(password: String): Result<Boolean> {
+        return try {
+            val result = sodosiApi.changePassword(ChangePasswordRequest(password))
+            if (result.code == 200) {
+                Result.Success(true)
+            } else {
+                Result.Success(false)
             }
         } catch (e: Exception) {
             Result.Error(e)
