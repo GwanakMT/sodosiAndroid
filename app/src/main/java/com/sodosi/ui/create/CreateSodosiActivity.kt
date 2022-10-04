@@ -24,6 +24,7 @@ import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.sodosi.SodosiActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 /**
  *  CreateSodosiActivity.kt
@@ -38,6 +39,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
 
     private lateinit var exitDialog: Dialog
     private var isSodosiPublic = true
+    private var emojiFirst = true
 
     override val viewModel: CreateSodosiViewModel by viewModels()
 
@@ -168,11 +170,14 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
     }
 
     private fun clickEmojiField() {
-        binding.etEmoji.text = null
+        binding.etEmoji.setText(randomEmojiList[Random.nextInt(randomEmojiList.size - 1)])
         binding.etEmoji.requestFocus()
         inputMethodManager.showSoftInput(binding.etEmoji, 0)
 
-        SodosiToast.makeText(this, "소도시 컨셉에 맞는 이모지를 골라주세요.", Toast.LENGTH_SHORT).show()
+        if (emojiFirst) {
+            SodosiToast.makeText(this, "소도시 컨셉에 맞는 이모지를 골라주세요.", Toast.LENGTH_SHORT).show()
+            emojiFirst = false
+        }
     }
 
     private fun checkButtonEnable() {
@@ -191,5 +196,23 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
         fun getIntent(context: Context): Intent {
             return Intent(context, CreateSodosiActivity::class.java)
         }
+
+        private val randomEmojiList = listOf(
+            "\uD83D\uDE00", "\uD83D\uDE03", "\uD83D\uDE01", "\uD83D\uDE05", "\uD83E\uDD23",
+            "\uD83D\uDE02", "\uD83D\uDE43", "\uD83D\uDE07", "\uD83E\uDD70", "\uD83E\uDD11",
+            "\uD83E\uDD2B", "\uD83D\uDE36", "\uD83E\uDD24", "\uD83E\uDD74", "\uD83D\uDE0E",
+            "\uD83D\uDE31", "\uD83D\uDE21", "\uD83D\uDE08", "\uD83D\uDC7B", "\uD83D\uDC7D",
+            "\uD83D\uDC8B", "\uD83D\uDD90️", "\uD83E\uDD1F", "\uD83D\uDC85", "\uD83D\uDCAA",
+            "\uD83E\uDDB6", "\uD83D\uDC42", "\uD83E\uDDE0", "\uD83E\uDDB7", "\uD83D\uDC40",
+            "\uD83D\uDC76", "\uD83D\uDC81\u200D♀️", "\uD83E\uDD26\u200D♂️", "\uD83E\uDDDA",
+            "\uD83C\uDFC3", "\uD83D\uDC36", "\uD83E\uDD8A", "\uD83D\uDC35", "\uD83E\uDD81",
+            "\uD83D\uDC2F", "\uD83E\uDD84", "\uD83D\uDC37", "\uD83D\uDC39", "\uD83D\uDC30",
+            "\uD83D\uDC3C", "\uD83D\uDC3E", "\uD83D\uDC25", "\uD83E\uDDA2", "\uD83D\uDC33",
+            "\uD83D\uDC20", "\uD83D\uDC1A", "\uD83D\uDC19", "\uD83E\uDEB4", "\uD83E\uDD40",
+            "\uD83C\uDF3B", "\uD83C\uDF3F", "\uD83C\uDF42", "\uD83C\uDF0D", "\uD83C\uDF1C",
+            "\uD83C\uDF08", "\uD83C\uDF0A", "\uD83C\uDFD6️", "\uD83C\uDF0B", "\uD83C\uDFD4️",
+            "\uD83C\uDFD8️", "\uD83C\uDFE8", "\uD83D\uDEB2", "\uD83D\uDEA7", "\uD83D\uDC9D",
+            "\uD83D\uDC94", "\uD83D\uDEC0", "\uD83D\uDECC", "\uD83C\uDF80", "\uD83D\uDD2E",
+        )
     }
 }
