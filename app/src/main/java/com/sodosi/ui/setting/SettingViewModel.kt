@@ -1,6 +1,8 @@
 package com.sodosi.ui.setting
 
 import androidx.lifecycle.viewModelScope
+import com.sodosi.domain.Result
+import com.sodosi.domain.usecase.user.DeleteUserUseCase
 import com.sodosi.domain.usecase.user.GetPhoneNumberUseCase
 import com.sodosi.domain.usecase.user.LogoutUseCase
 import com.sodosi.ui.common.base.BaseViewModel
@@ -22,10 +24,14 @@ import javax.inject.Inject
 class SettingViewModel @Inject constructor(
     private val getPhoneNumberUseCase: GetPhoneNumberUseCase,
     private val logoutUseCase: LogoutUseCase,
-) : BaseViewModel() {
+    private val deleteUserUseCase: DeleteUserUseCase,
+    ) : BaseViewModel() {
 
     private val _phoneNumber: MutableEventFlow<String> = MutableEventFlow()
     val phoneNumber: EventFlow<String> = _phoneNumber.asEventFlow()
+
+    private val _deleteUserEvent: MutableEventFlow<Boolean> = MutableEventFlow()
+    val deleteUserEvent = _deleteUserEvent.asEventFlow()
 
     init {
         getPhoneNumber()
@@ -40,6 +46,15 @@ class SettingViewModel @Inject constructor(
     fun logout() {
         viewModelScope.launch {
             logoutUseCase()
+        }
+    }
+
+    fun deleteUser() {
+        viewModelScope.launch {
+            when(deleteUserUseCase()) {
+                is Result.Success -> _deleteUserEvent.emit(true)
+                is Result.Error -> _deleteUserEvent.emit(false)
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.sodosi.ui.common.base
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -73,6 +74,15 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
     fun changeStatusBarColorWhite() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         WindowInsetsControllerCompat(window, binding.root).isAppearanceLightStatusBars = true
+    }
+
+    fun clearAndMoveToOnboarding() {
+        val intent = Intent(this, OnboardingActivity::class.java)
+        finishAffinity()
+        startActivity(intent)
+    }
+
+    fun clearAndMoveToMain() {
 
     }
 }

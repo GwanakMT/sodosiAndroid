@@ -31,6 +31,9 @@ interface SodosiApi {
     @POST("/api/v1/users/login")
     suspend fun signIn(@Body signInRequest: UserSignInRequest): BaseResponse<UserSignInResponse>
 
+    @POST("/api/v1/users/unregister")
+    suspend fun unregister(): BaseResponseWithNull<Unit>
+
     // 소도시 생성
     @POST("/api/v1/sodosis")
     suspend fun createSodosi(@Body createSodosiRequest: CreateSodosiRequest): BaseResponse<CreateSodosiResponse>
@@ -63,6 +66,7 @@ interface SodosiApi {
     @GET("/api/v1/users/has-sodosi")
     suspend fun hasSodosi(): BaseResponse<HasSodosiResponse>
 
+    // 마이페이지 정보 조회
     @GET("/api/v1/users")
     suspend fun getMyPageInfo(): BaseResponse<UserMyPageInfoResponse>
 }

@@ -38,4 +38,6 @@ interface UserRepository {
 
     // 마이페이지 정보 조회
     suspend fun getMyPageInfo(): Result<User>
+
+    suspend fun unregisterUser(): Result<Unit>
 }

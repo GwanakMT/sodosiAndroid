@@ -26,6 +26,18 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
                 setData(it)
             }
         }
+
+        repeatOnStarted {
+            viewModel.deleteUserEvent.collect { isSuccess ->
+                progress.dismiss()
+                if (isSuccess) {
+                    SodosiToast.makeText(this@SettingActivity, "탈퇴 성공", Toast.LENGTH_SHORT).show()
+                    clearAndMoveToOnboarding()
+                } else {
+                    SodosiToast.makeText(this@SettingActivity, "탈퇴 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     override fun initViews() = with(binding) {
@@ -112,7 +124,8 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
     }
 
     private fun deleteUser() {
-        SodosiToast.makeText(this, "탈퇴하기", Toast.LENGTH_SHORT).show()
+        progress.show()
+        viewModel.deleteUser()
     }
 }
 

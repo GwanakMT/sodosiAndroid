@@ -1,7 +1,6 @@
 package com.sodosi.ui.mypage
 
 import androidx.lifecycle.viewModelScope
-import com.sodosi.databinding.ToastSodosiBinding
 import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.User
@@ -14,7 +13,6 @@ import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
-import com.sodosi.ui.common.customview.SodosiToast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow

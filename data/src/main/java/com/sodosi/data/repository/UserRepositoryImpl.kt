@@ -107,4 +107,17 @@ class UserRepositoryImpl @Inject constructor(
             Result.Error(e)
         }
     }
+
+    override suspend fun unregisterUser(): Result<Unit> {
+        return try {
+            val result = sodosiApi.unregister()
+            if (result.code == 200) {
+                Result.Success(Unit)
+            } else {
+                Result.Error(Exception(result.message))
+            }
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 }
