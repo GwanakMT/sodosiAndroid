@@ -144,7 +144,8 @@ class SodosiRepositoryImpl @Inject constructor(
                 userCount = 0,
                 icon = "camera",
                 momentImage = null,
-                isMarked = false
+                isMarked = false,
+                isMine = false,
             ),
             Sodosi(
                 id = 1,
@@ -153,7 +154,8 @@ class SodosiRepositoryImpl @Inject constructor(
                 userCount = 0,
                 icon = "dog",
                 momentImage = null,
-                isMarked = false
+                isMarked = false,
+                isMine = false,
             ),
             Sodosi(
                 id = 2,
@@ -162,7 +164,8 @@ class SodosiRepositoryImpl @Inject constructor(
                 userCount = 0,
                 icon = "cafe",
                 momentImage = null,
-                isMarked = false
+                isMarked = false,
+                isMine = false,
             ),
             Sodosi(
                 id = 3,
@@ -171,7 +174,8 @@ class SodosiRepositoryImpl @Inject constructor(
                 userCount = 0,
                 icon = "danger",
                 momentImage = null,
-                isMarked = false
+                isMarked = false,
+                isMine = false,
             ),
         )
     }

@@ -20,7 +20,8 @@ class SodosiMapper @Inject constructor() {
             userCount = spec.userCount,
             icon = spec.icon,
             momentImage = spec.momentImage,
-            isMarked = spec.marked
+            isMarked = spec.marked,
+            isMine = spec.isMine,
         )
     }
 }

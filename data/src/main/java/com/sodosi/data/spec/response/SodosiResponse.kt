@@ -18,4 +18,5 @@ data class SodosiResponse(
     val icon: String,               // 아이콘(이모지)
     val momentImage: String?,       // 대표 이미지
     val marked: Boolean,            // 북마크 여부
+    val isMine: Boolean = false,    // 본인의 소도시인지 여부
 )

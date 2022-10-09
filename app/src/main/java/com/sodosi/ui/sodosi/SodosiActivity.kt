@@ -27,10 +27,11 @@ import com.sodosi.R
 import com.sodosi.databinding.ActivitySodosiBinding
 import com.sodosi.databinding.LayoutSodosiMenuDialogBinding
 import com.sodosi.databinding.LayoutSodosiReportDialogBinding
+import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.resize
-import com.sodosi.ui.create.CreateSodosiActivity
+import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.post.SearchPlaceActivity
 import com.sodosi.ui.sodosi.bottomsheet.MomentBottomSheetFragment
 import com.sodosi.ui.sodosi.bottomsheet.PlaceBottomSheetFragment
@@ -52,6 +53,8 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private lateinit var placeBottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var momentBottomSheetBehavior: BottomSheetBehavior<View>
 
+    private var sodosiInfo: SodosiModel? = null
+
     override fun getViewBinding() = ActivitySodosiBinding.inflate(layoutInflater)
 
     override val viewModel: SodosiViewModel by viewModels()
@@ -65,10 +68,12 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         checkIsFirstSodosi()
 
         changeStatusBarColorWhite()
-        binding.tvMapTitle.text = intent.getStringExtra(EXTRA_MAP_NAME)
+        sodosiInfo = intent.getParcelableExtra(EXTRA_SODOSI) as? SodosiModel
+
+        binding.tvMapTitle.text = sodosiInfo?.name
         binding.tvMomentCount.text = getString(
             R.string.sodosi_moment_count,
-            intent.getIntExtra(EXTRA_MOMENT_COUNT, 0).toString()
+            sodosiInfo?.momentCount
         )
 
         // 1) LocationManager 세팅하기
@@ -82,7 +87,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         initMenuDialog()
         initReportDialog()
 
-        setResult(RESULT_OK) // TODO 임시
+        setResult(RESULT_OK)
     }
 
     override fun observeData() {
@@ -227,13 +232,29 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
             val binding = LayoutSodosiMenuDialogBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
+            if (sodosiInfo?.isMine == true) {
+                binding.tvBookmark.setGone()
+                binding.dividerBookmarkSodosi.setGone()
+
+                binding.tvReport.setGone()
+                binding.dividerShare.setGone()
+            } else {
+                binding.tvEditSodosi.setGone()
+                binding.dividerEditSodosi.setGone()
+            }
+
             with(binding) {
+                tvEditSodosi.setOnClickListener {
+
+                }
+
                 tvBookmark.setOnClickListener {
 
                 }
 
                 tvShare.setOnClickListener {
-
+                    // TODO
+                    SodosiToast.makeText(this@SodosiActivity, "준비중인 기능입니다.", Toast.LENGTH_SHORT).show()
                 }
 
                 tvReport.setOnClickListener {
@@ -310,16 +331,12 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     companion object {
         const val MAP_API_KEY = BuildConfig.TMAP_API_KEY
 
-        private const val EXTRA_MAP_ID = "EXTRA_MAP_ID"
-        private const val EXTRA_MAP_NAME = "EXTRA_MAP_NAME"
-        private const val EXTRA_MOMENT_COUNT = "EXTRA_MOMENT_COUNT"
+        private const val EXTRA_SODOSI = "EXTRA_SODOSI"
         private const val EXTRA_HAS_SODOSI = "EXTRA_HAS_SODOSI"
 
-        fun getIntent(context: Context, id: Long, name: String, momentCount: Int, hasSodosi: Boolean = true): Intent {
+        fun getIntent(context: Context, sodosi: SodosiModel, hasSodosi: Boolean = true): Intent {
             return Intent(context, SodosiActivity::class.java).apply {
-                putExtra(EXTRA_MAP_ID, id)
-                putExtra(EXTRA_MAP_NAME, name)
-                putExtra(EXTRA_MOMENT_COUNT, momentCount)
+                putExtra(EXTRA_SODOSI, sodosi)
                 putExtra(EXTRA_HAS_SODOSI, hasSodosi)
             }
         }

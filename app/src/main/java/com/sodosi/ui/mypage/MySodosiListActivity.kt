@@ -70,7 +70,7 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
             adapter = sodosiListAdapter.apply {
                 itemViewType = SodosiListAdapter.ViewType.VERTICAL
                 onItemClick = { sodosi ->
-                    startActivity(SodosiActivity.getIntent(this@MySodosiListActivity, sodosi.id, sodosi.name, sodosi.momentCount))
+                    startActivity(SodosiActivity.getIntent(this@MySodosiListActivity, sodosi))
                 }
             }
         }

@@ -16,34 +16,50 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvEditSodosi"
+            style="@style/Typography.HeadLines.Regular"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="@string/sodosi_menu_edit" />
+
+        <View
+            android:id="@+id/dividerEditSodosi"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray6" />
+
+        <TextView
             android:id="@+id/tvBookmark"
-            style="@style/Typography.HeadLines"
+            style="@style/Typography.HeadLines.Regular"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:gravity="center"
             android:text="@string/sodosi_menu_bookmark" />
 
         <View
+            android:id="@+id/dividerBookmarkSodosi"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray6" />
 
         <TextView
             android:id="@+id/tvShare"
-            style="@style/Typography.HeadLines"
+            style="@style/Typography.HeadLines.Regular"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:gravity="center"
             android:text="@string/sodosi_menu_share" />
 
         <View
+            android:id="@+id/dividerShare"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray6" />
 
         <TextView
             android:id="@+id/tvReport"
-            style="@style/Typography.HeadLines"
+            style="@style/Typography.HeadLines.Regular"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:gravity="center"
@@ -53,7 +69,7 @@
 
     <TextView
         android:id="@+id/tvClose"
-        style="@style/Typography.HeadLines"
+        style="@style/Typography.HeadLines.Regular"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginBottom="20dp"
@@ -61,7 +77,6 @@
         android:backgroundTint="@color/white"
         android:gravity="center"
         android:text="@string/close"
-        android:textColor="#75777B"
-        android:textSize="18dp" />
+        android:textColor="#0F0F10" />
 
 </LinearLayout>

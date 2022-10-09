@@ -18,6 +18,7 @@ import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityCreateBinding
 import com.sodosi.domain.Result
+import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.EmojiFilter
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
@@ -186,7 +187,18 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
     }
 
     private fun moveToSodosiScreen(id: Long) {
-        val intent = SodosiActivity.getIntent(this, id, name = binding.etSodosiName.text.toString(), 0, viewModel.hasSodosi)
+        val sodosiModel = SodosiModel(
+            id = id,
+            name = binding.etSodosiName.text.toString(),
+            momentCount = 0,
+            userCount = 0,
+            icon = "",
+            momentImage = null,
+            isMarked = false,
+            isMine = true
+        )
+
+        val intent = SodosiActivity.getIntent(this, sodosiModel, viewModel.hasSodosi)
 
         startActivity(intent)
         setResult(RESULT_OK)

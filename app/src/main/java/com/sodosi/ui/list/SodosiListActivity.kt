@@ -134,13 +134,7 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
     }
 
     private fun moveToSodosi(sodosi: SodosiModel) {
-        val intent = SodosiActivity.getIntent(
-            context = this,
-            id = sodosi.id,
-            name = sodosi.name,
-            momentCount = sodosi.momentCount
-        )
-
+        val intent = SodosiActivity.getIntent(this, sodosi)
         startActivity(intent)
     }
 

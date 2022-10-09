@@ -86,6 +86,7 @@
     <string name="report">신고하기</string>
     <string name="close">닫기</string>
 
+    <string name="sodosi_menu_edit">수정하기</string>
     <string name="sodosi_menu_bookmark">관심 소도시에 추가</string>
     <string name="sodosi_menu_share">공유하기</string>
 

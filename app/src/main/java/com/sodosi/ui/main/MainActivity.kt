@@ -337,7 +337,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun moveToSodosi(sodosi: SodosiModel) {
-        activityResultLauncher.launch(SodosiActivity.getIntent(this, sodosi.id, sodosi.name, sodosi.momentCount))
+        activityResultLauncher.launch(SodosiActivity.getIntent(this, sodosi))
     }
 
     private fun toggleBookmark(sodosi: SodosiModel) {
