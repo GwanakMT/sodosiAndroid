@@ -189,6 +189,7 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
         val intent = SodosiActivity.getIntent(this, id, name = binding.etSodosiName.text.toString(), 0, viewModel.hasSodosi)
 
         startActivity(intent)
+        setResult(RESULT_OK)
         finish()
     }
 

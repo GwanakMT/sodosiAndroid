@@ -146,6 +146,7 @@ class SodosiListActivity : BaseActivity<SodosiListViewModel, ActivitySodosiListB
 
     private fun onBookmarkClick(sodosi: SodosiModel) {
         viewModel.patchMarkSodosi(sodosi.id, sodosi.isMarked)
+        setResult(RESULT_OK)
     }
 
     companion object {

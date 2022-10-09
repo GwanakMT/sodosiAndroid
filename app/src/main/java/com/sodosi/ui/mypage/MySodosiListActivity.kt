@@ -3,6 +3,7 @@ package com.sodosi.ui.mypage
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.sodosi.R
@@ -14,6 +15,7 @@ import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.create.CreateSodosiActivity
+import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.main.SodosiListAdapter
 import com.sodosi.ui.sodosi.SodosiActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +28,14 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
 
     override val viewModel: MypageViewModel by viewModels()
     private val sodosiListAdapter by lazy { SodosiListAdapter() }
+
+    private val createSodosiLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        viewModel.getCreatedSodosiList()
+    }
+
+    private val bookmarkSodosiLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        viewModel.getMarkedSodosiList()
+    }
 
     override fun observeData() {
         repeatOnStarted {
@@ -71,7 +81,8 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
         viewModel.getCreatedSodosiList()
         binding.movePageText.text = getString(R.string.mypage_move_to_create)
         binding.movePageButton.setOnClickListener {
-            startActivity(CreateSodosiActivity.getIntent(this))
+            createSodosiLauncher.launch(CreateSodosiActivity.getIntent(this))
+            setResult(RESULT_OK)
         }
     }
 
@@ -86,7 +97,8 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
         viewModel.getMarkedSodosiList()
         binding.movePageText.text = getString(R.string.mypage_add_marked_sodosi)
         binding.movePageButton.setOnClickListener {
-
+            bookmarkSodosiLauncher.launch(SodosiListActivity.getIntent(this))
+            setResult(RESULT_OK)
         }
     }
 

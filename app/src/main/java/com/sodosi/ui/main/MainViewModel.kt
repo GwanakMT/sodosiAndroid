@@ -53,7 +53,7 @@ class MainViewModel @Inject constructor(
         getMainSodosiList()
     }
 
-    private fun getMainSodosiList() {
+    fun getMainSodosiList() {
         viewModelScope.launch {
             when(val result = getMainSodosiListUseCase()) {
                 is Result.Success -> {

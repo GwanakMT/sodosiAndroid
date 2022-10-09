@@ -25,6 +25,12 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
         }
     }
 
+    private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            viewModel.getUserBaseProfile()
+        }
+    }
+
     override fun getViewBinding() = ActivityMypageBinding.inflate(layoutInflater)
 
     override fun observeData() {
@@ -74,15 +80,17 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
         }
 
         binding.tvCreatedSodosiCount.setOnClickListener {
-            startActivity(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.CREATED))
+            activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.CREATED))
+            setResult(RESULT_OK)
         }
 
         binding.tvCommentedSodosiCount.setOnClickListener {
-            startActivity(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.COMMENTED))
+            activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.COMMENTED))
         }
 
         binding.tvBookmarkCount.setOnClickListener {
-            startActivity(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.MARKED))
+            activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.MARKED))
+            setResult(RESULT_OK)
         }
     }
 

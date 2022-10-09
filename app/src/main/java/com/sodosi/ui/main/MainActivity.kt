@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
@@ -50,6 +51,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private val markedSodosiAdapter by lazy { SodosiListAdapter() }
     private val hotSodosiAdapter by lazy { SodosiListAdapter() }
     private val newSodosiAdapter by lazy { SodosiListAdapter() }
+
+    private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            viewModel.getMainSodosiList()
+        }
+    }
 
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
@@ -227,15 +234,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         // 뷰 클릭 이벤트 설정
         with(binding) {
             ivSodosiList.setOnClickListener {
-                startActivity(SodosiListActivity.getIntent(this@MainActivity))
+                activityResultLauncher.launch(SodosiListActivity.getIntent(this@MainActivity))
             }
 
             ivMypage.setOnClickListener {
-                startActivity(MypageActivity.getIntent(this@MainActivity))
+                activityResultLauncher.launch(MypageActivity.getIntent(this@MainActivity))
             }
 
             ivCreateSodosi.setOnClickListener {
-                startActivity(CreateSodosiActivity.getIntent(this@MainActivity))
+                activityResultLauncher.launch(CreateSodosiActivity.getIntent(this@MainActivity))
             }
 
             tvEditMarkedSodosi.setOnClickListener {
@@ -247,7 +254,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         with(binding.suggestLayout) {
             btnCreateSodosi.setOnClickListener {
                 viewModel.setSuggestBannerHide()
-                startActivity(CreateSodosiActivity.getIntent(this@MainActivity))
+                activityResultLauncher.launch(CreateSodosiActivity.getIntent(this@MainActivity))
             }
 
             btnCancel.setOnClickListener {
@@ -330,7 +337,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun moveToSodosi(sodosi: SodosiModel) {
-        startActivity(SodosiActivity.getIntent(this, sodosi.id, sodosi.name, sodosi.momentCount))
+        activityResultLauncher.launch(SodosiActivity.getIntent(this, sodosi.id, sodosi.name, sodosi.momentCount))
     }
 
     private fun toggleBookmark(sodosi: SodosiModel) {

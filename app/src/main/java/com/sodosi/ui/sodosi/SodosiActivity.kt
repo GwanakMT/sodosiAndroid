@@ -81,6 +81,8 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         setOnClickListener()
         initMenuDialog()
         initReportDialog()
+
+        setResult(RESULT_OK) // TODO 임시
     }
 
     override fun observeData() {
