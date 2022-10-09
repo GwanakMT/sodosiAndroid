@@ -14,27 +14,26 @@
     <string name="onboarding_input_phone_number">휴대폰 번호를 입력해주세요</string>
     <string name="onboarding_phone_number_kr_code">+82</string>
     <string name="onboarding_phone_number_hint">01012345678</string>
-    <string name="onboarding_phone_number_guide">소도시는 정확한 정보를 위해 휴대폰 번호로 가입합니다.\n번호는 어디에도 공개되지 않습니다.</string>
-    <string name="onboarding_phone_warning">휴대폰 번호를 형식에 맞게 입력해주세요.</string>
+    <string name="onboarding_phone_number_guide">안전한 소도시 커뮤니티를 위해 휴대폰 번호로 가입해요</string>
+    <string name="onboarding_phone_warning">올바른 휴대폰번호 양식이 아니에요!</string>
 
-    <string name="onboarding_input_sms_code">인증번호를 입력해주세요</string>
-    <string name="onboarding_sms_code_hint">인증번호 6글자</string>
+    <string name="onboarding_input_sms_code">인증번호를 입력하세요</string>
     <string name="onboarding_sms_code_resend"><u>재전송</u></string>
-    <string name="onboarding_timer_warning">인증번호 입력시간을 초과하였습니다.</string>
-    <string name="onboarding_sms_code_warning">인증번호가 일치하지 않습니다.</string>
+    <string name="onboarding_timer_warning">인증번호 입력시간을 초과하였어요.</string>
+    <string name="onboarding_sms_code_warning">인증번호가 일치하지 않아요.</string>
 
     <string name="onboarding_input_password">비밀번호를 입력해주세요</string>
     <string name="onboarding_forgot_password">비밀번호를 모르겠어요</string>
-    <string name="onboarding_password_hint">8자리 이상 입력해주세요!</string>
+    <string name="onboarding_password_hint">8자리 이상 입력해주세요</string>
     <string name="onboarding_repassword_hint">한 번 더 입력해주세요!</string>
-    <string name="onboarding_password_warning">비밀번호가 일치하지 않습니다.</string>
+    <string name="onboarding_password_warning">비밀번호가 일치하지 않아요.</string>
 
-    <string name="onboarding_input_nickname">시민님의 닉네임을 알려주세요!</string>
-    <string name="onboarding_nickname_hint">호랑이는 가죽을 남기고</string>
+    <string name="onboarding_input_nickname">시민님을 뭐라고 부를까요?</string>
+    <string name="onboarding_nickname_hint">호랑이는 가죽을 남기고...</string>
 
     <string name="onboarding_terms_allow_all_terms">약관 모두 동의</string>
 
-    <string name="onboarding_welcome">%s님의\n입주를 환영합니다!</string>
+    <string name="onboarding_welcome">%s님의\n입주를 환영합니다 👋</string>
 
     // Home
     <string name="join_sodosi_list_title">내가 참여 중인 소도시 🔨</string>

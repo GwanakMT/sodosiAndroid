@@ -15,6 +15,7 @@ import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.navigate
+import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.onboarding.OnboardingType
 import com.sodosi.ui.onboarding.OnboardingViewModel
 import com.sodosi.ui.onboarding.certification.FirebaseAuthManager
@@ -130,6 +131,10 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
 
         binding.etPhoneNumber.addTextChangedListener {
             binding.btnNext.isEnabled = "$it".length == 11
+        }
+
+        if (arguments?.get("onboarding_type") == OnboardingType.LOGIN) {
+            binding.tvPhoneNumberGuide.setGone()
         }
     }
 }
