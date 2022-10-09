@@ -43,4 +43,5 @@ interface UserRepository {
 
     suspend fun checkCurrentPassword(password: String): Result<Boolean>
     suspend fun changePassword(password: String): Result<Boolean>
+    suspend fun changeNickName(nickName: String): Result<Boolean>
 }

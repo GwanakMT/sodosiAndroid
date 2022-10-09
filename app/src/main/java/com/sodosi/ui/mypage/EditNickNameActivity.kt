@@ -10,15 +10,28 @@ import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityEditNickNameBinding
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditNickNameActivity : BaseActivity<MypageViewModel, ActivityEditNickNameBinding>() {
     override val viewModel: MypageViewModel by viewModels()
 
     override fun getViewBinding() = ActivityEditNickNameBinding.inflate(layoutInflater)
 
     override fun observeData() {
-
+        repeatOnStarted {
+            viewModel.nickNameChanged.collect { isChanged ->
+                if (isChanged) {
+                    SodosiToast.makeText(this@EditNickNameActivity, "닉네임 변경 완료!", Toast.LENGTH_SHORT).show()
+                    setResult(RESULT_OK)
+                    finish()
+                } else {
+                    SodosiToast.makeText(this@EditNickNameActivity, "닉네임 변경에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     override fun initViews() {
@@ -45,9 +58,9 @@ class EditNickNameActivity : BaseActivity<MypageViewModel, ActivityEditNickNameB
         }
 
         binding.btnFinish.setOnClickListener {
-            if (binding.etNickname.text.isNotEmpty()) {
-                SodosiToast.makeText(this, "닉네임 변경이 완료되었어요.", Toast.LENGTH_SHORT).show()
-                finish()
+            val newNickName = binding.etNickname.text.toString()
+            if (newNickName.isNotEmpty()) {
+                viewModel.changeNickName(newNickName)
             }
         }
 

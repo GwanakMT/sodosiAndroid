@@ -1,18 +1,20 @@
 package com.sodosi.ui.mypage
 
 import androidx.lifecycle.viewModelScope
-import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.User
 import com.sodosi.domain.usecase.sodosi.GetCreatedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.GetMarkedSodosiListUseCase
+import com.sodosi.domain.usecase.user.ChangeNickNameUseCase
 import com.sodosi.domain.usecase.user.GetLastVisitedTimeUseCase
 import com.sodosi.domain.usecase.user.GetUserInfoUseCase
 import com.sodosi.model.SodosiModel
+import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
+import com.sodosi.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -34,6 +36,7 @@ class MypageViewModel @Inject constructor(
     private val getLastVisitedTimeUseCase: GetLastVisitedTimeUseCase,
     private val getCreatedSodosiListUseCase: GetCreatedSodosiListUseCase,
     private val getMarkedSodosiListUseCase: GetMarkedSodosiListUseCase,
+    private val changeNickNameUseCase: ChangeNickNameUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
 
@@ -43,11 +46,14 @@ class MypageViewModel @Inject constructor(
     private val _sodosiList = MutableEventFlow<Result<List<SodosiModel>>>()
     val sodosiList: EventFlow<Result<List<SodosiModel>>> = _sodosiList.asEventFlow()
 
+    private val _nickNameChanged = MutableEventFlow<Boolean>()
+    val nickNameChanged = _nickNameChanged.asEventFlow()
+
     init {
         getUserBaseProfile()
     }
 
-    private fun getUserBaseProfile() {
+    fun getUserBaseProfile() {
         viewModelScope.launch {
             try {
                 val result = getUserInfoUseCase()
@@ -87,6 +93,20 @@ class MypageViewModel @Inject constructor(
 
                 is Result.Error -> {
                     _sodosiList.emit(Result.Error(result.exception))
+                }
+            }
+        }
+    }
+
+    fun changeNickName(nickName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when(val result = changeNickNameUseCase(nickName)) {
+                is Result.Success -> {
+                    _nickNameChanged.emit(result.data)
+                }
+                is Result.Error -> {
+                    LogUtil.e("${result.exception}")
+                    _nickNameChanged.emit(false)
                 }
             }
         }

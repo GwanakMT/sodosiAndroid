@@ -3,6 +3,7 @@ package com.sodosi.ui.mypage
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMypageBinding
@@ -17,6 +18,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
     override val viewModel: MypageViewModel by viewModels()
+
+    private val changeNickNameLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            viewModel.getUserBaseProfile()
+        }
+    }
 
     override fun getViewBinding() = ActivityMypageBinding.inflate(layoutInflater)
 
@@ -63,7 +70,7 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
 
     private fun setOnClickListener() {
         binding.tvProfileNickname.setOnClickListener {
-            startActivity(EditNickNameActivity.getIntent(this, binding.tvProfileNickname.text.toString()))
+            changeNickNameLauncher.launch(EditNickNameActivity.getIntent(this, binding.tvProfileNickname.text.toString()))
         }
 
         binding.tvCreatedSodosiCount.setOnClickListener {

@@ -143,4 +143,17 @@ class UserRepositoryImpl @Inject constructor(
             Result.Error(e)
         }
     }
+
+    override suspend fun changeNickName(nickName: String): Result<Boolean> {
+        return try {
+            val result = sodosiApi.changeNickName(nickName)
+            if (result.code == 200) {
+                Result.Success(true)
+            } else {
+                Result.Success(false)
+            }
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 }

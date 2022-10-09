@@ -78,4 +78,8 @@ interface SodosiApi {
     // 비밀번호 변경
     @PUT("/api/v1/users/password")
     suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest): BaseResponse<UserSignInResponse>
+
+    // 닉네임 변경
+    @PUT("/api/v1/users/nickname")
+    suspend fun changeNickName(@Query("nickname") nickName: String): BaseResponse<UserSignInResponse>
 }
