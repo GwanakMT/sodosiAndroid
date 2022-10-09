@@ -6,6 +6,7 @@ import com.sodosi.domain.entity.User
 import com.sodosi.domain.usecase.sodosi.GetCreatedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.GetMarkedSodosiListUseCase
 import com.sodosi.domain.usecase.user.ChangeNickNameUseCase
+import com.sodosi.domain.usecase.sodosi.GetCommentedSodosiListUseCase
 import com.sodosi.domain.usecase.user.GetLastVisitedTimeUseCase
 import com.sodosi.domain.usecase.user.GetUserInfoUseCase
 import com.sodosi.model.SodosiModel
@@ -35,6 +36,7 @@ class MypageViewModel @Inject constructor(
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val getLastVisitedTimeUseCase: GetLastVisitedTimeUseCase,
     private val getCreatedSodosiListUseCase: GetCreatedSodosiListUseCase,
+    private val getCommentedSodosiListUseCase: GetCommentedSodosiListUseCase,
     private val getMarkedSodosiListUseCase: GetMarkedSodosiListUseCase,
     private val changeNickNameUseCase: ChangeNickNameUseCase,
     private val sodosiMapper: SodosiMapper,
@@ -72,6 +74,20 @@ class MypageViewModel @Inject constructor(
     fun getCreatedSodosiList() {
         viewModelScope.launch(Dispatchers.IO) {
             when(val result = getCreatedSodosiListUseCase()) {
+                is Result.Success -> {
+                    val list = result.data.map { sodosiMapper.mapToModel(it) }
+                    _sodosiList.emit(Result.Success(list))
+                }
+                is Result.Error -> {
+                    _sodosiList.emit(Result.Error(result.exception))
+                }
+            }
+        }
+    }
+
+    fun getCommentedSodosiList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when(val result = getCommentedSodosiListUseCase()) {
                 is Result.Success -> {
                     val list = result.data.map { sodosiMapper.mapToModel(it) }
                     _sodosiList.emit(Result.Success(list))

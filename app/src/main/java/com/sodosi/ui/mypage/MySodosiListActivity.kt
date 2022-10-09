@@ -77,6 +77,7 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
 
     private fun initCommentedSodosiList(appbarTitle: String) {
         initAppbar(appbarTitle)
+        viewModel.getCommentedSodosiList()
         binding.movePageButton.setGone()
     }
 

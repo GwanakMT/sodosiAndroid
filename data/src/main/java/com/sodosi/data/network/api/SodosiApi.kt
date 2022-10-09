@@ -55,6 +55,10 @@ interface SodosiApi {
     @GET("/api/v1/users/bookmarks")
     suspend fun getMarkedSodosiList(): BaseResponse<List<SodosiResponse>>
 
+    // 내가 참여한 소도시
+    @GET("/api/v1/sodosis/PARTICIPATE/type")
+    suspend fun getCommentedSodosiList(): BaseResponse<List<SodosiResponse>>
+
     // 관심 소도시 등록
     @POST("/api/v1/sodosis/{id}/bookmark")
     suspend fun markSodosi(@Path("id") id: Long): BaseResponse<SodosiResponse>
