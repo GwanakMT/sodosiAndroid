@@ -102,12 +102,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
+                    android:visibility="gone"
                     android:background="@color/gray6" />
 
                 <LinearLayout
                     android:id="@+id/settingNotification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:padding="20dp">
 
