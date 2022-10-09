@@ -1,11 +1,19 @@
 package com.sodosi.ui.sodosi
 
 import androidx.lifecycle.viewModelScope
+import com.sodosi.domain.Result
+import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
 import com.sodosi.ui.common.base.BaseViewModel
+import com.sodosi.ui.common.base.EventFlow
+import com.sodosi.ui.common.base.MutableEventFlow
+import com.sodosi.ui.common.base.asEventFlow
 import com.sodosi.ui.sodosi.model.PlaceModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  *  SodosiViewModel.kt
@@ -14,12 +22,18 @@ import kotlinx.coroutines.launch
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class SodosiViewModel: BaseViewModel() {
+@HiltViewModel
+class SodosiViewModel @Inject constructor(
+    private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
+): BaseViewModel() {
     private val _placeList: MutableStateFlow<List<PlaceModel>> = MutableStateFlow(listOf())
     val placeList: StateFlow<List<PlaceModel>> = _placeList
 
     private val _momentList: MutableStateFlow<List<PlaceModel>> = MutableStateFlow(listOf())
     val momentList: StateFlow<List<PlaceModel>> = _momentList
+
+    private val _bookmarkEvent = MutableEventFlow<Boolean>()
+    val bookmarkEvent: EventFlow<Boolean> = _bookmarkEvent.asEventFlow()
 
     fun getPlaceList() {
         viewModelScope.launch {
@@ -104,6 +118,20 @@ class SodosiViewModel: BaseViewModel() {
                     latitude = 0.0
                 ),
             )
+        }
+    }
+
+    fun patchSodosi(id: Long, isMarkedCurrent: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (patchMarkSodosiUseCase(id, isMarkedCurrent)) {
+                is Result.Success -> {
+                    _bookmarkEvent.emit(true)
+                }
+
+                is Result.Error -> {
+                    _bookmarkEvent.emit(false)
+                }
+            }
         }
     }
 

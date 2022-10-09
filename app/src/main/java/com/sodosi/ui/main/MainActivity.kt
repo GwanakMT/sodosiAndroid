@@ -134,7 +134,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                             hotSodosiAdapter.submitList(viewModel.hotSodosiList)
                             newSodosiAdapter.submitList(viewModel.newSodosiList)
                         } else {
-                            SodosiToast.makeText(this@MainActivity, "관심 소도시 등록/해제 실패...", Toast.LENGTH_SHORT).show()
+                            SodosiToast.makeText(this@MainActivity, "록", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

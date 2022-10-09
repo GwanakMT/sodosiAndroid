@@ -16,9 +16,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skt.Tmap.TMapMarkerItem
 import com.skt.Tmap.TMapView
@@ -29,6 +26,7 @@ import com.sodosi.databinding.LayoutSodosiMenuDialogBinding
 import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.resize
 import com.sodosi.ui.common.extensions.setGone
@@ -36,8 +34,10 @@ import com.sodosi.ui.post.SearchPlaceActivity
 import com.sodosi.ui.sodosi.bottomsheet.MomentBottomSheetFragment
 import com.sodosi.ui.sodosi.bottomsheet.PlaceBottomSheetFragment
 import com.sodosi.ui.sodosi.model.PlaceModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private val mapView: TMapView by lazy { TMapView(this) }
     private lateinit var menuDialog: Dialog
@@ -84,23 +84,39 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         initPlaceBottomSheetBehavior()
         initMomentBottomSheetBehavior()
         setOnClickListener()
-        initMenuDialog()
         initReportDialog()
 
         setResult(RESULT_OK)
     }
 
     override fun observeData() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.placeList.collect {
-                    it.forEach { place ->
-                        mapView.addMarkerItem(place.id + place.placeName, TMapMarkerItem().apply {
-                            longitude = place.longitude
-                            latitude = place.latitude
-                            icon = defaultMarker
-                        })
+        repeatOnStarted {
+            viewModel.placeList.collect {
+                it.forEach { place ->
+                    mapView.addMarkerItem(place.id + place.placeName, TMapMarkerItem().apply {
+                        longitude = place.longitude
+                        latitude = place.latitude
+                        icon = defaultMarker
+                    })
+                }
+            }
+        }
+
+        repeatOnStarted {
+            viewModel.bookmarkEvent.collect {
+                if (it) {
+                    sodosiInfo?.let {
+                        val currentBookmarkState = it.isMarked
+                        sodosiInfo = it.copy(isMarked = !currentBookmarkState)
+
+                        if (currentBookmarkState) {
+                            SodosiToast.makeText(this@SodosiActivity, "관심 소도시에서 삭제했습니다.", Toast.LENGTH_SHORT).show()
+                        } else {
+                            SodosiToast.makeText(this@SodosiActivity, "관심 소도시에 등록했습니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
+                } else {
+                    SodosiToast.makeText(this@SodosiActivity, "관심 소도시 등록/해제 실패...", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -206,7 +222,10 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.placeBottomSheetContainer.setOnClickListener { }
         binding.momentBottomSheetContainer.setOnClickListener { }
         binding.btnBack.setOnClickListener { onBackPressed() }
-        binding.btnMenu.setOnClickListener { menuDialog.show() }
+        binding.btnMenu.setOnClickListener {
+            initMenuDialog()
+            menuDialog.show()
+        }
         binding.gpsEllipse.setOnClickListener { moveFocusToCenterPoint(true) }
     }
 
@@ -232,6 +251,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
             val binding = LayoutSodosiMenuDialogBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
+            // initView
             if (sodosiInfo?.isMine == true) {
                 binding.tvBookmark.setGone()
                 binding.dividerBookmarkSodosi.setGone()
@@ -243,13 +263,21 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
                 binding.dividerEditSodosi.setGone()
             }
 
+            if (sodosiInfo?.isMarked == true) {
+                binding.tvBookmark.text = getString(R.string.sodosi_menu_bookmark_cancel)
+                dismiss()
+            }
+
             with(binding) {
                 tvEditSodosi.setOnClickListener {
 
                 }
 
                 tvBookmark.setOnClickListener {
-
+                    sodosiInfo?.let { sodosi ->
+                        viewModel.patchSodosi(sodosi.id, sodosi.isMarked)
+                    }
+                    menuDialog.dismiss()
                 }
 
                 tvShare.setOnClickListener {

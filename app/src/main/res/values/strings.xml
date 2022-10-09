@@ -87,6 +87,7 @@
 
     <string name="sodosi_menu_edit">수정하기</string>
     <string name="sodosi_menu_bookmark">관심 소도시에 추가</string>
+    <string name="sodosi_menu_bookmark_cancel">관심 소도시 해제</string>
     <string name="sodosi_menu_share">공유하기</string>
 
     // Map - Create Moment
