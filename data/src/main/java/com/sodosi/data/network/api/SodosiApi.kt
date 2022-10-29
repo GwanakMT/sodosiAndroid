@@ -32,6 +32,11 @@ interface SodosiApi {
     @POST("/api/v1/users/login")
     suspend fun signIn(@Body signInRequest: UserSignInRequest): BaseResponse<UserSignInResponse>
 
+    // 로그인 without password
+    @POST("/api/v1/users/login/phone")
+    suspend fun signInWithoutPassword(@Body signInRequest: UserSignInRequest): BaseResponse<UserSignInResponse>
+
+    // 회원 탈퇴
     @POST("/api/v1/users/unregister")
     suspend fun unregister(): BaseResponseWithNull<Unit>
 

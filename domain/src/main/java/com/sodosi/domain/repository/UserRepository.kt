@@ -33,6 +33,11 @@ interface UserRepository {
         password: String,
     ): Result<Boolean>
 
+    // 로그인 without password
+    suspend fun signInWithoutPassword(
+        phoneNumber: String
+    ): Result<Boolean>
+
     // 소도시 생성 여부(has-sodosi)
     suspend fun hasSodosi(): Boolean
 

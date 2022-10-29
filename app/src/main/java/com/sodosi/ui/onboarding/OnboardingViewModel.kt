@@ -3,10 +3,7 @@ package com.sodosi.ui.onboarding
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Terms
-import com.sodosi.domain.usecase.user.CheckPhoneNumberUseCase
-import com.sodosi.domain.usecase.user.GetUserPrivacyPolicyContentsUseCase
-import com.sodosi.domain.usecase.user.SignInUseCase
-import com.sodosi.domain.usecase.user.SignUpUseCase
+import com.sodosi.domain.usecase.user.*
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
@@ -32,6 +29,7 @@ class OnboardingViewModel @Inject constructor(
     private val getUserPrivacyPolicyContentsUseCase: GetUserPrivacyPolicyContentsUseCase,
     private val signUpUseCase: SignUpUseCase,
     private val signInUseCase: SignInUseCase,
+    private val signInWithoutPasswordUseCase: SignInWithoutPasswordUseCase,
 ) : BaseViewModel() {
     private val _timer = MutableStateFlow(MINUTE_3)
     val timer: StateFlow<Int> = _timer
@@ -92,6 +90,15 @@ class OnboardingViewModel @Inject constructor(
     fun login(phoneNumber: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             when(signInUseCase(phoneNumber, password)) {
+                is Result.Success -> _isLoginSuccess.emit(true)
+                is Result.Error -> _isLoginSuccess.emit(false)
+            }
+        }
+    }
+
+    fun loginWithoutPassword(phoneNumber: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when(signInWithoutPasswordUseCase(phoneNumber)) {
                 is Result.Success -> _isLoginSuccess.emit(true)
                 is Result.Error -> _isLoginSuccess.emit(false)
             }

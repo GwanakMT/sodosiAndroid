@@ -91,6 +91,24 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun signInWithoutPassword(
+        phoneNumber: String,
+    ): Result<Boolean> {
+        val request = UserSignInRequest(
+            phone = phoneNumber,
+            password = ""
+        )
+
+        return try {
+            val result = sodosiApi.signInWithoutPassword(request)
+            setTokenUseCase(result.data.token)
+
+            Result.Success(true)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun hasSodosi(): Boolean {
         return try {
             val result = sodosiApi.hasSodosi()
