@@ -1,18 +1,21 @@
-package com.sodosi.domain.entity
+package com.sodosi.data.spec.response
+
+import kotlinx.serialization.Serializable
 
 /**
- *  Moment.kt
+ *  MomentResponse.kt
  *
- *  Created by Minji Jeong on 2022/03/07
+ *  Created by Minji Jeong on 2022/10/31
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-data class Moment(
+@Serializable
+data class MomentResponse(
     val id: Long,
     val contents: String,
+    val userName: String,
     val latitude: Double,
     val longitude: Double,
-    val userName: String,
     val jibunAddress: String,
     val roadAddress: String,
     val addressDetail: String,

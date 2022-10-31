@@ -1,8 +1,10 @@
 package com.sodosi.di
 
+import com.sodosi.data.repository.MomentRepositoryImpl
 import com.sodosi.data.repository.SodosiRepositoryImpl
 import com.sodosi.data.repository.UserRepositoryImpl
 import com.sodosi.data.repository.datastore.DataStoreRepositoryImpl
+import com.sodosi.domain.repository.MomentRepository
 import com.sodosi.domain.repository.SodosiRepository
 import com.sodosi.domain.repository.UserRepository
 import com.sodosi.domain.repository.datastore.DataStoreRepository
@@ -33,4 +35,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindSodosiRepository(impl: SodosiRepositoryImpl): SodosiRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindMomentRepository(impl: MomentRepositoryImpl): MomentRepository
 }

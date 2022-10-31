@@ -1,9 +1,6 @@
 package com.sodosi.data.network.api
 
-import com.sodosi.data.spec.request.ChangePasswordRequest
-import com.sodosi.data.spec.request.CreateSodosiRequest
-import com.sodosi.data.spec.request.UserSignInRequest
-import com.sodosi.data.spec.request.UserSignUpRequest
+import com.sodosi.data.spec.request.*
 import com.sodosi.data.spec.response.*
 import retrofit2.http.*
 
@@ -95,4 +92,8 @@ interface SodosiApi {
     // 닉네임 변경
     @PUT("/api/v1/users/nickname")
     suspend fun changeNickName(@Query("nickname") nickName: String): BaseResponse<UserSignInResponse>
+
+    // 순간 POST
+    @POST("/api/v1/sodosis/{id}/moments")
+    suspend fun postMoment(@Path("id") id: Long, @Body momentRequest: MomentRequest): BaseResponse<MomentResponse>
 }
