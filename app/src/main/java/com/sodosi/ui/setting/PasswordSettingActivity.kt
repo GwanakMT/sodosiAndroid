@@ -1,6 +1,8 @@
 package com.sodosi.ui.setting
 
+import android.content.Context
 import android.graphics.Color
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.sodosi.R
@@ -12,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PasswordSettingActivity : BaseActivity<SettingViewModel, ActivityPasswordSettingBinding>() {
+    private val inputMethodManager: InputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
     override val viewModel: SettingViewModel by viewModels()
 
     override fun getViewBinding() = ActivityPasswordSettingBinding.inflate(layoutInflater)
@@ -37,6 +40,11 @@ class PasswordSettingActivity : BaseActivity<SettingViewModel, ActivityPasswordS
         initAppbar()
         initView()
         setOnClickListener()
+
+        binding.etBeforePassword.setFocus()
+        inputMethodManager.showSoftInput(binding.etBeforePassword, 0)
+
+        return@with
     }
 
     private fun initAppbar() {
