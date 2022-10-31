@@ -83,7 +83,11 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
     }
 
     override fun onBackPressed() {
-        exitDialog.show()
+        if (binding.tvEmoji.text.isNotEmpty() || binding.etSodosiName.text.isNotEmpty()) {
+            exitDialog.show()
+        } else {
+            finish()
+        }
     }
 
     private fun initAppbar() {
