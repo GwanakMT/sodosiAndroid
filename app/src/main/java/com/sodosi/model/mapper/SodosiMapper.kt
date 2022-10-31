@@ -22,6 +22,7 @@ class SodosiMapper @Inject constructor() {
             momentImage = entity.momentImage,
             isMarked = entity.isMarked,
             isMine = entity.isMine,
+            viewStatus = entity.viewStatus,
         )
     }
 }

@@ -40,6 +40,22 @@ class SodosiRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun patchSodosi(id: Long, name: String, icon: String, viewState: Boolean): Result<Long> {
+        val request = CreateSodosiRequest(
+            name = name,
+            icon = icon,
+            viewStatus = viewState
+        )
+
+        return try {
+            val result = sodosiApi.patchSodosi(id, request)
+
+            Result.Success(result.data.id)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun getMainSodosiList(): Result<Pair<Boolean, Map<SodosiCategory, List<Sodosi>>>> {
         return try {
             val result = sodosiApi.getMainSodosiList()
@@ -146,6 +162,7 @@ class SodosiRepositoryImpl @Inject constructor(
                 momentImage = null,
                 isMarked = false,
                 isMine = false,
+                viewStatus = true,
             ),
             Sodosi(
                 id = 1,
@@ -156,6 +173,7 @@ class SodosiRepositoryImpl @Inject constructor(
                 momentImage = null,
                 isMarked = false,
                 isMine = false,
+                viewStatus = true,
             ),
             Sodosi(
                 id = 2,
@@ -166,6 +184,7 @@ class SodosiRepositoryImpl @Inject constructor(
                 momentImage = null,
                 isMarked = false,
                 isMine = false,
+                viewStatus = true,
             ),
             Sodosi(
                 id = 3,
@@ -176,6 +195,7 @@ class SodosiRepositoryImpl @Inject constructor(
                 momentImage = null,
                 isMarked = false,
                 isMine = false,
+                viewStatus = true,
             ),
         )
     }

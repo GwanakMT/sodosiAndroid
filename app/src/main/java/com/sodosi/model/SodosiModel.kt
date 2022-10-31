@@ -20,4 +20,5 @@ data class SodosiModel(
     val momentImage: String?,       // 대표 이미지
     val isMarked: Boolean,          // 북마크 여부
     val isMine: Boolean,            // 본인의 소도시인지 여부
+    val viewStatus: Boolean,        // 소도시 숨김 여부
 ): Parcelable

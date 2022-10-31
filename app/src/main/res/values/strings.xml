@@ -97,7 +97,7 @@
     <string name="sodosi_create_moment_finish">완료</string>
     <string name="sodosi_create_moment_hint">"%s"에 찰떡인 장소를 기록해주세요.</string>
 
-    // Create
+    // Create Sodosi
     <string name="create_title">새로운 소도시</string>
     <string name="create_sodosi_name_hint">ex. 선릉역 직장인들의 점심 맛집</string>
     <string name="create_sodosi_visibility">소도시 공개 여부</string>
@@ -106,6 +106,9 @@
     <string name="create_sodosi_public">공개</string>
     <string name="create_sodosi_public_message">다른 사람과 소도시를 공유할 수 있습니다.</string>
     <string name="create_sodosi">완료</string>
+
+    // Edit Sodosi
+    <string name="edit_title">소도시 수정</string>
 
     <string name="create_exit_title">만드실 도시...기대하고 있어요!</string>
     <string name="create_exit_message">중단 시 만들고 계신 소도시가 저장되지 않아요.\n정말 나가시겠어요?</string>

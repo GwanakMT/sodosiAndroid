@@ -21,7 +21,8 @@ class SodosiMapper @Inject constructor() {
             icon = spec.icon,
             momentImage = spec.momentImage,
             isMarked = spec.marked,
-            isMine = spec.isMine,
+            isMine = spec.mine,
+            viewStatus = spec.viewStatus,
         )
     }
 }

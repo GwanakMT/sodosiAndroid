@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skt.Tmap.TMapMarkerItem
@@ -30,12 +31,12 @@ import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.resize
 import com.sodosi.ui.common.extensions.setGone
+import com.sodosi.ui.create.EditSodosiActivity
 import com.sodosi.ui.post.SearchPlaceActivity
 import com.sodosi.ui.sodosi.bottomsheet.MomentBottomSheetFragment
 import com.sodosi.ui.sodosi.bottomsheet.PlaceBottomSheetFragment
 import com.sodosi.ui.sodosi.model.PlaceModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
@@ -62,6 +63,13 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
     private val locationManager: LocationManager by lazy { getSystemService(LOCATION_SERVICE) as LocationManager }
     private val locationListener = LocationListener { location ->
         mapView.setLocationPoint(location.longitude, location.latitude)
+    }
+
+    private val editSodosiLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            sodosiInfo = it.data?.getParcelableExtra(EditSodosiActivity.KEY_SODOSI_MODEL) as? SodosiModel
+            binding.tvMapTitle.text = sodosiInfo?.name
+        }
     }
 
     override fun initViews() = with(binding) {
@@ -270,7 +278,11 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
 
             with(binding) {
                 tvEditSodosi.setOnClickListener {
-
+                    sodosiInfo?.let {
+                        val intent = EditSodosiActivity.getIntent(this@SodosiActivity, it)
+                        editSodosiLauncher.launch(intent)
+                    }
+                    menuDialog.dismiss()
                 }
 
                 tvBookmark.setOnClickListener {

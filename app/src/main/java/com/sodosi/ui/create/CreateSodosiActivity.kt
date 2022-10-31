@@ -195,7 +195,8 @@ class CreateSodosiActivity : BaseActivity<CreateSodosiViewModel, ActivityCreateB
             icon = "",
             momentImage = null,
             isMarked = false,
-            isMine = true
+            isMine = true,
+            viewStatus = true,
         )
 
         val intent = SodosiActivity.getIntent(this, sodosiModel, viewModel.hasSodosi)

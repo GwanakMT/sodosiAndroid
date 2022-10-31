@@ -13,6 +13,7 @@ import com.sodosi.domain.entity.SodosiCategory
 
 interface SodosiRepository {
     suspend fun createSodosi(name: String, icon: String, viewState: Boolean): Result<Long>
+    suspend fun patchSodosi(id: Long, name: String, icon: String, viewState: Boolean): Result<Long>
 
     suspend fun getMainSodosiList(): Result<Pair<Boolean, Map<SodosiCategory, List<Sodosi>>>>
     suspend fun getAllSodosiList(sortBy: String): Result<List<Sodosi>>

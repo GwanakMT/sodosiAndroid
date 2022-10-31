@@ -44,6 +44,10 @@ interface SodosiApi {
     @POST("/api/v1/sodosis")
     suspend fun createSodosi(@Body createSodosiRequest: CreateSodosiRequest): BaseResponse<CreateSodosiResponse>
 
+    // 소도시 수정
+    @PATCH("/api/v1/sodosis/{id}")
+    suspend fun patchSodosi(@Path("id") id: Long, @Body createSodosiRequest: CreateSodosiRequest): BaseResponse<CreateSodosiResponse>
+
     // 메인화면에 보여질 소도시 목록
     @GET("/api/v1/sodosis/main")
     suspend fun getMainSodosiList(): BaseResponse<MainSodosiListsResponse>

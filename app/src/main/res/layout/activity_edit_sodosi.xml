@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.sodosi.ui.common.customview.SodosiAppbar
+        android:id="@+id/appbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/emojiBackground"
+        android:layout_width="222dp"
+        android:layout_height="222dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/background_oval_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+    <ImageView
+        android:id="@+id/ivEmoji"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="32dp"
+        android:src="@drawable/create_sodosi_emoji_button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/emojiBackground"
+        app:layout_constraintEnd_toEndOf="@id/emojiBackground"
+        app:layout_constraintStart_toStartOf="@id/emojiBackground"
+        app:layout_constraintTop_toTopOf="@id/emojiBackground" />
+
+    <TextView
+        android:id="@+id/tvEmoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="70dp"
+        app:layout_constraintBottom_toBottomOf="@id/emojiBackground"
+        app:layout_constraintEnd_toEndOf="@id/emojiBackground"
+        app:layout_constraintStart_toStartOf="@id/emojiBackground"
+        app:layout_constraintTop_toTopOf="@id/emojiBackground" />
+
+    <EditText
+        android:id="@+id/etSodosiName"
+        style="@style/Typography.HeadLines.Callout.Bold"
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
+        android:hint="@string/create_sodosi_name_hint"
+        android:inputType="text"
+        android:maxLength="24"
+        android:textColorHint="#ADADAD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emojiBackground" />
+
+    <View
+        android:id="@+id/createSodosiDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/gray6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etSodosiName" />
+
+    <TextView
+        android:id="@+id/tvSodosiVisibility"
+        style="@style/Typography.HeadLines.SubHeadLine.Bold"
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/create_sodosi_visibility"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createSodosiDivider" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sodosiPublic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@id/tvSodosiVisibility"
+        app:layout_constraintStart_toStartOf="@id/tvSodosiVisibility"
+        app:layout_constraintTop_toBottomOf="@id/tvSodosiVisibility">
+
+        <ImageView
+            android:id="@+id/ivPublic"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:src="@drawable/ic_interface_checked_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPublic"
+            style="@style/Typography.Body.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_public"
+            app:layout_constraintStart_toEndOf="@id/ivPublic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPublicMessage"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_public_message"
+            android:textColor="#8A8A8E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPublic"
+            app:layout_constraintTop_toBottomOf="@id/tvPublic" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sodosiPrivate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="@id/tvSodosiVisibility"
+        app:layout_constraintStart_toStartOf="@id/sodosiPublic"
+        app:layout_constraintTop_toBottomOf="@id/sodosiPublic">
+
+        <ImageView
+            android:id="@+id/ivPrivate"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:src="@drawable/ic_interface_unchecked_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrivate"
+            style="@style/Typography.Body.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_private"
+            app:layout_constraintStart_toEndOf="@id/ivPrivate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrivateMessage"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/create_sodosi_private_message"
+            android:textColor="#8A8A8E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPrivate"
+            app:layout_constraintTop_toBottomOf="@id/tvPrivate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreateSodosi"
+        style="@style/SodosiButton"
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:enabled="false"
+        android:text="@string/create_sodosi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etEmoji"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
