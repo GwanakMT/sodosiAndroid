@@ -51,7 +51,7 @@
             android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{item.address}"
+            android:text="@{item.roadAddress}"
             android:textColor="#8A8A8E"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mapIcon"

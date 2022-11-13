@@ -12,8 +12,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class POIDataModel(
-    val placeName: String,  // 장소명
-    val address: String,    // 도로명 주소
-    val latitude: String,   // 위도
-    val longitude: String,  // 경도
+    val placeName: String,      // 장소명
+    val roadAddress: String,    // 도로명 주소
+    val jibunAddress: String,    // 지번 주소
+    val latitude: String,       // 위도
+    val longitude: String,      // 경도
 ): Parcelable

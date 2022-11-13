@@ -34,7 +34,7 @@ class MomentRepositoryImpl @Inject constructor(
             roadAddress = roadAddress,
             jibunAddress = jibunAddress,
             addressDetail = addressDetail,
-            content = contents,
+            contents = contents,
         )
 
         return try {

@@ -54,7 +54,7 @@ class SearchResultAdapter : ListAdapter<POIDataModel, SearchResultAdapter.ViewHo
     companion object {
         private val diffUtil = object : DiffUtil.ItemCallback<POIDataModel>() {
             override fun areItemsTheSame(oldItem: POIDataModel, newItem: POIDataModel): Boolean {
-                return oldItem.address == newItem.address
+                return oldItem.roadAddress == newItem.roadAddress
             }
 
             override fun areContentsTheSame(oldItem: POIDataModel, newItem: POIDataModel): Boolean {

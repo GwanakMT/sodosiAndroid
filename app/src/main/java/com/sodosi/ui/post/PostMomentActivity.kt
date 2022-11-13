@@ -11,11 +11,15 @@ import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivityPostMomentBinding
+import com.sodosi.domain.Result
 import com.sodosi.model.POIDataModel
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
+import com.sodosi.ui.sodosi.SodosiActivity
+import com.sodosi.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -64,7 +68,21 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
         }
 
     override fun observeData() {
+        repeatOnStarted {
+            viewModel.postMomentResult.collect {
+                when(it) {
+                    is Result.Success -> {
+                        val intent = Intent(this@PostMomentActivity, SodosiActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
+                        startActivity(intent)
+                    }
+                    is Result.Error -> {
+                        SodosiToast.makeText(this@PostMomentActivity, "${it.exception.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 
     override fun initViews() {
@@ -110,7 +128,20 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
 
     private fun setListener() {
         binding.btnSubmit.setOnClickListener {
-
+            val sodosiId = intent.getLongExtra(KEY_MOMENT_SODOSI_ID, -1L)
+            if (sodosiId != -1L) {
+                viewModel.postMoment(
+                    sodosiId = sodosiId,
+                    latitude = momentPlace?.latitude?.toDouble() ?: return@setOnClickListener,
+                    longitude = momentPlace?.longitude?.toDouble() ?: return@setOnClickListener,
+                    roadAddress = momentPlace?.roadAddress ?: "",
+                    jibunAddress = momentPlace?.jibunAddress ?: "",
+                    addressDetail = momentPlace?.placeName ?: "",
+                    contents = binding.etMoment.text.toString()
+                )
+            } else {
+                // TODO : 잘못된 접근입니다?
+            }
         }
 
         binding.ivPhoto.setOnClickListener {
@@ -143,10 +174,12 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
 
     companion object {
         private const val KEY_MOMENT_PLACE = "KEY_MOMENT_PLACE"
+        private const val KEY_MOMENT_SODOSI_ID = "KEY_MOMENT_SODOSI_ID"
 
-        fun getIntent(context: Context, momentPlace: POIDataModel): Intent {
+        fun getIntent(context: Context, momentPlace: POIDataModel, sodosiId: Long): Intent {
             return Intent(context, PostMomentActivity::class.java).apply {
                 putExtra(KEY_MOMENT_PLACE, momentPlace)
+                putExtra(KEY_MOMENT_SODOSI_ID, sodosiId)
             }
         }
     }

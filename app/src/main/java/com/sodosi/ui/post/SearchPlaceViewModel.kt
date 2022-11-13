@@ -40,7 +40,8 @@ class SearchPlaceViewModel : BaseViewModel() {
                     _poiList.value = data.map {
                         POIDataModel(
                             placeName = it.name ?: "",
-                            address = getRoadAddressName(it.noorLat, it.noorLon),
+                            roadAddress = getRoadAddressName(it.noorLat, it.noorLon),
+                            jibunAddress = getJibunAddressName(it.noorLat, it.noorLon),
                             latitude = it.noorLat ?: "",
                             longitude = it.noorLon ?: "",
                         )
@@ -53,6 +54,19 @@ class SearchPlaceViewModel : BaseViewModel() {
     }
 
     private fun getRoadAddressName(lat: String, lon: String): String {
+        return try {
+            val latitude = lat.toDouble()
+            val longitude = lon.toDouble()
+
+            val reverseGeo = tMapData.reverseGeocoding(latitude, longitude, "A10")
+
+            reverseGeo?.strFullAddress?.split(",")?.last() ?: ""
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    private fun getJibunAddressName(lat: String, lon: String): String {
         return try {
             val latitude = lat.toDouble()
             val longitude = lon.toDouble()

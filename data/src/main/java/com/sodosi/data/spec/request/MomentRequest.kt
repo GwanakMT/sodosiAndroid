@@ -16,5 +16,5 @@ data class MomentRequest(
     val roadAddress: String,        // 도로명 주소
     val jibunAddress: String,       // 지번 주소
     val addressDetail: String,      // 주소 디테일
-    val content: String,            // 글
+    val contents: String,            // 글
 )

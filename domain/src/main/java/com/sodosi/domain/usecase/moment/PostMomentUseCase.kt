@@ -23,13 +23,13 @@ class PostMomentUseCase @Inject constructor(private val momentRepository: Moment
         contents: String
     ): Result<Moment> {
         return momentRepository.postMoment(
-            sodosiId,
-            latitude,
-            longitude,
-            roadAddress,
-            jibunAddress,
-            addressDetail,
-            contents
+            sodosiId = sodosiId,
+            latitude = latitude,
+            longitude = longitude,
+            roadAddress = roadAddress,
+            jibunAddress = jibunAddress,
+            addressDetail = addressDetail,
+            contents = contents
         )
     }
 }
