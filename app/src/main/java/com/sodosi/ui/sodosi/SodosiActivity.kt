@@ -158,7 +158,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         val locationPoint = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         locationPoint?.let {
             mapView.setLocationPoint(it.longitude, it.latitude)
-            mapView.setCenterPoint(it.longitude, it.latitude, false)
+            moveFocusToCenterPoint(false)
         }
 
         // 지도에 표시할 마커 목록 가져오기
