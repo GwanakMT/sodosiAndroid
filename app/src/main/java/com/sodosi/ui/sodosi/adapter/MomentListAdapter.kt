@@ -10,7 +10,7 @@ import com.sodosi.ui.common.extensions.dp
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setImageWithUrl
 import com.sodosi.ui.common.extensions.setVisible
-import com.sodosi.ui.sodosi.model.PlaceModel
+import com.sodosi.ui.sodosi.model.MomentModel
 
 /**
  *  MomentListAdapter.kt
@@ -19,8 +19,8 @@ import com.sodosi.ui.sodosi.model.PlaceModel
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
-class MomentListAdapter : ListAdapter<PlaceModel, MomentListAdapter.MomentViewHolder>(diffUtil) {
-    var onItemClick: ((selectedItem: PlaceModel) -> Unit)? = null
+class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewHolder>(diffUtil) {
+    var onItemClick: ((selectedItem: MomentModel) -> Unit)? = null
     var onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MomentViewHolder {
@@ -43,7 +43,7 @@ class MomentListAdapter : ListAdapter<PlaceModel, MomentListAdapter.MomentViewHo
 
     class MomentViewHolder(
         private val binding: ItemSodosiPlaceBinding,
-        onItemClick: ((selectedItem: PlaceModel) -> Unit)?,
+        onItemClick: ((selectedItem: MomentModel) -> Unit)?,
         onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)?,
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -67,7 +67,7 @@ class MomentListAdapter : ListAdapter<PlaceModel, MomentListAdapter.MomentViewHo
             }
         }
 
-        fun bind(item: PlaceModel) {
+        fun bind(item: MomentModel) {
             binding.item = item
             val photoBindingList = listOf(binding.ivPhoto1, binding.ivPhoto2, binding.ivPhoto3)
             val padding = 4.dp
@@ -101,12 +101,12 @@ class MomentListAdapter : ListAdapter<PlaceModel, MomentListAdapter.MomentViewHo
     }
 
     companion object {
-        private val diffUtil = object : DiffUtil.ItemCallback<PlaceModel>() {
-            override fun areItemsTheSame(oldItem: PlaceModel, newItem: PlaceModel): Boolean {
+        private val diffUtil = object : DiffUtil.ItemCallback<MomentModel>() {
+            override fun areItemsTheSame(oldItem: MomentModel, newItem: MomentModel): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: PlaceModel, newItem: PlaceModel): Boolean {
+            override fun areContentsTheSame(oldItem: MomentModel, newItem: MomentModel): Boolean {
                 return oldItem.id == newItem.id
             }
         }

@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sodosi.databinding.ItemSodosiPlaceBinding
+import com.sodosi.model.PlaceModel
 import com.sodosi.ui.common.extensions.dp
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setImageWithUrl
 import com.sodosi.ui.common.extensions.setVisible
-import com.sodosi.ui.sodosi.model.PlaceModel
+import com.sodosi.ui.sodosi.model.MomentModel
 
 /**
  *  PlaceListAdapter.kt
@@ -20,7 +21,7 @@ import com.sodosi.ui.sodosi.model.PlaceModel
  */
 
 class PlaceListAdapter : ListAdapter<PlaceModel, PlaceListAdapter.PlaceViewHolder>(diffUtil) {
-    var onItemClick: ((selectedItem: PlaceModel) -> Unit)? = null
+    var onItemClick: ((selectedItem: MomentModel) -> Unit)? = null
     var onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
@@ -43,7 +44,7 @@ class PlaceListAdapter : ListAdapter<PlaceModel, PlaceListAdapter.PlaceViewHolde
 
     class PlaceViewHolder(
         private val binding: ItemSodosiPlaceBinding,
-        onItemClick: ((selectedItem: PlaceModel) -> Unit)?,
+        onItemClick: ((selectedItem: MomentModel) -> Unit)?,
         onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)?,
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -68,10 +69,16 @@ class PlaceListAdapter : ListAdapter<PlaceModel, PlaceListAdapter.PlaceViewHolde
         }
 
         fun bind(item: PlaceModel) {
-            binding.item = item
+            val moment = item.momentList[0]
+
+            binding.item = moment
             val photoBindingList = listOf(binding.ivPhoto1, binding.ivPhoto2, binding.ivPhoto3)
             val padding = 4.dp
-            when (item.photo.size) {
+            when (moment.photo.size) {
+                0 -> {
+                    binding.photoLayout.setGone()
+                }
+
                 1 -> {
                     binding.secondLayout.setGone()
                     binding.thirdLayout.setGone()
@@ -88,11 +95,11 @@ class PlaceListAdapter : ListAdapter<PlaceModel, PlaceListAdapter.PlaceViewHolde
                 }
                 else -> {
                     binding.tvPhotoLayer.setVisible()
-                    binding.tvPhotoLayer.text = "+${item.photo.size - 3}"
+                    binding.tvPhotoLayer.text = "+${moment.photo.size - 3}"
                 }
             }
 
-            item.photo.forEachIndexed { index, url ->
+            moment.photo.forEachIndexed { index, url ->
                 if (index < 3) {
                     photoBindingList[index].setImageWithUrl(url)
                 }
@@ -107,7 +114,7 @@ class PlaceListAdapter : ListAdapter<PlaceModel, PlaceListAdapter.PlaceViewHolde
             }
 
             override fun areContentsTheSame(oldItem: PlaceModel, newItem: PlaceModel): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.addressDetail == newItem.addressDetail
             }
         }
     }

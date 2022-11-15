@@ -3,14 +3,12 @@ package com.sodosi.ui.sodosi.bottomsheet
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.sodosi.databinding.FragmentMomentBottomSheetBinding
 import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.sodosi.SodosiViewModel
 import com.sodosi.ui.sodosi.adapter.MomentListAdapter
-import com.sodosi.ui.sodosi.model.PlaceModel
-import kotlinx.coroutines.launch
+import com.sodosi.ui.sodosi.model.MomentModel
 
 /**
  *  MomentBottomSheetFragment.kt
@@ -33,22 +31,13 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
     }
 
     override fun observeData() {
-        lifecycleScope.launchWhenStarted {
-            launch {
-                viewModel.momentList.collect {
-                    if (it.isNotEmpty()) {
-                        binding.tvMomentCount.text = "${it.size}개의 순간"
-                        momentAdapter.submitList(it)
-                    }
-                }
-            }
-        }
+
     }
 
-    fun setPlaceData(model: PlaceModel) {
-        viewModel.getMomentList(model.placeName)
-        binding.tvPlaceName.text = model.placeName
-        binding.tvPlaceAddress.text = model.placeAddress
+    fun setPlaceData(model: MomentModel) {
+        viewModel.getPlaceList(model.id)
+        binding.tvPlaceName.text = model.addressDetail
+        binding.tvPlaceAddress.text = model.roadAddress
     }
 
     private fun setOnClickListener() {

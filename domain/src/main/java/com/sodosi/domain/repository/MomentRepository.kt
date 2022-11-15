@@ -2,6 +2,7 @@ package com.sodosi.domain.repository
 
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Moment
+import com.sodosi.domain.entity.Place
 
 /**
  *  MomentRepository.kt
@@ -20,4 +21,8 @@ interface MomentRepository {
         addressDetail: String,
         contents: String
     ): Result<Moment>
+
+    suspend fun getPlaceListBySodosi(
+        sodosiId: Long,
+    ): Result<List<Place>>
 }

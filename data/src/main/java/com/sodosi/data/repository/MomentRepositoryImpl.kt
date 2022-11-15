@@ -5,6 +5,7 @@ import com.sodosi.data.network.api.SodosiApi
 import com.sodosi.data.spec.request.MomentRequest
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Moment
+import com.sodosi.domain.entity.Place
 import com.sodosi.domain.repository.MomentRepository
 import javax.inject.Inject
 
@@ -40,6 +41,15 @@ class MomentRepositoryImpl @Inject constructor(
         return try {
             val result = sodosiApi.postMoment(sodosiId, request)
             Result.Success(momentMapper.mapToEntity(result.data))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getPlaceListBySodosi(sodosiId: Long): Result<List<Place>> {
+        return try {
+            val result = sodosiApi.getPlaceListBySodosi(sodosiId)
+            Result.Success(result.data.map { momentMapper.mapToEntity(it) })
         } catch (e: Exception) {
             Result.Error(e)
         }

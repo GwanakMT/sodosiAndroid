@@ -9,22 +9,22 @@
 
         <import type="kotlin.Unit" />
 
-        <import type="com.sodosi.ui.sodosi.model.PlaceModel" />
+        <import type="com.sodosi.ui.sodosi.model.MomentModel" />
 
         <variable
             name="item"
-            type="PlaceModel" />
+            type="MomentModel" />
 
         <variable
             name="onItemClick"
-            type="Function1&lt;PlaceModel, Unit>" />
+            type="Function1&lt;MomentModel, Unit>" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
-        android:onClick="@{()->onItemClick.invoke(item)}">
+        android:onClick="onItemClick.invoke(item)}">
 
         <TextView
             android:id="@+id/tvPlaceName"
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="center_vertical"
-            android:text="@{item.placeName}"
+            android:text="@{item.addressDetail}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,10 +42,12 @@
             android:id="@+id/ivUserProfile"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/background_rounded_gray_4dp"
+            android:padding="2dp"
+            android:src="@drawable/ic_user_gray"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlaceName"
-            tools:src="@color/gray6" />
+            app:layout_constraintTop_toBottomOf="@id/tvPlaceName" />
 
         <TextView
             android:id="@+id/tvUserName"
@@ -63,6 +65,7 @@
             style="@style/Typography.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{item.timeInfo}"
             android:layout_marginStart="6dp"
             android:textColor="#ADADAD"
             app:layout_constraintBottom_toBottomOf="@id/tvUserName"
@@ -79,13 +82,14 @@
             android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{item.comment}"
+            android:text="@{item.contents}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivUserProfile"
             app:layout_constraintTop_toBottomOf="@id/tvUserName"
             tools:text="청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기..." />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/photoLayout"
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_marginStart="10dp"

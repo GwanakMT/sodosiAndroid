@@ -96,4 +96,8 @@ interface SodosiApi {
     // 순간 POST
     @POST("/api/v1/sodosis/{id}/moments")
     suspend fun postMoment(@Path("id") id: Long, @Body momentRequest: MomentRequest): BaseResponse<MomentResponse>
+
+    // 순간 GET (장소기준)
+    @GET("/api/v1/sodosis/{sodosiId}/moments")
+    suspend fun getPlaceListBySodosi(@Path("sodosiId") id: Long): BaseResponse<List<PlaceResponse>>
 }

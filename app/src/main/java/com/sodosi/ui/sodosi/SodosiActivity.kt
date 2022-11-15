@@ -35,7 +35,7 @@ import com.sodosi.ui.create.EditSodosiActivity
 import com.sodosi.ui.post.SearchPlaceActivity
 import com.sodosi.ui.sodosi.bottomsheet.MomentBottomSheetFragment
 import com.sodosi.ui.sodosi.bottomsheet.PlaceBottomSheetFragment
-import com.sodosi.ui.sodosi.model.PlaceModel
+import com.sodosi.ui.sodosi.model.MomentModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -101,11 +101,14 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         repeatOnStarted {
             viewModel.placeList.collect {
                 it.forEach { place ->
-                    mapView.addMarkerItem(place.id + place.placeName, TMapMarkerItem().apply {
-                        longitude = place.longitude
-                        latitude = place.latitude
-                        icon = defaultMarker
-                    })
+                    if (place.momentList.isNotEmpty()) {
+                        val tempPlace = place.momentList[0]
+                        mapView.addMarkerItem(tempPlace.id.toString() + place.addressDetail, TMapMarkerItem().apply {
+                            longitude = tempPlace.longitude
+                            latitude = tempPlace.latitude
+                            icon = defaultMarker
+                        })
+                    }
                 }
             }
         }
@@ -162,7 +165,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         }
 
         // 지도에 표시할 마커 목록 가져오기
-        viewModel.getPlaceList()
+        viewModel.getPlaceList(sodosiInfo?.id ?: return)
     }
 
     private fun initLocationManager() {
@@ -237,7 +240,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
         binding.gpsEllipse.setOnClickListener { moveFocusToCenterPoint(true) }
     }
 
-    fun showMomentBottomSheet(model: PlaceModel) {
+    fun showMomentBottomSheet(model: MomentModel) {
         placeBottomSheetBehavior.isHideable = true
         placeBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         momentBottomSheetBehavior.isHideable = false

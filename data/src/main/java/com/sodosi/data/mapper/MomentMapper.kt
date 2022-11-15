@@ -1,7 +1,9 @@
 package com.sodosi.data.mapper
 
 import com.sodosi.data.spec.response.MomentResponse
+import com.sodosi.data.spec.response.PlaceResponse
 import com.sodosi.domain.entity.Moment
+import com.sodosi.domain.entity.Place
 import javax.inject.Inject
 
 /**
@@ -27,6 +29,13 @@ class MomentMapper @Inject constructor() {
             updatedDateTime = spec.updatedDateTime,
             momentImagesSet = spec.momentImagesSet,
             timeInfo = spec.timeInfo
+        )
+    }
+
+    fun mapToEntity(spec: PlaceResponse): Place {
+        return Place(
+            addressDetail = spec.addressDetail,
+            momentsList = spec.momentsList.map { mapToEntity(it) }
         )
     }
 }

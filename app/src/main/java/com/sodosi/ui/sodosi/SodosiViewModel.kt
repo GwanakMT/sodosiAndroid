@@ -2,12 +2,14 @@ package com.sodosi.ui.sodosi
 
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
+import com.sodosi.domain.usecase.moment.GetPlaceListBySodosi
 import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
+import com.sodosi.model.PlaceModel
+import com.sodosi.model.mapper.PlaceMapper
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
-import com.sodosi.ui.sodosi.model.PlaceModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,99 +27,25 @@ import javax.inject.Inject
 @HiltViewModel
 class SodosiViewModel @Inject constructor(
     private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
+    private val getPlaceListBySodosi: GetPlaceListBySodosi,
+    private val placeMapper: PlaceMapper,
 ): BaseViewModel() {
     private val _placeList: MutableStateFlow<List<PlaceModel>> = MutableStateFlow(listOf())
     val placeList: StateFlow<List<PlaceModel>> = _placeList
 
-    private val _momentList: MutableStateFlow<List<PlaceModel>> = MutableStateFlow(listOf())
-    val momentList: StateFlow<List<PlaceModel>> = _momentList
-
     private val _bookmarkEvent = MutableEventFlow<Boolean>()
     val bookmarkEvent: EventFlow<Boolean> = _bookmarkEvent.asEventFlow()
 
-    fun getPlaceList() {
+    fun getPlaceList(sodosiId: Long) {
         viewModelScope.launch {
-            _placeList.value = listOf(
-                PlaceModel(
-                    id = "",
-                    placeName = "송계옥 성수점",
-                    placeAddress = "서울특별시 성동구 성수2가3동 아차산로11길 11",
-                    userName = "민짱",
-                    userProfile = "",
-                    dateTime = "",
-                    comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl),
-                    longitude = 127.05948648,
-                    latitude = 37.54484706
-                ),
-                PlaceModel(
-                    id = "",
-                    placeName = "에르제",
-                    placeAddress = "서울특별시 성동구 아차산로 135",
-                    userName = "Jay Park",
-                    userProfile = "",
-                    dateTime = "",
-                    comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl, imageUrl),
-                    longitude = 127.05904210,
-                    latitude = 37.54387494
-                ),
-                PlaceModel(
-                    id = "",
-                    placeName = "성수옥상",
-                    placeAddress = "서울특별시 성동구 성수동2가",
-                    userName = "메롱",
-                    userProfile = "",
-                    dateTime = "",
-                    comment = "여기 진짜 맛있음 ㅋㅋ",
-                    photo = listOf(imageUrl, imageUrl, imageUrl, imageUrl),
-                    longitude = 127.06104200,
-                    latitude = 37.54123640
-                ),
-            )
-        }
-    }
-
-    fun getMomentList(place: String) {
-        viewModelScope.launch {
-            _momentList.value = listOf(
-                PlaceModel(
-                    id = "",
-                    placeName = "중구구립도서관",
-                    placeAddress = "서울특별시 성동구 독서당로 187",
-                    userName = "중구도서관",
-                    userProfile = "",
-                    dateTime = "",
-                    comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl, imageUrl),
-                    longitude = 0.0,
-                    latitude = 0.0
-                ),
-                PlaceModel(
-                    id = "",
-                    placeName = "중구구립도서관",
-                    placeAddress = "서울특별시 성동구 독서당로 187",
-                    userName = "Jay Park",
-                    userProfile = "",
-                    dateTime = "",
-                    comment = "청춘 무한한 속에서 천하를 인간에 피가 따뜻한 청춘의 열락의 운다. 인생에 가는 피고, 생명을 노려버리기...",
-                    photo = listOf(imageUrl),
-                    longitude = 0.0,
-                    latitude = 0.0
-                ),
-                PlaceModel(
-                    id = "",
-                    placeName = "중구구립도서관",
-                    placeAddress = "서울특별시 성동구 독서당로 187",
-                    userName = "메롱",
-                    userProfile = "",
-                    dateTime = "",
-                    comment = "여기 진짜 맛있음 ㅋㅋ",
-                    photo = listOf(imageUrl, imageUrl, imageUrl, imageUrl),
-                    longitude = 0.0,
-                    latitude = 0.0
-                ),
-            )
+            when (val result = getPlaceListBySodosi(sodosiId)) {
+                is Result.Success -> {
+                    _placeList.emit(result.data.map { placeMapper.mapToModel(it) })
+                }
+                is Result.Error -> {
+                    _placeList.emit(listOf())
+                }
+            }
         }
     }
 
