@@ -35,7 +35,7 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
     }
 
     fun setPlaceData(model: MomentModel) {
-        viewModel.getPlaceList(model.id)
+        viewModel.getMomentList(model.addressDetail)
         binding.tvPlaceName.text = model.addressDetail
         binding.tvPlaceAddress.text = model.roadAddress
     }

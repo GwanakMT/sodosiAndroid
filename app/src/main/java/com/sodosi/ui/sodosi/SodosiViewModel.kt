@@ -10,6 +10,7 @@ import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
+import com.sodosi.ui.sodosi.model.MomentModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,6 +48,10 @@ class SodosiViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun getMomentList(addressDetail: String): List<MomentModel>? {
+        return placeList.value.find { it.addressDetail == addressDetail }?.momentList
     }
 
     fun patchSodosi(id: Long, isMarkedCurrent: Boolean) {
