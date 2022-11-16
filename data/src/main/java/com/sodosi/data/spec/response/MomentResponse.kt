@@ -22,6 +22,6 @@ data class MomentResponse(
     val commentCount: String,
     val createdDateTime: String,
     val updatedDateTime: String,
-    val momentImagesSet: List<String>,
+    val momentImagesSet: List<ImageResponse>,
     val timeInfo: String,
 )

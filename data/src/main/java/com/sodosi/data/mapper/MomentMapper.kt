@@ -27,7 +27,7 @@ class MomentMapper @Inject constructor() {
             commentCount = spec.commentCount,
             createdDateTime = spec.createdDateTime,
             updatedDateTime = spec.updatedDateTime,
-            momentImagesSet = spec.momentImagesSet,
+            momentImagesSet = spec.momentImagesSet.map { it.images },
             timeInfo = spec.timeInfo
         )
     }
