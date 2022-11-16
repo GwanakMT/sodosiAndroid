@@ -72,6 +72,10 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
             val photoBindingList = listOf(binding.ivPhoto1, binding.ivPhoto2, binding.ivPhoto3)
             val padding = 4.dp
             when (item.photo.size) {
+                0 -> {
+                    binding.photoLayout.setGone()
+                }
+
                 1 -> {
                     binding.secondLayout.setGone()
                     binding.thirdLayout.setGone()
@@ -87,6 +91,9 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
                     binding.thirdLayout.setPadding(0, padding, 0, 0)
                 }
                 else -> {
+                    binding.secondLayout.setPadding(padding, 0, 0, 0)
+                    binding.thirdLayout.setPadding(0, padding, 0, 0)
+
                     binding.tvPhotoLayer.setVisible()
                     binding.tvPhotoLayer.text = "+${item.photo.size - 3}"
                 }

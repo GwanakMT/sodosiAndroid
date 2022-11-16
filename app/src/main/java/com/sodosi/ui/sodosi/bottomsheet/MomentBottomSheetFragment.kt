@@ -3,6 +3,7 @@ package com.sodosi.ui.sodosi.bottomsheet
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
+import com.sodosi.R
 import com.sodosi.databinding.FragmentMomentBottomSheetBinding
 import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseFragment
@@ -35,9 +36,13 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
     }
 
     fun setPlaceData(model: MomentModel) {
-        viewModel.getMomentList(model.addressDetail)
-        binding.tvPlaceName.text = model.addressDetail
-        binding.tvPlaceAddress.text = model.roadAddress
+        val momentList = viewModel.getMomentList(model.addressDetail)
+        if (!momentList.isNullOrEmpty()) {
+            binding.tvPlaceName.text = model.addressDetail
+            binding.tvPlaceAddress.text = model.roadAddress
+            binding.tvMomentCount.text = getString(R.string.sodosi_moment_count, momentList.size)
+            momentAdapter.submitList(momentList)
+        }
     }
 
     private fun setOnClickListener() {

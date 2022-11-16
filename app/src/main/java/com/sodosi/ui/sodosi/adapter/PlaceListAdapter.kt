@@ -94,6 +94,9 @@ class PlaceListAdapter : ListAdapter<PlaceModel, PlaceListAdapter.PlaceViewHolde
                     binding.thirdLayout.setPadding(0, padding, 0, 0)
                 }
                 else -> {
+                    binding.secondLayout.setPadding(padding, 0, 0, 0)
+                    binding.thirdLayout.setPadding(0, padding, 0, 0)
+
                     binding.tvPhotoLayer.setVisible()
                     binding.tvPhotoLayer.text = "+${moment.photo.size - 3}"
                 }
