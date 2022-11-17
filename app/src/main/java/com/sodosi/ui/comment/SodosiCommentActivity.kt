@@ -1,11 +1,12 @@
 package com.sodosi.ui.comment
 
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.sodosi.R
@@ -14,10 +15,15 @@ import com.sodosi.databinding.LayoutSodosiCommentMenuDialogBinding
 import com.sodosi.databinding.LayoutSodosiReportDialogBinding
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.common.extensions.dp
+import com.sodosi.ui.common.extensions.setGone
+import com.sodosi.ui.common.extensions.setVisible
+import com.sodosi.ui.sodosi.model.MomentModel
 
 class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodosiCommentBinding>() {
     private lateinit var menuDialog: Dialog
     private lateinit var reportDialog: Dialog
+    private lateinit var momentInfo: MomentModel
 
     override val viewModel: SodosiCommentViewModel by viewModels()
 
@@ -28,9 +34,14 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
     }
 
     override fun initViews() = with(binding) {
+        momentInfo = intent.getParcelableExtra<MomentModel>(KEY_MOMENT) as MomentModel
+
         initAppbar()
         initMenuDialog()
         initReportDialog()
+        initMomentLayout()
+
+        return@with
     }
 
     private fun initAppbar() {
@@ -87,6 +98,53 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
                 setGravity(Gravity.BOTTOM)
                 setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 attributes.windowAnimations = R.style.BottomDialogAnimation
+            }
+        }
+    }
+
+    private fun initMomentLayout() {
+        val padding = 4.dp
+        binding.momentLayout.apply {
+            item = momentInfo
+            tvPlaceName.setGone()
+            tvComment.maxLines = Int.MAX_VALUE
+
+            when (momentInfo.photo.size) {
+                0 -> {
+                    photoLayout.setGone()
+                }
+
+                1 -> {
+                    secondLayout.setGone()
+                    thirdLayout.setGone()
+                }
+
+                2 -> {
+                    thirdLayout.setGone()
+                    secondLayout.setPadding(padding, 0, 0, 0)
+                }
+
+                3 -> {
+                    secondLayout.setPadding(padding, 0, 0, 0)
+                    thirdLayout.setPadding(0, padding, 0, 0)
+                }
+                else -> {
+                    secondLayout.setPadding(padding, 0, 0, 0)
+                    thirdLayout.setPadding(0, padding, 0, 0)
+
+                    tvPhotoLayer.setVisible()
+                    tvPhotoLayer.text = "+${momentInfo.photo.size - 3}"
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val KEY_MOMENT = "KEY_MOMENT"
+
+        fun getIntent(context: Context, moment: MomentModel): Intent {
+            return Intent(context, SodosiCommentActivity::class.java).apply {
+                putExtra(KEY_MOMENT, moment)
             }
         }
     }

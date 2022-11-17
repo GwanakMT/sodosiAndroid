@@ -54,7 +54,7 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
     private fun setMomentRecyclerView() {
         binding.rvMoment.adapter = momentAdapter
         momentAdapter.onItemClick = {
-            val intent = Intent(requireContext(), SodosiCommentActivity::class.java)
+            val intent = SodosiCommentActivity.getIntent(requireContext(), it)
             startActivity(intent)
         }
 

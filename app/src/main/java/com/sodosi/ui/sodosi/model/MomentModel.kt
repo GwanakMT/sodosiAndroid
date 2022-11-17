@@ -1,5 +1,8 @@
 package com.sodosi.ui.sodosi.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  *  MomentModel.kt
  *
@@ -7,6 +10,7 @@ package com.sodosi.ui.sodosi.model
  *  Copyright © 2022 GwanakMT All rights reserved.
  */
 
+@Parcelize
 data class MomentModel(
     val id: Long,
     val contents: String,
@@ -18,4 +22,4 @@ data class MomentModel(
     val addressDetail: String,
     val photo: List<String>,
     val timeInfo: String,
-)
+): Parcelable
