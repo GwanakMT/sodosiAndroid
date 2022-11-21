@@ -1,10 +1,12 @@
 package com.sodosi.ui.sodosi.bottomsheet
 
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.sodosi.databinding.FragmentPlaceBottomSheetBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.post.ZoomPhotoActivity
 import com.sodosi.ui.sodosi.CreateMomentActivity
 import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.ui.sodosi.SodosiViewModel
@@ -58,7 +60,8 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
                     (requireActivity() as SodosiActivity).showMomentBottomSheet(it)
                 }
                 onPhotoClick = { imageUrlList, position ->
-                    Toast.makeText(context, "position: $position", Toast.LENGTH_SHORT).show()
+                    val intent = ZoomPhotoActivity.getIntent(requireContext(), position, imageUrlList.map { it.toUri() })
+                    startActivity(intent)
                 }
             }
         }

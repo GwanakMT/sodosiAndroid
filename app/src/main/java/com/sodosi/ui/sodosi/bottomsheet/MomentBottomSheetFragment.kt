@@ -1,12 +1,13 @@
 package com.sodosi.ui.sodosi.bottomsheet
 
-import android.content.Intent
 import android.os.Bundle
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import com.sodosi.R
 import com.sodosi.databinding.FragmentMomentBottomSheetBinding
 import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.post.ZoomPhotoActivity
 import com.sodosi.ui.sodosi.SodosiViewModel
 import com.sodosi.ui.sodosi.adapter.MomentListAdapter
 import com.sodosi.ui.sodosi.model.MomentModel
@@ -59,7 +60,8 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
         }
 
         momentAdapter.onPhotoClick = { imageUrlList, position ->
-
+            val intent = ZoomPhotoActivity.getIntent(requireContext(), position, imageUrlList.map { it.toUri() })
+            startActivity(intent)
         }
     }
 
