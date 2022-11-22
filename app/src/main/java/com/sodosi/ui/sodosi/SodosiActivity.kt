@@ -3,10 +3,7 @@ package com.sodosi.ui.sodosi
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.graphics.Point
+import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.location.LocationListener
 import android.location.LocationManager
@@ -19,7 +16,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skt.Tmap.TMapMarkerItem
+import com.skt.Tmap.TMapPoint
 import com.skt.Tmap.TMapView
+import com.skt.Tmap.poi_item.TMapPOIItem
 import com.sodosi.BuildConfig
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySodosiBinding
@@ -39,7 +38,8 @@ import com.sodosi.ui.sodosi.model.MomentModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
+class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
+    TMapView.OnClickListenerCallback {
     private val mapView: TMapView by lazy { TMapView(this) }
     private lateinit var menuDialog: Dialog
     private lateinit var reportDialog: Dialog
@@ -103,10 +103,12 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
                 it.forEach { place ->
                     if (place.momentList.isNotEmpty()) {
                         val tempPlace = place.momentList[0]
-                        mapView.addMarkerItem(tempPlace.id.toString() + place.addressDetail, TMapMarkerItem().apply {
+                        mapView.addMarkerItem(tempPlace.id.toString(), TMapMarkerItem().apply {
                             longitude = tempPlace.longitude
                             latitude = tempPlace.latitude
-                            icon = defaultMarker
+                            icon = if (place.momentList.size > 10) hotMarker else defaultMarker
+                            calloutTitle = tempPlace.addressDetail
+                            calloutSubTitle = tempPlace.roadAddress
                         })
                     }
                 }
@@ -131,6 +133,42 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>() {
                 }
             }
         }
+    }
+
+    override fun onPressEvent(
+        markerlist: ArrayList<TMapMarkerItem>?,
+        poilist: ArrayList<TMapPOIItem>?,
+        point: TMapPoint?,
+        pointF: PointF?
+    ): Boolean {
+        if (!markerlist.isNullOrEmpty()) {
+            val marker = markerlist[0]
+            val momentModel = MomentModel(
+                id = marker.id.toLong(),
+                contents = "",
+                latitude = marker.latitude,
+                longitude = marker.longitude,
+                userName = "",
+                jibunAddress = "",
+                roadAddress = marker.calloutSubTitle,
+                addressDetail = marker.calloutTitle,
+                photo = listOf(),
+                timeInfo = ""
+            )
+
+            showMomentBottomSheet(momentModel)
+        }
+
+        return false
+    }
+
+    override fun onPressUpEvent(
+        markerlist: ArrayList<TMapMarkerItem>?,
+        poilist: ArrayList<TMapPOIItem>?,
+        point: TMapPoint?,
+        pointF: PointF?
+    ): Boolean {
+        return true
     }
 
     override fun onBackPressed() {
