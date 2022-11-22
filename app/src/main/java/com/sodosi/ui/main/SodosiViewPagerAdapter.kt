@@ -20,11 +20,12 @@ import com.sodosi.model.SodosiModel
 class SodosiViewPagerAdapter :
     ListAdapter<SodosiModel, SodosiViewPagerAdapter.ViewHolder>(DiffCallback()) {
     var onItemClick: ((selectedItem: SodosiModel) -> Unit)? = null
+    var onBookMarkClick: ((selectedItem: SodosiModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return ViewHolder(ItemSodosiViewpagerBinding.inflate(inflater, parent, false), onItemClick)
+        return ViewHolder(ItemSodosiViewpagerBinding.inflate(inflater, parent, false), onItemClick, onBookMarkClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,22 +38,24 @@ class SodosiViewPagerAdapter :
 
     inner class ViewHolder(
         private val binding: ItemSodosiViewpagerBinding,
-        onItemClick: ((selectedItem: SodosiModel) -> Unit)?
+        onItemClick: ((selectedItem: SodosiModel) -> Unit)?,
+        onBookMarkClick: ((selectedItem: SodosiModel) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.onItemClick = onItemClick
+            binding.ivBookmark.setOnClickListener {
+                binding.item?.let {
+                    toggleBookMark(it)
+                }
+            }
         }
 
         fun bind(item: SodosiModel, position: Int) {
             binding.item = item
 
-            if (item.isMarked) {
-                binding.ivBookmark.setImageResource(R.drawable.ic_bookmark_selected)
-            } else {
-                binding.ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected)
-            }
+            setBookMarkIcon(item)
 
             when (item.icon) {
                 "cafe" -> {
@@ -74,6 +77,25 @@ class SodosiViewPagerAdapter :
                 else -> {
 
                 }
+            }
+        }
+
+        private fun toggleBookMark(item: SodosiModel) {
+            // copy로 값 변경하지 않고 우선 PatchMarkSodosiUseCase로
+            binding.item?.let { onBookMarkClick?.invoke(it) }
+
+            // isMarked 값 및 아이콘 변경
+            val updatedItem = item.copy(isMarked = !item.isMarked)
+            binding.item = updatedItem
+
+            setBookMarkIcon(updatedItem)
+        }
+
+        private fun setBookMarkIcon(item: SodosiModel) {
+            if (item.isMarked) {
+                binding.ivBookmark.setImageResource(R.drawable.ic_bookmark_selected)
+            } else {
+                binding.ivBookmark.setImageResource(R.drawable.ic_bookmark_unselected)
             }
         }
     }

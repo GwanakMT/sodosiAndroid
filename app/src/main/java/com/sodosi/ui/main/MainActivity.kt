@@ -110,15 +110,19 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                             newSodosiAdapter.submitList(viewModel.newSodosiList)
 
                             if (viewModel.mainSodosiList.isNotEmpty()) {
+                                val beforeList = viewPagerAdapter.currentList
+
                                 viewPagerAdapter.submitList(viewModel.mainSodosiList)
                                 fakeViewPagerAdapter.submitList(viewModel.mainSodosiList)
 
-                                sodosiViewPagerListSize = viewModel.mainSodosiList.size
-                                binding.fakeViewPager.setCurrentItem(0, false)
-                                binding.sodosiViewPager.setCurrentItem(
-                                    (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % sodosiViewPagerListSize),
-                                    false
-                                )
+                                if (beforeList.map { it.id } != viewModel.mainSodosiList.map { it.id }) {
+                                    sodosiViewPagerListSize = viewModel.mainSodosiList.size
+                                    binding.fakeViewPager.setCurrentItem(0, false)
+                                    binding.sodosiViewPager.setCurrentItem(
+                                        (Integer.MAX_VALUE / 2) - ((Integer.MAX_VALUE / 2) % sodosiViewPagerListSize),
+                                        false
+                                    )
+                                }
                             }
                         } else {
                             // Error View
@@ -129,12 +133,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 launch {
                     viewModel.patchMarkSodosiEvent.collect { networkResult ->
                         if (networkResult) {
-                            commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
-                            markedSodosiAdapter.submitList(viewModel.bookmarkSodosiList)
-                            hotSodosiAdapter.submitList(viewModel.hotSodosiList)
-                            newSodosiAdapter.submitList(viewModel.newSodosiList)
+                            viewModel.getMainSodosiList()
                         } else {
-                            SodosiToast.makeText(this@MainActivity, "록", Toast.LENGTH_SHORT).show()
+                            SodosiToast.makeText(this@MainActivity, "관심 소도시 등록/해제 실패...", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -146,6 +147,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         binding.sodosiViewPager.apply {
             adapter = viewPagerAdapter.apply {
                 onItemClick = ::moveToSodosi
+                onBookMarkClick = ::toggleBookmark
             }
 
             offscreenPageLimit = 1

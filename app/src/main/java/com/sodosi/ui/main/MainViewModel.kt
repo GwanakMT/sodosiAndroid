@@ -85,14 +85,8 @@ class MainViewModel @Inject constructor(
 
     fun patchMarkSodosi(id: Long, isMarkedCurrent: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = patchMarkSodosiUseCase(id, isMarkedCurrent)) {
+            when (patchMarkSodosiUseCase(id, isMarkedCurrent)) {
                 is Result.Success -> {
-                    mainSodosiList = mainSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
-                    commentedSodosiList = commentedSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
-                    bookmarkSodosiList = bookmarkSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
-                    hotSodosiList = hotSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
-                    newSodosiList = newSodosiList.map { if (it.id == id) it.copy(isMarked = result.data) else it }
-
                     _patchMarkSodosiEvent.emit(true)
                 }
 
