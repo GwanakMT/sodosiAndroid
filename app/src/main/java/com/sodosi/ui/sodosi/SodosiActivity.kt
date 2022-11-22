@@ -203,6 +203,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
         }
 
         // 지도에 표시할 마커 목록 가져오기
+        viewModel.clearPlaceList()
         viewModel.getPlaceList(sodosiInfo?.id ?: return)
     }
 
@@ -379,7 +380,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
     private fun moveToSearchPlaceActivityWithLocation() {
         val currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         currentLocation?.let {
-            startActivity(SearchPlaceActivity.getIntent(this, it.longitude, it.latitude, sodosiInfo?.id ?: return@let))
+            startActivity(SearchPlaceActivity.getIntent(this, it.longitude, it.latitude, sodosiInfo ?: return))
         }
     }
 

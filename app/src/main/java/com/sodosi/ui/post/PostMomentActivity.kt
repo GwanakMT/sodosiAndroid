@@ -13,18 +13,20 @@ import com.sodosi.R
 import com.sodosi.databinding.ActivityPostMomentBinding
 import com.sodosi.domain.Result
 import com.sodosi.model.POIDataModel
+import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.sodosi.SodosiActivity
-import com.sodosi.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentBinding>() {
     override val viewModel: PostMomentViewModel by viewModels()
+
+    private var sodosiModel: SodosiModel? = null
     private var momentPlace: POIDataModel? = null
     private val photoAdapter: PhotoAdapter by lazy { PhotoAdapter() }
 
@@ -72,10 +74,12 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
             viewModel.postMomentResult.collect {
                 when(it) {
                     is Result.Success -> {
-                        val intent = Intent(this@PostMomentActivity, SodosiActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        sodosiModel?.let { sodosi ->
+                            val intent = SodosiActivity.getIntent(this@PostMomentActivity, sodosi)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-                        startActivity(intent)
+                            startActivity(intent)
+                        }
                     }
                     is Result.Error -> {
                         SodosiToast.makeText(this@PostMomentActivity, "${it.exception.message}", Toast.LENGTH_SHORT).show()
@@ -128,8 +132,8 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
 
     private fun setListener() {
         binding.btnSubmit.setOnClickListener {
-            val sodosiId = intent.getLongExtra(KEY_MOMENT_SODOSI_ID, -1L)
-            if (sodosiId != -1L) {
+            sodosiModel = intent.getParcelableExtra(KEY_SODOSI_MODEL) as? SodosiModel
+            sodosiModel?.id?.let { sodosiId ->
                 viewModel.postMoment(
                     sodosiId = sodosiId,
                     latitude = momentPlace?.latitude?.toDouble() ?: return@setOnClickListener,
@@ -139,8 +143,6 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
                     addressDetail = momentPlace?.placeName ?: "",
                     contents = binding.etMoment.text.toString()
                 )
-            } else {
-                // TODO : 잘못된 접근입니다?
             }
         }
 
@@ -174,12 +176,12 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
 
     companion object {
         private const val KEY_MOMENT_PLACE = "KEY_MOMENT_PLACE"
-        private const val KEY_MOMENT_SODOSI_ID = "KEY_MOMENT_SODOSI_ID"
+        private const val KEY_SODOSI_MODEL = "KEY_SODOSI_MODEL"
 
-        fun getIntent(context: Context, momentPlace: POIDataModel, sodosiId: Long): Intent {
+        fun getIntent(context: Context, momentPlace: POIDataModel, sodosi: SodosiModel): Intent {
             return Intent(context, PostMomentActivity::class.java).apply {
                 putExtra(KEY_MOMENT_PLACE, momentPlace)
-                putExtra(KEY_MOMENT_SODOSI_ID, sodosiId)
+                putExtra(KEY_SODOSI_MODEL, sodosi)
             }
         }
     }

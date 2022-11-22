@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySearchPlaceBinding
+import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.extensions.setGone
@@ -70,9 +71,9 @@ class SearchPlaceActivity : BaseActivity<SearchPlaceViewModel, ActivitySearchPla
         binding.searchResultRecyclerView.apply {
             adapter = searchResultAdapter.apply {
                 onItemClick = {
-                    val sodosiId = intent.getLongExtra(KEY_SODOSI_ID, -1L)
-                    if (sodosiId != -1L) {
-                        startActivity(PostMomentActivity.getIntent(context, it, sodosiId))
+                    val sodosiModel = intent.getParcelableExtra(KEY_SODOSI_MODEL) as? SodosiModel
+                    sodosiModel?.let { sodosi ->
+                        startActivity(PostMomentActivity.getIntent(context, it, sodosi))
                     }
                 }
             }
@@ -96,13 +97,13 @@ class SearchPlaceActivity : BaseActivity<SearchPlaceViewModel, ActivitySearchPla
     companion object {
         private val KEY_CURRENT_LONGITUDE = "KEY_CURRENT_LONGITUDE"
         private val KEY_CURRENT_LATITUDE = "KEY_CURRENT_LATITUDE"
-        private val KEY_SODOSI_ID = "KEY_SODOSI_ID"
+        private val KEY_SODOSI_MODEL = "KEY_SODOSI_MODEL"
 
-        fun getIntent(context: Context, currentLongitude: Double, currentLatitude: Double, sodosiId: Long): Intent {
+        fun getIntent(context: Context, currentLongitude: Double, currentLatitude: Double, sodosi: SodosiModel): Intent {
             return Intent(context, SearchPlaceActivity::class.java).apply {
                 putExtra(KEY_CURRENT_LONGITUDE, currentLongitude)
                 putExtra(KEY_CURRENT_LATITUDE, currentLatitude)
-                putExtra(KEY_SODOSI_ID, sodosiId)
+                putExtra(KEY_SODOSI_MODEL, sodosi)
             }
         }
     }

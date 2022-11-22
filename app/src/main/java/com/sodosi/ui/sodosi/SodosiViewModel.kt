@@ -50,6 +50,12 @@ class SodosiViewModel @Inject constructor(
         }
     }
 
+    fun clearPlaceList() {
+        viewModelScope.launch {
+            _placeList.emit(emptyList())
+        }
+    }
+
     fun getMomentList(addressDetail: String): List<MomentModel>? {
         return placeList.value.find { it.addressDetail == addressDetail }?.momentList
     }
