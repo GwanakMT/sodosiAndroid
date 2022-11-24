@@ -7,6 +7,7 @@ import com.sodosi.domain.usecase.sodosi.GetCreatedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.GetMarkedSodosiListUseCase
 import com.sodosi.domain.usecase.user.ChangeNickNameUseCase
 import com.sodosi.domain.usecase.sodosi.GetCommentedSodosiListUseCase
+import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
 import com.sodosi.domain.usecase.user.GetLastVisitedTimeUseCase
 import com.sodosi.domain.usecase.user.GetUserInfoUseCase
 import com.sodosi.model.SodosiModel
@@ -39,6 +40,7 @@ class MypageViewModel @Inject constructor(
     private val getCommentedSodosiListUseCase: GetCommentedSodosiListUseCase,
     private val getMarkedSodosiListUseCase: GetMarkedSodosiListUseCase,
     private val changeNickNameUseCase: ChangeNickNameUseCase,
+    private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
 
@@ -50,6 +52,9 @@ class MypageViewModel @Inject constructor(
 
     private val _nickNameChanged = MutableEventFlow<Boolean>()
     val nickNameChanged = _nickNameChanged.asEventFlow()
+
+    private val _unmarkEvent = MutableEventFlow<Boolean>()
+    val unmarkEvent = _unmarkEvent.asEventFlow()
 
     init {
         getUserBaseProfile()
@@ -125,6 +130,20 @@ class MypageViewModel @Inject constructor(
                     _nickNameChanged.emit(false)
                 }
             }
+        }
+    }
+
+    fun unmarkSodosi(unmarkList: List<Long>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            unmarkList.forEach {
+                val result = patchMarkSodosiUseCase(it, true)
+                if (result is Result.Error) {
+                    _unmarkEvent.emit(false)
+                    return@launch
+                }
+            }
+
+            _unmarkEvent.emit(true)
         }
     }
 }

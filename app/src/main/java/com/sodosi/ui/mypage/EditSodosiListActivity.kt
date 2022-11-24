@@ -35,25 +35,47 @@ class EditSodosiListActivity : BaseActivity<MypageViewModel, ActivityEditSodosiL
                 }
             }
         }
+
+        repeatOnStarted {
+            viewModel.unmarkEvent.collect { isSuccess ->
+                progress.dismiss()
+
+                checkList.clear()
+                updateAppBarTitleCount(0)
+
+                viewModel.getMarkedSodosiList()
+
+                if (!isSuccess) {
+                    SodosiToast.makeText(this@EditSodosiListActivity, "작업 중간에 오류가 있었습니다. 결과를 확인해주세요", Toast.LENGTH_SHORT).show()
+                }
+
+                setResult(RESULT_OK)
+            }
+        }
     }
 
     override fun initViews() {
         initAppBar()
         initRecyclerView()
+
         viewModel.getMarkedSodosiList()
+
+        setOnClickListener()
     }
 
     private fun initAppBar() {
-        binding.appbar.apply {
-            initLeftButton(R.drawable.ic_x) {
-                finish()
-            }
-
-            initAppbarTitle(getString(R.string.mypage_edit_sodosi_list_title, "0"))
-        }
-
+        binding.appbar.initAppbarTitle(getString(R.string.mypage_edit_sodosi_list_title, "0"))
         binding.btnFinish.setOnClickListener {
-            // TODO: 완료 버튼
+            finish()
+        }
+    }
+
+    private fun setOnClickListener() {
+        binding.btnDelete.setOnClickListener {
+            progress.show()
+
+            val unmarkList = checkList.filter { it.value }.map { it.key }
+            viewModel.unmarkSodosi(unmarkList)
         }
     }
 

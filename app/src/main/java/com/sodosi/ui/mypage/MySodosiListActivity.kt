@@ -32,10 +32,12 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
 
     private val createSodosiLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         viewModel.getCreatedSodosiList()
+        setResult(RESULT_OK)
     }
 
     private val bookmarkSodosiLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         viewModel.getMarkedSodosiList()
+        setResult(RESULT_OK)
     }
 
     override fun observeData() {
@@ -108,7 +110,7 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
         initMarkedSodosiList(appbarTitle)
         binding.tvEdit.setVisible()
         binding.tvEdit.setOnClickListener {
-            startActivity(EditSodosiListActivity.getIntent(this))
+            bookmarkSodosiLauncher.launch(EditSodosiListActivity.getIntent(this))
         }
     }
 
