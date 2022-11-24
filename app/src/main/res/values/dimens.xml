@@ -10,7 +10,7 @@
 
     // onboarding
     <dimen name="onboarding_title_top_margin">40dp</dimen>
-    <dimen name="onboarding_title_start_margin">24dp</dimen>
+    <dimen name="onboarding_title_start_margin">0dp</dimen>
 
     <dimen name="onboarding_inputbox_top_margin">24dp</dimen>
     <dimen name="onboarding_inputbox_horizontal_margin">22dp</dimen>

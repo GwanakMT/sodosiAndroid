@@ -8,65 +8,75 @@
     android:paddingTop="26dp"
     android:paddingBottom="22dp">
 
-    <ImageView
-        android:id="@+id/ivTeamLogo"
-        android:layout_width="124dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="6dp"
-        android:scaleType="fitStart"
-        android:src="@drawable/footer_gwanak_society_logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvBlog"
-        style="@style/Typography.Caption.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/footer_blog"
-        android:textColor="#8A8A8E"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivTeamLogo" />
-
-    <TextView
-        android:id="@+id/tvInstagram"
-        style="@style/Typography.Caption.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:text="@string/footer_instagram"
-        android:textColor="#8A8A8E"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvBlog" />
-
-    <TextView
-        android:id="@+id/tvCoffee"
-        style="@style/Typography.Caption.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:text="@string/footer_coffee"
-        android:textColor="#8A8A8E"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvInstagram" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/pretendard_regular"
-        android:text="@string/footer_copyright"
-        android:textColor="#ADADAD"
-        android:textSize="12dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/screen_width"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivScrollTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/fab_home_scroll_top"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivTeamLogo"
+            android:layout_width="124dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="6dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/footer_gwanak_society_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBlog"
+            style="@style/Typography.Caption.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/footer_blog"
+            android:textColor="#8A8A8E"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTeamLogo" />
+
+        <TextView
+            android:id="@+id/tvInstagram"
+            style="@style/Typography.Caption.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/footer_instagram"
+            android:textColor="#8A8A8E"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBlog" />
+
+        <TextView
+            android:id="@+id/tvCoffee"
+            style="@style/Typography.Caption.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/footer_coffee"
+            android:textColor="#8A8A8E"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInstagram" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="@string/footer_copyright"
+            android:textColor="#ADADAD"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivScrollTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_home_scroll_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

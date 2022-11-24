@@ -176,14 +176,13 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvBookmarkSodosi"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:nestedScrollingEnabled="false"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:overScrollMode="never"
-                    android:paddingLeft="20dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_sodosi_type_horizontal" />

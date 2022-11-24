@@ -56,6 +56,15 @@ class CertificationNumberFragment :
             binding.tvTimer.text =
                 "0${it / 60}:${if (it % 60 < 10) "0${it % 60}" else "${it % 60}"}"
         }
+
+        viewModel.isLoginSuccess.asLiveData().observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+
+                activity?.finish()
+            }
+        }
     }
 
     override fun onAuthSuccess() {
@@ -72,10 +81,7 @@ class CertificationNumberFragment :
                 )
             }
         } else {
-            val intent = Intent(context, MainActivity::class.java)
-            startActivity(intent)
-
-            activity?.finish()
+            viewModel.loginWithoutPassword(phoneNumber)
         }
     }
 
@@ -88,6 +94,7 @@ class CertificationNumberFragment :
             if (viewModel.timer.value > 0) {
                 val smsCode = binding.etCertificationNumber.text.toString()
                 authManager.signInWithPhoneAuthCredential(smsCode, this)
+                viewModel.loginWithoutPassword("01040106613")
             } else {
                 setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
             }

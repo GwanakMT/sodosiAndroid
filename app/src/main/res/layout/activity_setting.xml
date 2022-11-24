@@ -13,15 +13,16 @@
 
         <com.sodosi.ui.common.customview.SodosiAppbar
             android:id="@+id/appbar"
+            android:layout_width="@dimen/screen_width"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="@dimen/screen_width"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:scrollbars="none"
             android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,18 +38,17 @@
                 <TextView
                     android:id="@+id/settingTitle1"
                     style="@style/Typography.HeadLines.SubHeadLine.Bold"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
                     android:paddingTop="20dp"
                     android:text="계정 설정" />
 
                 <LinearLayout
                     android:id="@+id/settingPhoneNumber"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp">
+                    android:paddingVertical="20dp">
 
                     <TextView
                         style="@style/Typography.HeadLines.SubHeadLine"
@@ -73,17 +73,17 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
                     android:background="@color/gray6" />
 
                 <LinearLayout
                     android:id="@+id/settingPassword"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp">
+                    android:paddingVertical="20dp">
 
                     <TextView
                         style="@style/Typography.HeadLines.SubHeadLine"
@@ -135,22 +135,21 @@
                 <TextView
                     android:id="@+id/settingTitle2"
                     style="@style/Typography.HeadLines.SubHeadLine.Bold"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
                     android:paddingTop="20dp"
                     android:text="약관 및 정책" />
 
                 <TextView
                     android:id="@+id/termsOfService"
                     style="@style/Typography.HeadLines.SubHeadLine"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingVertical="20dp"
                     android:text="이용 약관" />
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
                     android:background="@color/gray6" />
@@ -158,13 +157,13 @@
                 <TextView
                     android:id="@+id/privacyPolicy"
                     style="@style/Typography.HeadLines.SubHeadLine"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingVertical="20dp"
                     android:text="개인정보 처리 방침" />
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
                     android:background="@color/gray6" />
@@ -172,9 +171,9 @@
                 <TextView
                     android:id="@+id/openSourceInfo"
                     style="@style/Typography.HeadLines.SubHeadLine"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingVertical="20dp"
                     android:text="오픈소스 고지" />
 
                 <View
@@ -185,10 +184,10 @@
 
                 <LinearLayout
                     android:id="@+id/versionInfo"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp">
+                    android:paddingVertical="20dp">
 
                     <TextView
                         style="@style/Typography.HeadLines.SubHeadLine"
@@ -217,7 +216,7 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
                     android:background="@color/gray6" />
@@ -225,9 +224,9 @@
                 <TextView
                     android:id="@+id/sodosiMakers"
                     style="@style/Typography.HeadLines.SubHeadLine"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingVertical="20dp"
                     android:text="소도시를 만든 사람들" />
 
                 <View
@@ -239,13 +238,13 @@
                 <TextView
                     android:id="@+id/logout"
                     style="@style/Typography.HeadLines.SubHeadLine"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingVertical="20dp"
                     android:text="로그아웃" />
 
                 <View
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="1dp"
                     android:layout_marginHorizontal="20dp"
                     android:background="@color/gray6" />
@@ -253,9 +252,9 @@
                 <TextView
                     android:id="@+id/deleteUser"
                     style="@style/Typography.HeadLines.SubHeadLine"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/screen_width"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:paddingVertical="20dp"
                     android:text="탈퇴하기" />
 
             </LinearLayout>

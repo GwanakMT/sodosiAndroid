@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,20 +15,20 @@
     <TextView
         android:id="@+id/tvPhoneNumber"
         style="@style/OnboardingTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/appbar"
         android:text="@string/onboarding_input_phone_number"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/appbar"
         app:layout_constraintTop_toBottomOf="@id/appbar" />
 
     <View
         android:id="@+id/phoneNumberGuideBackground"
         android:layout_width="65dp"
         android:layout_height="52dp"
-        android:layout_marginStart="@dimen/onboarding_inputbox_horizontal_margin"
         android:layout_marginTop="@dimen/onboarding_inputbox_top_margin"
         android:background="@drawable/background_rounded_gray"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/appbar"
         app:layout_constraintTop_toBottomOf="@id/tvPhoneNumber" />
 
     <TextView
@@ -48,9 +47,8 @@
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginStart="@dimen/onboarding_inputbox_between_margin"
-        android:layout_marginEnd="@dimen/onboarding_inputbox_horizontal_margin"
         android:background="@drawable/background_rounded_gray"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/appbar"
         app:layout_constraintStart_toEndOf="@id/phoneNumberGuideBackground"
         app:layout_constraintTop_toTopOf="@id/phoneNumberGuideBackground" />
 
@@ -63,7 +61,7 @@
         android:inputType="number"
         android:maxLength="11"
         app:layout_constraintBottom_toBottomOf="@id/phoneNumberBackground"
-        app:layout_constraintEnd_toEndOf="@id/phoneNumberBackground"
+        app:layout_constraintEnd_toEndOf="@id/appbar"
         app:layout_constraintStart_toStartOf="@id/phoneNumberBackground"
         app:layout_constraintTop_toTopOf="@id/phoneNumberBackground">
 
@@ -96,9 +94,8 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"
         style="@style/SodosiButton"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/screen_width"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/onboarding_button_horizontal_margin"
         android:layout_marginBottom="@dimen/onboarding_button_bottom_margin"
         android:enabled="false"
         android:text="@string/onboarding_next"
