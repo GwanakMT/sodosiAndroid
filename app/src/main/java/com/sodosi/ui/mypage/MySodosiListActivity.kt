@@ -14,6 +14,7 @@ import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.setGone
+import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.list.SodosiListActivity
 import com.sodosi.ui.main.SodosiListAdapter
@@ -22,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListBinding>() {
-    enum class MySodosiListType { CREATED, COMMENTED, MARKED }
+    enum class MySodosiListType { CREATED, COMMENTED, MARKED, EDIT_MARKED }
 
     override fun getViewBinding() = ActivityMySodosiListBinding.inflate(layoutInflater)
 
@@ -57,6 +58,7 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
             MySodosiListType.CREATED -> initCreatedSodosiList(getString(R.string.mypage_created_sodosi))
             MySodosiListType.COMMENTED -> initCommentedSodosiList(getString(R.string.mypage_commented_sodosi))
             MySodosiListType.MARKED -> initMarkedSodosiList(getString(R.string.mypage_marked_sodosi))
+            MySodosiListType.EDIT_MARKED -> initEditMarkedSodosiList(getString(R.string.mypage_marked_sodosi))
         }
     }
 
@@ -99,6 +101,14 @@ class MySodosiListActivity : BaseActivity<MypageViewModel, ActivityMySodosiListB
         binding.movePageButton.setOnClickListener {
             bookmarkSodosiLauncher.launch(SodosiListActivity.getIntent(this))
             setResult(RESULT_OK)
+        }
+    }
+
+    private fun initEditMarkedSodosiList(appbarTitle: String) {
+        initMarkedSodosiList(appbarTitle)
+        binding.tvEdit.setVisible()
+        binding.tvEdit.setOnClickListener {
+            startActivity(EditSodosiListActivity.getIntent(this))
         }
     }
 

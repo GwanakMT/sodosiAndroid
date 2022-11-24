@@ -24,6 +24,7 @@ import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
 import com.sodosi.ui.list.SodosiListActivity
+import com.sodosi.ui.mypage.MySodosiListActivity
 import com.sodosi.ui.mypage.MypageActivity
 import com.sodosi.ui.sodosi.SodosiActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -248,7 +249,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             }
 
             tvEditMarkedSodosi.setOnClickListener {
-
+                activityResultLauncher.launch(MySodosiListActivity.getIntent(this@MainActivity, MySodosiListActivity.MySodosiListType.EDIT_MARKED))
             }
         }
 

@@ -19,6 +19,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tvEdit"
+            style="@style/Typography.HeadLines.Callout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mypage_marked_sodosi_edit"
+            android:textColor="#0F0F10"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/appbar"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintTop_toTopOf="@id/appbar" />
+
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"

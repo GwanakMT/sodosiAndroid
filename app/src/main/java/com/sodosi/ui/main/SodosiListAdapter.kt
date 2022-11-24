@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.sodosi.R
 import com.sodosi.databinding.ItemSodosiTypeHorizontalBinding
 import com.sodosi.databinding.ItemSodosiTypeVerticalBinding
+import com.sodosi.databinding.ItemSodosiWithCheckboxBinding
 import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
@@ -22,10 +23,11 @@ import com.sodosi.util.LogUtil
  */
 
 class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diffUtil) {
-    enum class ViewType { VERTICAL, HORIZONTAL }
+    enum class ViewType { VERTICAL, HORIZONTAL, EDIT_MODE }
 
     var itemViewType: ViewType = ViewType.VERTICAL
     var onItemClick: ((selectedItem: SodosiModel) -> Unit)? = null
+    var onItemChecked: ((item: SodosiModel, isChecked: Boolean) -> Unit)? = null
     var onBookmarkClick: ((selectedItem: SodosiModel) -> Unit)? = null
     var showRank = false
 
@@ -46,6 +48,13 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
                     false
                 ), onItemClick
             )
+            ViewType.EDIT_MODE -> EditModeViewHolder(
+                ItemSodosiWithCheckboxBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                ), onItemChecked
+            )
         }
     }
 
@@ -53,6 +62,7 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
         when(itemViewType) {
             ViewType.VERTICAL -> (holder as RectangleViewHolder).bind(currentList[position])
             ViewType.HORIZONTAL -> (holder as SquareViewHolder).bind(currentList[position])
+            ViewType.EDIT_MODE -> (holder as EditModeViewHolder).bind(currentList[position])
         }
     }
 
@@ -154,6 +164,67 @@ class SodosiListAdapter : ListAdapter<SodosiModel, RecyclerView.ViewHolder>(diff
                     item.icon == "dog" ||
                     item.icon == "cafe" ||
                     item.icon == "danger" -> {
+                        binding.tvEmoji.setGone()
+                        binding.sodosiImageView.setVisible()
+
+                        set3DImage(item.icon)
+                    }
+                    item.momentImage.isNullOrEmpty() -> {
+                        binding.sodosiImageView.setGone()
+                        binding.tvEmoji.setVisible()
+                        binding.tvEmoji.text = item.icon
+                    }
+                    else -> {
+                        binding.tvEmoji.setGone()
+                        binding.sodosiImageView.setVisible()
+                        Glide.with(binding.root.context)
+                            .load(item.momentImage)
+                            .centerCrop()
+                            .error(R.drawable.background_oval_gray)
+                            .into(binding.sodosiImageView)
+                    }
+                }
+            } catch (e: Exception) {
+                LogUtil.e("${e.message}", "${SodosiListAdapter::class.simpleName}")
+            }
+        }
+
+        private fun set3DImage(icon: String) {
+            when(icon) {
+                "cafe" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_cafe)
+                "camera" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_camera)
+                "danger" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_danger)
+                "dog" -> binding.sodosiImageView.setImageResource(R.drawable.sodosi_viewpager_dog)
+            }
+        }
+    }
+
+    class EditModeViewHolder(
+        private val binding: ItemSodosiWithCheckboxBinding,
+        onItemClick: ((item: SodosiModel, isChecked: Boolean) -> Unit)? = null
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.rootView.setOnClickListener {
+                binding.checkbox.isChecked = !binding.checkbox.isChecked
+            }
+
+            binding.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+                binding.item?.let{
+                    onItemClick?.invoke(it, isChecked)
+                }
+            }
+        }
+
+        fun bind(item: SodosiModel) {
+            binding.item = item
+
+            try {
+                when {
+                    item.icon == "camera" ||
+                            item.icon == "dog" ||
+                            item.icon == "cafe" ||
+                            item.icon == "danger" -> {
                         binding.tvEmoji.setGone()
                         binding.sodosiImageView.setVisible()
 
