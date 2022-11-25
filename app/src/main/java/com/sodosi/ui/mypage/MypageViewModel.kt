@@ -3,25 +3,26 @@ package com.sodosi.ui.mypage
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.User
+import com.sodosi.domain.usecase.moment.GetMyMomentListUseCase
+import com.sodosi.domain.usecase.sodosi.GetCommentedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.GetCreatedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.GetMarkedSodosiListUseCase
-import com.sodosi.domain.usecase.user.ChangeNickNameUseCase
-import com.sodosi.domain.usecase.sodosi.GetCommentedSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
+import com.sodosi.domain.usecase.user.ChangeNickNameUseCase
 import com.sodosi.domain.usecase.user.GetLastVisitedTimeUseCase
 import com.sodosi.domain.usecase.user.GetUserInfoUseCase
 import com.sodosi.model.SodosiModel
+import com.sodosi.model.mapper.MomentMapper
 import com.sodosi.model.mapper.SodosiMapper
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
+import com.sodosi.ui.sodosi.model.MomentModel
 import com.sodosi.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,7 +42,9 @@ class MypageViewModel @Inject constructor(
     private val getMarkedSodosiListUseCase: GetMarkedSodosiListUseCase,
     private val changeNickNameUseCase: ChangeNickNameUseCase,
     private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
+    private val getMyMomentListUseCase: GetMyMomentListUseCase,
     private val sodosiMapper: SodosiMapper,
+    private val momentMapper: MomentMapper,
 ) : BaseViewModel() {
 
     private val _userBaseProfile = MutableSharedFlow<Result<Pair<User, String>>>() // User, Last Visited Time
@@ -56,8 +59,12 @@ class MypageViewModel @Inject constructor(
     private val _unmarkEvent = MutableEventFlow<Boolean>()
     val unmarkEvent = _unmarkEvent.asEventFlow()
 
+    private val _myMomentList = MutableEventFlow<Result<List<MomentModel>>>()
+    val myMomentList: EventFlow<Result<List<MomentModel>>> = _myMomentList.asEventFlow()
+
     init {
         getUserBaseProfile()
+        getMyMomentList()
     }
 
     fun getUserBaseProfile() {
@@ -144,6 +151,15 @@ class MypageViewModel @Inject constructor(
             }
 
             _unmarkEvent.emit(true)
+        }
+    }
+
+    private fun getMyMomentList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = getMyMomentListUseCase()) {
+                is Result.Success -> _myMomentList.emit(Result.Success(result.data.map { momentMapper.mapToModel(it) }))
+                is Result.Error -> _myMomentList.emit(Result.Error(result.exception))
+            }
         }
     }
 }

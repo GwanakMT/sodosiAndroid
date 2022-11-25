@@ -54,4 +54,13 @@ class MomentRepositoryImpl @Inject constructor(
             Result.Error(e)
         }
     }
+
+    override suspend fun getMyMomentList(): Result<List<Moment>> {
+        return try {
+            val result = sodosiApi.getMyMomentList()
+            Result.Success(result.data.map { momentMapper.mapToEntity(it) })
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 }

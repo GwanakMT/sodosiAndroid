@@ -25,4 +25,6 @@ interface MomentRepository {
     suspend fun getPlaceListBySodosi(
         sodosiId: Long,
     ): Result<List<Place>>
+
+    suspend fun getMyMomentList(): Result<List<Moment>>
 }

@@ -100,4 +100,7 @@ interface SodosiApi {
     // 순간 GET (장소기준)
     @GET("/api/v1/sodosis/{sodosiId}/moments")
     suspend fun getPlaceListBySodosi(@Path("sodosiId") id: Long): BaseResponse<List<PlaceResponse>>
+
+    @GET("/api/v1/users/moments")
+    suspend fun getMyMomentList(): BaseResponse<List<MomentResponse>>
 }

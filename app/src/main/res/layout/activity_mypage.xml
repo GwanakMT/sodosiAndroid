@@ -21,187 +21,215 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/profileBackground"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/background_rounded_gray_8dp"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/appbar" />
-
-    <ImageView
-        android:id="@+id/profileImage"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:src="@drawable/ic_user_gray"
-        app:layout_constraintBottom_toBottomOf="@id/profileBackground"
-        app:layout_constraintEnd_toEndOf="@id/profileBackground"
-        app:layout_constraintStart_toStartOf="@id/profileBackground"
-        app:layout_constraintTop_toTopOf="@id/profileBackground" />
-
-    <ImageView
-        android:id="@+id/btnEditProfileImage"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="-6dp"
-        android:layout_marginBottom="-6dp"
-        android:elevation="4dp"
-        android:src="@drawable/mypage_edit_profile_image"
-        app:layout_constraintBottom_toBottomOf="@id/profileBackground"
-        app:layout_constraintEnd_toEndOf="@id/profileBackground" />
-
-    <TextView
-        android:id="@+id/tvProfileNickname"
-        style="@style/Typography.HeadLines.Callout.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="28dp"
-        android:drawableEnd="@drawable/ic_edit_pencil_line"
-        android:drawablePadding="8dp"
-        app:layout_constraintStart_toEndOf="@id/btnEditProfileImage"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/appbar"
-        tools:text="중구구립도서관" />
-
-    <TextView
-        android:id="@+id/tvHourAgo"
-        style="@style/Typography.Caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:textColor="#8A8A8E"
-        app:layout_constraintStart_toEndOf="@id/btnEditProfileImage"
-        app:layout_constraintTop_toBottomOf="@id/tvProfileNickname"
-        tools:text="n시간 전 방문" />
-
-    <View
-        android:id="@+id/profileDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/gray6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnEditProfileImage" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/tvCreatedSodosiCount"
-        style="@style/Typography.HeadLines.Callout.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@id/profileInfoDivider1"
-        app:layout_constraintStart_toStartOf="@id/appbar"
-        app:layout_constraintTop_toBottomOf="@id/profileDivider"
-        tools:text="10" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/tvCreatedSodosi"
-        style="@style/Typography.Caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="내가 만든 소도시"
-        android:textColor="#8A8A8E"
-        app:layout_constraintEnd_toEndOf="@id/tvCreatedSodosiCount"
-        app:layout_constraintStart_toStartOf="@id/tvCreatedSodosiCount"
-        app:layout_constraintTop_toBottomOf="@id/tvCreatedSodosiCount" />
+            <View
+                android:id="@+id/profileBackground"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_rounded_gray_8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/profileInfoDivider1"
-        android:layout_width="1dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/gray6"
-        app:layout_constraintEnd_toStartOf="@id/tvCommentedSodosiCount"
-        app:layout_constraintStart_toEndOf="@id/tvCreatedSodosiCount"
-        app:layout_constraintTop_toBottomOf="@id/profileDivider" />
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_user_gray"
+                app:layout_constraintBottom_toBottomOf="@id/profileBackground"
+                app:layout_constraintEnd_toEndOf="@id/profileBackground"
+                app:layout_constraintStart_toStartOf="@id/profileBackground"
+                app:layout_constraintTop_toTopOf="@id/profileBackground" />
 
-    <TextView
-        android:id="@+id/tvCommentedSodosiCount"
-        style="@style/Typography.HeadLines.Callout.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="4dp"
-        app:layout_constraintEnd_toEndOf="@id/profileInfoDivider2"
-        app:layout_constraintStart_toEndOf="@id/profileInfoDivider1"
-        app:layout_constraintTop_toBottomOf="@id/profileDivider"
-        tools:text="14" />
+            <ImageView
+                android:id="@+id/btnEditProfileImage"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="-6dp"
+                android:layout_marginBottom="-6dp"
+                android:elevation="4dp"
+                android:src="@drawable/mypage_edit_profile_image"
+                app:layout_constraintBottom_toBottomOf="@id/profileBackground"
+                app:layout_constraintEnd_toEndOf="@id/profileBackground" />
 
-    <TextView
-        android:id="@+id/tvJoinedSodosi"
-        style="@style/Typography.Caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="참여 중인 소도시"
-        android:textColor="#8A8A8E"
-        app:layout_constraintEnd_toEndOf="@id/tvCommentedSodosiCount"
-        app:layout_constraintStart_toStartOf="@id/tvCommentedSodosiCount"
-        app:layout_constraintTop_toBottomOf="@id/tvCommentedSodosiCount" />
+            <TextView
+                android:id="@+id/tvProfileNickname"
+                style="@style/Typography.HeadLines.Callout.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="28dp"
+                android:drawableEnd="@drawable/ic_edit_pencil_line"
+                android:drawablePadding="8dp"
+                app:layout_constraintStart_toEndOf="@id/btnEditProfileImage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="중구구립도서관" />
 
-    <View
-        android:id="@+id/profileInfoDivider2"
-        android:layout_width="1dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/gray6"
-        app:layout_constraintEnd_toStartOf="@id/tvBookmarkCount"
-        app:layout_constraintStart_toEndOf="@id/tvCommentedSodosiCount"
-        app:layout_constraintTop_toBottomOf="@id/profileDivider" />
+            <TextView
+                android:id="@+id/tvHourAgo"
+                style="@style/Typography.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="4dp"
+                android:textColor="#8A8A8E"
+                app:layout_constraintStart_toEndOf="@id/btnEditProfileImage"
+                app:layout_constraintTop_toBottomOf="@id/tvProfileNickname"
+                tools:text="n시간 전 방문" />
 
-    <TextView
-        android:id="@+id/tvBookmarkCount"
-        style="@style/Typography.HeadLines.Callout.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@id/appbar"
-        app:layout_constraintStart_toEndOf="@id/profileInfoDivider2"
-        app:layout_constraintTop_toBottomOf="@id/profileDivider"
-        tools:text="22" />
+            <View
+                android:id="@+id/profileDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnEditProfileImage" />
 
-    <TextView
-        android:id="@+id/tvBookmark"
-        style="@style/Typography.Caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="북마크"
-        android:textColor="#8A8A8E"
-        app:layout_constraintEnd_toEndOf="@id/tvBookmarkCount"
-        app:layout_constraintStart_toStartOf="@id/tvBookmarkCount"
-        app:layout_constraintTop_toBottomOf="@id/tvBookmarkCount" />
+            <TextView
+                android:id="@+id/tvCreatedSodosiCount"
+                style="@style/Typography.HeadLines.Callout.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="4dp"
+                app:layout_constraintEnd_toStartOf="@id/profileInfoDivider1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileDivider"
+                tools:text="10" />
 
-    <View
-        android:id="@+id/profileInfoDivider"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/gray6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCreatedSodosi" />
+            <TextView
+                android:id="@+id/tvCreatedSodosi"
+                style="@style/Typography.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내가 만든 소도시"
+                android:textColor="#8A8A8E"
+                app:layout_constraintEnd_toEndOf="@id/tvCreatedSodosiCount"
+                app:layout_constraintStart_toStartOf="@id/tvCreatedSodosiCount"
+                app:layout_constraintTop_toBottomOf="@id/tvCreatedSodosiCount" />
 
-    <TextView
-        android:id="@+id/tvCurrentMyMoment"
-        style="@style/Typography.HeadLines.Callout.Bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="@string/mypage_current_moment"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/profileInfoDivider" />
+            <View
+                android:id="@+id/profileInfoDivider1"
+                android:layout_width="1dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/gray6"
+                app:layout_constraintEnd_toStartOf="@id/tvCommentedSodosiCount"
+                app:layout_constraintStart_toEndOf="@id/tvCreatedSodosiCount"
+                app:layout_constraintTop_toBottomOf="@id/profileDivider" />
 
-    <ImageView
-        android:id="@+id/ivMomentEmoji"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="4dp"
-        android:src="@drawable/moment_emoji"
-        app:layout_constraintBottom_toBottomOf="@id/tvCurrentMyMoment"
-        app:layout_constraintStart_toEndOf="@id/tvCurrentMyMoment"
-        app:layout_constraintTop_toTopOf="@id/tvCurrentMyMoment" />
+            <TextView
+                android:id="@+id/tvCommentedSodosiCount"
+                style="@style/Typography.HeadLines.Callout.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="4dp"
+                app:layout_constraintEnd_toEndOf="@id/profileInfoDivider2"
+                app:layout_constraintStart_toEndOf="@id/profileInfoDivider1"
+                app:layout_constraintTop_toBottomOf="@id/profileDivider"
+                tools:text="14" />
+
+            <TextView
+                android:id="@+id/tvJoinedSodosi"
+                style="@style/Typography.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="참여 중인 소도시"
+                android:textColor="#8A8A8E"
+                app:layout_constraintEnd_toEndOf="@id/tvCommentedSodosiCount"
+                app:layout_constraintStart_toStartOf="@id/tvCommentedSodosiCount"
+                app:layout_constraintTop_toBottomOf="@id/tvCommentedSodosiCount" />
+
+            <View
+                android:id="@+id/profileInfoDivider2"
+                android:layout_width="1dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/gray6"
+                app:layout_constraintEnd_toStartOf="@id/tvBookmarkCount"
+                app:layout_constraintStart_toEndOf="@id/tvCommentedSodosiCount"
+                app:layout_constraintTop_toBottomOf="@id/profileDivider" />
+
+            <TextView
+                android:id="@+id/tvBookmarkCount"
+                style="@style/Typography.HeadLines.Callout.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profileInfoDivider2"
+                app:layout_constraintTop_toBottomOf="@id/profileDivider"
+                tools:text="22" />
+
+            <TextView
+                android:id="@+id/tvBookmark"
+                style="@style/Typography.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="북마크"
+                android:textColor="#8A8A8E"
+                app:layout_constraintEnd_toEndOf="@id/tvBookmarkCount"
+                app:layout_constraintStart_toStartOf="@id/tvBookmarkCount"
+                app:layout_constraintTop_toBottomOf="@id/tvBookmarkCount" />
+
+            <View
+                android:id="@+id/profileInfoDivider"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/gray6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCreatedSodosi" />
+
+            <TextView
+                android:id="@+id/tvCurrentMyMoment"
+                style="@style/Typography.HeadLines.Callout.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/mypage_current_moment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileInfoDivider" />
+
+            <ImageView
+                android:id="@+id/ivMomentEmoji"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/moment_emoji"
+                app:layout_constraintBottom_toBottomOf="@id/tvCurrentMyMoment"
+                app:layout_constraintStart_toEndOf="@id/tvCurrentMyMoment"
+                app:layout_constraintTop_toTopOf="@id/tvCurrentMyMoment" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/myMomentList"
+                android:layout_width="@dimen/screen_width"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCurrentMyMoment"
+                tools:listitem="@layout/item_sodosi_place" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
