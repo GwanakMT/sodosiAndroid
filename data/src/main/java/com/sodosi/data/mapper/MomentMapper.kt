@@ -28,7 +28,9 @@ class MomentMapper @Inject constructor() {
             createdDateTime = spec.createdDateTime,
             updatedDateTime = spec.updatedDateTime,
             momentImagesSet = spec.momentImagesSet.map { it.images },
-            timeInfo = spec.timeInfo
+            timeInfo = spec.timeInfo,
+            sodosiId = spec.sodosiId,
+            sodosiName = spec.sodosiName,
         )
     }
 

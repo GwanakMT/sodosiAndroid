@@ -27,4 +27,6 @@ interface MomentRepository {
     ): Result<List<Place>>
 
     suspend fun getMyMomentList(): Result<List<Moment>>
+
+    suspend fun reportMoment(sodosiId: Long, momentId: Long, reason: String): Result<Unit>
 }

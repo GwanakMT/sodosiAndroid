@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="kotlin.jvm.functions.Function1" />
+
+        <import type="kotlin.Unit" />
+
+        <variable
+            name="onItemClick"
+            type="Function1&lt;String, Unit>" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_rounded_white_bottomsheet"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            style="@style/Typography.HeadLines.Callout.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/report_title" />
+
+        <TextView
+            android:id="@+id/tvReportCase1"
+            style="@style/Typography.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->onItemClick.invoke(@string/report_type1)}"
+            android:text="@string/report_case1"
+            app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
+            app:drawableTint="@color/black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE" />
+
+        <TextView
+            android:id="@+id/tvReportCase2"
+            style="@style/Typography.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->onItemClick.invoke(@string/report_type2)}"
+            android:text="@string/report_case3"
+            app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
+            app:drawableTint="@color/black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE" />
+
+        <TextView
+            android:id="@+id/tvReportCase3"
+            style="@style/Typography.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->onItemClick.invoke(@string/report_type3)}"
+            android:text="@string/report_case4"
+            app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
+            app:drawableTint="@color/black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE" />
+
+        <TextView
+            android:id="@+id/tvReportCase4"
+            style="@style/Typography.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->onItemClick.invoke(@string/report_type4)}"
+            android:text="@string/report_case5"
+            app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
+            app:drawableTint="@color/black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#EEEEEE" />
+
+        <TextView
+            android:id="@+id/tvReportCase5"
+            style="@style/Typography.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="16dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->onItemClick.invoke(@string/report_type5)}"
+            android:text="@string/report_case6"
+            app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
+            app:drawableTint="@color/black" />
+    </LinearLayout>
+</layout>

@@ -21,4 +21,6 @@ data class Moment(
     val updatedDateTime: String,
     val momentImagesSet: List<String>,
     val timeInfo: String,
+    val sodosiId: Long,
+    val sodosiName: String,
 )

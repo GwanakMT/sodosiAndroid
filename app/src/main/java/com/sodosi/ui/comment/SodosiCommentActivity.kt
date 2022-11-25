@@ -11,15 +11,19 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySodosiCommentBinding
+import com.sodosi.databinding.LayoutMomentReportDialogBinding
 import com.sodosi.databinding.LayoutSodosiCommentMenuDialogBinding
-import com.sodosi.databinding.LayoutSodosiReportDialogBinding
+import com.sodosi.domain.Result
 import com.sodosi.ui.common.base.BaseActivity
+import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.dp
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.sodosi.model.MomentModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodosiCommentBinding>() {
     private lateinit var menuDialog: Dialog
     private lateinit var reportDialog: Dialog
@@ -30,7 +34,12 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
     override fun getViewBinding() = ActivitySodosiCommentBinding.inflate(layoutInflater)
 
     override fun observeData() {
-
+        repeatOnStarted {
+            viewModel.reportResult.collect {
+                reportDialog.dismiss()
+                SodosiToast.makeText(this@SodosiCommentActivity, getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun initViews() = with(binding) {
@@ -86,11 +95,11 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
     private fun initReportDialog() {
         reportDialog = Dialog(this)
         reportDialog.apply {
-            val binding = LayoutSodosiReportDialogBinding.inflate(layoutInflater)
+            val binding = LayoutMomentReportDialogBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
             binding.onItemClick = {
-                SodosiToast.makeText(context, getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
+                viewModel.reportMoment(momentInfo.sodosiId, momentInfo.id, it)
             }
 
             window?.apply {

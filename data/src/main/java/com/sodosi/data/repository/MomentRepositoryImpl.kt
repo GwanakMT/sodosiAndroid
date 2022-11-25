@@ -3,6 +3,7 @@ package com.sodosi.data.repository
 import com.sodosi.data.mapper.MomentMapper
 import com.sodosi.data.network.api.SodosiApi
 import com.sodosi.data.spec.request.MomentRequest
+import com.sodosi.data.spec.request.ReportRequest
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Moment
 import com.sodosi.domain.entity.Place
@@ -59,6 +60,17 @@ class MomentRepositoryImpl @Inject constructor(
         return try {
             val result = sodosiApi.getMyMomentList()
             Result.Success(result.data.map { momentMapper.mapToEntity(it) })
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun reportMoment(sodosiId: Long, momentId: Long, reason: String): Result<Unit> {
+        return try {
+            val request = ReportRequest(moment_id = momentId, reason = reason)
+            sodosiApi.repostMoment(sodosiId, request)
+
+            Result.Success(Unit)
         } catch (e: Exception) {
             Result.Error(e)
         }

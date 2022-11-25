@@ -153,7 +153,9 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
                 roadAddress = marker.calloutSubTitle,
                 addressDetail = marker.calloutTitle,
                 photo = listOf(),
-                timeInfo = ""
+                timeInfo = "",
+                sodosiId = sodosiInfo?.id ?: 0,
+                sodosiName = sodosiInfo?.name ?: ""
             )
 
             showMomentBottomSheet(momentModel)

@@ -32,7 +32,9 @@ class PlaceMapper @Inject constructor() {
             roadAddress = entity.roadAddress,
             addressDetail = entity.addressDetail,
             photo = entity.momentImagesSet,
-            timeInfo = entity.timeInfo
+            timeInfo = entity.timeInfo,
+            sodosiId = entity.sodosiId,
+            sodosiName = entity.sodosiName,
         )
     }
 }

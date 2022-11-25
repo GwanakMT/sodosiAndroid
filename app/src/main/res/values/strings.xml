@@ -69,6 +69,12 @@
     <string name="report_case6">분쟁을 야기하는 글이에요.</string>
     <string name="report_submit">신고가 접수되었어요. 감사합니다!</string>
 
+    <string name="report_type1">PRIVACY</string>
+    <string name="report_type2">PORNOGRAPHIC</string>
+    <string name="report_type3">DUPLICATION</string>
+    <string name="report_type4">DUPLICATION</string>
+    <string name="report_type5">ADVERTISEMENT</string>
+
     // Location
     <string name="location_title">우리 동네 설정</string>
     <string name="location_search_hint">동명을 검색해 보세요</string>

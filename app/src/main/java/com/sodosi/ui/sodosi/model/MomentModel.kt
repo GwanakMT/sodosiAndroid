@@ -22,4 +22,6 @@ data class MomentModel(
     val addressDetail: String,
     val photo: List<String>,
     val timeInfo: String,
+    val sodosiId: Long,
+    val sodosiName: String,
 ): Parcelable

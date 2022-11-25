@@ -24,4 +24,6 @@ data class MomentResponse(
     val updatedDateTime: String,
     val momentImagesSet: List<ImageResponse>,
     val timeInfo: String,
+    val sodosiId: Long = 0,
+    val sodosiName: String = "",
 )

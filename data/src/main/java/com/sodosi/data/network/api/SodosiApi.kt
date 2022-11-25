@@ -101,6 +101,11 @@ interface SodosiApi {
     @GET("/api/v1/sodosis/{sodosiId}/moments")
     suspend fun getPlaceListBySodosi(@Path("sodosiId") id: Long): BaseResponse<List<PlaceResponse>>
 
+    // 최근 내가 남긴 순간
     @GET("/api/v1/users/moments")
     suspend fun getMyMomentList(): BaseResponse<List<MomentResponse>>
+
+    // 순간 신고
+    @POST("/api/v1/moments/{sodosiId}}/report")
+    suspend fun repostMoment(@Path("sodosiId") id: Long, report: ReportRequest): BaseResponse<ReportResponse>
 }
