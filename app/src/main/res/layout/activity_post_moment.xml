@@ -34,10 +34,9 @@
             android:id="@+id/ivLocationIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/ic_location_pin"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/appbar"
             app:layout_constraintTop_toBottomOf="@id/appbar"
             app:tint="@color/green600" />
 
@@ -46,11 +45,11 @@
             style="@style/Typography.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:ellipsize="end"
             android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
             app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
             app:layout_constraintTop_toBottomOf="@id/appbar"
             tools:text="남산타운 아파트 36동" />
@@ -85,11 +84,11 @@
         <EditText
             android:id="@+id/etMoment"
             style="@style/Typography.Body"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/screen_width"
             android:layout_height="0dp"
             android:gravity="top"
             android:inputType="textMultiLine"
-            android:padding="20dp"
+            android:paddingVertical="20dp"
             android:textColor="#0F0F10"
             android:textColorHint="#ADADAD"
             app:layout_constraintBottom_toTopOf="@id/photoCountLayout"
@@ -114,14 +113,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <View
+                android:id="@+id/guideLine"
+                android:layout_width="@dimen/screen_width"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/ivPhoto"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="20dp"
                 android:src="@drawable/ic_image"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideLine"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

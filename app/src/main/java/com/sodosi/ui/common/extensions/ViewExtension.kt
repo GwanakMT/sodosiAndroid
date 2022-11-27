@@ -21,6 +21,9 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.*
 
 /**
  *  ViewExtension.kt
@@ -126,4 +129,35 @@ fun View.heightAnimation(targetHeight: Int, duration: Long = 300L) {
     }
     valueAnimator.duration = duration
     valueAnimator.start()
+}
+
+// 클릭 이벤트를 flow로 변환
+fun View.clicks(): Flow<Unit> = callbackFlow {
+    setOnClickListener {
+        this.trySend(Unit)
+    }
+    awaitClose { setOnClickListener(null) }
+}
+
+// 마지막 발행 시간과 현재 시간 비교해서 이벤트 발행, 나머지는 무시.
+fun <T> Flow<T>.throttleFirst(windowDuration: Long): Flow<T> = flow {
+    var lastEmissionTime = 0L
+    collect { upstream ->
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastEmissionTime > windowDuration) {
+            lastEmissionTime = currentTime
+            emit(upstream)
+        }
+    }
+}
+
+fun View.setClickEvent(
+    uiScope: CoroutineScope,
+    windowDuration: Long = 1000, // 기본 1000 밀리 세컨드
+    onClick: () -> Unit,
+) {
+    clicks()
+        .throttleFirst(windowDuration)
+        .onEach { onClick.invoke() }
+        .launchIn(uiScope)
 }

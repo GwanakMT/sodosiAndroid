@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import com.sodosi.R
 import com.sodosi.databinding.ActivityPostMomentBinding
 import com.sodosi.domain.Result
@@ -17,6 +18,7 @@ import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.common.extensions.setClickEvent
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.sodosi.SodosiActivity
@@ -131,13 +133,13 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
     }
 
     private fun setListener() {
-        binding.btnSubmit.setOnClickListener {
+        binding.btnSubmit.setClickEvent(lifecycleScope) {
             sodosiModel = intent.getParcelableExtra(KEY_SODOSI_MODEL) as? SodosiModel
             sodosiModel?.id?.let { sodosiId ->
                 viewModel.postMoment(
                     sodosiId = sodosiId,
-                    latitude = momentPlace?.latitude?.toDouble() ?: return@setOnClickListener,
-                    longitude = momentPlace?.longitude?.toDouble() ?: return@setOnClickListener,
+                    latitude = momentPlace?.latitude?.toDouble() ?: return@setClickEvent,
+                    longitude = momentPlace?.longitude?.toDouble() ?: return@setClickEvent,
                     roadAddress = momentPlace?.roadAddress ?: "",
                     jibunAddress = momentPlace?.jibunAddress ?: "",
                     addressDetail = momentPlace?.placeName ?: "",
