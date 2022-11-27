@@ -9,7 +9,7 @@
     <string name="onboarding_finish">소도시 입주 완료</string>
 
     <string name="onboarding_first_title">공부하기 좋은 카페 어디지?</string>
-    <string name="onboarding_first_message">우리는 다양한 취향을 가지고 있습니다.\n소도시에서 내가 원하는 컨셉별 장소를 만나보세요!</string>
+    <string name="onboarding_first_message">우리는 모두 다양한 취향을 가지고 있습니다.\n소도시에서 내 취향을 담은 장소를 만나보세요</string>
 
     <string name="onboarding_input_phone_number">휴대폰 번호를 입력해주세요</string>
     <string name="onboarding_phone_number_kr_code">+82</string>

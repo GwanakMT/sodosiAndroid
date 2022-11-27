@@ -34,8 +34,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
 
     override fun getViewBinding() = ActivityPostMomentBinding.inflate(layoutInflater)
 
-    private val galleryLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK) {
                 val newPhotoList = mutableListOf<Uri>()
 
@@ -43,8 +42,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
                 if (it.data?.clipData != null) {
                     val count = it.data?.clipData?.itemCount ?: 0
                     if (count > 5) {
-                        SodosiToast.makeText(this, "사진은 최대 5장까지 선택 가능합니다.", Toast.LENGTH_SHORT)
-                            .show()
+                        SodosiToast.makeText(this, "사진은 최대 5장까지 선택 가능합니다.", Toast.LENGTH_SHORT).show()
                         return@registerForActivityResult
                     }
 
@@ -108,7 +106,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
                 onBackPressed()
             }
 
-            initAppbarTitle(getString(R.string.create_sodosi))
+            initAppbarTitle(getString(R.string.sodosi_create_moment))
         }
     }
 

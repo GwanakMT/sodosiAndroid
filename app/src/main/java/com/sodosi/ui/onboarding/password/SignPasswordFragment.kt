@@ -36,6 +36,7 @@ import kotlinx.coroutines.flow.combine
 @AndroidEntryPoint
 class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPasswordBinding>() {
     private lateinit var termsDialog: Dialog
+    private var termsDialogOpened = false
     private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     private val passwordChecker = MutableStateFlow(false)
@@ -76,7 +77,9 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
     private fun initAppbar() {
         binding.appbar.apply {
             initLeftButton(R.drawable.ic_arrow_left) {
-                activity?.onBackPressed()
+                if (!termsDialogOpened) {
+                    activity?.onBackPressed()
+                }
             }
         }
     }
@@ -175,6 +178,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
             setCanceledOnTouchOutside(false)
 
             show()
+            termsDialogOpened = true
         }
     }
 }

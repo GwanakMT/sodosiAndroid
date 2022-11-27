@@ -8,6 +8,7 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.sodosi.util.LogUtil
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
@@ -59,7 +60,8 @@ class FirebaseAuthManager(private val activity: Activity) {
                     }
                 }
         } catch (e: Exception) {
-
+            listener.onAuthFail()
+            LogUtil.e(e.message.toString())
         }
     }
 

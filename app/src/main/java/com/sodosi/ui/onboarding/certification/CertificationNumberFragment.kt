@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.sodosi.R
 import com.sodosi.databinding.FragmentCertificationNumberBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.navigate
 import com.sodosi.ui.main.MainActivity
 import com.sodosi.ui.onboarding.OnboardingType
@@ -31,6 +33,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class CertificationNumberFragment :
     BaseFragment<OnboardingViewModel, FragmentCertificationNumberBinding>(),
     FirebaseAuthManager.VerificationPhoneListener {
+    private var resendConut = 0
+
     private lateinit var authManager: FirebaseAuthManager
     private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
@@ -94,15 +98,18 @@ class CertificationNumberFragment :
             if (viewModel.timer.value > 0) {
                 val smsCode = binding.etCertificationNumber.text.toString()
                 authManager.signInWithPhoneAuthCredential(smsCode, this)
-                viewModel.loginWithoutPassword("01040106613")
             } else {
                 setCertificationWarning(resources.getString(R.string.onboarding_timer_warning))
             }
         }
 
         binding.tvResend.setOnClickListener {
-            authManager.verifyPhoneNumber()
-            viewModel.resetTimer()
+            if (resendConut < 3) {
+                resendConut += 1
+                authManager.verifyPhoneNumber()
+                viewModel.resetTimer()
+                SodosiToast.makeText(requireContext(), "인증번호가 재전송 되었습니다", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

@@ -279,6 +279,14 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
             menuDialog.show()
         }
         binding.gpsEllipse.setOnClickListener { moveFocusToCenterPoint(true) }
+        binding.momentCountLayout.setOnClickListener {
+            momentBottomSheetBehavior.isHideable = true
+            momentBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            momentBottomSheetBehavior.isHideable = false
+
+            placeBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            placeBottomSheetBehavior.isHideable = false
+        }
     }
 
     fun showMomentBottomSheet(model: MomentModel) {

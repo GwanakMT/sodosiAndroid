@@ -1,6 +1,8 @@
 package com.sodosi.ui.onboarding.nickname
 
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
@@ -22,6 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBinding>() {
+    private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
+
     override fun getViewBinding() = FragmentNicknameBinding.inflate(layoutInflater)
 
     override val viewModel: OnboardingViewModel by activityViewModels()
@@ -60,6 +64,7 @@ class NicknameFragment : BaseFragment<OnboardingViewModel, FragmentNicknameBindi
     }
 
     private fun initView() {
+        inputMethodManager.showSoftInput(binding.etNickname, 0)
         binding.etNickname.addTextChangedListener {
             binding.btnFinish.isEnabled = "$it".length != 0
         }

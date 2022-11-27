@@ -4,6 +4,7 @@ import android.content.*
 import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
 import android.telephony.SmsMessage
+import com.sodosi.util.LogUtil
 
 /**
  *  SMSReceiver.kt
@@ -14,6 +15,7 @@ import android.telephony.SmsMessage
 
 class SMSReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        LogUtil.d("onReceive", "SMSReceiver")
         if (intent.action.equals(INTENT_SMS_RECEIVED)) {
             val bundle = intent.extras
             bundle?.let {

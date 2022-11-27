@@ -20,13 +20,14 @@
             android:layout_width="260dp"
             android:layout_height="260dp" />
 
-        <TextView
-            android:id="@+id/tvFirstTitle"
+        <ImageView
+            android:id="@+id/ivFirstTitle"
             style="@style/Typography.Titles.Title2.Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
             android:text="@string/onboarding_first_title"
             android:textColor="@color/white" />
 
@@ -35,8 +36,8 @@
             style="@style/Typography.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:alpha="0.6"
+            android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="@string/onboarding_first_message"
             android:textColor="@color/white" />
