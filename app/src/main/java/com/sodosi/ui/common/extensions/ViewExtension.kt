@@ -11,6 +11,7 @@ import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -110,4 +111,19 @@ fun ImageView.setImageWithUrl(url: String, radius: Int = 0) {
 
 fun Bitmap.resize(size: Int): Bitmap {
     return Bitmap.createScaledBitmap(this, size.dp, size.dp, true)
+}
+
+/**
+ * 뷰 높이 변경 애니메이션
+ */
+fun View.heightAnimation(targetHeight: Int, duration: Long = 300L) {
+    val prevHeight = this.height
+    val valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight)
+    valueAnimator.interpolator = DecelerateInterpolator()
+    valueAnimator.addUpdateListener { animation ->
+        this.layoutParams.height = animation.animatedValue as Int
+        this.requestLayout()
+    }
+    valueAnimator.duration = duration
+    valueAnimator.start()
 }

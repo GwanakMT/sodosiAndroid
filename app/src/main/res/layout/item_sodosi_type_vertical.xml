@@ -26,8 +26,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
+        android:layout_height="@dimen/item_sodosi_height"
+        android:paddingVertical="20dp"
         android:onClick="@{()->onItemClick.invoke(item)}">
 
         <TextView

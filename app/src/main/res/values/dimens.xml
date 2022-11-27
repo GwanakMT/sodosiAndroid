@@ -27,4 +27,6 @@
     <dimen name="moment_bottom_sheet_peek_height">124dp</dimen>
     <dimen name="moment_bottom_sheet_peek_height_gps">156dp</dimen>
     <dimen name="moment_bottom_sheet_not_include_max_height">216dp</dimen>
+
+    <dimen name="item_sodosi_height">112dp</dimen>
 </resources>

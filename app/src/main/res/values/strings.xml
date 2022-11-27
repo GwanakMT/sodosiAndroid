@@ -41,6 +41,8 @@
     <string name="hot_sodosi_list_title">지금 HOT한 소도시 🔥</string>
     <string name="new_sodosi_list_title">새롭게 추천하는 소도시 👋</string>
     <string name="more_sodosi">더 보기</string>
+    <string name="expand_sodosi">펼쳐보기</string>
+    <string name="collapse_sodosi">접기</string>
     <string name="sodosi_user_count">%s명의 소시민들</string>
     <string name="sodosi_moment_count">%s개의 순간</string>
 

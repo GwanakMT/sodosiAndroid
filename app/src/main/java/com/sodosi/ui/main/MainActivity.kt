@@ -13,6 +13,7 @@ import androidx.core.view.marginTop
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMainBinding
@@ -20,6 +21,7 @@ import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.common.customview.SodosiToast
+import com.sodosi.ui.common.extensions.heightAnimation
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.create.CreateSodosiActivity
@@ -42,6 +44,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private val bannerHandler: Handler by lazy { Handler() }
     private var runnable: Runnable? = null
     private var backPressWaitTime = 0L
+
+    private var hotSodosiCollapseState = true
 
     private var sodosiViewPagerListSize = 0
 
@@ -128,6 +132,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                         } else {
                             // Error View
                         }
+                    }
+                }
+
+                launch {
+                    viewModel.hotSodosiListUpdatedEvent.collect {
+                        hotSodosiAdapter.submitList(viewModel.hotSodosiList)
                     }
                 }
 
@@ -251,6 +261,23 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             tvEditMarkedSodosi.setOnClickListener {
                 activityResultLauncher.launch(MySodosiListActivity.getIntent(this@MainActivity, MySodosiListActivity.MySodosiListType.EDIT_MARKED))
             }
+
+            btnMoreHotSodosi.setOnClickListener {
+                val itemHeight = resources.getDimensionPixelSize(R.dimen.item_sodosi_height)
+                val hotSodosiMaxSize = viewModel.hotSodosiList.size
+
+                if (hotSodosiCollapseState) {
+                    // 접혀있으면
+                    binding.rvHotSodosi.heightAnimation(itemHeight * hotSodosiMaxSize)
+                    binding.btnMoreHotSodosi.text = getString(R.string.collapse_sodosi)
+                    hotSodosiCollapseState = false
+                } else {
+                    // 펼쳐져 있었으면
+                    binding.rvHotSodosi.heightAnimation(itemHeight * 4)
+                    hotSodosiCollapseState = true
+                    binding.btnMoreHotSodosi.text = getString(R.string.expand_sodosi)
+                }
+            }
         }
 
         // 상단 배너 뷰 클릭 이벤트 설정
@@ -324,8 +351,18 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 showRank = true
             }
 
-            addItemDecoration(divider)
+            layoutManager = object: LinearLayoutManager(this@MainActivity) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+
+            val itemHeight = resources.getDimensionPixelSize(R.dimen.item_sodosi_height)
+            heightAnimation(itemHeight * 4, 0L)
+            hotSodosiCollapseState = true
         }
+
+        hotSodosiCollapseState = true
     }
 
     private fun setNewSodosiList(divider: HorizontalItemDecoration) {

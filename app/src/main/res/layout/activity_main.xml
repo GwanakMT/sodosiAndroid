@@ -217,6 +217,7 @@
                     android:id="@+id/btnMoreHotSodosi"
                     style="@style/MoreSodosi"
                     android:layout_width="@dimen/screen_width"
+                    android:text="@string/expand_sodosi"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
 
