@@ -46,6 +46,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private var backPressWaitTime = 0L
 
     private var hotSodosiCollapseState = true
+    private var newSodosiCollapseState = true
 
     private var sodosiViewPagerListSize = 0
 
@@ -111,8 +112,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                         if (networkSuccess) {
                             commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
                             markedSodosiAdapter.submitList(viewModel.bookmarkSodosiList)
-                            hotSodosiAdapter.submitList(viewModel.hotSodosiList)
-                            newSodosiAdapter.submitList(viewModel.newSodosiList)
 
                             if (viewModel.mainSodosiList.isNotEmpty()) {
                                 val beforeList = viewPagerAdapter.currentList
@@ -138,6 +137,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 launch {
                     viewModel.hotSodosiListUpdatedEvent.collect {
                         hotSodosiAdapter.submitList(viewModel.hotSodosiList)
+                    }
+                }
+
+                launch {
+                    viewModel.newSodosiListUpdatedEvent.collect {
+                        newSodosiAdapter.submitList(viewModel.newSodosiList)
                     }
                 }
 
@@ -278,6 +283,22 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     binding.btnMoreHotSodosi.text = getString(R.string.expand_sodosi)
                 }
             }
+
+            tvMoreNewSodosi.setOnClickListener {
+                val itemHeight = resources.getDimensionPixelSize(R.dimen.item_sodosi_height)
+                val hotSodosiMaxSize = viewModel.newSodosiList.size
+
+                if (newSodosiCollapseState) {
+                    // 접혀있으면
+                    binding.rvNewSodosi.heightAnimation(itemHeight * hotSodosiMaxSize)
+                    newSodosiCollapseState = false
+                    binding.tvMoreNewSodosi.setGone() // TODO: 얘는 처리가 어떻게 되는거지
+                } else {
+                    // 펼쳐져 있었으면
+                    binding.rvNewSodosi.heightAnimation(itemHeight * 6)
+                    newSodosiCollapseState = true
+                }
+            }
         }
 
         // 상단 배너 뷰 클릭 이벤트 설정
@@ -371,6 +392,16 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 onItemClick = ::moveToSodosi
                 onBookmarkClick = ::toggleBookmark
             }
+
+            layoutManager = object: LinearLayoutManager(this@MainActivity) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+
+            val itemHeight = resources.getDimensionPixelSize(R.dimen.item_sodosi_height)
+            heightAnimation(itemHeight * 6, 0L)
+            newSodosiCollapseState = true
 
             addItemDecoration(divider)
         }

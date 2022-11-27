@@ -7,6 +7,7 @@ import com.sodosi.domain.usecase.home.GetMainSodosiListUseCase
 import com.sodosi.domain.usecase.home.GetMainSuggestBannerHiddenUseCase
 import com.sodosi.domain.usecase.home.SetMainSuggestBannerHiddenUseCase
 import com.sodosi.domain.usecase.sodosi.GetHotSodosiListUseCase
+import com.sodosi.domain.usecase.sodosi.GetNewSodosiListUseCase
 import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
 import com.sodosi.model.SodosiModel
 import com.sodosi.model.mapper.SodosiMapper
@@ -34,6 +35,7 @@ class MainViewModel @Inject constructor(
     private val setMainSuggestBannerHiddenUseCase: SetMainSuggestBannerHiddenUseCase,
     private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
     private val getHotSodosiListUseCase: GetHotSodosiListUseCase,
+    private val getNewSodosiListUseCase: GetNewSodosiListUseCase,
     private val sodosiMapper: SodosiMapper,
 ) : BaseViewModel() {
     var mainSodosiList = emptyList<SodosiModel>()
@@ -48,6 +50,9 @@ class MainViewModel @Inject constructor(
     private val _hotSodosiListUpdatedEvent = MutableEventFlow<Unit>()
     val hotSodosiListUpdatedEvent = _hotSodosiListUpdatedEvent.asEventFlow()
 
+    private val _newSodosiListUpdatedEvent = MutableEventFlow<Unit>()
+    val newSodosiListUpdatedEvent = _newSodosiListUpdatedEvent.asEventFlow()
+
     private val _patchMarkSodosiEvent = MutableEventFlow<Boolean>()
     val patchMarkSodosiEvent = _patchMarkSodosiEvent.asEventFlow()
 
@@ -61,6 +66,7 @@ class MainViewModel @Inject constructor(
     fun getMainSodosiList() {
         viewModelScope.launch {
             getHotSodosiList() // HOT한 소도시는 따로 조회
+            geNewtSodosiList() // NEW 소도시도 따로 조회
 
             when(val result = getMainSodosiListUseCase()) {
                 is Result.Success -> {
@@ -68,7 +74,6 @@ class MainViewModel @Inject constructor(
                     mainSodosiList = sodosiListMap[SodosiCategory.MAIN_BANNER]?.map { sodosiMapper.mapToModel(it) } ?: emptyList()
                     commentedSodosiList = sodosiListMap[SodosiCategory.COMMENTED]?.map { sodosiMapper.mapToModel(it) } ?: emptyList()
                     bookmarkSodosiList = sodosiListMap[SodosiCategory.MARKED]?.map { sodosiMapper.mapToModel(it) } ?: emptyList()
-                    newSodosiList = sodosiListMap[SodosiCategory.NEW]?.map { sodosiMapper.mapToModel(it) } ?: emptyList()
 
                     val hasSodosi = result.data.first
                     val suggestBannerHidden = getMainSuggestBannerHiddenUseCase()
@@ -109,6 +114,16 @@ class MainViewModel @Inject constructor(
             if (result is Result.Success) {
                 hotSodosiList = result.data.map { sodosiMapper.mapToModel(it) }
                 _hotSodosiListUpdatedEvent.emit(Unit)
+            }
+        }
+    }
+
+    private fun geNewtSodosiList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = getNewSodosiListUseCase()
+            if (result is Result.Success) {
+                newSodosiList = result.data.map { sodosiMapper.mapToModel(it) }
+                _newSodosiListUpdatedEvent.emit(Unit)
             }
         }
     }

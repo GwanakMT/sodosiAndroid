@@ -21,6 +21,7 @@ interface SodosiRepository {
     suspend fun getCommentedSodosiList(): Result<List<Sodosi>>
     suspend fun getMarkedSodosiList(): Result<List<Sodosi>>
     suspend fun getHotSodosiList(): Result<List<Sodosi>>
+    suspend fun getNewSodosiList(): Result<List<Sodosi>>
 
     suspend fun markSodosi(id: Long): Result<Boolean>
     suspend fun unmarkSodosi(id: Long): Result<Boolean>

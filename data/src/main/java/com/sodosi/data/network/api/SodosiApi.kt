@@ -53,6 +53,10 @@ interface SodosiApi {
     @GET("/api/v1/sodosis/HOT/type")
     suspend fun getHotSodosiList(): BaseResponse<List<SodosiResponse>>
 
+    // new 소도시 목록(더보기)
+    @GET("/api/v1/sodosis/NEW/type")
+    suspend fun getNewSodosiList(): BaseResponse<List<SodosiResponse>>
+
     // 소도시 전체 목록
     @GET("/api/v1/sodosis")
     suspend fun getAllSodosiList(@Query("sortSodosiCode") sortSodosiCode: String): BaseResponse<List<SodosiResponse>>
