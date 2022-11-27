@@ -131,6 +131,7 @@ class UserRepositoryImpl @Inject constructor(
         return try {
             val result = sodosiApi.unregister()
             if (result.code == 200) {
+                setTokenUseCase("")
                 Result.Success(Unit)
             } else {
                 Result.Error(Exception(result.message))

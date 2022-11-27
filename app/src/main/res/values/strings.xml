@@ -156,4 +156,10 @@
     <string name="sodosi_total">전체</string>
     <string name="sodosi_sort_popular">인기순</string>
     <string name="sodosi_sort_fastest">최신순</string>
+
+    // User Exit
+    <string name="user_exit_title">떠나신다니 아쉬워요</string>
+    <string name="user_exit_message">함께 만들었던 모든 기록들이 사라져요. 정말 탈퇴하실 건까요?</string>
+    <string name="user_exit_button_ok">탈퇴하기</string>
+    <string name="user_exit_button_cancel">아니오</string>
 </resources>

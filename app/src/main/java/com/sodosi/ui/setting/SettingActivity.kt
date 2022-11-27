@@ -1,8 +1,14 @@
 package com.sodosi.ui.setting
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageInfo
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.sodosi.R
@@ -17,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>(),
     View.OnClickListener {
     override val viewModel: SettingViewModel by viewModels()
+    private lateinit var deleteUserDialog: Dialog
 
     override fun getViewBinding() = ActivitySettingBinding.inflate(layoutInflater)
 
@@ -69,7 +76,28 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
             binding.versionName -> moveToVersionInfo()
             binding.sodosiMakers -> moveToWebDocs(WebViewActivity.TYPE_SODOSI_MAKERS)
             binding.logout -> logout()
-            binding.deleteUser -> deleteUser()
+            binding.deleteUser -> {
+                deleteUserDialog = Dialog(this).apply {
+                    setContentView(R.layout.dialog_user_exit)
+
+                    findViewById<TextView>(R.id.btnDeleteUser).setOnClickListener {
+                        deleteUserDialog.dismiss()
+                        deleteUser()
+                    }
+
+                    findViewById<TextView>(R.id.btnContinue).setOnClickListener {
+                        deleteUserDialog.dismiss()
+                    }
+
+                    window?.apply {
+                        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                        setGravity(Gravity.CENTER)
+                        setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    }
+                }
+
+                deleteUserDialog.show()
+            }
         }
     }
 
