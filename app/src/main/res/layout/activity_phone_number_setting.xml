@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.sodosi.ui.common.customview.SodosiAppbar
+            android:id="@+id/appbar"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumberNow"
+            style="@style/Typography.HeadLines.SubHeadLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="현재 휴대폰 번호"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumberNowPlaceHolder"
+            style="@style/Typography.HeadLines.Callout"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/background_rounded_gray"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:textColor="#DCDCDD"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/tvPhoneNumberNow" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumberNew"
+            style="@style/Typography.HeadLines.SubHeadLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/setting_phone_number_new"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/tvPhoneNumberNowPlaceHolder" />
+
+        <View
+            android:id="@+id/inputBackgroundNew"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/background_rounded_gray"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/tvPhoneNumberNew" />
+
+        <EditText
+            android:id="@+id/etPhoneNumberNew"
+            style="@style/Typography.HeadLines.Callout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/setting_phone_number_hint"
+            android:inputType="number"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/inputBackgroundNew"
+            app:layout_constraintEnd_toEndOf="@id/inputBackgroundNew"
+            app:layout_constraintStart_toStartOf="@id/inputBackgroundNew"
+            app:layout_constraintTop_toTopOf="@id/inputBackgroundNew" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNext"
+            style="@style/SodosiButton"
+            android:layout_width="@dimen/screen_width"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/onboarding_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

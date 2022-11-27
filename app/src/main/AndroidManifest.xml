@@ -22,14 +22,20 @@
         android:theme="@style/Theme.SodosiAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.setting.PhoneNumberCertificationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.setting.PhoneNumberSettingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.mypage.EditSodosiListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.create.EditSodosiActivity"
             android:exported="false"

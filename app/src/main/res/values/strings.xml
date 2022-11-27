@@ -151,6 +151,11 @@
     <string name="setting_notification">앱 알림 설정</string>
     <string name="setting_finish">완료</string>
 
+    <string name="setting_phone_number_title">휴대폰 번호 변경</string>
+    <string name="setting_phone_number_now">현재 휴대폰 번호</string>
+    <string name="setting_phone_number_new">변경할 휴대폰 번호</string>
+    <string name="setting_phone_number_hint">01012345678</string>
+
     // Sodosi List
     <string name="sodosi_total_list_title">전체 소도시</string>
     <string name="sodosi_total">전체</string>

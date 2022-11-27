@@ -41,7 +41,7 @@ class SettingViewModel @Inject constructor(
         getPhoneNumber()
     }
 
-    private fun getPhoneNumber() {
+    fun getPhoneNumber() {
         viewModelScope.launch {
             _phoneNumber.emit(getPhoneNumberUseCase())
         }

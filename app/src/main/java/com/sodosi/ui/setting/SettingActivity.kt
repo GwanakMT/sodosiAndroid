@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySettingBinding
@@ -24,12 +25,20 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
     View.OnClickListener {
     override val viewModel: SettingViewModel by viewModels()
     private lateinit var deleteUserDialog: Dialog
+    private var phoneNumber = ""
 
     override fun getViewBinding() = ActivitySettingBinding.inflate(layoutInflater)
+
+    private val changePhoneNumberLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            viewModel.getPhoneNumber()
+        }
+    }
 
     override fun observeData() {
         repeatOnStarted {
             viewModel.phoneNumber.collect {
+                phoneNumber = it
                 setData(it)
             }
         }
@@ -122,7 +131,7 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
     }
 
     private fun moveToSettingPhoneNumber() {
-        SodosiToast.makeText(this, "전화번호", Toast.LENGTH_SHORT).show()
+        changePhoneNumberLauncher.launch(PhoneNumberSettingActivity.getIntent(this, phoneNumber))
     }
 
     private fun moveToSettingPassword() {
