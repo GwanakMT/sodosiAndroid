@@ -42,15 +42,28 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
             // 2-2) 핸드폰 번호 중복 체크. (이미 회원가입 되어있는지 확인)
             viewModel.userNotJoined.collect { userNotJoined ->
                 progress.dismiss()
-                if (userNotJoined) {
-                    // 2-3) 가입되어있지 않다면 다음 단계(휴대폰 인증 페이지)로 이동
-                    val phoneNumber = binding.etPhoneNumber.text.toString()
-                    moveToSignUpScreen(phoneNumber)
+
+                val phoneNumber = binding.etPhoneNumber.text.toString()
+                if (arguments?.get("onboarding_type") == OnboardingType.SIGNUP) {
+                    // 회원가입 FLAG
+                    if (userNotJoined) {
+                        // 가입되어있지 않다면 다음 단계(휴대폰 인증 페이지)로 이동
+                        moveToSignUpScreen(phoneNumber)
+                    } else {
+                        // 이미 가입되어있다면 토스트 메세지와 함께 비밀번호 페이지로 이동
+                        SodosiToast.makeText(requireContext(), "이미 가입되어있는 번호입니다.", Toast.LENGTH_SHORT).show()
+                        moveToLoginScreen(phoneNumber)
+                    }
                 } else {
-                    // 2-4) 이미 가입되어있다면 토스트 메세지와 함께 비밀번호 페이지로 이동
-                    SodosiToast.makeText(requireContext(), "이미 가입되어있는 번호입니다.", Toast.LENGTH_SHORT).show()
-                    val phoneNumber = binding.etPhoneNumber.text.toString()
-                    moveToLoginScreen(phoneNumber)
+                    // 로그인 FLAG
+                    if (userNotJoined) {
+                        // 가입되어있지 않다면 회원가입 단계로 이동
+                        SodosiToast.makeText(requireContext(), "가입되지 않은 핸드폰 번호입니다..", Toast.LENGTH_SHORT).show()
+                        moveToSignUpScreen(phoneNumber)
+                    } else {
+                        // 가입되어있는게 맞다면 비밀번호 페이지로 이동
+                        moveToLoginScreen(phoneNumber)
+                    }
                 }
             }
         }
@@ -82,14 +95,8 @@ class PhoneNumberFragment : BaseFragment<OnboardingViewModel, FragmentPhoneNumbe
             if (checkPhoneRegex(phoneNumber)) {
                 FirebaseAuthManager.phoneNumber = "+82${phoneNumber.toInt()}"
 
-                if (arguments?.get("onboarding_type") == OnboardingType.SIGNUP) {
-                    // 2-1) 회원가입이라면 번호가 이미 가입되어있는지 확인
-                    viewModel.checkUserNotJoined(phoneNumber)
-                    progress.show()
-                } else {
-                    // 3-1) 로그인이라면 비밀번호 입력 페이지로 이동
-                    moveToLoginScreen(phoneNumber)
-                }
+                viewModel.checkUserNotJoined(phoneNumber)
+                progress.show()
             } else {
                 // 1-2) 핸드폰 번호가 유효하지 않다면 Error View 처리
                 binding.tvWarning.visibility = View.VISIBLE
