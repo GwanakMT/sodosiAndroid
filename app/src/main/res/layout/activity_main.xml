@@ -143,13 +143,14 @@
                     tools:listitem="@layout/item_sodosi_type_vertical" />
 
                 <View
+                    android:id="@+id/dividerCommentedSodosi"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:layout_marginTop="8dp"
                     android:background="#F6F6F6" />
 
-
                 <LinearLayout
+                    android:id="@+id/bookmarkSodosiContainer"
                     android:layout_height="wrap_content"
                     android:layout_width="@dimen/screen_width"
                     android:layout_marginTop="28dp"
@@ -188,6 +189,7 @@
                     tools:listitem="@layout/item_sodosi_type_horizontal" />
 
                 <View
+                    android:id="@+id/dividerBookmarkSodosi"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:layout_marginTop="28dp"
@@ -222,6 +224,7 @@
                     android:layout_marginTop="8dp" />
 
                 <View
+                    android:id="@+id/dividerHotSodosi"
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
                     android:layout_marginTop="28dp"

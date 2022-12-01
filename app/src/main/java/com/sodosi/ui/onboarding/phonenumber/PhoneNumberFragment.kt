@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -23,7 +22,6 @@ import com.sodosi.ui.onboarding.OnboardingViewModel
 import com.sodosi.ui.onboarding.certification.FirebaseAuthManager
 import com.sodosi.util.PermissionManager
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.jar.Manifest
 import java.util.regex.Pattern
 
 /**

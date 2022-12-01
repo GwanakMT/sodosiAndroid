@@ -31,8 +31,6 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
     override val viewModel: OnboardingViewModel by viewModels()
 
     override fun initViews() = with(binding) {
-        inputMethodManager.showSoftInput(binding.etPassword, 0)
-
         initAppbar()
         setOnClickListener()
 
@@ -84,5 +82,7 @@ class LoginPasswordFragment : BaseFragment<OnboardingViewModel, FragmentLoginPas
         binding.etPassword.textChangedListener = {
             binding.btnNext.isEnabled = "$it".length >= 8
         }
+
+        inputMethodManager.showSoftInput(binding.etPassword, 0)
     }
 }

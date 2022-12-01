@@ -110,8 +110,29 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 launch {
                     viewModel.sodosiListsUpdatedEvent.collect { networkSuccess ->
                         if (networkSuccess) {
-                            commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
-                            markedSodosiAdapter.submitList(viewModel.bookmarkSodosiList)
+                            if (viewModel.commentedSodosiList.isEmpty()) {
+                                binding.tvJoinSodosiTitle.setGone()
+                                binding.rvCommentedSodosi.setGone()
+                                binding.dividerCommentedSodosi.setGone()
+                            } else {
+                                binding.tvJoinSodosiTitle.setVisible()
+                                binding.rvCommentedSodosi.setVisible()
+                                binding.dividerCommentedSodosi.setVisible()
+
+                                commentedSodosiAdapter.submitList(viewModel.commentedSodosiList)
+                            }
+
+                            if (viewModel.bookmarkSodosiList.isEmpty()) {
+                                binding.bookmarkSodosiContainer.setGone()
+                                binding.rvBookmarkSodosi.setGone()
+                                binding.dividerBookmarkSodosi.setGone()
+                            } else {
+                                binding.bookmarkSodosiContainer.setVisible()
+                                binding.rvBookmarkSodosi.setVisible()
+                                binding.dividerBookmarkSodosi.setVisible()
+
+                                markedSodosiAdapter.submitList(viewModel.bookmarkSodosiList)
+                            }
 
                             if (viewModel.mainSodosiList.isNotEmpty()) {
                                 val beforeList = viewPagerAdapter.currentList
@@ -136,13 +157,35 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
                 launch {
                     viewModel.hotSodosiListUpdatedEvent.collect {
-                        hotSodosiAdapter.submitList(viewModel.hotSodosiList)
+                        if (viewModel.hotSodosiList.isEmpty()) {
+                            binding.tvHotSodosiTitle.setGone()
+                            binding.rvHotSodosi.setGone()
+                            binding.btnMoreHotSodosi.setGone()
+                            binding.dividerHotSodosi.setGone()
+                        } else {
+                            binding.tvHotSodosiTitle.setVisible()
+                            binding.rvHotSodosi.setVisible()
+                            binding.btnMoreHotSodosi.setVisible()
+                            binding.dividerHotSodosi.setVisible()
+
+                            hotSodosiAdapter.submitList(viewModel.hotSodosiList)
+                        }
                     }
                 }
 
                 launch {
                     viewModel.newSodosiListUpdatedEvent.collect {
-                        newSodosiAdapter.submitList(viewModel.newSodosiList)
+                        if (viewModel.newSodosiList.isEmpty()) {
+                            binding.tvNewSodosiTitle.setGone()
+                            binding.rvNewSodosi.setGone()
+                            binding.tvMoreNewSodosi.setGone()
+                        } else {
+                            binding.tvNewSodosiTitle.setVisible()
+                            binding.rvNewSodosi.setVisible()
+                            binding.tvMoreNewSodosi.setVisible()
+
+                            newSodosiAdapter.submitList(viewModel.newSodosiList)
+                        }
                     }
                 }
 
