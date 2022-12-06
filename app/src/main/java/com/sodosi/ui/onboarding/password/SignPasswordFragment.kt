@@ -143,7 +143,7 @@ class SignPasswordFragment : BaseFragment<OnboardingViewModel, FragmentSignPassw
                 adapter = TermsAdapter().apply {
                     submitList(termsList)
                     onItemClick = {
-                        val intent = Intent(context, TermsDetailActivity::class.java)
+                        val intent = TermsDetailActivity.getIntent(context, it)
                         startActivity(intent)
                     }
 

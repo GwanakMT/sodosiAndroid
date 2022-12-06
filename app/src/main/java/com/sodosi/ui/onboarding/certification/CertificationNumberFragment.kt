@@ -140,6 +140,8 @@ class CertificationNumberFragment :
             }
             if (it?.length ?: 0 >= 6) binding.btnNext.isEnabled = true
         }
+
+        inputMethodManager.showSoftInput(binding.etCertificationNumber, 0)
     }
 
     private fun String.getNumberWithIndex(index: Int): String {
