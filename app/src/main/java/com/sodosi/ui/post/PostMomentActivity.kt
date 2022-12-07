@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -26,6 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentBinding>() {
+    private val inputMethodManager: InputMethodManager by lazy { getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
+
     override val viewModel: PostMomentViewModel by viewModels()
 
     private var sodosiModel: SodosiModel? = null
@@ -120,6 +123,8 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
                 binding.btnSubmit.setTextColor(Color.parseColor("#ADADAD"))
             }
         }
+
+        inputMethodManager.showSoftInput(binding.etMoment, 0)
     }
 
     private fun initPhotoRecyclerView() {

@@ -1,6 +1,8 @@
 package com.sodosi.data.repository
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.OpenableColumns
 import com.sodosi.data.mapper.MomentMapper
@@ -17,8 +19,8 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okio.BufferedSink
-import okio.source
 import org.json.JSONObject
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 /**
@@ -97,6 +99,7 @@ class MomentRepositoryImpl @Inject constructor(
     }
 
     fun Uri.asMultipart(): MultipartBody.Part? {
+        val uri = this
         val contentResolver = context.contentResolver
         return contentResolver.query(this, null, null, null, null)?.let {
             if (it.moveToNext()) {
@@ -107,7 +110,15 @@ class MomentRepositoryImpl @Inject constructor(
                     }
 
                     override fun writeTo(sink: BufferedSink) {
-                        sink.writeAll(contentResolver.openInputStream(this@asMultipart)?.source()!!)
+                        val contextRef = WeakReference(context)
+                        val weakContext = contextRef.get()
+                        try{
+                            if (weakContext != null) {
+                                resize(uri, 600, 600)?.compress(Bitmap.CompressFormat.JPEG, 75, sink.outputStream())
+                            }
+                        } finally {
+                            contextRef.clear()
+                        }
                     }
                 }
                 it.close()
@@ -117,5 +128,42 @@ class MomentRepositoryImpl @Inject constructor(
                 null
             }
         }
+    }
+
+    private fun resize(uri: Uri, minWidth: Int, minHeight: Int): Bitmap? {
+        var inputStream = context.contentResolver.openInputStream(uri)
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeStream(inputStream, null, options)
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, minWidth, minHeight)
+
+        // close the input stream
+        inputStream?.close();
+
+        // reopen the input stream
+        inputStream = context.getContentResolver().openInputStream(uri)
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeStream(inputStream, null, options)
+    }
+
+    private fun calculateInSampleSize(options: BitmapFactory.Options, requestedWidth: Int, requestedHeight: Int): Int {
+        val height = options.outHeight
+        val width = options.outWidth
+        var inSampleSize = 1
+
+        if (height > requestedHeight || width > requestedWidth) {
+            val halfHeight = height / 2
+            val halfWidth = width / 2
+
+            while ((halfHeight / inSampleSize) > requestedHeight || (halfWidth / inSampleSize) > requestedWidth) {
+                inSampleSize *= 2
+            }
+        }
+
+        return inSampleSize
     }
 }
