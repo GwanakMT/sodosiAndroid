@@ -2,6 +2,8 @@ package com.sodosi.data.network.api
 
 import com.sodosi.data.spec.request.*
 import com.sodosi.data.spec.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 /**
@@ -102,8 +104,13 @@ interface SodosiApi {
     suspend fun changeNickName(@Query("nickname") nickName: String): BaseResponse<UserSignInResponse>
 
     // 순간 POST
+    @Multipart
     @POST("/api/v1/sodosis/{id}/moments")
-    suspend fun postMoment(@Path("id") id: Long, @Body momentRequest: MomentRequest): BaseResponse<MomentResponse>
+    suspend fun postMoment(
+        @Path("id") id: Long,
+        @Part("createMomentRequest") momentRequest: RequestBody,
+        @Part imageList: List<MultipartBody.Part?>
+    ): BaseResponse<MomentResponse>
 
     // 순간 GET (장소기준)
     @GET("/api/v1/sodosis/{sodosiId}/moments")

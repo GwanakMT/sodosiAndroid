@@ -11,6 +11,7 @@
     <!-- GPS와 네트워크를 이용하여 단말기 위치 식별 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".SodosiApplication"

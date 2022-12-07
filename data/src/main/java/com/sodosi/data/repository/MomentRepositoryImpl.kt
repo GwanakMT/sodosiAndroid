@@ -1,13 +1,24 @@
 package com.sodosi.data.repository
 
+import android.content.Context
+import android.net.Uri
+import android.provider.OpenableColumns
 import com.sodosi.data.mapper.MomentMapper
 import com.sodosi.data.network.api.SodosiApi
-import com.sodosi.data.spec.request.MomentRequest
 import com.sodosi.data.spec.request.ReportRequest
 import com.sodosi.domain.Result
 import com.sodosi.domain.entity.Moment
 import com.sodosi.domain.entity.Place
 import com.sodosi.domain.repository.MomentRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okio.BufferedSink
+import okio.source
+import org.json.JSONObject
 import javax.inject.Inject
 
 /**
@@ -18,6 +29,7 @@ import javax.inject.Inject
  */
 
 class MomentRepositoryImpl @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val sodosiApi: SodosiApi,
     private val momentMapper: MomentMapper,
 ) : MomentRepository {
@@ -28,19 +40,27 @@ class MomentRepositoryImpl @Inject constructor(
         roadAddress: String,
         jibunAddress: String,
         addressDetail: String,
-        contents: String
+        contents: String,
+        imageList: List<String>,
     ): Result<Moment> {
-        val request = MomentRequest(
-            latitude = latitude,
-            longitude = longitude,
-            roadAddress = roadAddress,
-            jibunAddress = jibunAddress,
-            addressDetail = addressDetail,
-            contents = contents,
-        )
+
+        val jsonString = JSONObject()
+            .put("latitude", latitude)
+            .put("longitude", longitude)
+            .put("roadAddress", roadAddress)
+            .put("jibunAddress", jibunAddress)
+            .put("addressDetail", addressDetail)
+            .put("contents", contents)
+            .toString()
+
+        val jsonBody = RequestBody.create("application/json".toMediaTypeOrNull(), jsonString)
+
+        val multiParts = imageList.map {
+            Uri.parse(it).asMultipart()
+        }
 
         return try {
-            val result = sodosiApi.postMoment(sodosiId, request)
+            val result = sodosiApi.postMoment(sodosiId, jsonBody, multiParts)
             Result.Success(momentMapper.mapToEntity(result.data))
         } catch (e: Exception) {
             Result.Error(e)
@@ -73,6 +93,29 @@ class MomentRepositoryImpl @Inject constructor(
             Result.Success(Unit)
         } catch (e: Exception) {
             Result.Error(e)
+        }
+    }
+
+    fun Uri.asMultipart(): MultipartBody.Part? {
+        val contentResolver = context.contentResolver
+        return contentResolver.query(this, null, null, null, null)?.let {
+            if (it.moveToNext()) {
+                val displayName = it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                val requestBody = object : RequestBody() {
+                    override fun contentType(): MediaType? {
+                        return contentResolver.getType(this@asMultipart)?.toMediaType()
+                    }
+
+                    override fun writeTo(sink: BufferedSink) {
+                        sink.writeAll(contentResolver.openInputStream(this@asMultipart)?.source()!!)
+                    }
+                }
+                it.close()
+                MultipartBody.Part.createFormData("imageList[]", displayName, requestBody)
+            } else {
+                it.close()
+                null
+            }
         }
     }
 }

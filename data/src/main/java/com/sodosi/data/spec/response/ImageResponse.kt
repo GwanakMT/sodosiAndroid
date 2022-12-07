@@ -11,6 +11,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ImageResponse(
-    val id: Long,
+    val id: Long? = null,
     val images: String,
 )

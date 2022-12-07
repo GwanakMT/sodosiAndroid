@@ -35,6 +35,7 @@ class PostMomentViewModel @Inject constructor(
         jibunAddress: String,
         addressDetail: String,
         contents: String,
+        imageList: List<String>
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = postMomentUseCase(
@@ -44,7 +45,8 @@ class PostMomentViewModel @Inject constructor(
                 roadAddress = roadAddress,
                 jibunAddress = jibunAddress,
                 addressDetail = addressDetail,
-                contents = contents
+                contents = contents,
+                imageList = imageList
             )
 
             when (result) {

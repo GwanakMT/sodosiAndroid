@@ -20,7 +20,8 @@ class PostMomentUseCase @Inject constructor(private val momentRepository: Moment
         roadAddress: String,
         jibunAddress: String,
         addressDetail: String,
-        contents: String
+        contents: String,
+        imageList: List<String>,
     ): Result<Moment> {
         return momentRepository.postMoment(
             sodosiId = sodosiId,
@@ -29,7 +30,8 @@ class PostMomentUseCase @Inject constructor(private val momentRepository: Moment
             roadAddress = roadAddress,
             jibunAddress = jibunAddress,
             addressDetail = addressDetail,
-            contents = contents
+            contents = contents,
+            imageList = imageList,
         )
     }
 }

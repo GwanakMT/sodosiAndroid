@@ -72,6 +72,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
     override fun observeData() {
         repeatOnStarted {
             viewModel.postMomentResult.collect {
+                progress.dismiss()
                 when(it) {
                     is Result.Success -> {
                         sodosiModel?.let { sodosi ->
@@ -134,6 +135,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
         binding.btnSubmit.setClickEvent(lifecycleScope) {
             sodosiModel = intent.getParcelableExtra(KEY_SODOSI_MODEL) as? SodosiModel
             sodosiModel?.id?.let { sodosiId ->
+                progress.show()
                 viewModel.postMoment(
                     sodosiId = sodosiId,
                     latitude = momentPlace?.latitude?.toDouble() ?: return@setClickEvent,
@@ -141,7 +143,8 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
                     roadAddress = momentPlace?.roadAddress ?: "",
                     jibunAddress = momentPlace?.jibunAddress ?: "",
                     addressDetail = momentPlace?.placeName ?: "",
-                    contents = binding.etMoment.text.toString()
+                    contents = binding.etMoment.text.toString(),
+                    imageList = photoAdapter.currentList.map { it.toString() }
                 )
             }
         }

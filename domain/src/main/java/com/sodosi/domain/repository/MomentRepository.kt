@@ -19,7 +19,8 @@ interface MomentRepository {
         roadAddress: String,
         jibunAddress: String,
         addressDetail: String,
-        contents: String
+        contents: String,
+        imageList: List<String>,
     ): Result<Moment>
 
     suspend fun getPlaceListBySodosi(
