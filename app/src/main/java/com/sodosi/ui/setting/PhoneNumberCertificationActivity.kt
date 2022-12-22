@@ -53,7 +53,7 @@ class PhoneNumberCertificationActivity :
                     // 핸드폰 번호 변경 성공 처리
                     SodosiToast.makeText(
                         this@PhoneNumberCertificationActivity,
-                        "핸드폰 번호 변경 성공",
+                        "휴대폰 번호가 변경됐어요.",
                         Toast.LENGTH_SHORT
                     ).show()
 
