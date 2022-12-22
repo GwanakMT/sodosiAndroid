@@ -41,7 +41,7 @@ class SodosiViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = getPlaceListBySodosi(sodosiId)) {
                 is Result.Success -> {
-                    _placeList.emit(result.data.map { placeMapper.mapToModel(it) })
+                    _placeList.emit(result.data.map { placeMapper.mapToModel(it, sodosiId) })
                 }
                 is Result.Error -> {
                     _placeList.emit(listOf())

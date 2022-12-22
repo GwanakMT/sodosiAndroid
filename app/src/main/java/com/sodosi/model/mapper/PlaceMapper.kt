@@ -14,14 +14,14 @@ import javax.inject.Inject
  */
 
 class PlaceMapper @Inject constructor() {
-    fun mapToModel(entity: Place): PlaceModel {
+    fun mapToModel(entity: Place, sodosiId: Long): PlaceModel {
         return PlaceModel(
             addressDetail = entity.addressDetail,
-            momentList = entity.momentsList.map { mapToModel(it) }
+            momentList = entity.momentsList.map { mapToModel(it, sodosiId) }
         )
     }
 
-    fun mapToModel(entity: Moment): MomentModel {
+    fun mapToModel(entity: Moment, sodosiId: Long): MomentModel {
         return MomentModel(
             id = entity.id,
             contents = entity.contents,
@@ -33,7 +33,7 @@ class PlaceMapper @Inject constructor() {
             addressDetail = entity.addressDetail,
             photo = entity.momentImagesSet,
             timeInfo = entity.timeInfo,
-            sodosiId = entity.sodosiId,
+            sodosiId = sodosiId,
             sodosiName = entity.sodosiName,
         )
     }

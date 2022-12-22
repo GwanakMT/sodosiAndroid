@@ -1,12 +1,14 @@
 package com.sodosi.ui.sodosi.bottomsheet
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import com.sodosi.R
 import com.sodosi.databinding.FragmentMomentBottomSheetBinding
 import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.post.ZoomPhotoActivity
 import com.sodosi.ui.sodosi.SodosiViewModel
 import com.sodosi.ui.sodosi.adapter.MomentListAdapter
@@ -63,6 +65,12 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
             val intent = ZoomPhotoActivity.getIntent(requireContext(), position, imageUrlList.map { it.toUri() })
             startActivity(intent)
         }
+
+        val dividerItemDecoration = HorizontalItemDecoration(
+            ContextCompat.getDrawable(requireContext(), R.drawable.horizontal_decoration) ?: return
+        )
+
+        binding.rvMoment.addItemDecoration(dividerItemDecoration)
     }
 
     companion object {

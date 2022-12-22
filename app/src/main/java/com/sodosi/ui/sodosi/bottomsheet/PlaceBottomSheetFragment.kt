@@ -1,13 +1,15 @@
 package com.sodosi.ui.sodosi.bottomsheet
 
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.sodosi.R
 import com.sodosi.databinding.FragmentPlaceBottomSheetBinding
 import com.sodosi.ui.common.base.BaseFragment
+import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.post.ZoomPhotoActivity
-import com.sodosi.ui.sodosi.CreateMomentActivity
 import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.ui.sodosi.SodosiViewModel
 import com.sodosi.ui.sodosi.adapter.PlaceListAdapter
@@ -64,6 +66,12 @@ class PlaceBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentPlaceBott
                     startActivity(intent)
                 }
             }
+
+            val dividerItemDecoration = HorizontalItemDecoration(
+                ContextCompat.getDrawable(requireContext(), R.drawable.horizontal_decoration) ?: return
+            )
+
+            addItemDecoration(dividerItemDecoration)
         }
     }
 

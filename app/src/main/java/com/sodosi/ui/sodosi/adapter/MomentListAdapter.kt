@@ -69,6 +69,8 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
 
         fun bind(item: MomentModel) {
             binding.item = item
+            binding.tvPlaceName.setGone()
+
             val photoBindingList = listOf(binding.ivPhoto1, binding.ivPhoto2, binding.ivPhoto3)
             val padding = 4.dp
             when (item.photo.size) {
