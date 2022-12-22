@@ -31,6 +31,7 @@ class PasswordSettingActivity : BaseActivity<SettingViewModel, ActivityPasswordS
                     1 -> setSuccessView()
                     2 -> setErrorViewCurrentPasswordNotMatched()
                     3 -> setErrorViewFailNetwork()
+                    4 -> SodosiToast.makeText(this@PasswordSettingActivity, "이전과 동일한 비밀번호입니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

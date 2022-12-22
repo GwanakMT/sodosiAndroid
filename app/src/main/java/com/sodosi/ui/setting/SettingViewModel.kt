@@ -7,7 +7,6 @@ import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
-import com.sodosi.ui.onboarding.OnboardingViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -93,13 +92,18 @@ class SettingViewModel @Inject constructor(
                 // 현재 비밀번호 일치X
                 _changePasswordEvent.emit(2)
             } else {
-                val changePasswordResult = changePasswordUseCase(newPassword)
-                if (changePasswordResult is Result.Success && changePasswordResult.data) {
-                    // 성공
-                    _changePasswordEvent.emit(1)
+                if (currentPassword == newPassword) {
+                    // 실패: 현재 비번과 변경할 비번이 똑같음
+                    _changePasswordEvent.emit(4)
                 } else {
-                    // 통신 실패
-                    _changePasswordEvent.emit(3)
+                    val changePasswordResult = changePasswordUseCase(newPassword)
+                    if (changePasswordResult is Result.Success && changePasswordResult.data) {
+                        // 성공
+                        _changePasswordEvent.emit(1)
+                    } else {
+                        // 통신 실패
+                        _changePasswordEvent.emit(3)
+                    }
                 }
             }
         }
