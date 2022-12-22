@@ -47,6 +47,7 @@ interface UserRepository {
     suspend fun unregisterUser(): Result<Unit>
 
     suspend fun checkCurrentPassword(password: String): Result<Boolean>
+    suspend fun changePhoneNumber(phoneNumber: String): Result<Boolean>
     suspend fun changePassword(password: String): Result<Boolean>
     suspend fun changeNickName(nickName: String): Result<Boolean>
 }

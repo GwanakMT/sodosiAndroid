@@ -22,14 +22,19 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val getPhoneNumberUseCase: GetPhoneNumberUseCase,
+    private val setPhoneNumberUseCase: SetPhoneNumberUseCase,
     private val checkCurrentPasswordUseCase: CheckCurrentPasswordUseCase,
     private val changePasswordUseCase: ChangePasswordUseCase,
+    private val changePhoneNumberUseCase: ChangePhoneNumberUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
     ) : BaseViewModel() {
 
     private val _phoneNumber: MutableEventFlow<String> = MutableEventFlow()
     val phoneNumber: EventFlow<String> = _phoneNumber.asEventFlow()
+
+    private val _changePhoneNumberEvent = MutableEventFlow<Boolean>()
+    val changePhoneNumberEvent = _changePhoneNumberEvent.asEventFlow()
 
     private val _changePasswordEvent = MutableEventFlow<Int>()
     val changePasswordEvent = _changePasswordEvent.asEventFlow()
@@ -44,6 +49,20 @@ class SettingViewModel @Inject constructor(
     fun getPhoneNumber() {
         viewModelScope.launch {
             _phoneNumber.emit(getPhoneNumberUseCase())
+        }
+    }
+
+    fun changePhoneNumber(phoneNumber: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = changePhoneNumberUseCase(phoneNumber)
+            if (result is Result.Success) {
+                // 성공
+                setPhoneNumberUseCase(phoneNumber)
+                _changePhoneNumberEvent.emit(true)
+            } else {
+                // 통신 실패
+                _changePhoneNumberEvent.emit(false)
+            }
         }
     }
 

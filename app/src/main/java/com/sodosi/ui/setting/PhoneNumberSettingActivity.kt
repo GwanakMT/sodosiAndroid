@@ -37,9 +37,10 @@ class PhoneNumberSettingActivity : BaseActivity<SettingViewModel, ActivityPhoneN
             val phoneNumberNew = binding.etPhoneNumberNew.text.toString()
             if (checkPhoneRegex(phoneNumberNew)) {
                 if (phoneNumberNow == phoneNumberNew) {
-                    SodosiToast.makeText(this, "굿", Toast.LENGTH_SHORT).show()
-                } else {
                     SodosiToast.makeText(this, "기존 번호와 똑같아요", Toast.LENGTH_SHORT).show()
+                } else {
+                    val intent = PhoneNumberCertificationActivity.getIntent(this, phoneNumberNew)
+                    startActivity(intent)
                 }
             } else {
                 SodosiToast.makeText(this, "핸드폰 번호를 올바르게 입력해주세요", Toast.LENGTH_SHORT).show()

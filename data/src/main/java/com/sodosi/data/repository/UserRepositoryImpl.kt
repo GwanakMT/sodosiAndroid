@@ -150,6 +150,19 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun changePhoneNumber(phoneNumber: String): Result<Boolean> {
+        return try {
+            val result = sodosiApi.changePhoneNumber(phoneNumber)
+            if (result.code == 200) {
+                Result.Success(true)
+            } else {
+                Result.Success(false)
+            }
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun changePassword(password: String): Result<Boolean> {
         return try {
             val result = sodosiApi.changePassword(ChangePasswordRequest(password))
