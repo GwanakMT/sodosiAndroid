@@ -156,5 +156,54 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <View
+            android:id="@+id/myMomentView"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/gray6"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/sodosiImageView"
+            app:layout_constraintEnd_toEndOf="@id/ivUserProfile"
+            app:layout_constraintStart_toStartOf="@id/ivUserProfile"
+            app:layout_constraintTop_toBottomOf="@id/ivUserProfile" />
+
+        <ImageView
+            android:id="@+id/sodosiImageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/background_oval_gray"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/ivUserProfile"
+            app:layout_constraintTop_toBottomOf="@id/photoLayout" />
+
+        <TextView
+            android:id="@+id/tvSodosiIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/sodosiImageView"
+            app:layout_constraintEnd_toEndOf="@id/sodosiImageView"
+            app:layout_constraintStart_toStartOf="@id/sodosiImageView"
+            app:layout_constraintTop_toTopOf="@id/sodosiImageView"
+            tools:text="🐥" />
+
+        <TextView
+            android:id="@+id/sodosiName"
+            style="@style/Typography.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:drawableEnd="@drawable/ic_arrow_chevron_right"
+            android:drawablePadding="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/sodosiImageView"
+            app:layout_constraintStart_toEndOf="@id/sodosiImageView"
+            app:layout_constraintTop_toTopOf="@id/sodosiImageView"
+            tools:text="~~에서" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

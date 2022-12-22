@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.sodosi.R
 import com.sodosi.databinding.ActivityMypageBinding
@@ -13,11 +14,14 @@ import com.sodosi.domain.entity.User
 import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseActivity
 import com.sodosi.ui.common.base.repeatOnStarted
+import com.sodosi.ui.common.customview.HorizontalItemDecoration
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.post.ZoomPhotoActivity
 import com.sodosi.ui.setting.SettingActivity
+import com.sodosi.ui.sodosi.SodosiActivity
 import com.sodosi.ui.sodosi.adapter.MomentListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
@@ -60,6 +64,15 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
                 }
             }
         }
+
+        repeatOnStarted {
+            viewModel.moveToSodosiEvent.collect {
+                if (it != null) {
+                    val intent = SodosiActivity.getIntent(this@MypageActivity, it)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 
     override fun initViews() = with(binding) {
@@ -92,8 +105,13 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
     }
 
     private fun initMomentList() {
+        val dividerItemDecoration = HorizontalItemDecoration(
+            ContextCompat.getDrawable(this, R.drawable.horizontal_decoration) ?: return
+        )
+
         binding.myMomentList.apply {
             adapter = momentAdpater.apply {
+                isMypage = true
                 onItemClick = { selectedItem ->
                     val intent = SodosiCommentActivity.getIntent(this@MypageActivity, selectedItem)
                     startActivity(intent)
@@ -103,7 +121,13 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
                     val intent = ZoomPhotoActivity.getIntent(this@MypageActivity, position, imageUrlList.map { it.toUri() })
                     startActivity(intent)
                 }
+
+                onSodosiClick = { sodosiId ->
+                    viewModel.getSodosiModel(sodosiId)
+                }
             }
+
+            addItemDecoration(dividerItemDecoration)
         }
     }
 

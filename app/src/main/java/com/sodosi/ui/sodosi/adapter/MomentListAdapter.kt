@@ -5,7 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.sodosi.R
 import com.sodosi.databinding.ItemSodosiPlaceBinding
+import com.sodosi.model.SodosiModel
 import com.sodosi.ui.common.extensions.dp
 import com.sodosi.ui.common.extensions.setGone
 import com.sodosi.ui.common.extensions.setImageWithUrl
@@ -20,8 +23,10 @@ import com.sodosi.ui.sodosi.model.MomentModel
  */
 
 class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewHolder>(diffUtil) {
+    var isMypage = false
     var onItemClick: ((selectedItem: MomentModel) -> Unit)? = null
     var onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)? = null
+    var onSodosiClick: ((sodosiId: Long) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MomentViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -30,6 +35,8 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
             ItemSodosiPlaceBinding.inflate(inflater, parent, false),
             onItemClick,
             onPhotoClick,
+            onSodosiClick,
+            isMypage,
         )
     }
 
@@ -45,6 +52,8 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
         private val binding: ItemSodosiPlaceBinding,
         onItemClick: ((selectedItem: MomentModel) -> Unit)?,
         onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)?,
+        onSodosiClick: ((sodosiId: Long) -> Unit)? = null,
+        private val isMypage: Boolean,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -64,6 +73,10 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
 
             binding.tvPhotoLayer.setOnClickListener {
                 onPhotoClick?.invoke(binding.item?.photo ?: return@setOnClickListener, 2)
+            }
+
+            binding.sodosiName.setOnClickListener {
+                onSodosiClick?.invoke(binding.item?.sodosiId ?: return@setOnClickListener)
             }
         }
 
@@ -105,6 +118,27 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
                 if (index < 3) {
                     photoBindingList[index].setImageWithUrl(url)
                 }
+            }
+
+            if (isMypage) {
+                binding.myMomentView.setVisible()
+                binding.sodosiImageView.setVisible()
+                binding.sodosiName.setVisible()
+
+                val sodosiName = if(item.sodosiName.length > 16) {
+                    item.sodosiName.substring(7) + "..."
+                } else {
+                    item.sodosiName
+                }
+
+                binding.sodosiName.text = "\"$sodosiName\"에서"
+                Glide.with(binding.root.context)
+                    .load(item.photo[0])
+                    .circleCrop()
+                    .error(R.drawable.background_oval_gray)
+                    .into(binding.sodosiImageView)
+
+
             }
         }
     }

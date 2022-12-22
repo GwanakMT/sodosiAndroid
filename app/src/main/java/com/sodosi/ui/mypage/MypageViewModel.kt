@@ -22,7 +22,9 @@ import com.sodosi.ui.sodosi.model.MomentModel
 import com.sodosi.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -61,6 +63,9 @@ class MypageViewModel @Inject constructor(
 
     private val _myMomentList = MutableEventFlow<Result<List<MomentModel>>>()
     val myMomentList: EventFlow<Result<List<MomentModel>>> = _myMomentList.asEventFlow()
+
+    private val _moveToSodosiEvent = MutableEventFlow<SodosiModel?>()
+    val moveToSodosiEvent: EventFlow<SodosiModel?> = _moveToSodosiEvent.asEventFlow()
 
     init {
         getUserBaseProfile()
@@ -151,6 +156,25 @@ class MypageViewModel @Inject constructor(
             }
 
             _unmarkEvent.emit(true)
+        }
+    }
+
+    fun getSodosiModel(sodosiId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result = getCommentedSodosiListUseCase()) {
+                is Result.Success -> {
+                    val sodosiModelList = result.data.filter { it.id == sodosiId }
+                    if (sodosiModelList.isNotEmpty()) {
+                        val sodosiModel = sodosiMapper.mapToModel(sodosiModelList[0])
+                        _moveToSodosiEvent.emit(sodosiModel)
+                    } else {
+                        _moveToSodosiEvent.emit(null)
+                    }
+                }
+                is Result.Error -> {
+                    _moveToSodosiEvent.emit(null)
+                }
+            }
         }
     }
 
