@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.sodosi.R
 import com.sodosi.databinding.ActivitySettingBinding
 import com.sodosi.ui.common.base.BaseActivity
@@ -81,9 +83,9 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
             binding.settingNotification -> moveToSettingNotification()
             binding.termsOfService -> moveToWebDocs(WebViewActivity.TYPE_TERMS_OF_SERVICE)
             binding.privacyPolicy -> moveToWebDocs(WebViewActivity.TYPE_PRIVACY_POLICY)
-            binding.openSourceInfo -> moveToWebDocs(WebViewActivity.TYPE_OPEN_SOURCE_INFO)
+            binding.openSourceInfo -> moveToOpenSourceLicensePage()
             binding.versionName -> moveToVersionInfo()
-            binding.sodosiMakers -> moveToWebDocs(WebViewActivity.TYPE_SODOSI_MAKERS)
+            binding.sodosiMakers -> moveToSodosiMakers()
             binding.logout -> logout()
             binding.deleteUser -> {
                 deleteUserDialog = Dialog(this).apply {
@@ -148,8 +150,18 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
         startActivity(WebViewActivity.getIntent(this, type))
     }
 
+    private fun moveToOpenSourceLicensePage() {
+        startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+        OssLicensesMenuActivity.setActivityTitle("오픈소스 고지")
+    }
+
     private fun moveToVersionInfo() {
-        SodosiToast.makeText(this, "버전 정보", Toast.LENGTH_SHORT).show()
+//        SodosiToast.makeText(this, "버전 정보", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun moveToSodosiMakers() {
+        val instagramIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/society.gwanak/"))
+        startActivity(instagramIntent)
     }
 
     private fun logout() {
@@ -165,4 +177,3 @@ class SettingActivity : BaseActivity<SettingViewModel, ActivitySettingBinding>()
         viewModel.deleteUser()
     }
 }
-
