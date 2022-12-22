@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.sodosi.R
 import com.sodosi.databinding.ActivityWebViewBinding
 
 class WebViewActivity : AppCompatActivity() {
@@ -16,6 +17,12 @@ class WebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWebViewBinding.inflate(layoutInflater)
+
+        binding.appbar.apply {
+            initLeftButton(R.drawable.ic_arrow_left) {
+                onBackPressed()
+            }
+        }
 
         setContentView(binding.root)
 
