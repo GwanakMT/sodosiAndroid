@@ -212,6 +212,10 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
     private fun initLocationManager() {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1.0f, locationListener)
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 1.0f, locationListener)
+
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            SodosiToast.makeText(this, "원활한 사용을 위해 GPS 기능을 켜주세요", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun moveFocusToCenterPoint(animate: Boolean) {
