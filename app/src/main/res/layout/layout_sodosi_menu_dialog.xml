@@ -45,6 +45,7 @@
 
         <TextView
             android:id="@+id/tvShare"
+            android:visibility="gone"
             style="@style/Typography.HeadLines.Regular"
             android:layout_width="match_parent"
             android:layout_height="56dp"
