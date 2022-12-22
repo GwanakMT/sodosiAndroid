@@ -19,5 +19,5 @@ data class SodosiResponse(
     val momentImage: String?,       // 대표 이미지
     val marked: Boolean,            // 북마크 여부
     val mine: Boolean = false,      // 본인의 소도시인지 여부
-    val viewStatus: Boolean = false, // 소도시 숨김 여부
+    val viewStatus: Boolean = true, // 소도시 숨김 여부
 )
