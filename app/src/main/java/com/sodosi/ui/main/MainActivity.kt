@@ -168,7 +168,9 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                             binding.btnMoreHotSodosi.setVisible()
                             binding.dividerHotSodosi.setVisible()
 
-                            hotSodosiAdapter.submitList(viewModel.hotSodosiList)
+                            hotSodosiAdapter.submitList(viewModel.hotSodosiList) {
+                                binding.rvHotSodosi.scrollToPosition(0)
+                            }
                         }
                     }
                 }
@@ -325,6 +327,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     hotSodosiCollapseState = true
                     binding.btnMoreHotSodosi.text = getString(R.string.expand_sodosi)
                 }
+
+                binding.rvHotSodosi.scrollToPosition(0)
             }
 
             tvMoreNewSodosi.setOnClickListener {
