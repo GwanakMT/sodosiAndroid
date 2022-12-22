@@ -378,8 +378,8 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
             setContentView(binding.root)
 
             binding.onItemClick = {
-                SodosiToast.makeText(context, getString(R.string.report_submit), Toast.LENGTH_SHORT)
-                    .show()
+                SodosiToast.makeText(context, getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
+                reportDialog.dismiss()
             }
 
             window?.apply {
