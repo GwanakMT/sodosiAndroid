@@ -94,6 +94,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
     }
 
     override fun initViews() {
+        sodosiModel = intent.getParcelableExtra(KEY_SODOSI_MODEL) as? SodosiModel
         momentPlace = intent.getParcelableExtra(KEY_MOMENT_PLACE) as? POIDataModel
         binding.tvPlaceName.text = momentPlace?.placeName
 
@@ -115,7 +116,7 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
     }
 
     private fun initEditTextView() {
-        binding.etMoment.hint = getString(R.string.create_sodosi_name_hint)
+        binding.etMoment.hint = getString(R.string.sodosi_create_moment_hint, sodosiModel?.name)
         binding.etMoment.addTextChangedListener {
             if ("$it".length > 0) {
                 binding.btnSubmit.setTextColor(Color.parseColor("#0F0F10"))
@@ -138,7 +139,6 @@ class PostMomentActivity : BaseActivity<PostMomentViewModel, ActivityPostMomentB
 
     private fun setListener() {
         binding.btnSubmit.setClickEvent(lifecycleScope) {
-            sodosiModel = intent.getParcelableExtra(KEY_SODOSI_MODEL) as? SodosiModel
             sodosiModel?.id?.let { sodosiId ->
                 progress.show()
                 viewModel.postMoment(
