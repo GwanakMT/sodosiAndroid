@@ -7,8 +7,12 @@ import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
 import com.sodosi.ui.common.base.asEventFlow
+import com.sodosi.ui.onboarding.OnboardingViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,6 +33,8 @@ class SettingViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
     ) : BaseViewModel() {
+    private val _timer = MutableStateFlow(MINUTE_3)
+    val timer: StateFlow<Int> = _timer
 
     private val _phoneNumber: MutableEventFlow<String> = MutableEventFlow()
     val phoneNumber: EventFlow<String> = _phoneNumber.asEventFlow()
@@ -49,6 +55,20 @@ class SettingViewModel @Inject constructor(
     fun getPhoneNumber() {
         viewModelScope.launch {
             _phoneNumber.emit(getPhoneNumberUseCase())
+        }
+    }
+
+    fun resetTimer() {
+        _timer.value = MINUTE_3
+        startTimer()
+    }
+
+    private fun startTimer() {
+        viewModelScope.launch {
+            while (_timer.value > 0) {
+                delay(1000)
+                _timer.value = _timer.value - 1
+            }
         }
     }
 
@@ -98,5 +118,9 @@ class SettingViewModel @Inject constructor(
                 is Result.Error -> _deleteUserEvent.emit(false)
             }
         }
+    }
+
+    companion object {
+        private const val MINUTE_3 = 180
     }
 }

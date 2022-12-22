@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -26,6 +27,145 @@
             app:layout_constraintBottom_toBottomOf="@id/appbar"
             app:layout_constraintEnd_toEndOf="@id/appbar"
             app:layout_constraintTop_toTopOf="@id/appbar" />
+
+        <TextView
+            android:id="@+id/tvSmsCode"
+            style="@style/OnboardingTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/onboarding_input_sms_code"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <TextView
+            android:id="@+id/tvCode1"
+            style="@style/Typography.BigTitles.Large"
+            android:layout_width="46dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="@dimen/onboarding_inputbox_top_margin"
+            android:layout_marginEnd="@dimen/onboarding_inputbox_between_margin"
+            android:background="@drawable/background_rounded_gray"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@id/tvCode2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/appbar"
+            app:layout_constraintTop_toBottomOf="@id/tvSmsCode"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/tvCode2"
+            style="@style/Typography.BigTitles.Large"
+            android:layout_width="46dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="@dimen/onboarding_inputbox_between_margin"
+            android:background="@drawable/background_rounded_gray"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@id/tvCode3"
+            app:layout_constraintStart_toEndOf="@id/tvCode1"
+            app:layout_constraintTop_toTopOf="@id/tvCode1"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/tvCode3"
+            style="@style/Typography.BigTitles.Large"
+            android:layout_width="46dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="@dimen/onboarding_inputbox_between_margin"
+            android:background="@drawable/background_rounded_gray"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@id/tvCode4"
+            app:layout_constraintStart_toEndOf="@id/tvCode2"
+            app:layout_constraintTop_toTopOf="@id/tvCode1"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/tvCode4"
+            style="@style/Typography.BigTitles.Large"
+            android:layout_width="46dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="@dimen/onboarding_inputbox_between_margin"
+            android:background="@drawable/background_rounded_gray"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@id/tvCode5"
+            app:layout_constraintStart_toEndOf="@id/tvCode3"
+            app:layout_constraintTop_toTopOf="@id/tvCode1"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/tvCode5"
+            style="@style/Typography.BigTitles.Large"
+            android:layout_width="46dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="@dimen/onboarding_inputbox_between_margin"
+            android:background="@drawable/background_rounded_gray"
+            android:gravity="center"
+            android:inputType="number"
+            app:layout_constraintEnd_toStartOf="@id/tvCode6"
+            app:layout_constraintStart_toEndOf="@id/tvCode4"
+            app:layout_constraintTop_toTopOf="@id/tvCode1"
+            tools:text="2" />
+
+        <TextView
+            android:id="@+id/tvCode6"
+            style="@style/Typography.BigTitles.Large"
+            android:layout_width="46dp"
+            android:layout_height="60dp"
+            android:background="@drawable/background_rounded_gray"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="1"
+            app:layout_constraintEnd_toEndOf="@id/appbar"
+            app:layout_constraintStart_toEndOf="@id/tvCode5"
+            app:layout_constraintTop_toTopOf="@id/tvCode1"
+            tools:text="2" />
+
+        <EditText
+            android:id="@+id/etCertificationNumber"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:inputType="number"
+            android:maxLength="6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/tvWarning"
+            style="@style/WarningText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tvCode1"
+            app:layout_constraintTop_toBottomOf="@id/tvCode1" />
+
+        <TextView
+            android:id="@+id/tvTimer"
+            style="@style/Typography.HeadLines.SubHeadLine.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/onboarding_inputbox_between_margin"
+            android:layout_marginBottom="@dimen/onboarding_button_top_margin"
+            android:textColor="#8A8A8E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvResend"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="00:00" />
+
+        <TextView
+            android:id="@+id/tvResend"
+            style="@style/Typography.Body.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/onboarding_button_top_margin"
+            android:text="@string/onboarding_sms_code_resend"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="#8A8A8E"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvTimer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

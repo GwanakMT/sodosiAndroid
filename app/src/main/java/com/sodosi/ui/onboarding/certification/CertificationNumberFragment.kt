@@ -30,10 +30,8 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class CertificationNumberFragment :
-    BaseFragment<OnboardingViewModel, FragmentCertificationNumberBinding>(),
-    FirebaseAuthManager.VerificationPhoneListener {
-    private var resendConut = 0
+class CertificationNumberFragment : BaseFragment<OnboardingViewModel, FragmentCertificationNumberBinding>(), FirebaseAuthManager.VerificationPhoneListener {
+    private var resendCount = 0
 
     private lateinit var authManager: FirebaseAuthManager
     private val inputMethodManager: InputMethodManager by lazy { context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
@@ -104,8 +102,8 @@ class CertificationNumberFragment :
         }
 
         binding.tvResend.setOnClickListener {
-            if (resendConut < 3) {
-                resendConut += 1
+            if (resendCount < 3) {
+                resendCount += 1
                 authManager.verifyPhoneNumber()
                 viewModel.resetTimer()
                 SodosiToast.makeText(requireContext(), "인증번호가 재전송 되었습니다", Toast.LENGTH_SHORT).show()
