@@ -60,6 +60,7 @@ class CertificationNumberFragment : BaseFragment<OnboardingViewModel, FragmentCe
         }
 
         viewModel.isLoginSuccess.asLiveData().observe(viewLifecycleOwner) { isSuccess ->
+            progress.dismiss()
             if (isSuccess) {
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
@@ -88,12 +89,15 @@ class CertificationNumberFragment : BaseFragment<OnboardingViewModel, FragmentCe
     }
 
     override fun onAuthFail() {
+        progress.dismiss()
         setCertificationWarning(resources.getString(R.string.onboarding_sms_code_warning))
     }
 
     private fun setOnClickListener() {
         binding.btnNext.setOnClickListener {
             if (viewModel.timer.value > 0) {
+                progress.show()
+
                 val smsCode = binding.etCertificationNumber.text.toString()
                 authManager.signInWithPhoneAuthCredential(smsCode, this)
             } else {

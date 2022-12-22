@@ -36,6 +36,7 @@ class PhoneNumberCertificationActivity :
     }
 
     override fun onAuthFail() {
+        progress.dismiss()
         setCertificationWarning(resources.getString(R.string.onboarding_sms_code_warning))
     }
 
@@ -49,6 +50,7 @@ class PhoneNumberCertificationActivity :
 
         repeatOnStarted {
             viewModel.changePhoneNumberEvent.collect { changeSuccess ->
+                progress.dismiss()
                 if (changeSuccess) {
                     // 핸드폰 번호 변경 성공 처리
                     SodosiToast.makeText(
@@ -89,6 +91,7 @@ class PhoneNumberCertificationActivity :
                 SodosiToast.makeText(this, "인증번호를 정확히 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 if (viewModel.timer.value > 0) {
+                    progress.show()
                     val smsCode = binding.etCertificationNumber.text.toString()
                     authManager.signInWithPhoneAuthCredential(smsCode, this)
                 } else {
