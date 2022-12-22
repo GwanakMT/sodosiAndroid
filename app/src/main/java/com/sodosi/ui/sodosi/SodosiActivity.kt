@@ -388,10 +388,7 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
     }
 
     private fun moveToSearchPlaceActivityWithLocation() {
-        val currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        currentLocation?.let {
-            startActivity(SearchPlaceActivity.getIntent(this, it.longitude, it.latitude, sodosiInfo ?: return))
-        }
+        startActivity(SearchPlaceActivity.getIntent(this, sodosiInfo ?: return))
     }
 
     private fun checkIsFirstSodosi() {
