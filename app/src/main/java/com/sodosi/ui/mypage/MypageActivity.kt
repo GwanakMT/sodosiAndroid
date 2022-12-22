@@ -117,11 +117,25 @@ class MypageActivity : BaseActivity<MypageViewModel, ActivityMypageBinding>() {
             setResult(RESULT_OK)
         }
 
+        binding.tvCreatedSodosi.setOnClickListener {
+            activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.CREATED))
+            setResult(RESULT_OK)
+        }
+
         binding.tvCommentedSodosiCount.setOnClickListener {
             activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.COMMENTED))
         }
 
+        binding.tvJoinedSodosi.setOnClickListener {
+            activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.COMMENTED))
+        }
+
         binding.tvBookmarkCount.setOnClickListener {
+            activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.MARKED))
+            setResult(RESULT_OK)
+        }
+
+        binding.tvBookmark.setOnClickListener {
             activityResultLauncher.launch(MySodosiListActivity.getIntent(this, MySodosiListActivity.MySodosiListType.MARKED))
             setResult(RESULT_OK)
         }
