@@ -30,18 +30,20 @@ class SearchPlaceViewModel : BaseViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 if (text.isEmpty()) _poiList.emit(emptyList())
-                val titlePoi = tMapData.findTitlePOI(text)
+                val titlePoi = tMapData.findAllPOI(text, 10)
                 if (titlePoi.isNotEmpty()) {
                     val latitude = titlePoi[0].noorLat.toDouble()
                     val longitude = titlePoi[0].noorLon.toDouble()
                     val tMapPoint = TMapPoint(latitude, longitude)
-                    val data = tMapData.findAroundNamePOI(tMapPoint, "").subList(0, Random.nextInt(5) + 1) // 10개 자르기
+                    val data = tMapData.findAroundNamePOI(tMapPoint, "")
 
                     _poiList.value = data.map {
+                        val roadAddress = getRoadAddressName(it.noorLat, it.noorLon)
+                        val jibunAddress = getJibunAddressName(it.noorLat, it.noorLon)
                         POIDataModel(
                             placeName = it.name ?: "",
-                            roadAddress = getRoadAddressName(it.noorLat, it.noorLon),
-                            jibunAddress = getJibunAddressName(it.noorLat, it.noorLon),
+                            roadAddress = roadAddress.ifEmpty { "${it.upperAddrName} ${it.roadName}" },
+                            jibunAddress = jibunAddress.ifEmpty { "${it.upperAddrName} ${it.poiAddress}" },
                             latitude = it.noorLat ?: "",
                             longitude = it.noorLon ?: "",
                         )

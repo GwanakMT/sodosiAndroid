@@ -37,7 +37,9 @@ class SearchPlaceActivity : BaseActivity<SearchPlaceViewModel, ActivitySearchPla
                     binding.emptyLayout.root.setGone()
                     binding.searchResultRecyclerView.setVisible()
 
-                    searchResultAdapter.submitList(it)
+                    searchResultAdapter.submitList(it) {
+                        binding.searchResultRecyclerView.scrollToPosition(0)
+                    }
                 } else {
                     binding.emptyLayout.root.setVisible()
                     binding.searchResultRecyclerView.setGone()
