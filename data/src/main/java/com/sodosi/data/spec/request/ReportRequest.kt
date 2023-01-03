@@ -11,6 +11,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ReportRequest(
-    val moment_id: Long,
+    val sodosi_id: Long,
+    val moment_id: Long? = null, // 소도시 신고는 moment_id 없어도 됨
     val reason: String,
 )

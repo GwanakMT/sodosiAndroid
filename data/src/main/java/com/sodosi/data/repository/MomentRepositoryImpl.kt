@@ -89,8 +89,8 @@ class MomentRepositoryImpl @Inject constructor(
 
     override suspend fun reportMoment(sodosiId: Long, momentId: Long, reason: String): Result<Unit> {
         return try {
-            val request = ReportRequest(moment_id = momentId, reason = reason)
-            sodosiApi.repostMoment(sodosiId, request)
+            val request = ReportRequest(sodosi_id = sodosiId, moment_id = momentId, reason = reason)
+            sodosiApi.repostMoment(request)
 
             Result.Success(Unit)
         } catch (e: Exception) {

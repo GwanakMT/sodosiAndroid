@@ -36,8 +36,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
-            android:onClick="@{()->onItemClick.invoke(@string/report_type1)}"
-            android:text="@string/report_case1"
+            android:onClick="@{()->onItemClick.invoke(@string/report_privacy)}"
+            android:text="@string/report_moment_case1"
             app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
             app:drawableTint="@color/black" />
 
@@ -54,8 +54,8 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="16dp"
             android:gravity="center_vertical"
-            android:onClick="@{()->onItemClick.invoke(@string/report_type2)}"
-            android:text="@string/report_case3"
+            android:onClick="@{()->onItemClick.invoke(@string/report_pornographic)}"
+            android:text="@string/report_moment_case2"
             app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
             app:drawableTint="@color/black" />
 
@@ -72,8 +72,8 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="16dp"
             android:gravity="center_vertical"
-            android:onClick="@{()->onItemClick.invoke(@string/report_type3)}"
-            android:text="@string/report_case4"
+            android:onClick="@{()->onItemClick.invoke(@string/report_duplication)}"
+            android:text="@string/report_moment_case3"
             app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
             app:drawableTint="@color/black" />
 
@@ -90,8 +90,8 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="16dp"
             android:gravity="center_vertical"
-            android:onClick="@{()->onItemClick.invoke(@string/report_type4)}"
-            android:text="@string/report_case5"
+            android:onClick="@{()->onItemClick.invoke(@string/report_advertisement)}"
+            android:text="@string/report_moment_case4"
             app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
             app:drawableTint="@color/black" />
 
@@ -108,8 +108,8 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="16dp"
             android:gravity="center_vertical"
-            android:onClick="@{()->onItemClick.invoke(@string/report_type5)}"
-            android:text="@string/report_case6"
+            android:onClick="@{()->onItemClick.invoke(@string/report_conflict)}"
+            android:text="@string/report_moment_case5"
             app:drawableRightCompat="@drawable/ic_arrow_chevron_right"
             app:drawableTint="@color/black" />
     </LinearLayout>

@@ -36,6 +36,7 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
     override fun observeData() {
         repeatOnStarted {
             viewModel.reportResult.collect {
+                progress.dismiss()
                 reportDialog.dismiss()
                 SodosiToast.makeText(this@SodosiCommentActivity, getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
             }
@@ -99,6 +100,7 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
             setContentView(binding.root)
 
             binding.onItemClick = {
+                progress.show()
                 viewModel.reportMoment(momentInfo.sodosiId, momentInfo.id, it)
             }
 

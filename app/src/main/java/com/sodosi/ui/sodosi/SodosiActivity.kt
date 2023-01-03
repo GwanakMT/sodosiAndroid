@@ -133,6 +133,14 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
                 }
             }
         }
+
+        repeatOnStarted {
+            viewModel.reportResult.collect {
+                progress.dismiss()
+                reportDialog.dismiss()
+                SodosiToast.makeText(this@SodosiActivity, getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onPressEvent(
@@ -377,9 +385,14 @@ class SodosiActivity : BaseActivity<SodosiViewModel, ActivitySodosiBinding>(),
             val binding = LayoutSodosiReportDialogBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            binding.onItemClick = {
-                SodosiToast.makeText(context, getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
-                reportDialog.dismiss()
+            binding.onItemClick = { reason ->
+                sodosiInfo?.let {
+                    progress.show()
+                    viewModel.reportSodosi(it.id, reason)
+                } ?: run {
+                    reportDialog.dismiss()
+                    SodosiToast.makeText(context, getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
+                }
             }
 
             window?.apply {

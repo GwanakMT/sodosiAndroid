@@ -64,18 +64,24 @@
 
     // Thread - 신고
     <string name="report_title">신고하는 이유를 선택해주세요</string>
-    <string name="report_case1">셀카나 개인정보가 포함되어 있어요.</string>
-    <string name="report_case3">음란성 글이에요.</string>
-    <string name="report_case4">중복/도배성 글이에요.</string>
-    <string name="report_case5">광고/홍보성 글이에요.</string>
-    <string name="report_case6">분쟁을 야기하는 글이에요.</string>
     <string name="report_submit">신고가 접수되었어요. 감사합니다!</string>
 
-    <string name="report_type1">PRIVACY</string>
-    <string name="report_type2">PORNOGRAPHIC</string>
-    <string name="report_type3">DUPLICATION</string>
-    <string name="report_type4">DUPLICATION</string>
-    <string name="report_type5">ADVERTISEMENT</string>
+    <string name="report_moment_case1">셀카나 개인정보가 포함되어 있어요.</string>
+    <string name="report_moment_case2">음란성 글이에요.</string>
+    <string name="report_moment_case3">중복/도배성 글이에요.</string>
+    <string name="report_moment_case4">광고/홍보성 글이에요.</string>
+    <string name="report_moment_case5">분쟁을 야기하는 글이에요.</string>
+
+    <string name="report_sodosi_case1">음란성 주제에요.</string>
+    <string name="report_sodosi_case2">중복/도배성 주제에요.</string>
+    <string name="report_sodosi_case3">광고/홍보성 주제이에요.</string>
+    <string name="report_sodosi_case4">분쟁을 야기하는 주제에요.</string>
+
+    <string name="report_privacy">PRIVACY</string>
+    <string name="report_pornographic">PORNOGRAPHIC</string>
+    <string name="report_duplication">DUPLICATION</string>
+    <string name="report_advertisement">ADVERTISEMENT</string>
+    <string name="report_conflict">CONFLICT</string>
 
     // Location
     <string name="location_title">우리 동네 설정</string>

@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
 import com.sodosi.domain.usecase.moment.GetPlaceListBySodosi
 import com.sodosi.domain.usecase.sodosi.PatchMarkSodosiUseCase
+import com.sodosi.domain.usecase.sodosi.ReportSodosiUseCase
 import com.sodosi.model.PlaceModel
 import com.sodosi.model.mapper.PlaceMapper
 import com.sodosi.ui.common.base.BaseViewModel
@@ -29,6 +30,7 @@ import javax.inject.Inject
 class SodosiViewModel @Inject constructor(
     private val patchMarkSodosiUseCase: PatchMarkSodosiUseCase,
     private val getPlaceListBySodosi: GetPlaceListBySodosi,
+    private val reportSodosiUseCase: ReportSodosiUseCase,
     private val placeMapper: PlaceMapper,
 ): BaseViewModel() {
     private val _placeList: MutableStateFlow<List<PlaceModel>> = MutableStateFlow(listOf())
@@ -36,6 +38,9 @@ class SodosiViewModel @Inject constructor(
 
     private val _bookmarkEvent = MutableEventFlow<Boolean>()
     val bookmarkEvent: EventFlow<Boolean> = _bookmarkEvent.asEventFlow()
+
+    private val _reportResult = MutableEventFlow<Result<Unit>>()
+    val reportResult: EventFlow<Result<Unit>> = _reportResult.asEventFlow()
 
     fun getPlaceList(sodosiId: Long) {
         viewModelScope.launch {
@@ -71,6 +76,13 @@ class SodosiViewModel @Inject constructor(
                     _bookmarkEvent.emit(false)
                 }
             }
+        }
+    }
+
+    fun reportSodosi(sodosiId: Long, reason: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = reportSodosiUseCase(sodosiId, reason)
+            _reportResult.emit(result)
         }
     }
 

@@ -25,4 +25,6 @@ interface SodosiRepository {
 
     suspend fun markSodosi(id: Long): Result<Boolean>
     suspend fun unmarkSodosi(id: Long): Result<Boolean>
+
+    suspend fun reportSodosi(id: Long, reason: String): Result<Unit>
 }

@@ -2,7 +2,7 @@ package com.sodosi.ui.comment
 
 import androidx.lifecycle.viewModelScope
 import com.sodosi.domain.Result
-import com.sodosi.domain.repository.MomentRepository
+import com.sodosi.domain.usecase.moment.ReportMomentUseCase
 import com.sodosi.ui.common.base.BaseViewModel
 import com.sodosi.ui.common.base.EventFlow
 import com.sodosi.ui.common.base.MutableEventFlow
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SodosiCommentViewModel @Inject constructor(
-    private val momentRepository: MomentRepository,
+    private val reportMomentUseCase: ReportMomentUseCase,
 ): BaseViewModel() {
 
     private val _reportResult = MutableEventFlow<Result<Unit>>()
@@ -29,7 +29,7 @@ class SodosiCommentViewModel @Inject constructor(
 
     fun reportMoment(sodosiId: Long, momentId: Long, reason: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = momentRepository.reportMoment(sodosiId, momentId, reason)
+            val result = reportMomentUseCase(sodosiId, momentId, reason)
             _reportResult.emit(result)
         }
     }
