@@ -64,9 +64,12 @@
         <TextView
             android:id="@+id/tvMapTitle"
             style="@style/Typography.HeadLines.Callout.Bold"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
             app:layout_constraintEnd_toStartOf="@id/menuMoreEllipse"
             app:layout_constraintStart_toEndOf="@id/backEllipse"
             app:layout_constraintTop_toTopOf="parent"
