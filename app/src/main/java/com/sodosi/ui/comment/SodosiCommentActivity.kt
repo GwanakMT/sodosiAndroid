@@ -19,6 +19,7 @@ import com.sodosi.ui.common.base.repeatOnStarted
 import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.common.extensions.dp
 import com.sodosi.ui.common.extensions.setGone
+import com.sodosi.ui.common.extensions.setImageWithUrl
 import com.sodosi.ui.common.extensions.setVisible
 import com.sodosi.ui.sodosi.model.MomentModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -145,6 +146,13 @@ class SodosiCommentActivity : BaseActivity<SodosiCommentViewModel, ActivitySodos
 
                     tvPhotoLayer.setVisible()
                     tvPhotoLayer.text = "+${momentInfo.photo.size - 3}"
+                }
+            }
+
+            val photoBindingList = listOf(ivPhoto1, ivPhoto2, ivPhoto3)
+            momentInfo.photo.forEachIndexed { index, url ->
+                if (index < 3) {
+                    photoBindingList[index].setImageWithUrl(url)
                 }
             }
         }
