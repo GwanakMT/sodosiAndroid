@@ -71,6 +71,7 @@ class CertificationNumberFragment : BaseFragment<OnboardingViewModel, FragmentCe
     }
 
     override fun onAuthSuccess() {
+        progress.dismiss()
         val onboardingType = arguments?.get("onboarding_type")
         val phoneNumber = arguments?.getString("phone_number") ?: return
 
