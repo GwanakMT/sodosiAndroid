@@ -1,14 +1,23 @@
 package com.sodosi.ui.sodosi.bottomsheet
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import com.sodosi.R
 import com.sodosi.databinding.FragmentMomentBottomSheetBinding
+import com.sodosi.databinding.LayoutMomentReportDialogBinding
+import com.sodosi.databinding.LayoutSodosiCommentMenuDialogBinding
 import com.sodosi.ui.comment.SodosiCommentActivity
 import com.sodosi.ui.common.base.BaseFragment
 import com.sodosi.ui.common.customview.HorizontalItemDecoration
+import com.sodosi.ui.common.customview.SodosiToast
 import com.sodosi.ui.post.ZoomPhotoActivity
 import com.sodosi.ui.sodosi.SodosiViewModel
 import com.sodosi.ui.sodosi.adapter.MomentListAdapter
@@ -27,11 +36,17 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
     private val momentAdapter by lazy { MomentListAdapter() }
     private var onDismiss: (() -> Unit)? = null
 
+    private lateinit var menuDialog: Dialog
+    private lateinit var reportDialog: Dialog
+
     override fun getViewBinding() = FragmentMomentBottomSheetBinding.inflate(layoutInflater)
 
     override fun initViews() = with(binding) {
         setMomentRecyclerView()
         setOnClickListener()
+
+        initMenuDialog()
+        initReportDialog()
     }
 
     override fun observeData() {
@@ -66,11 +81,60 @@ class MomentBottomSheetFragment : BaseFragment<SodosiViewModel, FragmentMomentBo
             startActivity(intent)
         }
 
+        momentAdapter.onMenuClick = {
+            menuDialog.show()
+        }
+
         val dividerItemDecoration = HorizontalItemDecoration(
             ContextCompat.getDrawable(requireContext(), R.drawable.horizontal_decoration) ?: return
         )
 
         binding.rvMoment.addItemDecoration(dividerItemDecoration)
+    }
+
+    private fun initMenuDialog() {
+        menuDialog = Dialog(requireContext())
+        menuDialog.apply {
+            val binding = LayoutSodosiCommentMenuDialogBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+
+            with(binding) {
+                tvReport.setOnClickListener {
+                    menuDialog.dismiss()
+                    reportDialog.show()
+                }
+
+                tvClose.setOnClickListener {
+                    menuDialog.dismiss()
+                }
+            }
+
+            window?.apply {
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                attributes.windowAnimations = R.style.BottomDialogAnimation
+            }
+        }
+    }
+
+    private fun initReportDialog() {
+        reportDialog = Dialog(requireContext())
+        reportDialog.apply {
+            val binding = LayoutMomentReportDialogBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+
+            binding.onItemClick = {
+                reportDialog.dismiss()
+                SodosiToast.makeText(requireContext(), getString(R.string.report_submit), Toast.LENGTH_SHORT).show()
+            }
+
+            window?.apply {
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setGravity(Gravity.BOTTOM)
+                setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                attributes.windowAnimations = R.style.BottomDialogAnimation
+            }
+        }
     }
 
     companion object {

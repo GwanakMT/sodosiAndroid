@@ -27,6 +27,7 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
     var onItemClick: ((selectedItem: MomentModel) -> Unit)? = null
     var onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)? = null
     var onSodosiClick: ((sodosiId: Long) -> Unit)? = null
+    var onMenuClick: (()->Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MomentViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -36,6 +37,7 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
             onItemClick,
             onPhotoClick,
             onSodosiClick,
+            onMenuClick,
             isMypage,
         )
     }
@@ -53,6 +55,7 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
         onItemClick: ((selectedItem: MomentModel) -> Unit)?,
         onPhotoClick: ((imageUrlList: List<String>, position: Int) -> Unit)?,
         onSodosiClick: ((sodosiId: Long) -> Unit)? = null,
+        onMenuClick: (()->Unit)? = null,
         private val isMypage: Boolean,
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -78,11 +81,16 @@ class MomentListAdapter : ListAdapter<MomentModel, MomentListAdapter.MomentViewH
             binding.sodosiName.setOnClickListener {
                 onSodosiClick?.invoke(binding.item?.sodosiId ?: return@setOnClickListener)
             }
+
+            binding.btnMenu.setOnClickListener {
+                onMenuClick?.invoke()
+            }
         }
 
         fun bind(item: MomentModel) {
             binding.item = item
             binding.tvPlaceName.setGone()
+            binding.btnMenu.setVisible()
 
             val photoBindingList = listOf(binding.ivPhoto1, binding.ivPhoto2, binding.ivPhoto3)
             val padding = 4.dp

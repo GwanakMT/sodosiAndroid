@@ -205,5 +205,15 @@
             app:layout_constraintTop_toTopOf="@id/sodosiImageView"
             tools:text="~~에서" />
 
+        <ImageView
+            android:id="@+id/btnMenu"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_menu_more_vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
