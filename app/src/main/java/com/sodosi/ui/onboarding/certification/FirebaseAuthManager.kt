@@ -1,6 +1,9 @@
 package com.sodosi.ui.onboarding.certification
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.widget.Toast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -23,7 +26,13 @@ class FirebaseAuthManager(private val activity: Activity) {
     private val auth = Firebase.auth
 
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        override fun onVerificationCompleted(credential: PhoneAuthCredential) {}
+        override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+            LogUtil.d("minjiji: ${credential.smsCode}, $credential")
+
+            val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("smsCode", credential.smsCode)
+            clipboard.setPrimaryClip(clipData)
+        }
         override fun onVerificationFailed(e: FirebaseException) {}
         override fun onCodeSent(
             verificationId: String,
